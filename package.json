@@ -10,6 +10,7 @@
     "@quasar/extras": "^1.0.0",
     "core-js": "^3.6.5",
     "easyqrcodejs": "^3.6.0",
+    "firebase": "^7.15.0",
     "pdfobject": "^2.1.1",
     "quasar": "^1.0.0",
     "vue": "^2.6.11",
