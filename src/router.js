@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import DefaultLayout from './layouts/Default.vue'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
+import Menu from './views/Menu.vue'
 
 Vue.use(Router)
 
@@ -24,5 +25,10 @@ export default new Router({
         }
       ]
     }
+    {
+        path: '/menu/:id',
+        component: Menu,
+       
+      }
   ]
 })
