@@ -1,12 +1,41 @@
 <template>
-    <div id="menu"></div>
+    <div id="menu">
+        <pdf
+            src="'https://firebasestorage.googleapis.com/v0/b/menusonline-f988f.appspot.com/o/menus%2F%5Bobject%20File%5D?alt=media&token=6209aa6d-c658-499a-95ed-cf141bdc698e'"
+            @error="log()"
+        ></pdf>
+    </div>
 </template>
 
 <script>
-import PDFObject from 'pdfobject'
+import pdf from 'vue-pdf'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 export default {
+    components: {
+        pdf,
+    },
+    data() {
+        return {
+            src: '',
+            pdf: undefined,
+            pages: [],
+        }
+    },
+    methods: {
+        log(something) {
+            console.log(something)
+        },
+        fetchPDF() {
+            import('pdfjs-dist/webpack')
+                .then(pdfjs => pdfjs.getDocument(this.url))
+                .then(pdf => (this.pdf = pdf))
+        },
+    },
+    created() {
+        this.fetchPDF()
+    },
+
     mounted() {
         let id = this.$route.params.id
         let db = firebase.firestore()
@@ -18,7 +47,7 @@ export default {
                 if (!doc.exists) {
                     console.log('No such document!')
                 } else {
-                    PDFObject.embed(doc.data().menuUrl, '#menu')
+                    console.log(doc.data().menuUrl)
                 }
             })
 
@@ -30,7 +59,7 @@ export default {
 </script>
 
 <style scoped>
-.pdfobject-container {
+#menu {
     height: 100vh;
     border: 1rem solid rgba(0, 0, 0, 0.1);
 }

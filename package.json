@@ -1,34 +1,37 @@
 {
-  "name": "pdfonline",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
-  },
-  "dependencies": {
-    "@quasar/extras": "^1.0.0",
-    "core-js": "^3.6.5",
-    "easyqrcodejs": "^3.6.0",
-    "firebase": "^7.15.0",
-    "pdfobject": "^2.1.1",
-    "quasar": "^1.0.0",
-    "vue": "^2.6.11",
-    "vue-router": "^3.2.0"
-  },
-  "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.4.0",
-    "@vue/cli-plugin-router": "~4.4.0",
-    "@vue/cli-service": "~4.4.0",
-    "babel-plugin-transform-imports": "1.5.0",
-    "node-sass": "^4.13.0",
-    "sass-loader": "^8.0.0",
-    "vue-cli-plugin-quasar": "~2.0.2",
-    "vue-template-compiler": "^2.6.11"
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+    "name": "pdfonline",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "serve": "vue-cli-service serve",
+        "build": "vue-cli-service build"
+    },
+    "dependencies": {
+        "@quasar/extras": "^1.0.0",
+        "core-js": "^3.6.5",
+        "easyqrcodejs": "^3.6.0",
+        "firebase": "^7.15.0",
+        "pdfjs-dist": "^2.4.456",
+        "quasar": "^1.0.0",
+        "vue": "^2.6.11",
+        "vue-pdf": "^4.0.9",
+        "vue-router": "^3.2.0",
+        "worker-loader": "^2.0.0"
+    },
+    "devDependencies": {
+        "@vue/cli-plugin-babel": "~4.4.0",
+        "@vue/cli-plugin-router": "~4.4.0",
+        "@vue/cli-service": "~4.4.0",
+        "babel-plugin-transform-imports": "1.5.0",
+        "node-sass": "^4.13.0",
+        "sass-loader": "^8.0.0",
+        "vue-cli-plugin-quasar": "~2.0.2",
+        "vue-template-compiler": "^2.6.11",
+        "webpack": "^4.43.0"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not dead"
+    ]
 }
