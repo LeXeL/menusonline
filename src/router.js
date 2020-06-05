@@ -8,27 +8,26 @@ import Menu from './views/Menu.vue'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      component: DefaultLayout,
-      children: [
+    routes: [
         {
-          path: '',
-          name: 'home',
-          component: Home
+            path: '/',
+            component: DefaultLayout,
+            children: [
+                {
+                    path: '',
+                    name: 'home',
+                    component: Home,
+                },
+                {
+                    path: '/about',
+                    name: 'about',
+                    component: About,
+                },
+            ],
         },
         {
-          path: '/about',
-          name: 'about',
-          component: About
-        }
-      ]
-    }
-    {
-        path: '/menu/:id',
-        component: Menu,
-       
-      }
-  ]
+            path: '/menu/:id',
+            component: Menu,
+        },
+    ],
 })
