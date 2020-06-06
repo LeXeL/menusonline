@@ -4,7 +4,6 @@ import router from './router'
 import './quasar'
 
 import firebase from 'firebase/app'
-import 'firebase/analytics'
 
 Vue.config.productionTip = false
 
@@ -19,7 +18,6 @@ const firebaseConfig = {
     measurementId: 'G-KVTDW7X2PD',
 }
 firebase.initializeApp(firebaseConfig)
-firebase.analytics()
 
 new Vue({
     router,
