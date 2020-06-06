@@ -229,39 +229,28 @@ export default {
                 )
             })
         },
-        editRestaurantPdf() {
-            var storage = firebase.storage().ref('menus/' + this.menu)
-            var upload = storage.put(this.menu)
-            upload.on(
-                firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    var progress =
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    console.log('Upload is ' + progress + '% done')
-                    switch (snapshot.state) {
-                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                            console.log('Upload is paused')
-                            break
-                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                            console.log('Upload is running')
-                            break
-                    }
-                },
-                async () => {
-                    let db = firebase.firestore()
-                    let menuUrl = await upload.snapshot.ref
-                        .getDownloadURL()
-                        .then(downloadURL => {
-                            return downloadURL
-                        })
-                    db.collection('Restaurantes')
-                        .doc(this.editId)
-                        .update({
-                            menuUrl: menuUrl,
-                        })
-                }
-            )
+        async editRestaurantPdf() {
+            let listOfUploadedFiles = []
+            let db = firebase.firestore()
+            //debo eliminar ese bucket
+            for (const file of this.files) {
+                await this.uploadToFirebase(
+                    file,
+                    `menus/${this.restaurantName}`,
+                    file.name
+                )
+                    .then(filename => {
+                        listOfUploadedFiles.push(filename)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+            db.collection('Restaurantes')
+                .doc(this.editId)
+                .update({
+                    menus: listOfUploadedFiles,
+                })
         },
         async Generate() {
             let listOfUploadedFiles = []
@@ -279,7 +268,6 @@ export default {
                         console.log(err)
                     })
             }
-            console.log(listOfUploadedFiles)
             db.collection('Restaurantes')
                 .add({
                     restaurantName: this.restaurantName,

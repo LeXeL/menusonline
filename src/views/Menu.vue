@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="image in images" :key="image" class="q-pa-md">
-            <img :src="image" alt="menu" />
+            <img :src="image" alt="menu" style="width:100%" />
         </div>
     </div>
 </template>
