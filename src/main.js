@@ -17,9 +17,7 @@ const firebaseConfig = {
     appId: '1:714514385228:web:74371a3f4137cb3ceba7e9',
     measurementId: 'G-KVTDW7X2PD',
 }
-
 firebase.initializeApp(firebaseConfig)
-firebase.analytics()
 
 new Vue({
     router,
