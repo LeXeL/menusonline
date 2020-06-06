@@ -14,7 +14,6 @@
         "pdfjs-dist": "^2.4.456",
         "quasar": "^1.0.0",
         "vue": "^2.6.11",
-        "vue-pdf": "^4.0.9",
         "vue-router": "^3.2.0",
         "worker-loader": "^2.0.0"
     },

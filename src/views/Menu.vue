@@ -8,7 +8,6 @@
 </template>
 
 <script>
-import pdf from 'vue-pdf'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 export default {
@@ -25,11 +24,6 @@ export default {
     methods: {
         log(something) {
             console.log(something)
-        },
-        fetchPDF() {
-            import('pdfjs-dist/webpack')
-                .then(pdfjs => pdfjs.getDocument(this.url))
-                .then(pdf => (this.pdf = pdf))
         },
     },
     created() {
