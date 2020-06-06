@@ -1,9 +1,8 @@
 <template>
-    <div id="menu">
-        <pdf
-            src="'https://firebasestorage.googleapis.com/v0/b/menusonline-f988f.appspot.com/o/menus%2F%5Bobject%20File%5D?alt=media&token=6209aa6d-c658-499a-95ed-cf141bdc698e'"
-            @error="log()"
-        ></pdf>
+    <div>
+        <div v-for="image in images" :key="image" class="q-pa-md">
+            <img :src="image" alt="menu" />
+        </div>
     </div>
 </template>
 
@@ -11,37 +10,24 @@
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 export default {
-    components: {
-        pdf,
-    },
     data() {
         return {
             src: '',
-            pdf: undefined,
-            pages: [],
+            images: [],
         }
     },
-    methods: {
-        log(something) {
-            console.log(something)
-        },
-    },
-    created() {
-        this.fetchPDF()
-    },
-
     mounted() {
         let id = this.$route.params.id
         let db = firebase.firestore()
-        let restRef = db.collection('Restaurantes').doc(id)
-        let menuUrl = ''
-        let allCities = restRef
+        let restRef = db
+            .collection('Restaurantes')
+            .doc(id)
             .get()
             .then(doc => {
                 if (!doc.exists) {
                     console.log('No such document!')
                 } else {
-                    console.log(doc.data().menuUrl)
+                    this.images = doc.data().menus
                 }
             })
 
@@ -56,5 +42,8 @@ export default {
 #menu {
     height: 100vh;
     border: 1rem solid rgba(0, 0, 0, 0.1);
+}
+body {
+    background-color: grey;
 }
 </style>

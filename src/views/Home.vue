@@ -83,7 +83,7 @@
                         </template>
                     </q-file>
 
-                    <q-file outlined v-model="menu" label="Menu de restaurante">
+                    <q-file outlined multiple v-model="files" label="Menu de restaurante">
                         <template v-slot:prepend>
                             <i class="fas fa-paperclip"></i>
                         </template>
@@ -104,7 +104,7 @@
                 </q-card-section>
 
                 <q-card-section class="q-pt-none">
-                    <q-file outlined v-model="menu" label="Menu de restaurante">
+                    <q-file outlined multiple v-model="files" label="Menu de restaurante">
                         <template v-slot:prepend>
                             <i class="fas fa-paperclip"></i>
                         </template>
@@ -153,13 +153,13 @@ export default {
             editId: '',
             logo: '',
             qrLogo: false,
-            menu: '',
+            files: '',
         }
     },
     mounted() {
         let db = firebase.firestore()
-        let restRef = db.collection('Restaurantes')
-        let allCities = restRef
+        let restRef = db
+            .collection('Restaurantes')
             .get()
             .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -186,6 +186,49 @@ export default {
             this.editRestaurantFormPrompt = true
             this.editId = id
         },
+        uploadToFirebase(imageFile, fullDirectory, filename) {
+            return new Promise(function(resolve, reject) {
+                var storageRef = firebase
+                    .storage()
+                    .ref(fullDirectory + '/' + filename)
+
+                //Upload file
+                var task = storageRef.put(imageFile)
+
+                //Update progress bar
+                task.on(
+                    'state_changed',
+                    function(snapshot) {
+                        // Observe state change events such as progress, pause, and resume
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        var progress =
+                            (snapshot.bytesTransferred / snapshot.totalBytes) *
+                            100
+                        console.log('Upload is ' + progress + '% done')
+                        switch (snapshot.state) {
+                            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                console.log('Upload is paused')
+                                break
+                        }
+                    },
+                    function(error) {
+                        // Handle unsuccessful uploads
+                        console.log(`Error in uploadToFirebase: ${error}`)
+                        reject(error)
+                    },
+                    function() {
+                        // Handle successful uploads on complete
+                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                        task.snapshot.ref
+                            .getDownloadURL()
+                            .then(function(downloadURL) {
+                                console.log('File available at', downloadURL)
+                                resolve(downloadURL)
+                            })
+                    }
+                )
+            })
+        },
         editRestaurantPdf() {
             var storage = firebase.storage().ref('menus/' + this.menu)
             var upload = storage.put(this.menu)
@@ -205,25 +248,6 @@ export default {
                             break
                     }
                 },
-                function(error) {
-                    // A full list of error codes is available at
-                    // https://firebase.google.com/docs/storage/web/handle-errors
-                    switch (error.code) {
-                        case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            break
-
-                        case 'storage/canceled':
-                            // User canceled the upload
-                            break
-
-                        // ...
-
-                        case 'storage/unknown':
-                            // Unknown error occurred, inspect error.serverResponse
-                            break
-                    }
-                },
                 async () => {
                     let db = firebase.firestore()
                     let menuUrl = await upload.snapshot.ref
@@ -239,70 +263,37 @@ export default {
                 }
             )
         },
-        Generate() {
-            var storage = firebase.storage().ref('menus/' + this.menu.name)
-            var upload = storage.put(this.menu)
-            upload.on(
-                firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-                function(snapshot) {
-                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                    var progress =
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    console.log('Upload is ' + progress + '% done')
-                    switch (snapshot.state) {
-                        case firebase.storage.TaskState.PAUSED: // or 'paused'
-                            console.log('Upload is paused')
-                            break
-                        case firebase.storage.TaskState.RUNNING: // or 'running'
-                            console.log('Upload is running')
-                            break
-                    }
-                },
-                function(error) {
-                    // A full list of error codes is available at
-                    // https://firebase.google.com/docs/storage/web/handle-errors
-                    switch (error.code) {
-                        case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            break
-
-                        case 'storage/canceled':
-                            // User canceled the upload
-                            break
-
-                        // ...
-
-                        case 'storage/unknown':
-                            // Unknown error occurred, inspect error.serverResponse
-                            break
-                    }
-                },
-                async () => {
-                    console.log(`Nombre de restauraten :${this.restaurantName}`)
-                    // Upload completed successfully, now we can get the download URL
-                    let db = firebase.firestore()
-                    let menuUrl = await upload.snapshot.ref
-                        .getDownloadURL()
-                        .then(downloadURL => {
-                            return downloadURL
-                        })
-                    db.collection('Restaurantes')
-                        .add({
-                            restaurantName: this.restaurantName,
-                            menuUrl: menuUrl,
-                            fileName: this.menu.name,
-                        })
-                        .then(async ref => {
-                            console.log('Added document with ID: ', ref.id)
-                            // db.collection('Restaurantes')
-                            //     .doc(ref.id)
-                            //     .add({qrSrc: src})
-                        })
-                        .catch(error => {
-                            console.log(`Error: ${error}`)
-                        })
-                }
-            )
+        async Generate() {
+            let listOfUploadedFiles = []
+            let db = firebase.firestore()
+            for (const file of this.files) {
+                await this.uploadToFirebase(
+                    file,
+                    `menus/${this.restaurantName}`,
+                    file.name
+                )
+                    .then(filename => {
+                        listOfUploadedFiles.push(filename)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+            console.log(listOfUploadedFiles)
+            db.collection('Restaurantes')
+                .add({
+                    restaurantName: this.restaurantName,
+                    menus: listOfUploadedFiles,
+                })
+                .then(async ref => {
+                    console.log('Added document with ID: ', ref.id)
+                    // db.collection('Restaurantes')
+                    //     .doc(ref.id)
+                    //     .add({qrSrc: src})
+                })
+                .catch(error => {
+                    console.log(`Error: ${error}`)
+                })
         },
     },
 }
