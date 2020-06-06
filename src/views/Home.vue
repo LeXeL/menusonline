@@ -6,17 +6,7 @@
             label="Nuevo"
             @click="newRestaurantFormPrompt = true"
         />
-        <div id="home">
-            <!-- <input type="text" placeholder="Name" v-model="name" />
-        <br />
-        <input type="text" placeholder="Url" v-model="url" />
-        <br />
-        <button @click="Generate()">Generar</button>
-        <div id="qrcode"></div>
-        <div v-for="(element, index) in queue" :key="index">
-            <pdfembeded :url="element.url"></pdfembeded>
-            </div>-->
-        </div>
+
         <div>
             <div class="row">
                 <div class="col">
@@ -26,7 +16,7 @@
                     <div class="text-h6">Ver QR</div>
                 </div>
                 <div class="col">
-                    <div class="text-h6">Ver PDF</div>
+                    <div class="text-h6">Ver Menu</div>
                 </div>
                 <div class="col">
                     <div class="text-h6">Actualizar PDF</div>
@@ -37,13 +27,13 @@
                     <p>{{rest.restaurantName}}</p>
                 </div>
                 <div class="col">
-                    <q-btn round color="purple" glossy @click="CreateQrCode(rest.id)">
+                    <q-btn round color="purple" glossy @click="CreateQrCode(rest.id, rest.qrLogo)">
                         <i class="fas fa-qrcode"></i>
                     </q-btn>
                     <div ref="qrcode"></div>
                 </div>
                 <div class="col">
-                    <q-btn @click="openMenu(rest.menuUrl)" to round color="secondary" glossy>
+                    <q-btn @click="openMenu(rest.id)" to round color="secondary" glossy>
                         <i class="fas fa-file-pdf"></i>
                     </q-btn>
                 </div>
@@ -123,7 +113,9 @@
                     <div class="text-h6">Nombre del restaurante</div>
                 </q-card-section>
 
-                <q-card-section class="q-pt-none"></q-card-section>
+                <q-card-section class="q-pt-none">
+                    <div id="home"></div>
+                </q-card-section>
 
                 <q-card-actions align="right">
                     <q-btn flat label="OK" color="primary" v-close-popup />
@@ -151,36 +143,42 @@ export default {
             newRestaurantFormPrompt: false,
             editRestaurantFormPrompt: false,
             editId: '',
-            logo: '',
+            logo: [],
             qrLogo: false,
-            files: '',
+            files: [],
         }
     },
     mounted() {
         let db = firebase.firestore()
-        let restRef = db
-            .collection('Restaurantes')
-            .get()
-            .then(snapshot => {
-                snapshot.forEach(doc => {
-                    let obj = doc.data()
-                    obj.id = doc.id
+        db.collection('Restaurantes').onSnapshot(querySnapshot => {
+            querySnapshot.docChanges().forEach(change => {
+                if (change.type === 'added') {
+                    let obj = change.doc.data()
+                    obj.id = change.doc.id
                     this.subscribedRestaurants.push(obj)
-                })
+                }
+                if (change.type === 'modified') {
+                    // console.log('Modified city: ', change.doc.data())
+                }
+                if (change.type === 'removed') {
+                    // console.log('Removed city: ', change.doc.data())
+                }
             })
-            .catch(err => {
-                console.log('Error getting documents', err)
-            })
+        })
     },
     methods: {
         openMenu(url) {
-            window.open(url, '_blank')
-            var storage = firebase.storage().ref('menus/' + this.menu.name)
+            window.open('/menu/' + url, '_blank')
         },
-        CreateQrCode(id) {
-            new QRCode(document.getElementById('home'), {
+        CreateQrCode(id, logo) {
+            let options = {
                 text: `https://menusonline-f988f.web.app/menu/${id}`,
-            })
+            }
+            if (logo) options.logo = logo
+            this.qrAlert = true
+            setTimeout(() => {
+                new QRCode(document.getElementById('home'), options)
+            }, 500)
         },
         openEditModel(id) {
             this.editRestaurantFormPrompt = true
@@ -255,6 +253,16 @@ export default {
         async Generate() {
             let listOfUploadedFiles = []
             let db = firebase.firestore()
+            let qrLogoRef = ''
+            if (this.qrLogo) {
+                await this.uploadToFirebase(
+                    this.logo,
+                    `menus/${this.restaurantName}`,
+                    this.logo.name
+                ).then(filename => {
+                    qrLogoRef = filename
+                })
+            }
             for (const file of this.files) {
                 await this.uploadToFirebase(
                     file,
@@ -272,6 +280,7 @@ export default {
                 .add({
                     restaurantName: this.restaurantName,
                     menus: listOfUploadedFiles,
+                    qrLogo: this.qrLogo ? qrLogoRef : null,
                 })
                 .then(async ref => {
                     console.log('Added document with ID: ', ref.id)
