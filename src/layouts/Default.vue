@@ -1,12 +1,30 @@
 <template>
-    <q-layout view="lHh Lpr lFf">
-        <q-header elevated class="glossy">
-            <q-toolbar>
+    <q-layout view="hHh lpR lFr">
+        <q-header>
+            <q-toolbar class="bg-white text-black">
                 <q-toolbar-title>Menus Online</q-toolbar-title>
             </q-toolbar>
         </q-header>
+        <q-drawer
+            v-model="drawer"
+            show-if-above
+            :width="300"
+            :breakpoint="400"
+            class="mo-grey"
+        >
+            <q-scroll-area style="height: calc(100% - 150px); ">
+                <q-list padding>
+                    <q-item clickable v-ripple to="/restaurants">
+                        <q-item-section avatar>
+                            <i class="fas fa-utensils"></i>
+                        </q-item-section>
+                        <q-item-section>Restaurantes</q-item-section>
+                    </q-item>
+                </q-list>
+            </q-scroll-area>
+        </q-drawer>
 
-        <q-page-container>
+        <q-page-container class="bg-grey-11">
             <router-view />
         </q-page-container>
     </q-layout>
@@ -23,3 +41,9 @@ export default {
     },
 }
 </script>
+
+<style>
+.mo-grey {
+    color: #333;
+}
+</style>
