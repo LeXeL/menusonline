@@ -24,12 +24,18 @@
                         </thead>
                         <tbody>
                             <tr v-for="(menu, i) in 5" :key="i">
-                                <td class="text-left">Nombre del restaurante</td>
+                                <td class="text-left">
+                                    Nombre del restaurante
+                                </td>
                                 <td class="text-left">rest.email@gmail.com</td>
                                 <td class="text-left">6565-6565</td>
                                 <td class="text-left">/rest-path</td>
                                 <td class="text-left">
-                                    <q-btn size="sm" color="warning" @click="alert = true">
+                                    <q-btn
+                                        size="sm"
+                                        color="warning"
+                                        @click="alert = true"
+                                    >
                                         <i class="fas fa-qrcode"></i>
                                     </q-btn>
                                 </td>
@@ -64,6 +70,59 @@
                                 <i class="fas fa-paperclip"></i>
                             </template>
                         </q-file>
+                        <q-input filled class="q-mb-md" label="Splash color">
+                            <template v-slot:append>
+                                <i
+                                    class="fas fa-eye-dropper"
+                                    style="cursor: pointer"
+                                >
+                                    <q-popup-proxy
+                                        transition-show="scale"
+                                        transition-hide="scale"
+                                    >
+                                        <q-color />
+                                    </q-popup-proxy>
+                                </i>
+                            </template>
+                        </q-input>
+                        <q-input
+                            filled
+                            class="q-mb-md"
+                            label="Splash button color"
+                        >
+                            <template v-slot:append>
+                                <i
+                                    class="fas fa-eye-dropper"
+                                    style="cursor: pointer"
+                                >
+                                    <q-popup-proxy
+                                        transition-show="scale"
+                                        transition-hide="scale"
+                                    >
+                                        <q-color />
+                                    </q-popup-proxy>
+                                </i>
+                            </template>
+                        </q-input>
+                        <q-input
+                            filled
+                            class="q-mb-md"
+                            label="Menu Background color"
+                        >
+                            <template v-slot:append>
+                                <i
+                                    class="fas fa-eye-dropper"
+                                    style="cursor: pointer"
+                                >
+                                    <q-popup-proxy
+                                        transition-show="scale"
+                                        transition-hide="scale"
+                                    >
+                                        <q-color />
+                                    </q-popup-proxy>
+                                </i>
+                            </template>
+                        </q-input>
                         <q-btn color="secondary" class="q-mt-sm">Crear</q-btn>
                     </q-card-section>
                 </q-card>
@@ -79,7 +138,12 @@
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn flat label="Descargar" color="primary" v-close-popup />
+                    <q-btn
+                        flat
+                        label="Descargar"
+                        color="primary"
+                        v-close-popup
+                    />
                     <q-btn flat label="Cerrar" color="primary" v-close-popup />
                 </q-card-actions>
             </q-card>
