@@ -5,13 +5,7 @@
                 <q-toolbar-title>Menus Online</q-toolbar-title>
             </q-toolbar>
         </q-header>
-        <q-drawer
-            v-model="drawer"
-            show-if-above
-            :width="300"
-            :breakpoint="400"
-            class="mo-grey"
-        >
+        <q-drawer show-if-above :width="300" :breakpoint="400" class="mo-grey">
             <q-scroll-area style="height: calc(100% - 150px); ">
                 <q-list padding>
                     <q-item clickable v-ripple to="/restaurants">

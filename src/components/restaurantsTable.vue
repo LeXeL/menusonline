@@ -1,0 +1,101 @@
+<template>
+    <q-table
+        :data="data"
+        :columns="columns"
+        row-key="name"
+        binary-state-sort
+        :pagination="{rowsPerPage: 15}"
+    >
+        <template v-slot:body="props">
+            <q-tr :props="props">
+                <q-td key="name" :props="props">{{ props.row.restaurantName }}</q-td>
+                <q-td key="email" :props="props">{{ props.row.email }}</q-td>
+                <q-td key="phone" :props="props">{{ props.row.phone }}</q-td>
+                <q-td key="url" :props="props">{{ props.row.url }}</q-td>
+                <q-td key="qr" :props="props">
+                    <q-btn size="sm" color="warning" @click="alert = true">
+                        <i class="fas fa-qrcode"></i>
+                    </q-btn>
+                </q-td>
+                <q-td key="details" :props="props">
+                    <q-btn size="sm" color="info" :to="`/menus/${props.row.id}`">
+                        <i class="fas fa-info"></i>
+                    </q-btn>
+                </q-td>
+                <q-td key="delete" :props="props">
+                    <q-btn
+                        color="red-7"
+                        size="xs"
+                        label="Eliminar"
+                        @click="$emit('delete',{id:props.row.id})"
+                    />
+                </q-td>
+            </q-tr>
+        </template>
+    </q-table>
+</template>
+
+<script>
+export default {
+    props: {
+        data: {
+            type: Array,
+            default: () => [],
+        },
+    },
+    data() {
+        return {
+            columns: [
+                {
+                    name: 'name',
+                    required: true,
+                    label: 'Nombre',
+                    align: 'left',
+                    field: 'name',
+                    sortable: true,
+                },
+                {
+                    name: 'email',
+                    align: 'left',
+                    label: 'Correo',
+                    field: 'email',
+                    sortable: true,
+                },
+                {
+                    name: 'phone',
+                    align: 'left',
+                    label: 'Numero',
+                    field: 'phone',
+                    sortable: true,
+                },
+                {
+                    name: 'url',
+                    align: 'left',
+                    label: 'Url',
+                    field: 'url',
+                    sortable: true,
+                },
+                {
+                    name: 'qr',
+                    label: 'QR',
+                    align: 'left',
+                    field: 'qr',
+                },
+                {
+                    name: 'details',
+                    align: 'left',
+                    label: 'Detalles',
+                    field: 'details',
+                    sortable: true,
+                },
+                {
+                    name: 'delete',
+                    label: 'Eliminar',
+                    align: 'left',
+                    field: 'delete',
+                },
+            ],
+        }
+    },
+}
+</script>
