@@ -4,7 +4,7 @@ import DefaultLayout from './layouts/Default.vue'
 import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Menu from './views/Menu.vue'
-
+import Login from './layouts/Login'
 Vue.use(Router)
 
 export default new Router({
@@ -29,6 +29,10 @@ export default new Router({
         {
             path: '/menu/:id',
             component: Menu,
+        },
+        {
+            path: '/login',
+            component: Login,
         },
     ],
 })
