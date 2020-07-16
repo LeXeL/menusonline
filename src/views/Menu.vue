@@ -1,8 +1,19 @@
 <template>
     <div>
-        <div v-for="image in images" :key="image" class="q-pa-md">
+        <div v-for="image in images" :key="image" class="q-pa-md" style="background-color: #f0f0f0">
             <img :src="image" alt="menu" style="width:100%" />
         </div>
+        <q-dialog v-model="splash" persistent :maximized="true" transition-hide="slide-up">
+            <q-card class="bg-primary text-white">
+                <q-card-section class="absolute-center">
+                    <div class="row justify-center">
+                        <div class="text-h6 q-mb-lg">¡Bienvenido!</div>
+                        <q-img :src="require('@/assets/logo.png')" class="q-mb-lg" />
+                        <q-btn label="Ver Menu" color="warning" @click="closeSplash" />
+                    </div>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </div>
 </template>
 
@@ -14,7 +25,16 @@ export default {
         return {
             src: '',
             images: [],
+            splash: true,
         }
+    },
+    methods: {
+        closeSplash() {
+            this.splash = false
+            setTimeout(function() {
+                document.documentElement.requestFullscreen()
+            }, 300)
+        },
     },
     mounted() {
         let id = this.$route.params.id
