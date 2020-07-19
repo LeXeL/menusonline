@@ -15,6 +15,8 @@ async function createRestaurantes(restaurantes) {
             splashColor: restaurantes.splashColor,
             splashButtonColor: restaurantes.splashButtonColor,
             menuBackgroundColor: restaurantes.menuBackgroundColor,
+            activeMenu: '',
+            menus: [],
         })
         .then(() => {
             return 'Succesfull'
@@ -71,10 +73,40 @@ async function returnAllRestaurantes() {
         })
     return Restaurantes
 }
+async function addMenuToRestaurantes(uid, itemObj) {
+    return db
+        .collection('Restaurantes')
+        .doc(uid)
+        .update({menus: admin.firestore.FieldValue.arrayUnion(itemObj)})
+        .then(() => {
+            console.log('Document successfully added!')
+            return 'Succesfull'
+        })
+        .catch(error => {
+            console.error('Error writing document: ', error)
+            return error
+        })
+}
+async function removeMenuToRestaurantes(uid, itemObj) {
+    return db
+        .collection('Restaurantes')
+        .doc(uid)
+        .update({menus: admin.firestore.FieldValue.arrayRemove(itemObj)})
+        .then(() => {
+            console.log('Document successfully removed!')
+            return 'Succesfull'
+        })
+        .catch(error => {
+            console.error('Error writing document: ', error)
+            return error
+        })
+}
 
 module.exports = {
     createRestaurantes,
     updateRestaurantes,
     deleteRestaurantes,
     returnAllRestaurantes,
+    addMenuToRestaurantes,
+    removeMenuToRestaurantes,
 }
