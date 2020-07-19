@@ -28,7 +28,7 @@ export const updateadmininformation = data =>
         'Content-Type': 'application/json',
     })
 
-//BREWERY
+//Restaurantes
 export const createRestaurantesOnDatabase = data =>
     Request.post('/createRestaurantesOnDatabase', data, {
         'Content-Type': 'application/json',
@@ -43,5 +43,31 @@ export const deleteRestaurantesInformation = data =>
     })
 export const returnAllRestaurantes = data =>
     Request.post('/returnAllRestaurantes', data, {
+        'Content-Type': 'application/json',
+    })
+export const addMenuToRestaurantes = data =>
+    Request.post('/addMenuToRestaurantes', data, {
+        'Content-Type': 'application/json',
+    })
+export const removeMenuToRestaurantes = data =>
+    Request.post('/removeMenuToRestaurantes', data, {
+        'Content-Type': 'application/json',
+    })
+
+//Menus
+export const createMenusOnDatabase = data =>
+    Request.post('/createMenusOnDatabase', data, {
+        'Content-Type': 'application/json',
+    })
+export const updateMenusInformation = data =>
+    Request.post('/updateMenusInformation', data, {
+        'Content-Type': 'application/json',
+    })
+export const deleteMenusInformation = data =>
+    Request.post('/deleteMenusInformation', data, {
+        'Content-Type': 'application/json',
+    })
+export const returnAllMenusByRestaurantId = data =>
+    Request.post('/returnAllMenusByRestaurantId', data, {
         'Content-Type': 'application/json',
     })

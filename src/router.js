@@ -39,7 +39,7 @@ export default new Router({
                     component: Menus,
                 },
                 {
-                    path: '/menu-details',
+                    path: '/menu-details/:id',
                     name: 'menu-details',
                     component: MenuDetails,
                 },

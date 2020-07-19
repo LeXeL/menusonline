@@ -1,5 +1,18 @@
 <template>
     <q-page class="q-pa-md">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <brewthers-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+        ></brewthers-alert>
+        <confirm-dialog
+            :display="displayConfirm"
+            :title="alertTitle"
+            :message="alertMessage"
+            @accept="deleteBrewery"
+        ></confirm-dialog>
         <div class="row q-px-md">
             <div class="text-h5 mo-grey">Nombre del restaurante</div>
         </div>
@@ -9,41 +22,11 @@
                     <q-card-section>
                         <div class="text-h6 mo-grey">Mis Menus</div>
                     </q-card-section>
-
-                    <q-markup-table class="q-pb-md mo-grey">
-                        <thead>
-                            <tr>
-                                <th class="text-left">Menu</th>
-                                <th class="text-right">Activo</th>
-                                <th class="text-right">Seleccionar</th>
-                                <th class="text-right">Ver</th>
-                                <th class="text-right">Eliminar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(menu, i) in 5" :key="i">
-                                <td class="text-left">Nombre del menu</td>
-                                <td class="text-right">
-                                    <q-badge color="secondary" v-if="i == 1" class="q-py-xs">
-                                        <i class="fas fa-check"></i>
-                                    </q-badge>
-                                </td>
-                                <td class="text-right">
-                                    <q-btn size="sm" color="secondary">Activar</q-btn>
-                                </td>
-                                <td class="text-right">
-                                    <q-btn size="sm" color="info" to="/menu-details">
-                                        <i class="fas fa-info-circle"></i>
-                                    </q-btn>
-                                </td>
-                                <td class="text-right">
-                                    <q-btn size="sm" color="red-7">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </q-btn>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </q-markup-table>
+                    <menusTable
+                        :data="data"
+                        @delete="askForDeleteBrewery"
+                        @changeActive="changeActiveStatus"
+                    ></menusTable>
                 </q-card>
             </div>
             <div class="col-lg-4 q-pa-md">
@@ -63,7 +46,7 @@
                                     'Porfavor ingresa un nombre.',
                             ]"
                         />
-                        <q-btn color="secondary" class="q-mt-sm">Crear</q-btn>
+                        <q-btn color="secondary" class="q-mt-sm" @click="createMenu">Crear</q-btn>
                     </q-card-section>
                 </q-card>
                 <q-card class="no-shadow mo-grey">
@@ -95,12 +78,150 @@
 </template>
 
 <script>
+import * as api from '@/api/api'
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+import menusTable from '@/components/menusTable'
 export default {
     data() {
         return {
             left: false,
             alert: false,
+            restaurantId: '',
+            name: '',
+            data: [],
+            displayLoading: false,
+            displayAlert: false,
+            displayConfirm: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
+            workingDeletedId: '',
         }
+    },
+    methods: {
+        changeActiveStatus(event) {
+            this.data.forEach(element => {
+                if (element.status === 'active') {
+                    element.status = 'inactive'
+                    api.updateMenusInformation({id: element.id, Menus: element})
+                }
+                if (element.id === event.id) {
+                    element.status = 'active'
+                    api.updateMenusInformation({
+                        id: element.id,
+                        Menus: element,
+                    }).then(() => {
+                        api.updateRestaurantesInformation({
+                            id: element.restaurant,
+                            Restaurantes: {activeMenu: element.id},
+                        })
+                    })
+                }
+            })
+        },
+        clear() {
+            this.name = ''
+        },
+        createMenu() {
+            this.displayLoading = true
+            api.createMenusOnDatabase({
+                Menu: this.name,
+                restaurant: this.restaurantId,
+            }).then(() => {
+                api.addMenuToRestaurantes({
+                    uid: this.restaurantId,
+                    menu: this.name,
+                })
+                    .then(response => {
+                        this.displayLoading = false
+                        this.alertTitle = 'Exito!'
+                        this.alertMessage = 'Se ha creado el menu con exito'
+                        this.alertType = 'success'
+                        this.displayAlert = true
+                        this.clear()
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.displayLoading = false
+                        this.alertTitle = 'Error'
+                        this.alertMessage = error
+                        this.alertType = 'error'
+                        this.displayAlert = true
+                    })
+            })
+        },
+        addToData(id, data) {
+            data.id = id
+            this.data.push(data)
+        },
+        editData(id, data) {
+            data.id = id
+            this.data.forEach((d, index) => {
+                if (d.id === id) {
+                    this.data.splice(index, 1, data)
+                }
+            })
+        },
+        removeData(id) {
+            this.data.forEach((d, index) => {
+                if (d.id === id) {
+                    this.data.splice(index, 1)
+                }
+            })
+        },
+        askForDeleteBrewery(event) {
+            this.displayConfirm = true
+            this.alertTitle = 'Esta seguro?'
+            this.alertMessage =
+                'Se va a proceder a eliminar esta casa cervecera'
+            this.workingDeletedId = event.id
+        },
+        deleteBrewery() {
+            this.displayLoading = true
+            this.displayAlert = false
+            this.displayConfirm = false
+            api.deleteMenusInformation({
+                id: this.workingDeletedId,
+            })
+                .then(() => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha cambiado el estado con exito'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+    },
+    mounted() {
+        this.restaurantId = this.$route.params.id
+        let db = firebase.firestore()
+        db.collection('Menus')
+            .where('restaurant', '==', this.restaurantId)
+            .onSnapshot(snapshot => {
+                snapshot.docChanges().forEach(change => {
+                    if (change.type === 'added') {
+                        this.addToData(change.doc.id, change.doc.data())
+                    }
+                    if (change.type === 'modified') {
+                        this.editData(change.doc.id, change.doc.data())
+                    }
+                    if (change.type === 'removed') {
+                        this.removeData(change.doc.id)
+                    }
+                })
+            })
+    },
+    components: {
+        menusTable,
     },
 }
 </script>

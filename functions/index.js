@@ -10,6 +10,7 @@ const cors = require('cors')({
 })
 
 const Restaurantes = require('./lib/Restaurantes')
+const Menus = require('./lib/Menus')
 
 //Handle Restaurantes
 exports.createRestaurantesOnDatabase = functions.https.onRequest(
@@ -67,3 +68,84 @@ exports.returnAllRestaurantes = functions.https.onRequest(async (req, res) => {
         }
     })
 })
+exports.addMenuToRestaurantes = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await Restaurantes.addMenuToRestaurantes(
+                req.body.uid,
+                req.body.menu
+            )
+            res.status(200).send({data: response})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.removeMenuToRestaurantes = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await Restaurantes.removeMenuToRestaurantes(
+                    req.body.uid,
+                    req.body.menu
+                )
+                res.status(200).send({data: response})
+            } catch (err) {
+                console.log(err)
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+
+//Handle Menus
+exports.createMenusOnDatabase = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            await Menus.createMenu(req.body.Menu, req.body.restaurant)
+            res.status(200).send({status: 'Created'})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})
+
+exports.updateMenusInformation = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await Menus.updateMenus(req.body.id, req.body.Menus)
+            res.status(200).send({data: response})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.deleteMenusInformation = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await Menus.deleteMenus(req.body.id)
+            res.status(200).send({data: response})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.returnAllMenusByRestaurantId = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await Menus.returnAllMenusByRestaurantId(
+                    req.body.restaurantId
+                )
+                res.status(200).send({data: response})
+            } catch (err) {
+                console.log(err)
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
