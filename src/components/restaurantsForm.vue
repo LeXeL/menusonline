@@ -117,7 +117,7 @@ export default {
                         this.displayLoading = false
                         this.alertTitle = 'Exito!'
                         this.alertMessage =
-                            'Se ha creado la casa cerveceras con exito'
+                            'Se ha creado el restaurante con exito'
                         this.alertType = 'success'
                         this.displayAlert = true
                         this.clear()
