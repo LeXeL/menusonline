@@ -8,6 +8,8 @@ import Restaurants from './views/Restaurants'
 import Menus from './views/Menus'
 import MenuDetails from './views/MenuDetails'
 import Login from './layouts/Login'
+
+import Landing from './layouts/Landing'
 Vue.use(Router)
 
 const ifAuthenticated = (to, from, next) => {
@@ -48,6 +50,10 @@ export default new Router({
         {
             path: '/login',
             component: Login,
+        },
+        {
+            path: '/',
+            component: Landing,
         },
     ],
 })
