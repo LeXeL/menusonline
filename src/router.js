@@ -5,6 +5,10 @@ import Home from './views/Home.vue'
 import About from './views/About.vue'
 import Menu from './views/Menu.vue'
 
+import Restaurants from './views/Restaurants'
+import Menus from './views/Menus'
+import MenuDetails from './views/MenuDetails'
+
 Vue.use(Router)
 
 export default new Router({
@@ -17,12 +21,27 @@ export default new Router({
                 {
                     path: '',
                     name: 'home',
-                    component: Home,
+                    component: Restaurants,
                 },
                 {
                     path: '/about',
                     name: 'about',
                     component: About,
+                },
+                {
+                    path: '/restaurants',
+                    name: 'restaurants',
+                    component: Restaurants,
+                },
+                {
+                    path: '/menus/:id',
+                    name: 'menus',
+                    component: Menus,
+                },
+                {
+                    path: '/menu-details/:id',
+                    name: 'menu-details',
+                    component: MenuDetails,
                 },
             ],
         },

@@ -5,6 +5,10 @@ import './quasar'
 
 import firebase from 'firebase/app'
 
+import LoadingAlert from '@/components/general/LoadingAlert'
+import BrewthersAlert from '@/components/general/Alert'
+import Confirm from '@/components/general/Confirm'
+
 Vue.config.productionTip = false
 
 const firebaseConfig = {
@@ -18,6 +22,10 @@ const firebaseConfig = {
     measurementId: 'G-KVTDW7X2PD',
 }
 firebase.initializeApp(firebaseConfig)
+
+Vue.component('brewthers-alert', BrewthersAlert)
+Vue.component('loading-alert', LoadingAlert)
+Vue.component('confirm-dialog', Confirm)
 
 new Vue({
     router,
