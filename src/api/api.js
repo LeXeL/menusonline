@@ -41,8 +41,8 @@ export const deleteRestaurantesInformation = data =>
     Request.post('/deleteRestaurantesInformation', data, {
         'Content-Type': 'application/json',
     })
-export const returnAllRestaurantes = data =>
-    Request.post('/returnAllRestaurantes', data, {
+export const returRestaurantActiveMenu = data =>
+    Request.post('/returRestaurantActiveMenu', data, {
         'Content-Type': 'application/json',
     })
 export const addMenuToRestaurantes = data =>
