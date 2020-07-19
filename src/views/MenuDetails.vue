@@ -147,6 +147,8 @@
                         </li>
                     </transition-group>
                 </draggable>
+                <q-btn color="secondary" label="Guardar" style="float: right">
+                </q-btn>
             </div>
             <!-- <div class="col-lg-4 q-pa-md">
                 <q-card>
