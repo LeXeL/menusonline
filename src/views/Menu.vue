@@ -45,6 +45,7 @@
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import * as api from '@/api/api'
 export default {
     data() {
         return {
@@ -65,23 +66,10 @@ export default {
         },
     },
     mounted() {
-        let id = this.$route.params.id
-        let db = firebase.firestore()
-        let restRef = db
-            .collection('Restaurantes')
-            .doc(id)
-            .get()
-            .then(doc => {
-                if (!doc.exists) {
-                    console.log('No such document!')
-                } else {
-                    this.images = doc.data().menus
-                }
-            })
-
-            .catch(err => {
-                console.log('Error getting documents', err)
-            })
+        let path = this.$route.params.path
+        api.returRestaurantActiveMenu({path: path}).then(response => {
+            console.log(response)
+        })
     },
 }
 </script>

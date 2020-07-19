@@ -53,25 +53,37 @@ async function deleteRestaurantes(id) {
             return error
         })
 }
-async function returnAllRestaurantes() {
-    let Restaurantes = []
+async function returRestaurantActiveMenu(path) {
+    let restaurantes = []
+    let Menu = []
     await db
         .collection('Restaurantes')
-        .where('status', '==', 'active')
+        .where('url', '==', path)
         .get()
         .then(snapshot => {
-            if (snapshot.empty) {
-                console.log('No matching documents.')
-                return
-            }
             snapshot.forEach(doc => {
-                Restaurantes.push({...doc.data(), id: doc.id})
+                restaurantes.push(doc.data())
             })
+        })
+        .then(async () => {
+            for (const restaurante of restaurantes) {
+                await db
+                    .collection('Menus')
+                    .doc(restaurante.activeMenu)
+                    .get()
+                    .then(function(doc) {
+                        Menu.push({
+                            ...doc.data(),
+                            id: doc.id,
+                            restaurante: restaurante,
+                        })
+                    })
+            }
         })
         .catch(function(error) {
             console.log('Error getting documents: ', error)
         })
-    return Restaurantes
+    return Menu
 }
 async function addMenuToRestaurantes(uid, itemObj) {
     return db
@@ -106,7 +118,7 @@ module.exports = {
     createRestaurantes,
     updateRestaurantes,
     deleteRestaurantes,
-    returnAllRestaurantes,
+    returRestaurantActiveMenu,
     addMenuToRestaurantes,
     removeMenuToRestaurantes,
 }
