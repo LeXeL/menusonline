@@ -1,33 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import DefaultLayout from './layouts/Default.vue'
-import Home from './views/Home.vue'
-import About from './views/About.vue'
-import Menu from './views/Menu.vue'
+import store from '@/store/store'
 
+import DefaultLayout from './layouts/Default.vue'
+import Menu from './views/Menu.vue'
 import Restaurants from './views/Restaurants'
 import Menus from './views/Menus'
 import MenuDetails from './views/MenuDetails'
-
+import Login from './layouts/Login'
 Vue.use(Router)
 
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        console.log(store.getters.isAuthenticated)
+        next()
+    } else next('/login')
+}
 export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/restaurants',
             component: DefaultLayout,
+            beforeEnter: ifAuthenticated,
             children: [
-                {
-                    path: '',
-                    name: 'home',
-                    component: Restaurants,
-                },
-                {
-                    path: '/about',
-                    name: 'about',
-                    component: About,
-                },
                 {
                     path: '/restaurants',
                     name: 'restaurants',
@@ -48,6 +44,10 @@ export default new Router({
         {
             path: '/menu/:id',
             component: Menu,
+        },
+        {
+            path: '/login',
+            component: Login,
         },
     ],
 })

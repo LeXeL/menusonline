@@ -1,7 +1,7 @@
 import axios from 'axios'
 let baseUrl
 if (process.env.NODE_ENV == 'production') {
-    baseUrl = 'https://us-central1-brewthers-374c0.cloudfunctions.net'
+    baseUrl = 'https://us-central1-menusonline-f988f.cloudfunctions.net'
 } else {
     baseUrl = 'http://localhost:5000/menusonline-f988f/us-central1'
 }
