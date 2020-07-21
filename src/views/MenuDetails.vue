@@ -25,12 +25,10 @@
                                 <q-img
                                     class="rounded-borders full-height"
                                     :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-1.jpg')
+                                        require('@/assets/empty-menu.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 1
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">Pagina 1</div>
                             </div>
 
                             <div class="col-4">
@@ -40,9 +38,7 @@
                                         require('@/assets/menu-pages/Sample Restarent and Bar Menu-2.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 2
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">Pagina 2</div>
                             </div>
                             <div class="col-4">
                                 <q-img
@@ -51,9 +47,7 @@
                                         require('@/assets/menu-pages/Sample Restarent and Bar Menu-3.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 3
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">Pagina 3</div>
                             </div>
                         </div>
                     </q-carousel-slide>
@@ -69,9 +63,7 @@
                                         require('@/assets/menu-pages/Sample Restarent and Bar Menu-4.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 4
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">Pagina 4</div>
                             </div>
                             <div class="col-4">
                                 <q-img
@@ -80,9 +72,7 @@
                                         require('@/assets/menu-pages/Sample Restarent and Bar Menu-5.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 5
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">Pagina 5</div>
                             </div>
                             <div class="col-4">
                                 <q-img
@@ -91,9 +81,7 @@
                                         require('@/assets/menu-pages/Sample Restarent and Bar Menu-6.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 6
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">Pagina 6</div>
                             </div>
                         </div>
                     </q-carousel-slide>
@@ -134,21 +122,15 @@
                     @end="isDragging = false"
                 >
                     <transition-group type="transition" name="flip-list">
-                        <li
-                            class="list-group-item"
-                            v-for="element in list"
-                            :key="element.order"
-                        >
+                        <li class="list-group-item" v-for="element in list" :key="element.order">
                             {{ element.name }}
-
                             <q-btn color="red-7" size="xs" style="float:right">
                                 <i class="fas fa-times"></i>
                             </q-btn>
                         </li>
                     </transition-group>
                 </draggable>
-                <q-btn color="secondary" label="Guardar" style="float: right">
-                </q-btn>
+                <q-btn color="secondary" label="Guardar" style="float: right"></q-btn>
             </div>
             <!-- <div class="col-lg-4 q-pa-md">
                 <q-card>
