@@ -59,7 +59,7 @@ export default {
                 .then(async () => {
                     let user = await firebase.auth().currentUser
                     await this.$store.dispatch('setCurrentUser', user)
-                    this.$router.push('/restaurants')
+                    this.$router.push('/restaurants/restaurants')
                 })
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
@@ -88,7 +88,7 @@ export default {
         },
     },
     mounted() {
-        if (this.user) this.$router.push('/restaurants')
+        if (this.user) this.$router.push('/restaurants/restaurants')
     },
 }
 </script>

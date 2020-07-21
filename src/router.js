@@ -14,18 +14,18 @@ const ifAuthenticated = (to, from, next) => {
     if (store.getters.isAuthenticated) {
         console.log(store.getters.isAuthenticated)
         next()
-    } else next('/login')
+    } else next('/login/login')
 }
 export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/restaurants',
+            path: '/restaurants/restaurants',
             component: DefaultLayout,
             beforeEnter: ifAuthenticated,
             children: [
                 {
-                    path: '/restaurants',
+                    path: '/restaurants/restaurants',
                     name: 'restaurants',
                     component: Restaurants,
                 },
@@ -46,7 +46,7 @@ export default new Router({
             component: Menu,
         },
         {
-            path: '/login',
+            path: '/login/login',
             component: Login,
         },
     ],
