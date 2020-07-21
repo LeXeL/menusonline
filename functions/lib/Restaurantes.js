@@ -53,6 +53,20 @@ async function deleteRestaurantes(id) {
             return error
         })
 }
+async function returnRestaurantById(id) {
+    return db
+        .collection('Restaurantes')
+        .doc(id)
+        .get()
+        .then(doc => {
+            console.log('Document successfully deleted!')
+            return doc.data()
+        })
+        .catch(error => {
+            console.error('Error writing document: ', error)
+            return error
+        })
+}
 async function returRestaurantActiveMenu(path) {
     let restaurantes = []
     let Menu = []
@@ -118,6 +132,7 @@ module.exports = {
     createRestaurantes,
     updateRestaurantes,
     deleteRestaurantes,
+    returnRestaurantById,
     returRestaurantActiveMenu,
     addMenuToRestaurantes,
     removeMenuToRestaurantes,

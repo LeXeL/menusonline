@@ -46,6 +46,20 @@ async function deleteMenus(id) {
             return error
         })
 }
+async function returnMenuById(id) {
+    return db
+        .collection('Menus')
+        .doc(id)
+        .get()
+        .then(doc => {
+            console.log('Document successfully deleted!')
+            return doc.data()
+        })
+        .catch(error => {
+            console.error('Error writing document: ', error)
+            return error
+        })
+}
 async function returnAllMenusByRestaurantId(restaurantId) {
     let Menu = []
     await db
@@ -71,5 +85,6 @@ module.exports = {
     createMenu,
     updateMenus,
     deleteMenus,
+    returnMenuById,
     returnAllMenusByRestaurantId,
 }

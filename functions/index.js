@@ -57,6 +57,17 @@ exports.deleteRestaurantesInformation = functions.https.onRequest(
         })
     }
 )
+exports.returnRestaurantById = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await Restaurantes.returnRestaurantById(req.body.id)
+            res.status(200).send({data: response})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})
 exports.returRestaurantActiveMenu = functions.https.onRequest(
     async (req, res) => {
         cors(req, res, async () => {
@@ -131,6 +142,17 @@ exports.deleteMenusInformation = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
             let response = await Menus.deleteMenus(req.body.id)
+            res.status(200).send({data: response})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})
+exports.returnMenuById = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await Menus.returnMenuById(req.body.id)
             res.status(200).send({data: response})
         } catch (err) {
             console.log(err)

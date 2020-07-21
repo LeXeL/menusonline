@@ -41,6 +41,10 @@ export const deleteRestaurantesInformation = data =>
     Request.post('/deleteRestaurantesInformation', data, {
         'Content-Type': 'application/json',
     })
+export const returnRestaurantById = data =>
+    Request.post('/returnRestaurantById', data, {
+        'Content-Type': 'application/json',
+    })
 export const returRestaurantActiveMenu = data =>
     Request.post('/returRestaurantActiveMenu', data, {
         'Content-Type': 'application/json',
@@ -65,6 +69,10 @@ export const updateMenusInformation = data =>
     })
 export const deleteMenusInformation = data =>
     Request.post('/deleteMenusInformation', data, {
+        'Content-Type': 'application/json',
+    })
+export const returnMenuById = data =>
+    Request.post('/returnMenuById', data, {
         'Content-Type': 'application/json',
     })
 export const returnAllMenusByRestaurantId = data =>
