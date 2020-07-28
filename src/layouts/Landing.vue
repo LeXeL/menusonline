@@ -8,7 +8,9 @@
                         :src="require('@/assets/landing/logo.png')"
                         width="200px;"
                     />
-                    <a href="#" class="float-right">suscribete</a>
+                    <a href="#subscribe" class="float-right" v-smooth-scroll
+                        >suscribete</a
+                    >
                     <!-- <a href="#" class="float-right mr-3">como funciona</a>
                     <a href="#" class="float-right mr-3">caracteristicas</a>-->
                 </div>
@@ -19,15 +21,26 @@
                         <h2 style="padding-top: 125px;">
                             Menu en linea para tu restaurante.
                         </h2>
-                        <p>
+                        <p class="pb-5">
                             Digitaliza tu menu con nosotros y evita el contacto
                             al presentarlo en linea a tus clientes mediante
                             codigo QR o un enlace de acceso rapido.
                         </p>
-                        <button class="primary-cta mr-3 mb-3">
+                        <a
+                            href="#subscribe"
+                            class="primary-cta mr-3 mb-3"
+                            style="text-decoration: none;"
+                            v-smooth-scroll
+                        >
                             Suscribete
-                        </button>
-                        <button class="secondary-cta mb-3">Leer Mas</button>
+                        </a>
+                        <a
+                            href="#features"
+                            class="secondary-cta mb-3"
+                            style="text-decoration: none;"
+                            v-smooth-scroll
+                            >Leer Mas</a
+                        >
                     </div>
                 </div>
             </div>
@@ -35,7 +48,7 @@
         <!-- END HERO SECTION -->
 
         <!-- FEATURES SECTION -->
-        <section class="features">
+        <section class="features" id="features">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
@@ -164,7 +177,14 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col text-center">
-                        <button class="primary-cta">Suscribete</button>
+                        <a
+                            href="#subscribe"
+                            class="primary-cta mb-3"
+                            style="text-decoration: none;"
+                            v-smooth-scroll
+                        >
+                            Suscribete
+                        </a>
                     </div>
                 </div>
             </div>
@@ -172,7 +192,7 @@
         <!-- END HOW IT WORKS SECTION -->
 
         <!-- CONTACT SECTION -->
-        <section class="contact">
+        <section class="contact" id="subscribe">
             <div class="container">
                 <div class="row">
                     <div class="col">
