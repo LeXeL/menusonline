@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.landing-body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.primary-cta {
+    background-color: #217b95;
+    border-radius: 2px;
+    border: solid 1px #217b95;
+    padding: 15px 40px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.primary-cta:hover {
+    background-color: #186379;
+    border: solid 1px #186379;
+    transition: background-color 0.3s, border 0.3s;
+}
+
+.secondary-cta {
+    background-color: #fff;
+    border-radius: 2px;
+    border: solid 1px #fff;
+    padding: 15px 40px;
+    font-size: 15px;
+    font-weight: 700;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.secondary-cta:hover {
+    background-color: transparent;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+nav {
+    padding: 25px 0;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: rgba(255, 255, 255, 0.6);
+    transition: color 0.3s;
+}
+
+.hero {
+    background-image: url('../assets/landing/hero_3.png');
+    height: 1080px;
+    width: 100%;
+    color: #fff;
+}
+
+.hero h2 {
+    font-size: 75px;
+    font-weight: 700;
+    line-height: 75px;
+}
+
+.features {
+    margin-bottom: 75px;
+}
+
+.features i {
+    color: #217b95;
+    font-size: 60px;
+    margin-bottom: 40px;
+}
+
+.features h3 {
+    font-size: 17px;
+    text-transform: capitalize;
+    font-weight: 700;
+    color: #303133;
+    margin-bottom: 25px;
+}
+
+.features p {
+    font-size: 13px;
+    line-height: 26px;
+}
+
+.samples {
+    background-image: url('../assets/landing/samples.png');
+    height: 750px;
+    width: 100%;
+}
+
+.samples h2 {
+    font-size: 35px;
+    font-weight: 700;
+    color: #303133;
+    text-align: center;
+    margin-bottom: 75px;
+}
+
+.steps {
+    padding-top: 150px;
+}
+
+.steps h2 {
+    font-size: 35px;
+    font-weight: 700;
+    color: #303133;
+    text-align: center;
+    margin-bottom: 75px;
+}
+
+.steps h3 {
+    font-weight: 700;
+    font-size: 35px;
+    /* text-align: center; */
+    color: #f06b13;
+    margin-bottom: 20px;
+}
+
+.steps p {
+    font-size: 13px;
+    line-height: 26px;
+    /* text-align: center; */
+}
+
+.contact {
+    background-image: url('../assets/landing/contact.png');
+    height: 690px;
+    width: 100%;
+    padding: 235px 0;
+}
+
+.contact h2 {
+    color: #fff;
+    font-size: 35px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact input {
+    border: none;
+    border-radius: 2px;
+    padding: 10px 20px;
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.contact p {
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+footer {
+    background-color: #1b1d1f;
+    color: #fff;
+    padding: 25px 0;
+}
+
+footer p {
+    font-size: 12px;
+    color: #c9c9c9;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+footer a {
+    color: #217b95;
+    text-decoration: none !important;
+}
+
+footer a:hover {
+    color: rgba(33, 123, 149, 0.6);
+}
+
+@media only screen and (max-width: 600px) {
+    .hero h2 {
+        font-size: 10vw;
+        line-height: 49.32px;
+    }
+    .contact {
+        padding: 75px 0;
+    }
+    .contact h2 {
+        line-height: 40px;
+    }
+    .contact input {
+        width: 100%;
+    }
+}
