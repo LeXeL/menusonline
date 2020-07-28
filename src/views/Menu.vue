@@ -1,49 +1,89 @@
 <template>
     <div>
-        <div v-for="image in images" :key="image" class="q-pa-md">
-            <img :src="image" alt="menu" style="width:100%" />
+        <div
+            v-for="image in images"
+            :key="image"
+            class="q-pa-md"
+            :style="{ backgroundColor: menuBgColor }"
+        >
+            <img :src="image" alt="menu" style="width:100%" class="shadow-5" />
         </div>
+        <div :style="{ backgroundColor: menuBgColor }">
+            <p class="text-center q-mb-none q-py-sm" style="font-size: 9px;">
+                Servicio por
+                <a
+                    href="#"
+                    :style="{ color: splashBgColor, textDecoration: 'none' }"
+                >BlueBalloon Inc.</a>
+            </p>
+        </div>
+        <q-dialog
+            v-model="splash"
+            persistent
+            :maximized="true"
+            transition-hide="slide-up"
+            transition-show="slide-down"
+        >
+            <q-card class="text-white" :style="{ backgroundColor: splashBgColor }">
+                <q-card-section class="absolute-center">
+                    <div class="row justify-center">
+                        <div class="text-h5 q-mb-lg main-font">¡Bienvenido!</div>
+                        <q-img :src="require('@/assets/veranda.png')" class="q-mb-lg" />
+                        <q-btn
+                            label="Ver Menu"
+                            class="main-font"
+                            :style="{ backgroundColor: ctaBgColor }"
+                            @click="closeSplash"
+                        />
+                    </div>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </div>
 </template>
 
 <script>
 import firebase from 'firebase/app'
 import 'firebase/firestore'
+import * as api from '@/api/api'
 export default {
     data() {
         return {
             src: '',
             images: [],
+            splash: true,
+            splashBgColor: '#09425f',
+            ctaBgColor: '#c89c6b',
+            menuBgColor: '#fff',
         }
     },
+    methods: {
+        closeSplash() {
+            this.splash = false
+            setTimeout(function() {
+                // document.documentElement.requestFullscreen()
+            }, 300)
+        },
+    },
     mounted() {
-        let id = this.$route.params.id
-        let db = firebase.firestore()
-        let restRef = db
-            .collection('Restaurantes')
-            .doc(id)
-            .get()
-            .then(doc => {
-                if (!doc.exists) {
-                    console.log('No such document!')
-                } else {
-                    this.images = doc.data().menus
-                }
-            })
-
-            .catch(err => {
-                console.log('Error getting documents', err)
-            })
+        let path = this.$route.params.path
+        api.returRestaurantActiveMenu({path: path}).then(response => {
+            console.log(response)
+        })
     },
 }
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
 #menu {
     height: 100vh;
     border: 1rem solid rgba(0, 0, 0, 0.1);
 }
-body {
-    background-color: grey;
+
+.main-font {
+    font-family: 'Anton', sans-serif;
+    letter-spacing: 1.5px;
 }
 </style>

@@ -1,9 +1,16 @@
 <template>
     <q-page class="q-pa-md">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <brewthers-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+        ></brewthers-alert>
         <div class="row">
-            <div class="text-h5">Nombre del menu</div>
+            <div class="text-h5">{{menuInfo ? menuInfo.menuName : ''}}</div>
         </div>
-        <div class="row">
+        <div class="row" v-if="Object.keys(menuInfo).length != 0">
             <div class="col-lg-9 q-pa-md">
                 <q-carousel
                     v-model="slide"
@@ -17,83 +24,38 @@
                     height="auto"
                     class="bg-grey-1 shadow-2 rounded-borders full-width"
                 >
-                    <q-carousel-slide :name="1" class="column no-wrap">
+                    <q-carousel-slide
+                        :name="index"
+                        class="column no-wrap"
+                        v-for="(images, index) in calculatePage(menuInfo.images)"
+                        :key="index"
+                    >
                         <div
                             class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap"
+                            v-if="menuInfo.images.length > 1"
                         >
-                            <div class="col-4">
+                            <div class="col-4" v-for="(image,index) in images" :key="index">
                                 <q-img
                                     class="rounded-borders full-height"
                                     :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-1.jpg')
+                                        image.url
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 1
-                                </div>
-                            </div>
-
-                            <div class="col-4">
-                                <q-img
-                                    class="rounded-borders full-height"
-                                    :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-2.jpg')
-                                    "
-                                />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 2
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <q-img
-                                    class="rounded-borders full-height"
-                                    :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-3.jpg')
-                                    "
-                                />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 3
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">{{image.name}}</div>
                             </div>
                         </div>
-                    </q-carousel-slide>
-
-                    <q-carousel-slide :name="2" class="column no-wrap">
                         <div
                             class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap"
+                            v-if="menuInfo.images.length === 0"
                         >
-                            <div class="col-4">
+                            <div class="col-4" v-for="(image,index) in 3" :key="index">
                                 <q-img
                                     class="rounded-borders full-height"
                                     :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-4.jpg')
+                                        require('@/assets/empty-menu.jpg')
                                     "
                                 />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 4
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <q-img
-                                    class="rounded-borders full-height"
-                                    :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-5.jpg')
-                                    "
-                                />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 5
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <q-img
-                                    class="rounded-borders full-height"
-                                    :src="
-                                        require('@/assets/menu-pages/Sample Restarent and Bar Menu-6.jpg')
-                                    "
-                                />
-                                <div class="text-subtitle1 text-center q-mt-sm">
-                                    Pagina 6
-                                </div>
+                                <div class="text-subtitle1 text-center q-mt-sm">{{image.name}}</div>
                             </div>
                         </div>
                     </q-carousel-slide>
@@ -102,59 +64,43 @@
             <div class="col-lg-3 q-pa-md">
                 <q-card class="q-mb-md">
                     <q-card-section>
-                        <q-file filled label="Seleccione imagen">
+                        <q-file multiple filled label="Seleccione imagen" v-model="files">
                             <template v-slot:after>
-                                <q-btn round dense color="secondary">
+                                <q-btn round dense color="secondary" @click="uploadMenus">
                                     <i class="fas fa-paper-plane"></i>
                                 </q-btn>
                             </template>
                         </q-file>
                     </q-card-section>
                 </q-card>
-                <q-list bordered padding>
-                    <q-item-label header>Paginas</q-item-label>
-
-                    <q-item v-ripple v-for="(page, i) in pages" :key="i">
-                        <q-item-section>
-                            <q-item-label>Pagina {{ i + 1 }}</q-item-label>
-                        </q-item-section>
-                        <q-item-section side>
-                            <q-btn color="red-7" size="xs">
-                                <i class="fas fa-times"></i>
-                            </q-btn>
-                        </q-item-section>
-                    </q-item>
-                </q-list>
                 <draggable
                     class="list-group"
                     tag="ul"
                     v-model="list"
+                    v-if="menuInfo.images"
                     v-bind="dragOptions"
-                    @start="isDragging = true"
-                    @end="isDragging = false"
                 >
                     <transition-group type="transition" name="flip-list">
-                        <li
-                            class="list-group-item"
-                            v-for="element in list"
-                            :key="element.order"
-                        >
+                        <li class="list-group-item" v-for="element in list" :key="element.order">
                             {{ element.name }}
-
-                            <q-btn color="red-7" size="xs" style="float:right">
+                            <q-btn
+                                color="red-7"
+                                size="xs"
+                                style="float:right"
+                                @click="removeFromList(element.order)"
+                            >
                                 <i class="fas fa-times"></i>
                             </q-btn>
                         </li>
                     </transition-group>
                 </draggable>
+                <q-btn
+                    color="secondary"
+                    label="Guardar"
+                    style="float: right"
+                    @click="updateNewOrderList"
+                ></q-btn>
             </div>
-            <!-- <div class="col-lg-4 q-pa-md">
-                <q-card>
-                    <q-card-section>
-                        <q-file filled label="Seleccione imagen" />
-                    </q-card-section>
-                </q-card>
-            </div>-->
         </div>
         <div class="row q-pa-md"></div>
     </q-page>
@@ -162,37 +108,28 @@
 
 <script>
 import draggable from 'vuedraggable'
-const message = [
-    'vue.draggable',
-    'draggable',
-    'component',
-    'for',
-    'vue.js 2.0',
-    'based',
-    'on',
-    'Sortablejs',
-]
+import * as api from '@/api/api'
+
+import firebase from 'firebase/app'
+import 'firebase/storage'
 
 export default {
-    order: 6,
     components: {
         draggable,
     },
     data() {
         return {
-            pages: [
-                'Sample Restarent and Bar Menu-1',
-                'Sample Restarent and Bar Menu-2',
-                'Sample Restarent and Bar Menu-3',
-                'Sample Restarent and Bar Menu-4',
-                'Sample Restarent and Bar Menu-5',
-                'Sample Restarent and Bar Menu-6',
-            ],
-            slide: 1,
-            enabled: true,
-            list: message.map((name, index) => {
-                return {name, order: index + 1}
-            }),
+            slide: 0,
+            menuId: '',
+            restaurantInfo: [],
+            menuInfo: [],
+            files: [],
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
+            list: '',
         }
     },
     computed: {
@@ -206,9 +143,164 @@ export default {
         },
     },
     methods: {
-        sort() {
-            this.list = this.list.sort((a, b) => a.order - b.order)
+        clear() {
+            this.files = []
         },
+        removeFromList(order) {
+            this.list.forEach((d, index) => {
+                if (d.order === order) {
+                    this.list.splice(index, 1)
+                }
+            })
+        },
+        updateNewOrderList() {
+            this.displayLoading = true
+            api.updateMenusInformation({
+                id: this.menuId,
+                Menus: {images: this.list},
+            })
+                .then(response => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha subido con exito las imagenes'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+        calculatePage(images) {
+            let finalArray = []
+            let tmp = []
+            images.forEach((image, index) => {
+                tmp.push(image)
+                // console.log(`index: ${index} tiene ${JSON.stringify(tmp)}`)
+                if (((index + 1) / 3) % 1 === 0) {
+                    finalArray.push(tmp)
+                    tmp = []
+                }
+            })
+            if (tmp.length > 0) finalArray.push(tmp)
+            if (finalArray.length === 0) finalArray.push([1, 2, 3])
+            return finalArray
+        },
+        async uploadMenus() {
+            this.displayLoading = true
+            let listOfUploadedFiles = []
+            let db = firebase.firestore()
+            for (const file of this.files) {
+                await this.uploadToFirebase(
+                    file,
+                    `menus/${this.restaurantInfo.restaurantName}`,
+                    file.name
+                )
+                    .then(filename => {
+                        listOfUploadedFiles.push({
+                            url: filename,
+                            name: file.name,
+                        })
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+            }
+            api.updateMenusInformation({
+                id: this.menuId,
+                Menus: {images: listOfUploadedFiles},
+            })
+                .then(response => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Exito!'
+                    this.alertMessage = 'Se ha subido con exito las imagenes'
+                    this.alertType = 'success'
+                    this.displayAlert = true
+                    this.clear()
+                })
+                .catch(error => {
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                })
+        },
+        uploadToFirebase(imageFile, fullDirectory, filename) {
+            return new Promise(function (resolve, reject) {
+                var storageRef = firebase
+                    .storage()
+                    .ref(fullDirectory + '/' + filename)
+                //Upload file
+                var task = storageRef.put(imageFile)
+                //Update progress bar
+                task.on(
+                    'state_changed',
+                    function (snapshot) {
+                        // Observe state change events such as progress, pause, and resume
+                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                        var progress =
+                            (snapshot.bytesTransferred / snapshot.totalBytes) *
+                            100
+                        console.log('Upload is ' + progress + '% done')
+                        switch (snapshot.state) {
+                            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                                console.log('Upload is paused')
+                                break
+                        }
+                    },
+                    function (error) {
+                        // Handle unsuccessful uploads
+                        console.log(`Error in uploadToFirebase: ${error}`)
+                        reject(error)
+                    },
+                    function () {
+                        // Handle successful uploads on complete
+                        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                        task.snapshot.ref
+                            .getDownloadURL()
+                            .then(function (downloadURL) {
+                                console.log('File available at', downloadURL)
+                                resolve(downloadURL)
+                            })
+                    }
+                )
+            })
+        },
+        addToData(id, data) {
+            data.id = id
+            this.menuInfo = data
+        },
+    },
+    async mounted() {
+        this.menuId = this.$route.params.id
+        let db = firebase.firestore()
+        await db
+            .collection('Menus')
+            .doc(this.menuId)
+            .onSnapshot(
+                {
+                    includeMetadataChanges: true,
+                },
+                doc => {
+                    api.returnRestaurantById({
+                        id: doc.data().restaurant,
+                    }).then(response => {
+                        this.restaurantInfo = response.data.data
+                    })
+                    this.addToData(doc.id, doc.data())
+                    this.list = this.menuInfo.images.map((name, index) => {
+                        return {
+                            name: name.name,
+                            order: index + 1,
+                            url: name.url,
+                        }
+                    })
+                }
+            )
     },
 }
 </script>
