@@ -4,13 +4,8 @@
         <section class="hero">
             <nav>
                 <div class="container">
-                    <img
-                        :src="require('@/assets/landing/logo.png')"
-                        width="200px;"
-                    />
-                    <a href="#subscribe" class="float-right" v-smooth-scroll
-                        >suscribete</a
-                    >
+                    <img :src="require('@/assets/landing/logo.png')" width="200px;" />
+                    <a href="#subscribe" class="float-right" v-smooth-scroll>suscribete</a>
                     <!-- <a href="#" class="float-right mr-3">como funciona</a>
                     <a href="#" class="float-right mr-3">caracteristicas</a>-->
                 </div>
@@ -18,9 +13,7 @@
             <div class="container">
                 <div clas="row">
                     <div class="col-lg-6 col-xs-12">
-                        <h2 style="padding-top: 125px;">
-                            Menu en linea para tu restaurante.
-                        </h2>
+                        <h2 style="padding-top: 125px;">Menu en linea para tu restaurante.</h2>
                         <p class="pb-5">
                             Digitaliza tu menu con nosotros y evita el contacto
                             al presentarlo en linea a tus clientes mediante
@@ -31,16 +24,18 @@
                             class="primary-cta mr-3 mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
-                        >
-                            Suscribete
-                        </a>
+                        >Suscribete</a>
+                        <span v-if="$q.platform.is.mobile">
+                            <br />
+                            <br />
+                            <br />
+                        </span>
                         <a
                             href="#features"
                             class="secondary-cta mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
-                            >Leer Mas</a
-                        >
+                        >Leer Mas</a>
                     </div>
                 </div>
             </div>
@@ -51,7 +46,11 @@
         <section class="features" id="features">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div
+                        class="col-lg-3 col-sm-6 col-xs-12 mb-4"
+                        data-aos="fade-down"
+                        data-aos-delay="100"
+                    >
                         <i class="material-icons">layers</i>
                         <h3>estilo personalizable</h3>
                         <p>
@@ -60,7 +59,11 @@
                             con tu estilo.
                         </p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div
+                        class="col-lg-3 col-sm-6 col-xs-12 mb-4"
+                        data-aos="fade-down"
+                        data-aos-delay="200"
+                    >
                         <i class="material-icons">smartphone</i>
                         <h3>menu en smartphones</h3>
                         <p>
@@ -69,7 +72,11 @@
                             moviles.
                         </p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div
+                        class="col-lg-3 col-sm-6 col-xs-12 mb-4"
+                        data-aos="fade-down"
+                        data-aos-delay="300"
+                    >
                         <i class="material-icons">qr_code</i>
                         <h3>acceso por QR</h3>
                         <p>
@@ -77,7 +84,11 @@
                             escanear el codigo QR unico para ti.
                         </p>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-xs-12 mb-4">
+                    <div
+                        class="col-lg-3 col-sm-6 col-xs-12 mb-4"
+                        data-aos="fade-down"
+                        data-aos-delay="400"
+                    >
                         <i class="material-icons">http</i>
                         <h3>acceso por URL</h3>
                         <p>
@@ -96,7 +107,7 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col">
-                        <h2>¡Pruebalo tu mismo!</h2>
+                        <h2 data-aos="fade-down">¡Pruebalo tu mismo!</h2>
                     </div>
                     <!-- <div class="col-lg-3 col-xs-3">
             <img src="img/menu-page.jpg" class="img-fluid" />
@@ -113,11 +124,11 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 offset-lg-2">
-                        <h4 class="mb-5">
+                        <h4 class="mb-5" data-aos="fade-right">
                             Escanea el codigo QR con tu telefono o haz click en
                             el boton de abajo.
                         </h4>
-                        <button class="primary-cta mb-3">DEMO</button>
+                        <button class="primary-cta mb-3" data-aos="fade-right">DEMO</button>
                     </div>
                     <div class="col-lg-4">
                         <img
@@ -136,43 +147,41 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h2>Como funciona</h2>
+                        <h2 data-aos="fade-down">Como funciona</h2>
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 50px;">
-                    <div class="col-lg col-6">
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="100">
                         <h3>1.</h3>
                         <p>
                             Ponte en contacto con nosotros para suscribirte a
                             nuestro servicio.
                         </p>
                     </div>
-                    <div class="col-lg col-6">
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="200">
                         <h3>2.</h3>
                         <p>
                             Envianos una copia del menu de tu restaurante o
                             negocio.
                         </p>
                     </div>
-                    <div class="col-lg col-6">
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="300">
                         <h3>3.</h3>
                         <p>
                             Nosotros crearemos una version en linea de tu menu
                             en nuestra plataforma.
                         </p>
                     </div>
-                    <div class="col-lg col-6">
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="400">
                         <h3>4.</h3>
                         <p>
                             Te enviaremos impresiones de los codigos QR para que
                             pongas en tus mesas o le des a tus meseros.
                         </p>
                     </div>
-                    <div class="col-lg col-6">
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="400">
                         <h3>5.</h3>
-                        <p>
-                            Tus clientes podran ver tu menu desde su smartphone.
-                        </p>
+                        <p>Tus clientes podran ver tu menu desde su smartphone.</p>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -181,10 +190,9 @@
                             href="#subscribe"
                             class="primary-cta mb-3"
                             style="text-decoration: none;"
+                            data-aos="fade-up"
                             v-smooth-scroll
-                        >
-                            Suscribete
-                        </a>
+                        >Suscribete</a>
                     </div>
                 </div>
             </div>
@@ -196,7 +204,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h2>
+                        <h2 data-aos="zoom-in">
                             Contactanos para suscribirte
                             <br />a nuestro servicio
                         </h2>
@@ -208,10 +216,17 @@
                             type="text"
                             class="float-right"
                             placeholder="Nombre completo *"
+                            data-aos="zoom-in-up"
+                            data-aos-delay="100"
                         />
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="Restaurante *" />
+                        <input
+                            type="text"
+                            placeholder="Restaurante *"
+                            data-aos="zoom-in-up"
+                            data-aos-delay="100"
+                        />
                     </div>
                 </div>
                 <div class="row">
@@ -220,20 +235,29 @@
                             type="text"
                             class="float-right"
                             placeholder="Correo electronico *"
+                            data-aos="zoom-in-up"
+                            data-aos-delay="200"
                         />
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
-                        <input type="text" placeholder="Telefono *" />
+                        <input
+                            type="text"
+                            placeholder="Telefono *"
+                            data-aos="zoom-in-up"
+                            data-aos-delay="200"
+                        />
                     </div>
                 </div>
                 <div class="row text-center" style="margin-top: 20px;">
                     <div class="col-12">
-                        <button class="primary-cta mb-4">
-                            ENVIAR SOLICITUD
-                        </button>
+                        <button
+                            class="primary-cta mb-4"
+                            data-aos="zoom-in-up"
+                            data-aos-delay="300"
+                        >ENVIAR SOLICITUD</button>
                         <p>
                             o escribenos
-                            <br />correo: contacto@digitalmenu.com
+                            <br />correo: contacto@mimenudigital.app
                             <br />Whatsapp: 6565-6556
                         </p>
                     </div>
@@ -247,10 +271,7 @@
             <div class="container">
                 <div class="row text-center">
                     <div class="col">
-                        <img
-                            :src="require('@/assets/landing/logo_grey.png')"
-                            width="200px;"
-                        />
+                        <img :src="require('@/assets/landing/logo_grey.png')" width="200px;" />
 
                         <p>
                             Powered By
