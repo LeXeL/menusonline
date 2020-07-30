@@ -55,6 +55,11 @@ import restaurantsTable from '@/components/restaurantsTable'
 import restaurantsForm from '@/components/restaurantsForm'
 
 export default {
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+    },
     data() {
         return {
             left: false,
