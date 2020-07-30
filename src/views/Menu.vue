@@ -31,7 +31,7 @@
                 <q-card-section class="absolute-center">
                     <div class="row justify-center">
                         <div class="text-h5 q-mb-lg main-font">¡Bienvenido!</div>
-                        <q-img :src="require('@/assets/veranda.png')" class="q-mb-lg" />
+                        <q-img :src="data[0].restaurante.logo" class="q-mb-lg" />
                         <q-btn
                             label="Ver Menu"
                             class="main-font"
