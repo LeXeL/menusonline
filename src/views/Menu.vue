@@ -6,7 +6,7 @@
             class="q-pa-md"
             :style="{backgroundColor: data[0].restaurante.menuBackgroundColor}"
         >
-            <img
+            <q-img
                 :src="image.url"
                 alt="menu"
                 style="width:100%"
@@ -17,7 +17,7 @@
             <div class="container">
                 <div class="row text-center">
                     <div class="col">
-                        <img
+                        <q-img
                             :src="require('@/assets/landing/logo_grey.png')"
                             width="150px;"
                             @click="$router.push('/')"
