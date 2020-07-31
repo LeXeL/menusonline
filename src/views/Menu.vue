@@ -8,15 +8,20 @@
         >
             <img :src="image.url" alt="menu" style="width:100%" class="shadow-5" />
         </div>
-        <div :style="{ backgroundColor: data[0].restaurante.splashColor }">
-            <p class="text-center q-mb-none q-py-sm" style="font-size: 9px;">
-                Servicio por
-                <a
-                    href="#"
-                    :style="{ color: data[0].restaurante.splashColor, textDecoration: 'none' }"
-                >BlueBalloon Inc.</a>
-            </p>
-        </div>
+        <footer>
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col">
+                        <img :src="require('@/assets/landing/logo_grey.png')" width="200px;" />
+
+                        <p>
+                            Powered By
+                            BlueBalloon Inc.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <q-dialog
             v-model="splash"
             persistent
