@@ -121,7 +121,12 @@
                             class="mb-5"
                             data-aos="fade-right"
                         >Escanea el código QR con tu teléfono o haz click en el botón de abajo.</h4>
-                        <a class="primary-cta mb-3" data-aos="fade-right" href="/demo">DEMO</a>
+                        <a
+                            class="primary-cta mb-3"
+                            data-aos="fade-right"
+                            style="text-decoration:none"
+                            href="/demo"
+                        >DEMO</a>
                     </div>
                     <div class="col-lg-4">
                         <img
