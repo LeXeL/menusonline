@@ -19,8 +19,7 @@
                     <div class="col">
                         <q-img
                             :src="require('@/assets/landing/logo_grey.png')"
-                            width="150px;"
-                            @click="$router.push('/')"
+                            style="width: 150px;"
                         />
 
                         <p>
