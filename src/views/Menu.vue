@@ -20,6 +20,7 @@
                         <q-img
                             :src="require('@/assets/landing/logo_grey.png')"
                             style="width: 150px;"
+                            @click="$router.push('/')"
                         />
 
                         <p>
