@@ -115,7 +115,7 @@
                             class="mb-5"
                             data-aos="fade-right"
                         >Escanea el código QR con tu teléfono o haz click en el botón de abajo.</h4>
-                        <button class="primary-cta mb-3" data-aos="fade-right" href="/demo">DEMO</button>
+                        <a class="primary-cta mb-3" data-aos="fade-right" href="/demo">DEMO</a>
                     </div>
                     <div class="col-lg-4">
                         <img
