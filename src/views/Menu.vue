@@ -1,8 +1,8 @@
 <template>
     <div v-if="!loading">
         <div
-            v-for="image in data[0].images"
-            :key="image"
+            v-for="(image,index) in data[0].images"
+            :key="index"
             class="q-pa-md"
             :style="{ backgroundColor: data[0].restaurante.menuBackgroundColor }"
         >
@@ -31,7 +31,7 @@
                 <q-card-section class="absolute-center">
                     <div class="row justify-center">
                         <div class="text-h5 q-mb-lg main-font">¡Bienvenido!</div>
-                        <q-img :src="require('@/assets/veranda.png')" class="q-mb-lg" />
+                        <q-img :src="data[0].restaurante.logo" class="q-mb-lg" />
                         <q-btn
                             label="Ver Menu"
                             class="main-font"
@@ -55,10 +55,7 @@ export default {
             src: '',
             splash: true,
             data: '',
-            splashBgColor: '#09425f',
-            ctaBgColor: '#c89c6b',
-            menuBgColor: '#fff',
-            loading: false,
+            loading: true,
         }
     },
     methods: {

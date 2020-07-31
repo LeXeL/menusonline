@@ -54,7 +54,7 @@
                         <div class="text-h6">Ver mi codigo QR</div>
                     </q-card-section>
                     <q-card-section>
-                        <q-btn color="warning" @click="alert = true">Ver QR</q-btn>
+                        <q-btn color="warning" @click="CreateQrCode()">Ver QR</q-btn>
                     </q-card-section>
                 </q-card>
             </div>
@@ -62,10 +62,11 @@
         <q-dialog v-model="alert">
             <q-card>
                 <q-card-section>
-                    <q-img
+                    <div ref="qrcode"></div>
+                    <!-- <q-img
                         src="https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
                         style="width: 350px"
-                    />
+                    />-->
                 </q-card-section>
 
                 <q-card-actions align="right">
@@ -79,9 +80,11 @@
 
 <script>
 import * as api from '@/api/api'
+import * as QRCode from 'easyqrcodejs'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import menusTable from '@/components/menusTable'
+
 export default {
     data() {
         return {
@@ -97,9 +100,27 @@ export default {
             alertMessage: '',
             alertType: '',
             workingDeletedId: '',
+            restaurantInfo: [],
         }
     },
     methods: {
+        CreateQrCode(id, logo) {
+            this.alert = true
+            let options = {
+                text: `https://menusonline-f988f.web.app/menu/${this.restaurantInfo.url}`,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.L, // L, M, Q, H
+                dotScale: 1, // Must be greater than 0, less than or equal to 1. default is 1
+            }
+
+            this.qrAlert = true
+            setTimeout(() => {
+                new QRCode(this.$refs.qrcode, options)
+            }, 500)
+        },
         changeActiveStatus(event) {
             this.data.forEach(element => {
                 if (element.status === 'active') {
@@ -201,7 +222,7 @@ export default {
                 })
         },
     },
-    mounted() {
+    async mounted() {
         this.restaurantId = this.$route.params.id
         let db = firebase.firestore()
         db.collection('Menus')
@@ -218,6 +239,11 @@ export default {
                         this.removeData(change.doc.id)
                     }
                 })
+            })
+        await api
+            .returnRestaurantById({id: this.restaurantId})
+            .then(response => {
+                this.restaurantInfo = response.data.data
             })
     },
     components: {
