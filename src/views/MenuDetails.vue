@@ -191,7 +191,7 @@ export default {
         },
         async uploadMenus() {
             this.displayLoading = true
-            let listOfUploadedFiles = []
+            let listOfUploadedFiles = this.menuInfo.images
             let db = firebase.firestore()
             for (const file of this.files) {
                 await this.uploadToFirebase(
