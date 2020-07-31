@@ -256,7 +256,12 @@
                         <p>
                             o escríbenos
                             <br />correo: contacto@mimenudigital.app
-                            <br />Whatsapp: 6480-6778
+                            <br />
+                            <a
+                                href="http://wa.me/50764806778"
+                                target="_blank"
+                                style="color:#ffffff"
+                            >Whatsapp: 6480-6778</a>
                         </p>
                     </div>
                 </div>
