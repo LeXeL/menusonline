@@ -3,6 +3,7 @@
         <q-header>
             <q-toolbar class="bg-white text-black">
                 <q-toolbar-title>Menus Online</q-toolbar-title>
+                <q-btn flat round dense icon="logout" />
             </q-toolbar>
         </q-header>
         <!-- <q-drawer show-if-above :width="300" :breakpoint="400" class="mo-grey">
