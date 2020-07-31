@@ -13,10 +13,16 @@
             <div class="container">
                 <div clas="row">
                     <div class="col-lg-6 col-xs-12">
-                        <h2 style="padding-top: 125px;">Menú en linea para tu restaurante.</h2>
-                        <p
-                            class="pb-5"
-                        >Digitaliza tu menú con nosotros y evita el contacto al presentarlo en línea a tus clientes mediante código QR o un enlace de acceso rápido.</p>
+                        <h2 style="padding-top: 125px;">
+                            Menú en
+                            linea para
+                            tu restaurante.
+                        </h2>
+                        <p class="pb-5">
+                            Digitaliza tu menú con nosotros y evita el contacto al presentarlo
+                            en línea a tus clientes mediante código QR o un enlace de
+                            acceso rápido.
+                        </p>
                         <a
                             href="#subscribe"
                             class="primary-cta mr-3 mb-3"
@@ -268,7 +274,10 @@
 <script>
 export default {
     mounted() {
-        if (this.$route.fullPath == '/') {
+        if (
+            this.$route.fullPath == '/' ||
+            this.$route.fullPath.includes('/#')
+        ) {
             var element = document.createElement('link')
             element.setAttribute('rel', 'stylesheet')
             element.setAttribute('type', 'text/css')
