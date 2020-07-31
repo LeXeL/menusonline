@@ -32,7 +32,7 @@
                     >
                         <div
                             class="row fit justify-start items-center q-gutter-xs q-col-gutter no-wrap"
-                            v-if="menuInfo.images.length > 1"
+                            v-if="menuInfo.images.length > 0"
                         >
                             <div class="col-4" v-for="(image,index) in images" :key="index">
                                 <q-img
