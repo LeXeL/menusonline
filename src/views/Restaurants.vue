@@ -99,7 +99,7 @@ export default {
     methods: {
         CreateQrCode(rest) {
             let options = {
-                text: `https://menusonline-f988f.web.app/${rest.url}`,
+                text: `https://mimenudigital.app/${rest.url}`,
                 width: 256,
                 height: 256,
                 colorDark: '#000000',

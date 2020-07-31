@@ -107,7 +107,7 @@ export default {
         CreateQrCode(id, logo) {
             this.alert = true
             let options = {
-                text: `https://menusonline-f988f.web.app/menu/${this.restaurantInfo.url}`,
+                text: `https://mimenudigital.app/${this.restaurantInfo.url}`,
                 width: 256,
                 height: 256,
                 colorDark: '#000000',
