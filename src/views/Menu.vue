@@ -26,7 +26,7 @@
         >
             <q-card
                 class="text-white"
-                :style="{ backgroundColor: data[0].restaurante.splashColor }"
+                :style="{ backgroundColor: data[0].restaurante.splashColor ? data[0].restaurante.splashColor : '#e9e9e9'  }"
             >
                 <q-card-section class="absolute-center">
                     <div class="row justify-center">
@@ -35,7 +35,7 @@
                         <q-btn
                             label="Ver Menu"
                             class="main-font"
-                            :style="{ backgroundColor: data[0].restaurante.splashButtonColor }"
+                            :style="{ backgroundColor: data[0].restaurante.splashButtonColor ?  data[0].restaurante.splashButtonColor : '#f56c12'}"
                             @click="closeSplash"
                         />
                     </div>
