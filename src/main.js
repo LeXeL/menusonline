@@ -9,6 +9,13 @@ import firebase from 'firebase/app'
 import LoadingAlert from '@/components/general/LoadingAlert'
 import BrewthersAlert from '@/components/general/Alert'
 import Confirm from '@/components/general/Confirm'
+import VueSmoothScroll from 'vue2-smooth-scroll'
+
+import AOS from 'aos'
+import 'aos/dist/aos.css'
+AOS.init()
+
+Vue.use(VueSmoothScroll)
 
 Vue.config.productionTip = false
 
