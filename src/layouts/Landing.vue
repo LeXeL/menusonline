@@ -1,5 +1,12 @@
 <template>
     <div class="landing-body">
+        <loading-alert :display="displayLoading"></loading-alert>
+        <brewthers-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+        ></brewthers-alert>
         <!-- HERO SECTION -->
         <section class="hero">
             <nav>
@@ -204,6 +211,7 @@
                             placeholder="Nombre completo *"
                             data-aos="zoom-in-up"
                             data-aos-delay="100"
+                            v-model="form.name"
                         />
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
@@ -212,6 +220,7 @@
                             placeholder="Nombre del Restaurante *"
                             data-aos="zoom-in-up"
                             data-aos-delay="100"
+                            v-model="form.restaurantName"
                         />
                     </div>
                 </div>
@@ -223,6 +232,7 @@
                             placeholder="Correo electrónico *"
                             data-aos="zoom-in-up"
                             data-aos-delay="200"
+                            v-model="form.email"
                         />
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
@@ -231,6 +241,7 @@
                             placeholder="Teléfono *"
                             data-aos="zoom-in-up"
                             data-aos-delay="200"
+                            v-model="form.phone"
                         />
                     </div>
                 </div>
@@ -240,6 +251,7 @@
                             class="primary-cta mb-4"
                             data-aos="zoom-in-up"
                             data-aos-delay="300"
+                            @click="sendEmail"
                         >ENVIAR SOLICITUD</button>
                         <p>
                             o escríbenos
@@ -271,13 +283,73 @@
     </div>
 </template>
 
-<style scoped>
-@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
-@import './../styles/style.css';
-</style>
-
 <script>
+import emailjs from 'emailjs-com'
 export default {
+    data() {
+        return {
+            form: {
+                name: '',
+                restaurantName: '',
+                email: '',
+                phone: '',
+            },
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
+        }
+    },
+    methods: {
+        sendEmail() {
+            if (
+                this.form.name === '' ||
+                this.form.restaurantName === '' ||
+                this.form.email === '' ||
+                this.form.phone === ''
+            ) {
+                this.displayLoading = false
+                this.alertTitle = 'Error'
+                this.alertMessage =
+                    'Por favor asegurate de llenar todos los campos'
+                this.alertType = 'error'
+                this.displayAlert = true
+                return
+            } else {
+                this.displayLoading = true
+                emailjs
+                    .send(
+                        'gmail',
+                        'template_Nldne3t8',
+                        this.form,
+                        'user_l9KYZVj8DNvwXi3kegar5'
+                    )
+                    .then(
+                        result => {
+                            this.displayLoading = false
+                            this.alertTitle = 'Exito!'
+                            this.alertMessage =
+                                'Tu mensaje ha sido enviado con exito, pronto nos estaremos poniendo en contacto contigo'
+                            this.alertType = 'success'
+                            this.displayAlert = true
+                            this.form.name = ''
+                            this.form.email = ''
+                            this.form.phone = ''
+                            this.form.restaurantName = ''
+                        },
+                        error => {
+                            this.displayLoading = false
+                            this.alertTitle = 'Error'
+                            this.alertMessage =
+                                'Hubo un error por favor intentarlo nuevamente.'
+                            this.alertType = 'error'
+                            this.displayAlert = true
+                        }
+                    )
+            }
+        },
+    },
     mounted() {
         if (
             this.$route.fullPath == '/' ||
@@ -295,3 +367,8 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import './../styles/style.css';
+</style>
