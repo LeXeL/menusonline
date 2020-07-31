@@ -13,18 +13,16 @@
             <div class="container">
                 <div clas="row">
                     <div class="col-lg-6 col-xs-12">
-                        <h2 style="padding-top: 125px;">Menu en linea para tu restaurante.</h2>
-                        <p class="pb-5">
-                            Digitaliza tu menu con nosotros y evita el contacto
-                            al presentarlo en linea a tus clientes mediante
-                            codigo QR o un enlace de acceso rapido.
-                        </p>
+                        <h2 style="padding-top: 125px;">Menú en linea para tu restaurante.</h2>
+                        <p
+                            class="pb-5"
+                        >Digitaliza tu menú con nosotros y evita el contacto al presentarlo en línea a tus clientes mediante código QR o un enlace de acceso rápido.</p>
                         <a
                             href="#subscribe"
                             class="primary-cta mr-3 mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
-                        >Suscribete</a>
+                        >Suscríbete</a>
                         <span v-if="$q.platform.is.mobile">
                             <br />
                             <br />
@@ -53,11 +51,7 @@
                     >
                         <i class="material-icons">layers</i>
                         <h3>estilo personalizable</h3>
-                        <p>
-                            Escoje con que colores deseas presentar tu menu para
-                            brindarle a tus clientes una experiencia unificada
-                            con tu estilo.
-                        </p>
+                        <p>Escoge con que colores deseas presentar tu menú para brindarle a tus clientes una experiencia unificada con tu estilo.</p>
                     </div>
                     <div
                         class="col-lg-3 col-sm-6 col-xs-12 mb-4"
@@ -65,11 +59,11 @@
                         data-aos-delay="200"
                     >
                         <i class="material-icons">smartphone</i>
-                        <h3>menu en smartphones</h3>
+                        <h3>Menú En Smartphones</h3>
                         <p>
-                            Olvidate de las cartas y brindale a tus clientes la
-                            comodidad de ver el menu directo en sus dispositivos
-                            moviles.
+                            Olvídate de las cartas y bríndales a tus clientes la
+                            comodidad de ver el menú directo en sus dispositivos
+                            móviles.
                         </p>
                     </div>
                     <div
@@ -79,10 +73,7 @@
                     >
                         <i class="material-icons">qr_code</i>
                         <h3>acceso por QR</h3>
-                        <p>
-                            Accesa facilmente al menu de tu restaurante solo con
-                            escanear el codigo QR unico para ti.
-                        </p>
+                        <p>Accesa fácilmente al menú de tu restaurante solo con escanear el código QR único para ti.</p>
                     </div>
                     <div
                         class="col-lg-3 col-sm-6 col-xs-12 mb-4"
@@ -91,11 +82,7 @@
                     >
                         <i class="material-icons">http</i>
                         <h3>acceso por URL</h3>
-                        <p>
-                            Tambien puedes acceder desde el navegador de tu
-                            telefono con una direccion web facil de escribir y
-                            hecha especialmente para ti.
-                        </p>
+                        <p>También puedes acceder desde el navegador de tu teléfono con una dirección web fácil de escribir y hecha especialmente para ti.</p>
                     </div>
                 </div>
             </div>
@@ -107,7 +94,7 @@
             <div class="container">
                 <div class="row justify-content-md-center">
                     <div class="col">
-                        <h2 data-aos="fade-down">¡Pruebalo tu mismo!</h2>
+                        <h2 data-aos="fade-down">¡Pruébalo tú mismo!</h2>
                     </div>
                     <!-- <div class="col-lg-3 col-xs-3">
             <img src="img/menu-page.jpg" class="img-fluid" />
@@ -124,11 +111,11 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-4 offset-lg-2">
-                        <h4 class="mb-5" data-aos="fade-right">
-                            Escanea el codigo QR con tu telefono o haz click en
-                            el boton de abajo.
-                        </h4>
-                        <button class="primary-cta mb-3" data-aos="fade-right">DEMO</button>
+                        <h4
+                            class="mb-5"
+                            data-aos="fade-right"
+                        >Escanea el código QR con tu teléfono o haz click en el botón de abajo.</h4>
+                        <button class="primary-cta mb-3" data-aos="fade-right" href="/demo">DEMO</button>
                     </div>
                     <div class="col-lg-4">
                         <img
@@ -153,35 +140,23 @@
                 <div class="row" style="margin-bottom: 50px;">
                     <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="100">
                         <h3>1.</h3>
-                        <p>
-                            Ponte en contacto con nosotros para suscribirte a
-                            nuestro servicio.
-                        </p>
+                        <p>Ponte en contacto con nosotros para suscribirte a nuestro servicio.</p>
                     </div>
                     <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="200">
                         <h3>2.</h3>
-                        <p>
-                            Envianos una copia del menu de tu restaurante o
-                            negocio.
-                        </p>
+                        <p>Envíanos una copia del menú de tu restaurante o negocio.</p>
                     </div>
                     <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="300">
                         <h3>3.</h3>
-                        <p>
-                            Nosotros crearemos una version en linea de tu menu
-                            en nuestra plataforma.
-                        </p>
+                        <p>Nosotros crearemos una versión en línea de tu menú en nuestra plataforma.</p>
                     </div>
                     <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="400">
                         <h3>4.</h3>
-                        <p>
-                            Te enviaremos impresiones de los codigos QR para que
-                            pongas en tus mesas o le des a tus meseros.
-                        </p>
+                        <p>Te enviaremos impresiones de los códigos QR para que pongas en tus mesas o le des a tus meseros.</p>
                     </div>
                     <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="400">
                         <h3>5.</h3>
-                        <p>Tus clientes podran ver tu menu desde su smartphone.</p>
+                        <p>Tus clientes podrán ver tu menú desde su smartphone.</p>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -205,7 +180,7 @@
                 <div class="row">
                     <div class="col">
                         <h2 data-aos="zoom-in">
-                            Contactanos para suscribirte
+                            Contáctanos para suscribirte
                             <br />a nuestro servicio
                         </h2>
                     </div>
@@ -223,7 +198,7 @@
                     <div class="col-lg-6 col-sm-6 col-xs-12">
                         <input
                             type="text"
-                            placeholder="Restaurante *"
+                            placeholder="Nombre del Restaurante *"
                             data-aos="zoom-in-up"
                             data-aos-delay="100"
                         />
@@ -234,7 +209,7 @@
                         <input
                             type="text"
                             class="float-right"
-                            placeholder="Correo electronico *"
+                            placeholder="Correo electrónico *"
                             data-aos="zoom-in-up"
                             data-aos-delay="200"
                         />
@@ -242,7 +217,7 @@
                     <div class="col-lg-6 col-sm-6 col-xs-12">
                         <input
                             type="text"
-                            placeholder="Telefono *"
+                            placeholder="Teléfono *"
                             data-aos="zoom-in-up"
                             data-aos-delay="200"
                         />
@@ -256,9 +231,9 @@
                             data-aos-delay="300"
                         >ENVIAR SOLICITUD</button>
                         <p>
-                            o escribenos
+                            o escríbenos
                             <br />correo: contacto@mimenudigital.app
-                            <br />Whatsapp: 6565-6556
+                            <br />Whatsapp: 6480-6778
                         </p>
                     </div>
                 </div>
@@ -275,7 +250,7 @@
 
                         <p>
                             Powered By
-                            <a href="#">BlueBalloon Inc.</a>
+                            BlueBalloon Inc.
                         </p>
                     </div>
                 </div>
