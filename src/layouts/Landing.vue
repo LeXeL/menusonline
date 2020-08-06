@@ -11,13 +11,8 @@
         <section class="hero">
             <nav>
                 <div class="container">
-                    <img
-                        :src="require('@/assets/landing/logo.png')"
-                        width="200px;"
-                    />
-                    <a href="#subscribe" class="float-right" v-smooth-scroll
-                        >suscribete</a
-                    >
+                    <img :src="require('@/assets/landing/logo.png')" width="200px;" />
+                    <a href="#subscribe" class="float-right" v-smooth-scroll>Suscríbete</a>
                     <!-- <a href="#" class="float-right mr-3">como funciona</a>
                     <a href="#" class="float-right mr-3">caracteristicas</a>-->
                 </div>
@@ -25,9 +20,7 @@
             <div class="container">
                 <div clas="row">
                     <div class="col-lg-6 col-xs-12">
-                        <h2 style="padding-top: 125px;">
-                            Menú en linea para tu restaurante.
-                        </h2>
+                        <h2 style="padding-top: 125px;">Menú en linea para tu restaurante.</h2>
                         <p class="pb-5">
                             Digitaliza tu menú con nosotros y evita el contacto
                             al presentarlo en línea a tus clientes mediante
@@ -38,8 +31,7 @@
                             class="primary-cta mr-3 mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
-                            >Suscríbete</a
-                        >
+                        >Suscríbete</a>
                         <span v-if="$q.platform.is.mobile">
                             <br />
                             <br />
@@ -50,8 +42,7 @@
                             class="secondary-cta mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
-                            >Leer Mas</a
-                        >
+                        >Leer Mas</a>
                     </div>
                 </div>
             </div>
@@ -149,8 +140,7 @@
                             data-aos="fade-right"
                             style="text-decoration:none"
                             href="/demo"
-                            >DEMO</a
-                        >
+                        >DEMO</a>
                     </div>
                     <div class="col-lg-4">
                         <img
@@ -173,59 +163,37 @@
                     </div>
                 </div>
                 <div class="row" style="margin-bottom: 50px;">
-                    <div
-                        class="col-lg col-6"
-                        data-aos="flip-left"
-                        data-aos-delay="100"
-                    >
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="100">
                         <h3>1.</h3>
                         <p>
                             Ponte en contacto con nosotros para suscribirte a
                             nuestro servicio.
                         </p>
                     </div>
-                    <div
-                        class="col-lg col-6"
-                        data-aos="flip-left"
-                        data-aos-delay="200"
-                    >
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="200">
                         <h3>2.</h3>
                         <p>
                             Envíanos una copia del menú de tu restaurante o
                             negocio.
                         </p>
                     </div>
-                    <div
-                        class="col-lg col-6"
-                        data-aos="flip-left"
-                        data-aos-delay="300"
-                    >
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="300">
                         <h3>3.</h3>
                         <p>
                             Nosotros crearemos una versión en línea de tu menú
                             en nuestra plataforma.
                         </p>
                     </div>
-                    <div
-                        class="col-lg col-6"
-                        data-aos="flip-left"
-                        data-aos-delay="400"
-                    >
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="400">
                         <h3>4.</h3>
                         <p>
                             Te enviaremos impresiones de los códigos QR para que
                             pongas en tus mesas o le des a tus meseros.
                         </p>
                     </div>
-                    <div
-                        class="col-lg col-6"
-                        data-aos="flip-left"
-                        data-aos-delay="400"
-                    >
+                    <div class="col-lg col-6" data-aos="flip-left" data-aos-delay="400">
                         <h3>5.</h3>
-                        <p>
-                            Tus clientes podrán ver tu menú desde su smartphone.
-                        </p>
+                        <p>Tus clientes podrán ver tu menú desde su smartphone.</p>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -236,8 +204,7 @@
                             style="text-decoration: none;"
                             data-aos="fade-up"
                             v-smooth-scroll
-                            >Suscribete</a
-                        >
+                        >Suscríbete</a>
                     </div>
                 </div>
             </div>
@@ -304,9 +271,7 @@
                             data-aos="zoom-in-up"
                             data-aos-delay="300"
                             @click="sendEmail"
-                        >
-                            ENVIAR SOLICITUD
-                        </button>
+                        >ENVIAR SOLICITUD</button>
                         <p>
                             o escríbenos
                             <br />correo: contacto@mimenudigital.app
@@ -315,8 +280,7 @@
                                 href="http://wa.me/50764806778"
                                 target="_blank"
                                 style="color:#ffffff"
-                                >Whatsapp: 6480-6778</a
-                            >
+                            >Whatsapp: 6480-6778</a>
                         </p>
                     </div>
                 </div>
@@ -329,14 +293,9 @@
             <div class="container">
                 <div class="row text-center">
                     <div class="col">
-                        <img
-                            :src="require('@/assets/landing/logo_grey.png')"
-                            width="200px;"
-                        />
+                        <img :src="require('@/assets/landing/logo_grey.png')" width="200px;" />
 
-                        <p>
-                            Powered By BlueBalloon Inc.
-                        </p>
+                        <p>Powered By BlueBalloon Inc.</p>
                     </div>
                 </div>
             </div>
