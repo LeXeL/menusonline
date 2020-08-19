@@ -6,6 +6,8 @@ import './quasar'
 
 import firebase from 'firebase/app'
 
+import 'firebase/analytics'
+
 import LoadingAlert from '@/components/general/LoadingAlert'
 import BrewthersAlert from '@/components/general/Alert'
 import Confirm from '@/components/general/Confirm'
@@ -31,9 +33,13 @@ const firebaseConfig = {
 }
 firebase.initializeApp(firebaseConfig)
 
+firebase.analytics()
+
 Vue.component('brewthers-alert', BrewthersAlert)
 Vue.component('loading-alert', LoadingAlert)
 Vue.component('confirm-dialog', Confirm)
+
+Vue.prototype.$analytics = firebase.analytics()
 
 new Vue({
     router,
