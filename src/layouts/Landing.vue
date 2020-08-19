@@ -12,7 +12,12 @@
             <nav>
                 <div class="container">
                     <img :src="require('@/assets/landing/logo.png')" width="200px;" />
-                    <a href="#subscribe" class="float-right" v-smooth-scroll>Suscríbete</a>
+                    <a
+                        href="#subscribe"
+                        class="float-right"
+                        v-smooth-scroll
+                        @click="logEntry('navbar', 'subscribe')"
+                    >Suscríbete</a>
                     <!-- <a href="#" class="float-right mr-3">como funciona</a>
                     <a href="#" class="float-right mr-3">caracteristicas</a>-->
                 </div>
@@ -31,6 +36,7 @@
                             class="primary-cta mr-3 mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
+                            @click="logEntry('hero', 'subscribe')"
                         >Suscríbete</a>
                         <span v-if="$q.platform.is.mobile">
                             <br />
@@ -42,6 +48,7 @@
                             class="secondary-cta mb-3"
                             style="text-decoration: none;"
                             v-smooth-scroll
+                            @click="logEntry('hero', 'reed more')"
                         >Leer Mas</a>
                     </div>
                 </div>
@@ -140,6 +147,7 @@
                             data-aos="fade-right"
                             style="text-decoration:none"
                             href="/demo"
+                            @click="logEntry('demo', 'demo button')"
                         >DEMO</a>
                     </div>
                     <div class="col-lg-4">
@@ -204,6 +212,7 @@
                             style="text-decoration: none;"
                             data-aos="fade-up"
                             v-smooth-scroll
+                            @click="logEntry('howworks', 'subscribe')"
                         >Suscríbete</a>
                     </div>
                 </div>
@@ -323,6 +332,12 @@ export default {
         }
     },
     methods: {
+        logEntry(section, action) {
+            this.$analytics.logEvent('Landing Action', {
+                content_section: section,
+                content_action: action,
+            })
+        },
         sendEmail() {
             if (
                 this.form.name === '' ||
@@ -348,6 +363,7 @@ export default {
                     )
                     .then(
                         result => {
+                            this.logEntry('email', 'sendEmail')
                             this.displayLoading = false
                             this.alertTitle = 'Exito!'
                             this.alertMessage =
