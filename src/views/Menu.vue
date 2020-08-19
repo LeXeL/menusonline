@@ -6,12 +6,7 @@
             class="q-pa-md"
             :style="{backgroundColor: data[0].restaurante.menuBackgroundColor}"
         >
-            <q-img
-                :src="image.url"
-                alt="menu"
-                style="width:100%"
-                class="shadow-5"
-            />
+            <q-img :src="image.url" alt="menu" style="width:100%" class="shadow-5" />
         </div>
         <footer>
             <div class="container">
@@ -23,9 +18,7 @@
                             @click="$router.push('/')"
                         />
 
-                        <p>
-                            Powered By BlueBalloon Inc.
-                        </p>
+                        <p>Powered By BlueBalloon Inc.</p>
                     </div>
                 </div>
             </div>
@@ -47,13 +40,8 @@
             >
                 <q-card-section class="absolute-center">
                     <div class="row justify-center">
-                        <div class="text-h5 q-mb-lg main-font">
-                            ¡Bienvenido!
-                        </div>
-                        <q-img
-                            :src="data[0].restaurante.logo"
-                            class="q-mb-lg"
-                        />
+                        <div class="text-h5 q-mb-lg main-font">¡Bienvenido!</div>
+                        <q-img :src="data[0].restaurante.logo" class="q-mb-lg" />
                         <q-btn
                             label="Ver Menu"
                             class="main-font"
@@ -88,13 +76,16 @@ export default {
     methods: {
         closeSplash() {
             this.splash = false
-            setTimeout(function() {
+            setTimeout(function () {
                 // document.documentElement.requestFullscreen()
             }, 300)
         },
     },
     async mounted() {
         let path = this.$route.params.path
+        this.$analytics.logEvent('Menu Enter', {
+            path,
+        })
         this.loading = true
         api.returRestaurantActiveMenu({path: path})
             .then(response => {
