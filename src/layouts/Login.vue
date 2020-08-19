@@ -41,6 +41,9 @@ export default {
         user() {
             return this.$store.getters.user
         },
+        uid() {
+            return this.$store.getters.uid
+        },
     },
     data() {
         return {
@@ -88,10 +91,10 @@ export default {
         },
     },
     mounted() {
-        if (this.user) this.$router.push('/restaurants/restaurants')
+        if (this.uid) this.$router.push('/restaurants/restaurants')
     },
 }
 </script>
 
 <style>
-</style>
+</style>    

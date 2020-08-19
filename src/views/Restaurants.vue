@@ -22,7 +22,11 @@
                     <q-card-section>
                         <div class="text-h6 mo-grey">Mis Menus</div>
                     </q-card-section>
-                    <restaurantsTable :data="data" @delete="askForDeleteBrewery"></restaurantsTable>
+                    <restaurantsTable
+                        :data="data"
+                        @delete="askForDeleteBrewery"
+                        @showQrCode="CreateQrCode"
+                    ></restaurantsTable>
                 </q-card>
             </div>
             <div class="col-lg-4 q-pa-md">
@@ -32,12 +36,12 @@
         <q-dialog v-model="alert">
             <q-card>
                 <q-card-section>
-                    <q-img
+                    <div ref="qrcode"></div>
+                    <!-- <q-img
                         src="https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png"
                         style="width: 350px"
-                    />
+                    />-->
                 </q-card-section>
-
                 <q-card-actions align="right">
                     <q-btn flat label="Descargar" color="primary" v-close-popup />
                     <q-btn flat label="Cerrar" color="primary" v-close-popup />
@@ -48,13 +52,20 @@
 </template>
 
 <script>
+import * as api from '@/api/api'
+import * as QRCode from 'easyqrcodejs'
+
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import * as api from '@/api/api'
 import restaurantsTable from '@/components/restaurantsTable'
 import restaurantsForm from '@/components/restaurantsForm'
 
 export default {
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+    },
     data() {
         return {
             left: false,
@@ -86,6 +97,21 @@ export default {
         })
     },
     methods: {
+        CreateQrCode(rest) {
+            let options = {
+                text: `https://mimenudigital.app/${rest.url}`,
+                width: 256,
+                height: 256,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.L, // L, M, Q, H
+                dotScale: 1, // Must be greater than 0, less than or equal to 1. default is 1
+            }
+            setTimeout(() => {
+                new QRCode(this.$refs.qrcode, options)
+            }, 500)
+            this.alert = true
+        },
         addToData(id, data) {
             data.id = id
             this.data.push(data)

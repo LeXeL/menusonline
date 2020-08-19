@@ -17,11 +17,18 @@
                 <div class="text-h6 text-center">{{ title }}</div>
             </q-card-section>
 
-            <q-card-section class="q-pt-none text-center">{{ message }}</q-card-section>
+            <q-card-section class="q-pt-none text-center">{{
+                message
+            }}</q-card-section>
 
-            <q-card-actions align="right">
-                <q-btn flat label="ACEPTAR" @click="$emit('accept')" color="primary" v-close-popup />
-            </q-card-actions>
+            <q-card-section align="right">
+                <q-btn flat @click="$emit('accept')" v-close-popup>
+                    Aceptar</q-btn
+                >
+            </q-card-section>
+            <!-- <q-card-section align="right">
+                <q-btn flat label="Aceptar" style="width: auto" />
+            </q-card-section> -->
         </q-card>
     </q-dialog>
 </template>

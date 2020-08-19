@@ -52,7 +52,6 @@ async function returnMenuById(id) {
         .doc(id)
         .get()
         .then(doc => {
-            console.log('Document successfully deleted!')
             return doc.data()
         })
         .catch(error => {

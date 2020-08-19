@@ -13,7 +13,7 @@
                 <q-td key="phone" :props="props">{{ props.row.phone }}</q-td>
                 <q-td key="url" :props="props">{{ props.row.url }}</q-td>
                 <q-td key="qr" :props="props">
-                    <q-btn size="sm" color="warning" @click="alert = true">
+                    <q-btn size="sm" color="warning" @click="$emit('showQrCode',props.row)">
                         <i class="fas fa-qrcode"></i>
                     </q-btn>
                 </q-td>
