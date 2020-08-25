@@ -2,14 +2,17 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/store'
 
-import DefaultLayout from './layouts/Default.vue'
 import Menu from './views/Menu.vue'
 import Restaurants from './views/Restaurants'
 import Menus from './views/Menus'
 import MenuDetails from './views/MenuDetails'
-import Login from './layouts/Login'
+import BiggFive from './views/wp/BiggFive'
 
+import DefaultLayout from './layouts/Default.vue'
+import Login from './layouts/Login'
 import Landing from './layouts/Landing'
+import WhatsappOrders from './layouts/WhatsappOrders'
+
 Vue.use(Router)
 
 const ifAuthenticated = (to, from, next) => {
@@ -53,6 +56,17 @@ export default new Router({
         {
             path: '/',
             component: Landing,
+        },
+        {
+            path: '/wp',
+            component: WhatsappOrders,
+            children: [
+                {
+                    path: '/wp/biggfive',
+                    name: 'biggfive',
+                    component: BiggFive,
+                },
+            ],
         },
     ],
 })
