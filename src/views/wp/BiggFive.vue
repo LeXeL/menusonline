@@ -357,7 +357,7 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
-                window.location.href = `https://wa.me/50762042578?text=${this.generateMessage()}`
+                window.location.href = `https://wa.me/50761127723?text=${this.generateMessage()}`
             }
         },
     },
