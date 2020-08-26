@@ -1,68 +1,28 @@
 <template>
-    <q-page class="bg-black text-white">
-        <q-img :src="require('@/assets/wp/biggfive/logo.jpeg')" />
+    <q-page>
+        <q-img :src="require('@/assets/wp/ceciliapescao/logo.jpg')" />
         <div class="q-pa-md">
-            <div class="text-h5 text-center q-mt-sm q-mb-lg afrika">
-                Realiza tu pedido
+            <div class="text-h4 text-center q-mt-sm q-mb-xl lobster">
+                <strong>
+                    Realiza tu pedido
+                </strong>
             </div>
-            <!-- SELECT AREA -->
-            <div class="row q-mb-xl">
-                <q-select
-                    dark
-                    filled
-                    color="red-7"
-                    v-model="selectedArea"
-                    :options="areas"
-                    label="Selecciona un area"
-                    class="full-width q-mb-md"
-                />
-                <div
-                    class="text-body2 text-center"
-                    v-if="selectedArea == 'Panama Pacifico & Panama Centro'"
-                >
-                    <strong
-                        >Los pedidos para Panama Pacifico & Panama Centro seran
-                        entregados el viernes 28 de agosto.</strong
-                    >
-                </div>
-                <div
-                    class="text-body2 text-center"
-                    v-if="selectedArea == 'Panama Oeste'"
-                >
-                    <strong
-                        >Los pedidos para Panama Oeste seran entregados el
-                        saabdo 29 de agosto.</strong
-                    >
-                </div>
-            </div>
-            <!-- END SELECT AREA -->
 
             <!-- MENU ITEMS -->
-            <div class="row q-mb-lg" v-for="(item, i) in menu" :key="i">
+            <div
+                class="row q-mb-lg bg-grey-3 q-pa-md rounded-borders"
+                v-for="(item, i) in menu"
+                :key="i"
+            >
                 <div class="col">
-                    <q-img
-                        class="rounded-borders"
-                        :src="require(`@/assets/wp/biggfive/${item.pic}`)"
-                    />
-                </div>
-                <div class="col q-px-md">
-                    <div class="text-h6 q-mb-sm afrika">{{ item.title }}</div>
-                    <div class="text-body2 q-mb-sm">{{ item.desc }}</div>
-                    <div
-                        class="text-h6 q-mb-md afrika"
-                        v-if="selectedArea == 'Panama Pacifico & Panama Centro'"
-                    >
-                        $ {{ item.pricePma.toFixed(2) }}
-                    </div>
-                    <div
-                        class="text-h6 q-mb-md afrika"
-                        v-if="selectedArea == 'Panama Oeste'"
-                    >
-                        $ {{ item.priceWest.toFixed(2) }}
+                    <div class="text-h5 lobster">{{ item.title }}</div>
+                    <div class="text-h6 q-mb-md">
+                        <strong>$ {{ item.price.toFixed(2) }}</strong>
                     </div>
                     <q-btn
                         color="amber"
                         text-color="black"
+                        class="full-width"
                         @click="selectItem(i)"
                         >Agregar</q-btn
                     >
@@ -70,46 +30,13 @@
             </div>
             <!-- END MENU ITEMS -->
 
-            <!-- ADDRESS INPUT -->
-            <div class="row q-my-lg q-pt-lg">
-                <div class="text-h6 q-mb-md afrika">
-                    Direccion de entrega (completa)
-                </div>
-                <q-input
-                    v-model="address"
-                    filled
-                    type="textarea"
-                    class="full-width"
-                    placeholder="Barriada, No. Calle, No. Casa"
-                    dark
-                    color="red-7"
-                    rows="4"
-                />
-            </div>
-            <!-- END ADDRESS INPUT -->
-
-            <!-- PAYMENT METHOD RADIOS -->
-            <div class="row q-mb-lg">
-                <div class="text-h6 q-mb-sm afrika">Metodo de pago:</div>
-                <q-option-group
-                    :options="paymentMethods"
-                    type="radio"
-                    v-model="selectedPaymentMethod"
-                    dark
-                    class="full-width"
-                    color="red-7"
-                    size="md"
-                />
-            </div>
-            <!-- END PAYMENT METHOD RADIOS -->
-
-            <hr dark />
+            <hr />
 
             <!-- TOTAL TO PAY -->
             <div class="row q-my-lg">
                 <div class="col">
                     <div class="text-h5 text-right afrika">
-                        Total: $ {{ total.toFixed(2) }}
+                        <strong>TOTAL: $ {{ total.toFixed(2) }}</strong>
                     </div>
                 </div>
             </div>
@@ -119,7 +46,7 @@
             <div class="row q-mb-md">
                 <q-btn
                     color="green-7"
-                    class="full-width afrika"
+                    class="full-width"
                     @click="cartDialog = true"
                     >Ver carrito</q-btn
                 >
@@ -128,13 +55,11 @@
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    dark
-                    v-if="selectedArea != null"
-                >
+                <q-card style="width: 700px; max-width: 80vw;">
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">ELIJA</div>
+                        <div class="text-h5 text-center lobster">
+                            <strong>Elija</strong>
+                        </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
@@ -153,27 +78,12 @@
                         >
                     </q-card-section>
                 </q-card>
-                <q-card style="width: 700px; max-width: 80vw;" dark v-else>
-                    <q-card-section>
-                        <div class="text-h6 text-center afrika">
-                            Primero seleccione un area.
-                        </div>
-                    </q-card-section>
-                    <q-card-section>
-                        <q-btn
-                            color="green-7"
-                            class="afrika full-width q-mb-md"
-                            @click="optionsDialog = false"
-                            >Aceptar</q-btn
-                        >
-                    </q-card-section>
-                </q-card>
             </q-dialog>
             <!-- END OPTIONS DIALOG -->
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card style="width: 700px; max-width: 80vw;" dark>
+                <q-card style="width: 700px; max-width: 80vw;">
                     <q-card-section>
                         <div class="text-h6 text-center afrika">
                             Agregado con exito
@@ -195,11 +105,10 @@
             <q-dialog v-model="cartDialog">
                 <q-card
                     style="width: 700px; max-width: 80vw;"
-                    dark
                     v-if="cart.length > 0"
                 >
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">
+                        <div class="text-h5 text-center lobster">
                             Detalle de pedido
                         </div>
                     </q-card-section>
@@ -241,24 +150,6 @@
                     </q-card-section>
                     <hr />
                     <q-card-section>
-                        <div class="text-body2">
-                            <strong>Direccion de entrega:</strong>
-                            {{ address }}
-                        </div>
-                        <div class="text-body2">
-                            <strong>Metodo de pago:</strong>
-                            {{ selectedPaymentMethod }}
-                        </div>
-                        <br />
-                        <div
-                            class="text-body2 text-center"
-                            v-if="selectedPaymentMethod == 'Yappy'"
-                        >
-                            Recuerda enviar el comprobante de pago a nuestro
-                            Whatsapp.
-                        </div>
-                    </q-card-section>
-                    <q-card-section>
                         <q-btn
                             color="green-7"
                             class="full-width q-mb-md afrika"
@@ -273,7 +164,7 @@
                         >
                     </q-card-section>
                 </q-card>
-                <q-card style="width: 700px; max-width: 80vw;" dark v-else>
+                <q-card style="width: 700px; max-width: 80vw;" v-else>
                     <q-card-section>
                         <div class="text-h6 text-center afrika">
                             Primero debes agregar algo a tu pedido.
@@ -298,16 +189,8 @@
 export default {
     data() {
         return {
-            whatsappNumber: '61127723',
-            selectedArea: null,
-            areas: ['Panama Pacifico & Panama Centro', 'Panama Oeste'],
+            whatsappNumber: '66189701',
             selectedItem: {},
-            paymentMethods: [
-                {label: 'Yappy', value: 'Yappy'},
-                {label: 'Efectivo', value: 'Efectivo'},
-            ],
-            selectedPaymentMethod: null,
-            address: '',
             total: 0,
             optionsDialog: false,
             successDialog: false,
@@ -315,30 +198,59 @@ export default {
             cart: [],
             menu: [
                 {
-                    title: 'Fish Bobotie',
-                    desc:
-                        'Pescado al horno con especias acompañado de nuestro arroz amarillo o puré, chutney de mango y sambals (ensalada de pepino)',
-                    options: ['Arroz amarillo', 'Pure'],
-                    pic: 'fish_bobotie.jpeg',
-                    pricePma: 8.5,
-                    priceWest: 7.5,
+                    title: 'Pescao Frito con Escabeche',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 8,
                 },
                 {
-                    title: 'Meat Bobotie',
-                    desc:
-                        'Carne al horno con especias acompañado de nuestro arroz amarillo o puré, chutney de mango y sambals (ensalada de pepino)',
-                    options: ['Arroz amarillo', 'Pure'],
-                    pic: 'meat_bobotie.jpeg',
-                    pricePma: 8.5,
-                    priceWest: 7.5,
+                    title: 'Pescao Frito con Mixto',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 12,
                 },
                 {
-                    title: 'Lata de Coca Cola',
-                    desc: '',
-                    options: ['Agregar Coca Cola'],
-                    pricePma: 1.0,
-                    priceWest: 1.0,
-                    pic: 'soda.jpg',
+                    title: 'Filete de Pescao',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 6,
+                },
+                {
+                    title: 'Filete de Pescao con Mixto',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 10,
+                },
+                {
+                    title: 'Filete con Camarones',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 10,
+                },
+                {
+                    title: 'Langostinos al Ajillo',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 10,
+                },
+                {
+                    title: 'Anillos de Calamar a la Criolla',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 8,
+                },
+                {
+                    title: 'Camarones al ajillo',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 10,
+                },
+                {
+                    title: 'Mixto de Mariscos en leche de coco',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 7,
+                },
+                {
+                    title: 'Almejas al Ajillo (entrada)',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 5,
+                },
+                {
+                    title: 'Deditos de Pollo',
+                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    price: 6,
                 },
             ],
         }
@@ -348,13 +260,10 @@ export default {
             this.selectedItem = {}
             this.selectedItem = {
                 title: this.menu[index].title,
+                price: this.menu[index].price,
                 options: this.menu[index].options,
                 amount: 1,
             }
-            if (this.selectedArea == 'Panama Pacifico & Panama Centro')
-                this.selectedItem.price = this.menu[index].pricePma
-            else this.selectedItem.price = this.menu[index].priceWest
-
             this.optionsDialog = true
         },
         addItemToCart(option) {
@@ -402,37 +311,18 @@ export default {
                 else message += `(${item.amount}) ${item.title}, `
             }
             message = message.slice(0, -2)
-            message += ` - Area de: ${this.selectedArea} - Direccion: ${
-                this.address
-            } - Metodo de pago: ${
-                this.selectedPaymentMethod
-            } - Total: $ ${this.total.toFixed(2)} (wk2)`
+            message += ` - Total: $ ${this.total.toFixed(2)}`
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
         },
         sendChat() {
-            if (this.address == '') {
-                alert(
-                    'Debes ingresar tu direccion completa para la entrega de tu pedido.'
-                )
-                return
-            }
-            if (this.selectedPaymentMethod == null) {
-                alert('Debes seleccionar un metodo de pago.')
-                return
-            } else {
-                window.location.href = `https://wa.me/507${
-                    this.whatsappNumber
-                }?text=${this.generateMessage()}`
-            }
+            window.location.href = `https://wa.me/507${
+                this.whatsappNumber
+            }?text=${this.generateMessage()}`
         },
     },
     watch: {
-        selectedArea: function() {
-            this.cart = []
-            this.calculateTotal()
-        },
         cart: function() {
             this.calculateTotal()
         },
@@ -441,12 +331,9 @@ export default {
 </script>
 
 <style scoped>
-@font-face {
-    font-family: Afrika;
-    src: url('../../assets/wp/biggfive/south_afirkas_ 2100.ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
-.afrika {
-    font-family: Afrika;
+.lobster {
+    font-family: 'Lobster', cursive;
 }
 </style>
