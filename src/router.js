@@ -7,6 +7,7 @@ import Restaurants from './views/Restaurants'
 import Menus from './views/Menus'
 import MenuDetails from './views/MenuDetails'
 import BiggFive from './views/wp/BiggFive'
+import CeciliaPescao from './views/wp/CeciliaPescao'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -65,6 +66,11 @@ export default new Router({
                     path: '/wp/biggfive',
                     name: 'biggfive',
                     component: BiggFive,
+                },
+                {
+                    path: '/wp/ceciliapescao',
+                    name: 'ceciliapescao',
+                    component: CeciliaPescao,
                 },
             ],
         },
