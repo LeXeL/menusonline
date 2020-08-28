@@ -6,8 +6,10 @@ import Menu from './views/Menu.vue'
 import Restaurants from './views/Restaurants'
 import Menus from './views/Menus'
 import MenuDetails from './views/MenuDetails'
+import Demo from './views/wp/Demo'
 import BiggFive from './views/wp/BiggFive'
 import CeciliaPescao from './views/wp/CeciliaPescao'
+import Enid from './views/wp/Enid'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -63,6 +65,11 @@ export default new Router({
             component: WhatsappOrders,
             children: [
                 {
+                    path: '/wp/demo',
+                    name: 'demo',
+                    component: Demo,
+                },
+                {
                     path: '/wp/biggfive',
                     name: 'biggfive',
                     component: BiggFive,
@@ -71,6 +78,11 @@ export default new Router({
                     path: '/wp/ceciliapescao',
                     name: 'ceciliapescao',
                     component: CeciliaPescao,
+                },
+                {
+                    path: '/wp/enid',
+                    name: 'enid',
+                    component: Enid,
                 },
             ],
         },
