@@ -468,14 +468,14 @@ export default {
             this.total = total
         },
         generateMessage() {
-            let message = 'Buenas, me gustaria realizar un pedido de: '
+            let message =
+                'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `(${item.amount}) Ceviche de ${item.title} ${item.type} tamaño ${item.selectedOption}, `
+                message += `- (${item.amount}) Ceviche de ${item.title} ${item.type} tamaño ${item.selectedOption}%0D%0A`
             }
-            message = message.slice(0, -2)
-            message += ` - Direccion: ${this.address} - Metodo de pago: ${
+            message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
-            } - Total: $ ${this.total.toFixed(2)}`
+            }%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
