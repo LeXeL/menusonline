@@ -2,9 +2,7 @@
     <q-page class="bg-black text-white">
         <q-img :src="require('@/assets/wp/biggfive/logo.jpeg')" />
         <div class="q-pa-md">
-            <div class="text-h5 text-center q-mt-sm q-mb-lg afrika">
-                Realiza tu pedido
-            </div>
+            <div class="text-h5 text-center q-mt-sm q-mb-lg afrika">Realiza tu pedido</div>
             <!-- SELECT AREA -->
             <div class="row q-mb-xl">
                 <q-select
@@ -20,19 +18,16 @@
                     class="text-body2 text-center"
                     v-if="selectedArea == 'Panama Pacifico & Panama Centro'"
                 >
-                    <strong
-                        >Los pedidos para Panama Pacifico & Panama Centro seran
-                        entregados el viernes 28 de agosto.</strong
-                    >
+                    <strong>
+                        Los pedidos para Panama Pacifico & Panama Centro seran
+                        entregados el viernes 28 de agosto.
+                    </strong>
                 </div>
-                <div
-                    class="text-body2 text-center"
-                    v-if="selectedArea == 'Panama Oeste'"
-                >
-                    <strong
-                        >Los pedidos para Panama Oeste seran entregados el
-                        saabdo 29 de agosto.</strong
-                    >
+                <div class="text-body2 text-center" v-if="selectedArea == 'Panama Oeste'">
+                    <strong>
+                        Los pedidos para Panama Oeste seran entregados el
+                        saabdo 29 de agosto.
+                    </strong>
                 </div>
             </div>
             <!-- END SELECT AREA -->
@@ -51,30 +46,19 @@
                     <div
                         class="text-h6 q-mb-md afrika"
                         v-if="selectedArea == 'Panama Pacifico & Panama Centro'"
-                    >
-                        $ {{ item.pricePma.toFixed(2) }}
-                    </div>
+                    >$ {{ item.pricePma.toFixed(2) }}</div>
                     <div
                         class="text-h6 q-mb-md afrika"
                         v-if="selectedArea == 'Panama Oeste'"
-                    >
-                        $ {{ item.priceWest.toFixed(2) }}
-                    </div>
-                    <q-btn
-                        color="amber"
-                        text-color="black"
-                        @click="selectItem(i)"
-                        >Agregar</q-btn
-                    >
+                    >$ {{ item.priceWest.toFixed(2) }}</div>
+                    <q-btn color="amber" text-color="black" @click="selectItem(i)">Agregar</q-btn>
                 </div>
             </div>
             <!-- END MENU ITEMS -->
 
             <!-- ADDRESS INPUT -->
             <div class="row q-my-lg q-pt-lg">
-                <div class="text-h6 q-mb-md afrika">
-                    Direccion de entrega (completa)
-                </div>
+                <div class="text-h6 q-mb-md afrika">Direccion de entrega (completa)</div>
                 <q-input
                     v-model="address"
                     filled
@@ -108,9 +92,7 @@
             <!-- TOTAL TO PAY -->
             <div class="row q-my-lg">
                 <div class="col">
-                    <div class="text-h5 text-right afrika">
-                        Total: $ {{ total.toFixed(2) }}
-                    </div>
+                    <div class="text-h5 text-right afrika">Total: $ {{ total.toFixed(2) }}</div>
                 </div>
             </div>
             <!-- END TOTAL TO PAY -->
@@ -121,18 +103,13 @@
                     color="green-7"
                     class="full-width afrika"
                     @click="cartDialog = true"
-                    >Ver carrito</q-btn
-                >
+                >Ver carrito</q-btn>
             </div>
             <!-- END VIEW CART BUTTON -->
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    dark
-                    v-if="selectedArea != null"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" dark v-if="selectedArea != null">
                     <q-card-section>
                         <div class="text-h6 text-center afrika">ELIJA</div>
                     </q-card-section>
@@ -143,29 +120,24 @@
                             v-for="option in selectedItem.options"
                             :key="option"
                             @click="addItemToCart(option)"
-                            >{{ option }}</q-btn
-                        >
+                        >{{ option }}</q-btn>
                         <q-btn
                             color="red-7"
                             class="afrika full-width q-mb-md"
                             @click="optionsDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
                 <q-card style="width: 700px; max-width: 80vw;" dark v-else>
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">
-                            Primero seleccione un area.
-                        </div>
+                        <div class="text-h6 text-center afrika">Primero seleccione un area.</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="afrika full-width q-mb-md"
                             @click="optionsDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -175,17 +147,14 @@
             <q-dialog v-model="successDialog">
                 <q-card style="width: 700px; max-width: 80vw;" dark>
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">
-                            Agregado con exito
-                        </div>
+                        <div class="text-h6 text-center afrika">Agregado con exito</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="afrika full-width q-mb-md"
                             @click="successDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -193,28 +162,14 @@
 
             <!-- CART DIALOG -->
             <q-dialog v-model="cartDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    dark
-                    v-if="cart.length > 0"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" dark v-if="cart.length > 0">
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">
-                            Detalle de pedido
-                        </div>
+                        <div class="text-h6 text-center afrika">Detalle de pedido</div>
                     </q-card-section>
                     <q-card-section>
-                        <div
-                            class="row q-mb-md"
-                            v-for="(item, i) in cart"
-                            :key="i"
-                        >
+                        <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
                             <div class="col-2">
-                                <q-btn
-                                    color="red-7"
-                                    size="sm"
-                                    @click="removeItemFromCart(i)"
-                                >
+                                <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </div>
@@ -224,17 +179,17 @@
                                     class="text-body2 q-pl-sm"
                                     v-if="item.title != 'Lata de Coca Cola'"
                                 >
-                                    <strong
-                                        >({{ item.amount }})
+                                    <strong>
+                                        ({{ item.amount }})
                                         {{ item.title }} con
-                                        {{ item.selectedOption }}</strong
-                                    >
+                                        {{ item.selectedOption }}
+                                    </strong>
                                 </div>
                                 <div class="text-body2 q-pl-sm" v-else>
-                                    <strong
-                                        >({{ item.amount }})
-                                        {{ item.title }}</strong
-                                    >
+                                    <strong>
+                                        ({{ item.amount }})
+                                        {{ item.title }}
+                                    </strong>
                                 </div>
                             </div>
                         </div>
@@ -250,10 +205,7 @@
                             {{ selectedPaymentMethod }}
                         </div>
                         <br />
-                        <div
-                            class="text-body2 text-center"
-                            v-if="selectedPaymentMethod == 'Yappy'"
-                        >
+                        <div class="text-body2 text-center" v-if="selectedPaymentMethod == 'Yappy'">
                             Recuerda enviar el comprobante de pago a nuestro
                             Whatsapp.
                         </div>
@@ -263,29 +215,26 @@
                             color="green-7"
                             class="full-width q-mb-md afrika"
                             @click="sendChat"
-                            >Enviar</q-btn
-                        >
+                        >Enviar</q-btn>
                         <q-btn
                             color="red-7"
                             class="full-width q-mb-md afrika"
                             @click="cartDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
                 <q-card style="width: 700px; max-width: 80vw;" dark v-else>
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">
-                            Primero debes agregar algo a tu pedido.
-                        </div>
+                        <div
+                            class="text-h6 text-center afrika"
+                        >Primero debes agregar algo a tu pedido.</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="afrika full-width q-mb-md"
                             @click="cartDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -384,10 +333,10 @@ export default {
             this.successDialog = true
             this.calculateTotal()
         },
-        removeItemFromCart: function(i) {
+        removeItemFromCart: function (i) {
             this.cart.splice(i, 1)
         },
-        calculateTotal: function() {
+        calculateTotal: function () {
             let total = 0
             for (let item of this.cart) {
                 total += item.amount * item.price
@@ -395,18 +344,19 @@ export default {
             this.total = total
         },
         generateMessage() {
-            let message = 'Buenas, me gustaria realizar un pedido de: '
+            let message =
+                'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
                 if (item.title != 'Lata de Coca Cola')
-                    message += `(${item.amount}) ${item.title} con ${item.selectedOption}, `
-                else message += `(${item.amount}) ${item.title}, `
+                    message += `- (${item.amount}) ${item.title} con ${item.selectedOption}%0D%0A`
+                else message += `- (${item.amount}) ${item.title}%0D%0A`
             }
-            message = message.slice(0, -2)
-            message += ` - Area de: ${this.selectedArea} - Direccion: ${
+            // message = message.slice(0, -2)
+            message += `%0D%0AArea de: ${this.selectedArea}%0D%0ADireccion: ${
                 this.address
-            } - Metodo de pago: ${
+            }%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
-            } - Total: $ ${this.total.toFixed(2)} (wk2)`
+            }%0D%0ATotal: $ ${this.total.toFixed(2)} (wk2)`
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
@@ -429,11 +379,11 @@ export default {
         },
     },
     watch: {
-        selectedArea: function() {
+        selectedArea: function () {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function() {
+        cart: function () {
             this.calculateTotal()
         },
     },
