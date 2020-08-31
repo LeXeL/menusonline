@@ -145,10 +145,10 @@
                                     >({{ item.amount }}) {{ item.title }}</strong>
                                     <strong
                                         v-if="item.type == 'extras'"
-                                    >({{ item.amount }}) Extra - {{ item.selectedOption }}</strong>
+                                    >({{ item.amount }}) Extra - {{ item.title }}</strong>
                                     <strong
                                         v-if="item.type == 'drinks'"
-                                    >({{ item.amount }}) Bebida - {{ item.selectedOption }}</strong>
+                                    >({{ item.amount }}) Bebida - {{ item.title }}</strong>
                                 </div>
                             </div>
                         </div>
@@ -307,53 +307,56 @@ export default {
         selectItem(index) {
             this.selectedItem = {}
             if (this.menu[index].type == 'main') {
-                this.selectedItem = this.menu[index]
-                this.selectedItem.amount = 1
-                this.cart.push(this.selectedItem)
-                this.successDialog = true
-                this.calculateTotal()
+                this.selectedItem = Object.assign({}, this.menu[index])
+                this.addItemToCart(this.selectedItem)
             } else {
-                this.selectedItem = this.menu[index]
-                this.selectedItem.amount = 1
+                this.selectedItem = Object.assign({}, this.menu[index])
                 this.optionsDialog = true
             }
         },
-        addItemToCart(option) {
-            this.selectedItem.selectedOption = option.title
-            this.selectedItem.price = option.price
-            this.cart.push(this.selectedItem)
-            this.optionsDialog = false
-            this.successDialog = true
-            this.calculateTotal()
+        checkIfDuplicate() {
+            let isDuplicate = false
+            if (this.cart.length <= 0) {
+                isDuplicate = false
+            }
+
+            this.cart.forEach(c => {
+                if (
+                    c.type === this.selectedItem.type &&
+                    c.title === this.selectedItem.title
+                ) {
+                    isDuplicate = true
+                }
+            })
+
+            return isDuplicate
         },
-        // checkDuplicates() {
-        // if (this.cart.length <= 0) {
-        //     this.cart.push(this.selectedItem)
-        //     return
-        // }
-        // for (let i = 0; i < this.cart.length; i++) {
-        //     if (this.selectedItem.type == 'main') {
-        //         if (this.cart[i].title == this.selectedItem.title) {
-        //             this.selectedItem.amount++
-        //             return
-        //         }
-        //     } else {
-        //         this.cart.push(this.selectedItem)
-        //         return
-        //         if (
-        //             this.cart[i].title == this.selectedItem.title &&
-        //             this.cart[i].selectedOption ==
-        //                 this.selectedItem.selectedOption
-        //         ) {
-        //             console.log(this.cart[i])
-        //             console.log(this.selectedItem)
-        //             this.selectedItem.amount++
-        //             return
-        //         }
-        //     }
-        // }
-        // this.cart.push(this.selectedItem)
-        // },
+        addItemToCart(option) {
+            option.type = this.selectedItem.type
+            if (this.selectedItem.type === 'extras') {
+                this.selectedItem.title = option.title
+            }
+            if (!this.checkIfDuplicate()) {
+                option.amount = 1
+                this.cart.push(option)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            } else {
+                console.log('entro aqui')
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            }
+        },
         removeItemFromCart: function (i) {
             this.cart.splice(i, 1)
         },
