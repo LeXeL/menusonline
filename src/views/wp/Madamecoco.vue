@@ -333,7 +333,10 @@ export default {
         },
         addItemToCart(option) {
             option.type = this.selectedItem.type
-            if (this.selectedItem.type === 'extras') {
+            if (
+                this.selectedItem.type === 'extras' ||
+                this.selectedItem.type === 'drinks'
+            ) {
                 this.selectedItem.title = option.title
             }
             if (!this.checkIfDuplicate()) {
