@@ -35,7 +35,7 @@
                     type="textarea"
                     class="full-width poppins-regular"
                     placeholder="Barriada, No. Calle, No. Casa"
-                    color="orange-9"
+                    color="orange-8"
                     rows="4"
                 />
             </div>
@@ -49,7 +49,7 @@
                     type="radio"
                     v-model="selectedPaymentMethod"
                     class="full-width poppins-regular"
-                    color="orange-9"
+                    color="orange-8"
                     size="md"
                 />
             </div>
@@ -77,9 +77,9 @@
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-9">
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold text-white">ELIJA</div>
+                        <div class="text-h6 text-center poppins-bold text-brown-9">ELIJA</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
@@ -105,9 +105,11 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-9">
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold text-white">Agregado con exito</div>
+                        <div
+                            class="text-h6 text-center poppins-bold text-brown-9"
+                        >Agregado con exito</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
@@ -124,7 +126,7 @@
             <q-dialog v-model="cartDialog">
                 <q-card
                     style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-9 text-white"
+                    class="bg-grey-2 text-brown-9"
                     v-if="cart.length > 0"
                 >
                     <q-card-section>
@@ -210,8 +212,6 @@ export default {
     data() {
         return {
             whatsappNumber: '62042578',
-            selectedArea: null,
-            areas: ['Panama Pacifico & Panama Centro', 'Panama Oeste'],
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -227,26 +227,29 @@ export default {
             menu: [
                 {
                     title: 'Corvina frita con escabeche',
-                    desc: 'Acompañado con arroz blanco y plátano en tentación.',
+                    desc:
+                        'Acompañado con arroz blanco o arroz con coco y plátano en tentación.',
+                    options: ['Arroz blanco', 'Arroz con coco + $1.50'],
                     type: 'main',
                     price: 11,
                 },
                 {
-                    title: 'Dedos de pescado',
-                    desc: 'Acompañado de arroz blanco y plátano en tentación.',
+                    title: 'Filete de pescado empanizado (4 porciones)',
+                    desc:
+                        'Para 4 personas - Acompañado con arroz blanco o arroz con coco, platano en tentacion y salsa de la casa.',
+                    options: [
+                        'Arroz blanco',
+                        'Arroz con coco + $1.50',
+                        'Papas fritas',
+                    ],
                     type: 'main',
-                    price: 9,
-                },
-                {
-                    title: 'Filete de pescado empanizado',
-                    desc: 'Para 4 personas - no  incluye acompañamientos.',
-                    type: 'main',
-                    price: 15,
+                    price: 28,
                 },
                 {
                     title: 'Menu Kids',
                     desc:
                         'Deditos de pescados empanizados acompañados de papas fritas.',
+                    options: ['Papas fritas'],
                     type: 'main',
                     price: 5,
                 },
@@ -292,11 +295,11 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    price: 5,
                 },
                 {
                     title: 'Botella de picante',
                     type: 'main',
+                    options: ['Botella 8oz.'],
                     desc: '',
                     price: 5,
                 },
@@ -374,10 +377,12 @@ export default {
             let message =
                 'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                if (item.title != 'Bebidas')
-                    message += `- (${item.amount}) ${item.title} con ${item.selectedOption}%0D%0A`
-                else
-                    message += `- (${item.amount}) Bebida - ${item.selectedOption}%0D%0A`
+                if (item.type == 'main')
+                    message += `- (${item.amount}) ${item.title}%0D%0A`
+                if (item.type == 'extras')
+                    message += `- (${item.amount}) Extra - ${item.title}%0D%0A`
+                if (item.type == 'drinks')
+                    message += `- (${item.amount}) Bebida - ${item.title}%0D%0A`
             }
             message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
