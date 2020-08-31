@@ -212,7 +212,7 @@ export default {
     data() {
         return {
             selectedItemIndex: 0,
-            whatsappNumber: '62042578',
+            whatsappNumber: '62109076',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -303,7 +303,7 @@ export default {
                 {
                     title: 'Botella de picante',
                     type: 'extras',
-                    options: [{title: 'Botella 8oz.', price: 0}],
+                    options: [{title: 'Botella de picante 8oz.', price: 0}],
                     desc: '',
                     price: 5,
                 },
@@ -336,13 +336,6 @@ export default {
         },
         addItemToCart(option) {
             this.selectedItem.options = option
-            // option.type = this.selectedItem.type
-            // if (
-            //     this.selectedItem.type === 'extras' ||
-            //     this.selectedItem.type === 'drinks'
-            // ) {
-            //     this.selectedItem.title = option.title
-            // }
             if (!this.checkIfDuplicate()) {
                 this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
@@ -380,11 +373,11 @@ export default {
                 'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
                 if (item.type == 'main')
-                    message += `- (${item.amount}) ${item.title}%0D%0A`
+                    message += `- (${item.amount}) ${item.title} con ${item.options.title}%0D%0A`
                 if (item.type == 'extras')
-                    message += `- (${item.amount}) Extra - ${item.title}%0D%0A`
+                    message += `- (${item.amount}) Extra - ${item.options.title}%0D%0A`
                 if (item.type == 'drinks')
-                    message += `- (${item.amount}) Bebida - ${item.title}%0D%0A`
+                    message += `- (${item.amount}) Bebida - ${item.options.title}%0D%0A`
             }
             message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
