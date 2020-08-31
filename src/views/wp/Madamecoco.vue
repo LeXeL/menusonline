@@ -91,7 +91,7 @@
                         >
                             {{ option.title }}
                             <br />
-                            <!-- $ {{ option.price.toFixed(2) }} -->
+                            {{ option.price > 0 ? '$'+option.price.toFixed(2):'' }}
                         </q-btn>
                         <q-btn
                             color="red-7"
@@ -232,7 +232,7 @@ export default {
                         'Acompañado con arroz blanco o arroz con coco y plátano en tentación.',
                     options: [
                         {title: 'Arroz blanco', price: 0},
-                        {title: 'Arroz con coco + $1.50', price: 1.5},
+                        {title: 'Arroz con coco', price: 1.5},
                     ],
                     type: 'main',
                     price: 11,
@@ -243,7 +243,7 @@ export default {
                         'Para 4 personas - Acompañado con arroz blanco o arroz con coco, platano en tentacion y salsa de la casa.',
                     options: [
                         {title: 'Arroz blanco', price: 0},
-                        {title: 'Arroz con coco + $1.50', price: 0},
+                        {title: 'Arroz con coco', price: 1.5},
                         {title: 'Papas fritas', price: 0},
                     ],
                     type: 'main',
@@ -336,7 +336,6 @@ export default {
         },
         addItemToCart(option) {
             this.selectedItem.options = option
-            console.log(this.selectedItem)
             // option.type = this.selectedItem.type
             // if (
             //     this.selectedItem.type === 'extras' ||
