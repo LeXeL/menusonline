@@ -85,13 +85,13 @@
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
-                            v-for="(option, i) in selectedItem.options"
+                            v-for="(option, i) in menu[selectedItemIndex].options"
                             :key="i"
                             @click="addItemToCart(option)"
                         >
                             {{ option.title }}
                             <br />
-                            $ {{ option.price.toFixed(2) }}
+                            <!-- $ {{ option.price.toFixed(2) }} -->
                         </q-btn>
                         <q-btn
                             color="red-7"
@@ -144,13 +144,13 @@
                                 <div class="text-body2 q-pl-sm poppins-regular">
                                     <strong
                                         v-if="item.type == 'main'"
-                                    >({{ item.amount }}) {{ item.title }}</strong>
+                                    >({{ item.amount }}) {{ item.title }} con {{item.options.title}}</strong>
                                     <strong
                                         v-if="item.type == 'extras'"
-                                    >({{ item.amount }}) Extra - {{ item.title }}</strong>
+                                    >({{ item.amount }}) Extra - {{item.options.title}}</strong>
                                     <strong
                                         v-if="item.type == 'drinks'"
-                                    >({{ item.amount }}) Bebida - {{ item.title }}</strong>
+                                    >({{ item.amount }}) Bebida - {{item.options.title}}</strong>
                                 </div>
                             </div>
                         </div>
@@ -211,6 +211,7 @@
 export default {
     data() {
         return {
+            selectedItemIndex: 0,
             whatsappNumber: '62042578',
             selectedItem: {},
             paymentMethods: [
@@ -229,7 +230,10 @@ export default {
                     title: 'Corvina frita con escabeche',
                     desc:
                         'Acompañado con arroz blanco o arroz con coco y plátano en tentación.',
-                    options: ['Arroz blanco', 'Arroz con coco + $1.50'],
+                    options: [
+                        {title: 'Arroz blanco', price: 0},
+                        {title: 'Arroz con coco + $1.50', price: 1.5},
+                    ],
                     type: 'main',
                     price: 11,
                 },
@@ -238,9 +242,9 @@ export default {
                     desc:
                         'Para 4 personas - Acompañado con arroz blanco o arroz con coco, platano en tentacion y salsa de la casa.',
                     options: [
-                        'Arroz blanco',
-                        'Arroz con coco + $1.50',
-                        'Papas fritas',
+                        {title: 'Arroz blanco', price: 0},
+                        {title: 'Arroz con coco + $1.50', price: 0},
+                        {title: 'Papas fritas', price: 0},
                     ],
                     type: 'main',
                     price: 28,
@@ -249,7 +253,7 @@ export default {
                     title: 'Menu Kids',
                     desc:
                         'Deditos de pescados empanizados acompañados de papas fritas.',
-                    options: ['Papas fritas'],
+                    options: [{title: 'Papas fritas', price: 0}],
                     type: 'main',
                     price: 5,
                 },
@@ -298,8 +302,8 @@ export default {
                 },
                 {
                     title: 'Botella de picante',
-                    type: 'main',
-                    options: ['Botella 8oz.'],
+                    type: 'extras',
+                    options: [{title: 'Botella 8oz.', price: 0}],
                     desc: '',
                     price: 5,
                 },
@@ -308,14 +312,9 @@ export default {
     },
     methods: {
         selectItem(index) {
-            this.selectedItem = {}
-            if (this.menu[index].type == 'main') {
-                this.selectedItem = Object.assign({}, this.menu[index])
-                this.addItemToCart(this.selectedItem)
-            } else {
-                this.selectedItem = Object.assign({}, this.menu[index])
-                this.optionsDialog = true
-            }
+            this.selectedItemIndex = index
+            this.selectedItem = Object.assign({}, this.menu[index])
+            this.optionsDialog = true
         },
         checkIfDuplicate() {
             let isDuplicate = false
@@ -326,7 +325,8 @@ export default {
             this.cart.forEach(c => {
                 if (
                     c.type === this.selectedItem.type &&
-                    c.title === this.selectedItem.title
+                    c.title === this.selectedItem.title &&
+                    c.options.title === this.selectedItem.options.title
                 ) {
                     isDuplicate = true
                 }
@@ -335,25 +335,27 @@ export default {
             return isDuplicate
         },
         addItemToCart(option) {
-            option.type = this.selectedItem.type
-            if (
-                this.selectedItem.type === 'extras' ||
-                this.selectedItem.type === 'drinks'
-            ) {
-                this.selectedItem.title = option.title
-            }
+            this.selectedItem.options = option
+            console.log(this.selectedItem)
+            // option.type = this.selectedItem.type
+            // if (
+            //     this.selectedItem.type === 'extras' ||
+            //     this.selectedItem.type === 'drinks'
+            // ) {
+            //     this.selectedItem.title = option.title
+            // }
             if (!this.checkIfDuplicate()) {
-                option.amount = 1
-                this.cart.push(option)
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
                 this.optionsDialog = false
                 this.successDialog = true
                 this.calculateTotal()
             } else {
-                console.log('entro aqui')
                 this.cart.forEach(c => {
                     if (
                         c.type === this.selectedItem.type &&
-                        c.title === this.selectedItem.title
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title
                     ) {
                         c.amount++
                     }
@@ -363,14 +365,15 @@ export default {
                 this.calculateTotal()
             }
         },
-        removeItemFromCart: function (i) {
+        removeItemFromCart(i) {
             this.cart.splice(i, 1)
         },
-        calculateTotal: function () {
+        calculateTotal() {
             let total = 0
-            for (let item of this.cart) {
-                total += item.amount * item.price
-            }
+            this.cart.forEach(c => {
+                if (c.price) total += c.price
+                total += c.options.price
+            })
             this.total = total
         },
         generateMessage() {
