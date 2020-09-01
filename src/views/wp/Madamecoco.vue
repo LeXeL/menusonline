@@ -228,8 +228,7 @@ export default {
             menu: [
                 {
                     title: 'Corvina frita con escabeche',
-                    desc:
-                        'Acompañado con arroz blanco o arroz con coco y plátano en tentación.',
+                    desc: 'Acompañado con arroz blanco y plátano en tentación.',
                     options: [
                         {title: 'Arroz blanco', price: 0},
                         {title: 'Arroz con coco', price: 1.5},
@@ -240,9 +239,8 @@ export default {
                 {
                     title: 'Filete de pescado empanizado (4 porciones)',
                     desc:
-                        'Para 4 personas - Acompañado con arroz blanco o arroz con coco, platano en tentacion y salsa de la casa.',
+                        'Para 4 personas - Acompañado con arroz blanco, platano en tentacion y salsa de la casa.',
                     options: [
-                        {title: 'Arroz blanco', price: 0},
                         {title: 'Arroz con coco', price: 1.5},
                         {title: 'Papas fritas', price: 0},
                     ],
@@ -264,7 +262,7 @@ export default {
                     type: 'extras',
                     options: [
                         {
-                            title: 'Orden de arroz con coco',
+                            title: 'Arroz con coco',
                             price: 2.5,
                         },
                         {
@@ -272,15 +270,15 @@ export default {
                             price: 2,
                         },
                         {
-                            title: 'Orden grande de arroz con coco',
+                            title: 'Arroz con coco (4 porciones)',
                             price: 5,
                         },
                         {
-                            title: 'Orden grande de arroz blanco',
+                            title: 'Arroz blanco (4 porciones)',
                             price: 4,
                         },
                         {
-                            title: 'Orden grande de papas fritas',
+                            title: 'Papas fritas (4 porciones)',
                             price: 4,
                         },
                     ],
