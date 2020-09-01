@@ -307,7 +307,7 @@ export default {
                 {
                     title: 'Botella de picante',
                     type: 'extras',
-                    options: [{title: 'Botella de picante 8oz.', price: 0}],
+                    options: [{title: 'Presentacion de 240ml', price: 0}],
                     desc: '',
                     price: 5,
                 },
