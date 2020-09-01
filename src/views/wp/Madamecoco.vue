@@ -6,10 +6,14 @@
 
             <!-- MENU ITEMS -->
             <div class="row q-mb-xl" v-for="(item, i) in menu" :key="i">
-                <!-- <div class="col">
-                    <q-img class="rounded-borders" :src="require(`@/assets/wp/demo/${item.pic}`)" />
-                </div>-->
-                <div class="col q-px-md">
+                <div class="col-12">
+                    <q-img
+                        class="rounded-borders q-mb-md"
+                        :src="require(`@/assets/wp/madamecoco/${item.pic}`)"
+                        v-if="item.pic != null"
+                    />
+                </div>
+                <div class="col-12 q-px-md">
                     <div class="text-h5 q-mb-sm poppins-bold">{{ item.title }}</div>
                     <div class="text-body2 q-mb-sm poppins-regular">{{ item.desc }}</div>
                     <div
@@ -229,6 +233,7 @@ export default {
                 {
                     title: 'Corvina frita con escabeche',
                     desc: 'Acompañado con arroz blanco y plátano en tentación.',
+                    pic: 'escabeche.jpeg',
                     options: [
                         {title: 'Arroz blanco', price: 0},
                         {title: 'Arroz con coco', price: 1.5},
@@ -251,6 +256,7 @@ export default {
                     title: 'Menu Kids',
                     desc:
                         'Deditos de pescados empanizados acompañados de papas fritas.',
+                    pic: 'kids.jpeg',
                     options: [{title: 'Papas fritas', price: 0}],
                     type: 'main',
                     price: 5,
