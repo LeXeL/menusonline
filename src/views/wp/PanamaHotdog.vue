@@ -2,34 +2,48 @@
     <q-page class>
         <q-img :src="require('@/assets/wp/panamahotdog/logo.jpg')" />
         <div class="q-pa-md">
-            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
+            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
+                REALIZA TU PEDIDO
+            </div>
 
             <!-- MENU ITEMS -->
             <div class="row q-mb-xl" v-for="(item, i) in menu" :key="i">
-                <!-- <div class="col-12">
+                <div class="col-4">
                     <q-img
                         class="rounded-borders q-mb-md"
-                        :src="require(`@/assets/wp/madamecoco/${item.pic}`)"
+                        :src="require(`@/assets/wp/panamahotdog/${item.pic}`)"
                         v-if="item.pic != null"
                     />
-                </div>-->
-                <div class="col-12 q-px-md">
-                    <div class="text-h5 q-mb-sm poppins-bold">{{ item.title }}</div>
-                    <div class="text-body2 q-mb-sm poppins-regular">{{ item.desc }}</div>
+                </div>
+                <div class="col q-px-md">
+                    <div class="text-h5 q-mb-sm poppins-bold">
+                        {{ item.title }}
+                    </div>
+                    <div class="text-body2 q-mb-sm poppins-regular">
+                        {{ item.desc }}
+                    </div>
                     <div
                         class="text-h6 q-mb-md poppins-bold"
                         v-if="item.price != null"
-                    >$ {{ item.price.toFixed(2) }}</div>
+                    >
+                        $ {{ item.price.toFixed(2) }}
+                    </div>
                     <q-btn
                         color="amber-13"
                         text-color="black"
                         class="poppins-bold full-width"
                         @click="selectItem(i)"
-                    >Agregar</q-btn>
+                        >Agregar</q-btn
+                    >
                 </div>
             </div>
             <!-- END MENU ITEMS -->
+
+            <!-- GOOGLE MAP -->
             <div>
+                <div class="text-h6 q-mb-md poppins-bold">
+                    Ubicacion de entrega
+                </div>
                 <GoogleMaps
                     v-if="Object.keys(center).length > 0"
                     @markerPosition="setMarkerPosition"
@@ -38,17 +52,20 @@
                     :mapCenter="center"
                 ></GoogleMaps>
             </div>
+            <!-- END GOOGLE MAP -->
 
             <!-- ADDRESS INPUT -->
-            <div class="row q-my-lg q-pt-lg">
-                <div class="text-h6 q-mb-md poppins-bold">Direccion de entrega (completa)</div>
+            <div class="row q-my-lg">
+                <div class="text-h6 q-mb-md poppins-bold">
+                    Direccion panameña
+                </div>
                 <q-input
                     v-model="address"
                     filled
                     type="textarea"
                     class="full-width poppins-regular"
-                    placeholder="Barriada, No. Calle, No. Casa"
-                    color="orange-8"
+                    placeholder="Brisas, calle 15, casa 2b, color crema, diagonal al palo de mango"
+                    color="amber-13"
                     rows="4"
                 />
             </div>
@@ -62,7 +79,7 @@
                     type="radio"
                     v-model="selectedPaymentMethod"
                     class="full-width poppins-regular"
-                    color="orange-8"
+                    color="amber-13"
                     size="md"
                 />
             </div>
@@ -73,7 +90,9 @@
             <!-- TOTAL TO PAY -->
             <div class="row q-my-lg">
                 <div class="col">
-                    <div class="text-h5 text-right poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
+                    <div class="text-h5 text-right poppins-bold">
+                        Total: $ {{ total.toFixed(2) }}
+                    </div>
                 </div>
             </div>
             <!-- END TOTAL TO PAY -->
@@ -84,7 +103,8 @@
                     color="green-7"
                     class="full-width poppins-bold"
                     @click="cartDialog = true"
-                >Ver carrito</q-btn>
+                    >Ver carrito</q-btn
+                >
             </div>
             <!-- END VIEW CART BUTTON -->
 
@@ -92,25 +112,33 @@
             <q-dialog v-model="optionsDialog">
                 <q-card style="width: 700px; max-width: 80vw;">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
+                        <div class="text-h6 text-center poppins-bold">
+                            ELIJA
+                        </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
-                            v-for="(option, i) in menu[selectedItemIndex].options"
+                            v-for="(option, i) in menu[selectedItemIndex]
+                                .options"
                             :key="i"
                             @click="addItemToCart(option)"
                         >
                             {{ option.title }}
                             <br />
-                            {{ option.price > 0 ? '$'+option.price.toFixed(2):'' }}
+                            {{
+                                option.price > 0
+                                    ? '$' + option.price.toFixed(2)
+                                    : ''
+                            }}
                         </q-btn>
                         <q-btn
                             color="red-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
-                        >Cancelar</q-btn>
+                            >Cancelar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -120,14 +148,17 @@
             <q-dialog v-model="successDialog">
                 <q-card style="width: 700px; max-width: 80vw;">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">Agregado con exito</div>
+                        <div class="text-h6 text-center poppins-bold">
+                            Agregado con exito
+                        </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
-                        >Aceptar</q-btn>
+                            >Aceptar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -135,29 +166,45 @@
 
             <!-- CART DIALOG -->
             <q-dialog v-model="cartDialog">
-                <q-card style="width: 700px; max-width: 80vw;" v-if="cart.length > 0">
+                <q-card
+                    style="width: 700px; max-width: 80vw;"
+                    v-if="cart.length > 0"
+                >
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">Detalle de pedido</div>
+                        <div class="text-h6 text-center poppins-bold">
+                            Detalle de pedido
+                        </div>
                     </q-card-section>
                     <q-card-section>
-                        <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
+                        <div
+                            class="row q-mb-md"
+                            v-for="(item, i) in cart"
+                            :key="i"
+                        >
                             <div class="col-2">
-                                <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
+                                <q-btn
+                                    color="red-7"
+                                    size="sm"
+                                    @click="removeItemFromCart(i)"
+                                >
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </div>
 
                             <div class="col">
                                 <div class="text-body2 q-pl-sm poppins-regular">
-                                    <strong
-                                        v-if="item.type == 'main'"
-                                    >({{ item.amount }}) {{ item.title }} con {{item.options.title}}</strong>
-                                    <strong
-                                        v-if="item.type == 'extras'"
-                                    >({{ item.amount }}) Extra - {{item.options.title}}</strong>
-                                    <strong
-                                        v-if="item.type == 'drinks'"
-                                    >({{ item.amount }}) Bebida - {{item.options.title}}</strong>
+                                    <strong v-if="item.type == 'main'"
+                                        >({{ item.amount }}) {{ item.title }} -
+                                        {{ item.options.title }}</strong
+                                    >
+                                    <strong v-if="item.type == 'extras'"
+                                        >({{ item.amount }}) Extra -
+                                        {{ item.options.title }}</strong
+                                    >
+                                    <strong v-if="item.type == 'drinks'"
+                                        >({{ item.amount }}) Bebida -
+                                        {{ item.options.title }}</strong
+                                    >
                                 </div>
                             </div>
                         </div>
@@ -186,26 +233,29 @@
                             color="green-7"
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
-                        >Enviar</q-btn>
+                            >Enviar</q-btn
+                        >
                         <q-btn
                             color="red-7"
                             class="full-width q-mb-md poppins-bold"
                             @click="cartDialog = false"
-                        >Cancelar</q-btn>
+                            >Cancelar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
                 <q-card style="width: 700px; max-width: 80vw;" v-else>
                     <q-card-section>
-                        <div
-                            class="text-h6 text-center poppins-bold"
-                        >Primero debes agregar algo a tu pedido.</div>
+                        <div class="text-h6 text-center poppins-bold">
+                            Primero debes agregar algo a tu pedido.
+                        </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="cartDialog = false"
-                        >Aceptar</q-btn>
+                            >Aceptar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -242,6 +292,7 @@ export default {
                     desc:
                         'Ketchup, mayonesa, queso blanco rayado, papitas trituradas y jalea de piña.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 2,
                     options: [
                         {
@@ -259,6 +310,7 @@ export default {
                     desc:
                         'Ketchup, mayonesa, pico de gallo y queso amarillo fundido.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 2,
                     options: [
                         {
@@ -276,6 +328,7 @@ export default {
                     desc:
                         'Ketchup, mayonesa, carne molida, y queso amarillo fundido.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 2.5,
                     options: [
                         {
@@ -293,6 +346,7 @@ export default {
                     desc:
                         'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
                     type: 'main',
+                    pic: 'empty.png',
                     options: [
                         {
                             title: 'Pequeño',
@@ -309,6 +363,7 @@ export default {
                     desc:
                         'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
                     type: 'main',
+                    pic: 'revoltosa.jpeg',
                     options: [
                         {
                             title: 'Carne molida - Pequeño',
@@ -333,6 +388,7 @@ export default {
                     desc:
                         'Ketchup, mayonesa, lechuga, tomate, queso amarillo fundido, carne de res 8oz.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 4,
                     options: [
                         {
@@ -350,6 +406,7 @@ export default {
                     desc:
                         'Mayonesa, lechuga, tomate, tender de pechuga de pollo, queso blanco, o amarillo.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 4,
                     options: [
                         {
@@ -375,6 +432,7 @@ export default {
                     desc:
                         'Tender de pechuga de pollo, queso blanco, salsa tartara, chicharrón.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 4,
                     options: [
                         {
@@ -388,6 +446,7 @@ export default {
                     desc:
                         'Carne desmechada, queso blanco, salsa tartara, chicharrón.',
                     type: 'main',
+                    pic: 'arepa_carne_mechada.jpeg',
                     price: 4,
                     options: [
                         {
@@ -401,6 +460,7 @@ export default {
                     desc:
                         'Pollo, carne, chorizo, queso blanco, salsa tartara, chicharrón.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 4,
                     options: [
                         {
@@ -414,6 +474,7 @@ export default {
                     desc:
                         'Carne molida, queso amarillo, mayonesa, pico de gallo.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 4,
                     options: [
                         {
@@ -427,6 +488,7 @@ export default {
                     desc:
                         'Pechuga de pollo apanada, pico de gallo, queso amarillo fundido, ketchup, mayonesa.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 4,
                     options: [
                         {
@@ -440,6 +502,7 @@ export default {
                     desc:
                         'Ketchup, mayonesa, pico de gallo, carne molida, pollo, queso amarillo fundido.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 5,
                     options: [
                         {
@@ -452,6 +515,7 @@ export default {
                     title: 'Club sandwich con papas',
                     desc: '',
                     type: 'main',
+                    pic: 'club_sandwich.jpeg',
                     price: 6,
                     options: [
                         {
@@ -464,6 +528,7 @@ export default {
                     title: 'Alitas con papas',
                     desc: '',
                     type: 'main',
+                    pic: 'alitas.jpeg',
                     price: 6,
                     options: [
                         {
@@ -476,6 +541,7 @@ export default {
                     title: 'Empanadas',
                     desc: '',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 2,
                     options: [
                         {
@@ -496,6 +562,7 @@ export default {
                     title: 'Empanadas venezolanas',
                     desc: '',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 2,
                     options: [
                         {
@@ -512,6 +579,7 @@ export default {
                     title: 'Papas fritas',
                     desc: 'Orden extra de papas fritas.',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 1.5,
                     options: [
                         {
@@ -524,6 +592,7 @@ export default {
                     title: 'Soda',
                     desc: 'Coca Cola, Ginger ale, Squirt',
                     type: 'main',
+                    pic: 'soda.jpg',
                     price: 1,
                     options: [
                         {
@@ -531,11 +600,27 @@ export default {
                             price: 0,
                         },
                         {
-                            title: 'Squirt',
+                            title: 'GingerAle',
                             price: 0,
                         },
                         {
-                            title: 'Ginger ale',
+                            title: 'Dr. Peper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Suerte',
                             price: 0,
                         },
                     ],
@@ -544,6 +629,7 @@ export default {
                     title: 'Jugo',
                     desc: 'Naranja, Piña, etc.',
                     type: 'main',
+                    pic: 'jugos.jpg',
                     price: 1,
                     options: [
                         {
@@ -560,6 +646,7 @@ export default {
                     title: 'Agua',
                     desc: 'Botella de agua de 600ml.',
                     type: 'main',
+                    pic: 'agua.jpg',
                     price: 1,
                     options: [
                         {
@@ -570,28 +657,37 @@ export default {
                 },
                 {
                     title: 'Batido',
-                    desc: 'Batidos de papaya, melon, melocoton, etc.',
+                    desc: 'Batidos de fresa, maracuya, papaya, etc.',
                     type: 'main',
-                    price: 2.5,
+                    pic: 'batido.jpeg',
                     options: [
                         {
-                            title: 'Papaya',
-                            price: 0,
+                            title: 'Fresa',
+                            price: 2.5,
                         },
                         {
-                            title: 'Melon',
-                            price: 0,
+                            title: 'Maracuya',
+                            price: 2.5,
+                        },
+                        {
+                            title: 'Papaya',
+                            price: 2.5,
                         },
                         {
                             title: 'Melocoton',
-                            price: 0,
+                            price: 2.5,
+                        },
+                        {
+                            title: 'Cornflakes',
+                            price: 2.5,
                         },
                     ],
                 },
                 {
-                    title: 'Limonada',
+                    title: 'Limonada con hierbabuena',
                     desc: '',
                     type: 'main',
+                    pic: 'empty.png',
                     price: 2,
                     options: [
                         {
@@ -604,6 +700,7 @@ export default {
                     title: 'Pescado con patacones',
                     desc: '',
                     type: 'main',
+                    pic: 'filete_de_pescado.jpeg',
                     price: 10,
                     options: [
                         {
@@ -617,6 +714,7 @@ export default {
                     desc: '',
                     type: 'main',
                     price: 2,
+                    pic: 'saus.jpeg',
                     options: [
                         {
                             title: 'Regular',
@@ -628,6 +726,7 @@ export default {
                     title: 'Ceviche',
                     desc: '',
                     type: 'main',
+                    pic: 'ceviche.jpeg',
                     options: [
                         {
                             title: 'Tradicional',
@@ -704,16 +803,14 @@ export default {
             let message =
                 'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                if (item.type == 'main')
-                    message += `- (${item.amount}) ${item.title} con ${item.options.title}%0D%0A`
-                if (item.type == 'extras')
-                    message += `- (${item.amount}) Extra - ${item.options.title}%0D%0A`
-                if (item.type == 'drinks')
-                    message += `- (${item.amount}) Bebida - ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
             }
-            message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
+            message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion panameña: ${
+                this.address
+            }%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
             }%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
@@ -778,11 +875,11 @@ export default {
         GoogleMaps,
     },
     watch: {
-        selectedArea: function () {
+        selectedArea: function() {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function () {
+        cart: function() {
             this.calculateTotal()
         },
     },
