@@ -29,6 +29,7 @@
                         text-color="black"
                         class="poppins-bold full-width"
                         @click="selectItem(i)"
+                        :disable="isWeekendItem(item.type)"
                     >Agregar</q-btn>
                 </div>
             </div>
@@ -719,6 +720,16 @@ export default {
         }
     },
     methods: {
+        isWeekendItem(type) {
+            let today = new Date().getDay()
+            if (type == 'main') {
+                return false
+            } else if (today == 5 || today == 6) {
+                return false
+            } else {
+                return true
+            }
+        },
         selectItem(index) {
             this.selectedItemIndex = index
             this.selectedItem = Object.assign({}, this.menu[index])
