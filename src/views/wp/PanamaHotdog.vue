@@ -2,9 +2,7 @@
     <q-page class>
         <q-img :src="require('@/assets/wp/panamahotdog/logo.jpg')" />
         <div class="q-pa-md">
-            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
-                REALIZA TU PEDIDO
-            </div>
+            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
 
             <!-- MENU ITEMS -->
             <div class="row q-mb-xl" v-for="(item, i) in menu" :key="i">
@@ -16,34 +14,43 @@
                     />
                 </div>
                 <div class="col q-px-md">
-                    <div class="text-h5 q-mb-sm poppins-bold">
-                        {{ item.title }}
-                    </div>
-                    <div class="text-body2 q-mb-sm poppins-regular">
-                        {{ item.desc }}
-                    </div>
+                    <div
+                        class="text-subtitle2 poppins-bold text-red-7"
+                        v-if="item.type == 'extra'"
+                    >Viernes y sabados</div>
+                    <div class="text-h5 q-mb-sm poppins-bold">{{ item.title }}</div>
+                    <div class="text-body2 q-mb-sm poppins-regular">{{ item.desc }}</div>
                     <div
                         class="text-h6 q-mb-md poppins-bold"
                         v-if="item.price != null"
-                    >
-                        $ {{ item.price.toFixed(2) }}
-                    </div>
+                    >$ {{ item.price.toFixed(2) }}</div>
                     <q-btn
                         color="amber-13"
                         text-color="black"
                         class="poppins-bold full-width"
                         @click="selectItem(i)"
-                        >Agregar</q-btn
-                    >
+                    >Agregar</q-btn>
                 </div>
             </div>
             <!-- END MENU ITEMS -->
 
+            <!-- NAME INPUT -->
+            <div class="row q-my-lg">
+                <div class="text-h6 q-mb-md poppins-bold">Nombre</div>
+                <q-input
+                    v-model="name"
+                    filled
+                    type="text"
+                    class="full-width poppins-regular"
+                    placeholder="Juan Perez"
+                    color="amber-13"
+                />
+            </div>
+            <!-- END NAME INPUT -->
+
             <!-- GOOGLE MAP -->
             <div>
-                <div class="text-h6 q-mb-md poppins-bold">
-                    Ubicacion de entrega
-                </div>
+                <div class="text-h6 q-mb-md poppins-bold">Ubicacion de entrega</div>
                 <GoogleMaps
                     v-if="Object.keys(center).length > 0"
                     @markerPosition="setMarkerPosition"
@@ -56,9 +63,7 @@
 
             <!-- ADDRESS INPUT -->
             <div class="row q-my-lg">
-                <div class="text-h6 q-mb-md poppins-bold">
-                    Direccion panameña
-                </div>
+                <div class="text-h6 q-mb-md poppins-bold">Detalles de ubicacion</div>
                 <q-input
                     v-model="address"
                     filled
@@ -90,9 +95,7 @@
             <!-- TOTAL TO PAY -->
             <div class="row q-my-lg">
                 <div class="col">
-                    <div class="text-h5 text-right poppins-bold">
-                        Total: $ {{ total.toFixed(2) }}
-                    </div>
+                    <div class="text-h5 text-right poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
                 </div>
             </div>
             <!-- END TOTAL TO PAY -->
@@ -103,8 +106,7 @@
                     color="green-7"
                     class="full-width poppins-bold"
                     @click="cartDialog = true"
-                    >Ver carrito</q-btn
-                >
+                >Ver carrito</q-btn>
             </div>
             <!-- END VIEW CART BUTTON -->
 
@@ -112,9 +114,7 @@
             <q-dialog v-model="optionsDialog">
                 <q-card style="width: 700px; max-width: 80vw;">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            ELIJA
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
@@ -128,17 +128,16 @@
                             {{ option.title }}
                             <br />
                             {{
-                                option.price > 0
-                                    ? '$' + option.price.toFixed(2)
-                                    : ''
+                            option.price > 0
+                            ? '$' + option.price.toFixed(2)
+                            : ''
                             }}
                         </q-btn>
                         <q-btn
                             color="red-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -148,17 +147,14 @@
             <q-dialog v-model="successDialog">
                 <q-card style="width: 700px; max-width: 80vw;">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Agregado con exito
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">Agregado con exito</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -166,45 +162,24 @@
 
             <!-- CART DIALOG -->
             <q-dialog v-model="cartDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    v-if="cart.length > 0"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" v-if="cart.length > 0">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Detalle de pedido
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">Detalle de pedido</div>
                     </q-card-section>
                     <q-card-section>
-                        <div
-                            class="row q-mb-md"
-                            v-for="(item, i) in cart"
-                            :key="i"
-                        >
+                        <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
                             <div class="col-2">
-                                <q-btn
-                                    color="red-7"
-                                    size="sm"
-                                    @click="removeItemFromCart(i)"
-                                >
+                                <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </div>
 
                             <div class="col">
                                 <div class="text-body2 q-pl-sm poppins-regular">
-                                    <strong v-if="item.type == 'main'"
-                                        >({{ item.amount }}) {{ item.title }} -
-                                        {{ item.options.title }}</strong
-                                    >
-                                    <strong v-if="item.type == 'extras'"
-                                        >({{ item.amount }}) Extra -
-                                        {{ item.options.title }}</strong
-                                    >
-                                    <strong v-if="item.type == 'drinks'"
-                                        >({{ item.amount }}) Bebida -
-                                        {{ item.options.title }}</strong
-                                    >
+                                    <strong>
+                                        ({{ item.amount }}) {{ item.title }} -
+                                        {{ item.options.title }}
+                                    </strong>
                                 </div>
                             </div>
                         </div>
@@ -212,7 +187,11 @@
                     <hr />
                     <q-card-section>
                         <div class="text-body2 poppins-regular">
-                            <strong>Direccion de entrega:</strong>
+                            <strong>Nombre:</strong>
+                            {{ name }}
+                        </div>
+                        <div class="text-body2 poppins-regular">
+                            <strong>Detalle de direccion:</strong>
                             {{ address }}
                         </div>
                         <div class="text-body2 poppins-regular">
@@ -233,29 +212,26 @@
                             color="green-7"
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
-                            >Enviar</q-btn
-                        >
+                        >Enviar</q-btn>
                         <q-btn
                             color="red-7"
                             class="full-width q-mb-md poppins-bold"
                             @click="cartDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
                 <q-card style="width: 700px; max-width: 80vw;" v-else>
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Primero debes agregar algo a tu pedido.
-                        </div>
+                        <div
+                            class="text-h6 text-center poppins-bold"
+                        >Primero debes agregar algo a tu pedido.</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="cartDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -271,6 +247,7 @@ export default {
         return {
             selectedItemIndex: 0,
             whatsappNumber: '62042578',
+            name: '',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -699,7 +676,7 @@ export default {
                 {
                     title: 'Pescado con patacones',
                     desc: '',
-                    type: 'main',
+                    type: 'extra',
                     pic: 'filete_de_pescado.jpeg',
                     price: 10,
                     options: [
@@ -712,7 +689,7 @@ export default {
                 {
                     title: 'Saus',
                     desc: '',
-                    type: 'main',
+                    type: 'extra',
                     price: 2,
                     pic: 'saus.jpeg',
                     options: [
@@ -725,7 +702,7 @@ export default {
                 {
                     title: 'Ceviche',
                     desc: '',
-                    type: 'main',
+                    type: 'extra',
                     pic: 'ceviche.jpeg',
                     options: [
                         {
@@ -805,17 +782,23 @@ export default {
             for (let item of this.cart) {
                 message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
             }
-            message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion panameña: ${
+            message += `%0D%0A*Nombre:* ${
+                this.name
+            }%0D%0A*Ubicacion:* ${this.getLocationForMessage()}%0D%0A*Detalles de ubicacion:* ${
                 this.address
-            }%0D%0AMetodo de pago: ${
+            }%0D%0A*Metodo de pago:* ${
                 this.selectedPaymentMethod
-            }%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            }%0D%0A*Total:* $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
         },
         sendChat() {
+            if (this.name == '') {
+                alert('Debes ingresar tu nombre.')
+                return
+            }
             if (this.address == '') {
                 alert(
                     'Debes ingresar tu direccion completa para la entrega de tu pedido.'
@@ -875,11 +858,11 @@ export default {
         GoogleMaps,
     },
     watch: {
-        selectedArea: function() {
+        selectedArea: function () {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function() {
+        cart: function () {
             this.calculateTotal()
         },
     },
