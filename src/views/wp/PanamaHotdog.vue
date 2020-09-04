@@ -29,6 +29,15 @@
                 </div>
             </div>
             <!-- END MENU ITEMS -->
+            <div>
+                <GoogleMaps
+                    v-if="Object.keys(center).length > 0"
+                    @markerPosition="setMarkerPosition"
+                    :editable="true"
+                    :markers="markers"
+                    :mapCenter="center"
+                ></GoogleMaps>
+            </div>
 
             <!-- ADDRESS INPUT -->
             <div class="row q-my-lg q-pt-lg">
@@ -206,6 +215,7 @@
 </template>
 
 <script>
+import GoogleMaps from '../../components/general/GoogleMaps'
 export default {
     data() {
         return {
@@ -219,6 +229,9 @@ export default {
             selectedPaymentMethod: null,
             address: '',
             total: 0,
+            location: [],
+            markers: [],
+            center: {},
             optionsDialog: false,
             successDialog: false,
             cartDialog: false,
@@ -721,6 +734,48 @@ export default {
                 }?text=${this.generateMessage()}`
             }
         },
+        getLocationForMessage() {
+            if (this.location.length <= 0) {
+                let lat = parseFloat(this.center.lat)
+                let lng = parseFloat(this.center.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            } else {
+                let lat = parseFloat(this.location.lat)
+                let lng = parseFloat(this.location.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            }
+        },
+        setMarkerPosition(event) {
+            this.location = event
+        },
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.center = {
+                        lat: parseFloat(position.coords.latitude),
+                        lng: parseFloat(position.coords.longitude),
+                    }
+                    this.markers.push({position: this.center})
+                },
+                error => {
+                    this.center = {
+                        lat: parseFloat(9.068463),
+                        lng: parseFloat(-79.452694),
+                    }
+                    this.markers.push({position: this.center})
+                }
+            )
+        },
+    },
+    mounted() {
+        this.geolocate()
+    },
+    components: {
+        GoogleMaps,
     },
     watch: {
         selectedArea: function () {
