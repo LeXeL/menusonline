@@ -408,11 +408,11 @@ export default {
         },
     },
     watch: {
-        selectedArea: function () {
+        selectedArea() {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function () {
+        cart() {
             this.calculateTotal()
         },
     },
