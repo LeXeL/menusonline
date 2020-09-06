@@ -2,41 +2,27 @@
     <q-page class="bg-grey-2">
         <q-img :src="require('@/assets/wp/demo/logo.jpg')" class="shadow-7" />
         <div class="q-pa-md">
-            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
-                REALIZA TU PEDIDO
-            </div>
+            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
 
             <!-- MENU ITEMS -->
-            <q-card
-                class="full-width q-mb-lg"
-                v-for="(item, i) in menu"
-                :key="i"
-            >
+            <q-card class="full-width q-mb-lg" v-for="(item, i) in menu" :key="i">
                 <q-img :src="require(`@/assets/wp/demo/${item.pic}`)" />
                 <q-card-section class="q-pb-none">
                     <div class="row">
-                        <div class="col text-h6">
-                            {{ item.title }}
-                        </div>
+                        <div class="col text-h6">{{ item.title }}</div>
                     </div>
                 </q-card-section>
 
                 <q-card-section class="q-pt-none">
-                    <div class="text-h6 poppins-bold">
-                        $ {{ item.price.toFixed(2) }}
-                    </div>
-                    <div class="text-caption text-grey">
-                        {{ item.desc }}
-                    </div>
+                    <div class="text-h6 poppins-bold">$ {{ item.price.toFixed(2) }}</div>
+                    <div class="text-caption text-grey">{{ item.desc }}</div>
                 </q-card-section>
 
                 <q-separator />
 
                 <q-card-actions>
                     <q-space />
-                    <q-btn flat color="orange-9" @click="selectItem(i)">
-                        agregar
-                    </q-btn>
+                    <q-btn flat color="orange-9" @click="selectItem(i)">agregar</q-btn>
                 </q-card-actions>
             </q-card>
             <div style="height: 50px;" v-if="cart.length > 0"></div>
@@ -44,14 +30,9 @@
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
-                        <div class="text-h6 text-center poppins-bold">
-                            ELIJA
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
@@ -61,14 +42,12 @@
                             v-for="option in selectedItem.options"
                             :key="option"
                             @click="addItemToCart(option)"
-                            >{{ option }}</q-btn
-                        >
+                        >{{ option }}</q-btn>
                         <q-btn
                             color="red-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -76,22 +55,16 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Agregado con exito
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">Agregado con exito</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -107,27 +80,16 @@
                 <q-card class="bg-grey-9 text-white">
                     <q-bar style="height: 45px;">
                         <q-space />
-                        <q-btn dense flat icon="close" size="lg" v-close-popup>
-                        </q-btn>
+                        <q-btn dense flat icon="close" size="lg" v-close-popup></q-btn>
                     </q-bar>
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Detalle de pedido
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">Detalle de pedido</div>
                     </q-card-section>
 
                     <q-card-section v-if="cart.length > 0">
-                        <div
-                            class="row q-mb-md"
-                            v-for="(item, i) in cart"
-                            :key="i"
-                        >
+                        <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
                             <div class="col-2">
-                                <q-btn
-                                    color="red-7"
-                                    size="sm"
-                                    @click="removeItemFromCart(i)"
-                                >
+                                <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </div>
@@ -154,13 +116,8 @@
                     <q-card-section v-else>
                         <div class="row">
                             <div class="col text-grey-6 text-center">
-                                <i
-                                    class="fas fa-utensils q-mt-lg q-mb-md"
-                                    style="font-size: 75px;"
-                                ></i>
-                                <div class="text-h5 poppins-bold q-mb-lg">
-                                    Tu carrito esta vacio
-                                </div>
+                                <i class="fas fa-utensils q-mt-lg q-mb-md" style="font-size: 75px;"></i>
+                                <div class="text-h5 poppins-bold q-mb-lg">Tu carrito esta vacio</div>
                             </div>
                         </div>
                     </q-card-section>
@@ -168,9 +125,9 @@
                     <q-separator dark />
                     <q-card-section>
                         <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Direccion de entrega (completa):
-                            </div>
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm"
+                            >Direccion de entrega (completa):</div>
                             <q-input
                                 v-model="address"
                                 filled
@@ -183,9 +140,7 @@
                             />
                         </div>
                         <div class="row">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Metodo de pago:
-                            </div>
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de pago:</div>
                             <q-btn-toggle
                                 v-model="selectedPaymentMethod"
                                 spread
@@ -201,9 +156,7 @@
                     <q-card-section v-if="cart.length > 0">
                         <div class="row">
                             <div class="col text-center">
-                                <div class="text-h5 poppins-bold">
-                                    Total: $ {{ total.toFixed(2) }}
-                                </div>
+                                <div class="text-h5 poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
                             </div>
                         </div>
                     </q-card-section>
@@ -213,8 +166,7 @@
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
                             :disable="cart.length <= 0"
-                            >Enviar</q-btn
-                        >
+                        >Enviar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -222,16 +174,11 @@
 
             <!-- NEW DIALOG -->
             <q-dialog v-model="seamless" seamless position="bottom">
-                <q-card
-                    style="width: 350px; border-radius: 0;"
-                    class="bg-orange-9 text-white"
-                >
+                <q-card style="width: 350px; border-radius: 0;" class="bg-orange-9 text-white">
                     <q-card-section class="row items-center no-wrap">
                         <div>
                             <div class="text-h6 poppins-bold">
-                                <span class="text-subtitle2 poppins-bold"
-                                    >Total:</span
-                                >
+                                <span class="text-subtitle2 poppins-bold">Total:</span>
                                 $
                                 {{ total.toFixed(2) }}
                             </div>
@@ -341,10 +288,10 @@ export default {
             this.successDialog = true
             this.calculateTotal()
         },
-        removeItemFromCart: function(i) {
+        removeItemFromCart: function (i) {
             this.cart.splice(i, 1)
         },
-        calculateTotal: function() {
+        calculateTotal: function () {
             let total = 0
             for (let item of this.cart) {
                 total += item.amount * item.price
@@ -385,14 +332,19 @@ export default {
         },
     },
     watch: {
-        selectedArea: function() {
+        selectedArea: function () {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function() {
+        cart: function () {
             this.calculateTotal()
-            if (this.cart.length > 0) this.seamless = true
-            else this.seamless = false
+            if (this.cart.length > 0) {
+                this.seamless = true
+                this.$store.commit('SET_DISPLAYFOOTER', true)
+            } else {
+                this.seamless = false
+                this.$store.commit('SET_DISPLAYFOOTER', false)
+            }
         },
     },
 }

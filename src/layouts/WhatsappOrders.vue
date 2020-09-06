@@ -2,7 +2,7 @@
     <q-layout view="hHh lpR lFr">
         <q-page-container>
             <router-view />
-            <!-- <footer>
+            <footer :style="displayFooter ? 'margin-bottom:67px':''">
                 <div class="container">
                     <div class="row text-center">
                         <div class="col">
@@ -16,7 +16,16 @@
                         </div>
                     </div>
                 </div>
-            </footer> -->
+            </footer>
         </q-page-container>
     </q-layout>
 </template>
+<script>
+export default {
+    computed: {
+        displayFooter() {
+            return this.$store.getters.displayFooter
+        },
+    },
+}
+</script>
