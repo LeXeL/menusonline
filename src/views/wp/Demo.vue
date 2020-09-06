@@ -6,7 +6,7 @@
 
             <!-- MENU ITEMS -->
             <q-card class="full-width q-mb-lg" v-for="(item, i) in menu" :key="i">
-                <q-img :src="require(`@/assets/wp/demo/${item.pic}`)" />
+                <q-img v-if="item.pic" :src="require(`@/assets/wp/demo/${item.pic}`)" />
                 <q-card-section class="q-pb-none">
                     <div class="row">
                         <div class="col text-h6">{{ item.title }}</div>
@@ -22,7 +22,7 @@
 
                 <q-card-actions>
                     <q-space />
-                    <q-btn flat color="orange-9" @click="selectItem(i)">agregar</q-btn>
+                    <q-btn flat color="orange-9" @click="selectItem(i)">Agregar</q-btn>
                 </q-card-actions>
             </q-card>
             <div style="height: 50px;" v-if="cart.length > 0"></div>
@@ -39,10 +39,14 @@
                         <q-btn
                             color="green-7"
                             class="poppins-bold full-width q-mb-md"
-                            v-for="option in selectedItem.options"
-                            :key="option"
+                            v-for="(option, i) in menu[selectedItemIndex].options"
+                            :key="i"
                             @click="addItemToCart(option)"
-                        >{{ option }}</q-btn>
+                        >
+                            {{ option.title }}
+                            <br />
+                            {{ option.price > 0 ? '$'+option.price.toFixed(2):'' }}
+                        </q-btn>
                         <q-btn
                             color="red-7"
                             class="poppins-bold full-width q-mb-md"
@@ -95,20 +99,17 @@
                             </div>
 
                             <div class="col">
-                                <div
-                                    class="text-body2 poppins-regular"
-                                    v-if="item.title != 'Bebidas'"
-                                >
-                                    <strong>
+                                <div class="text-body2 poppins-regular">
+                                    <strong v-if="item.type == 'main'">
                                         ({{ item.amount }}) {{ item.title }} con
-                                        {{ item.selectedOption }}
+                                        {{item.options.title}}
                                     </strong>
-                                </div>
-                                <div class="text-body2 poppins-regular" v-else>
-                                    <strong>
-                                        ({{ item.amount }}) Bebida -
-                                        {{ item.selectedOption }}
-                                    </strong>
+                                    <strong
+                                        v-if="item.type == 'extras'"
+                                    >({{ item.amount }}) Extra - {{item.options.title}}</strong>
+                                    <strong
+                                        v-if="item.type == 'drinks'"
+                                    >({{ item.amount }}) Bebida - {{item.options.title}}</strong>
                                 </div>
                             </div>
                         </div>
@@ -206,10 +207,9 @@
 export default {
     data() {
         return {
+            selectedItemIndex: 0,
             seamless: false,
             whatsappNumber: '62042578',
-            selectedArea: null,
-            areas: ['Panama Pacifico & Panama Centro', 'Panama Oeste'],
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -227,85 +227,111 @@ export default {
                     title: 'Hamburguesa Clasica',
                     desc:
                         'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
-                    options: ['Papas fritas', 'Aros de cebolla', 'Camote'],
+                    options: [
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Aros de cebolla', price: 1},
+                        {title: 'Camote', price: 0},
+                    ],
                     pic: 'hamburguesa.jpg',
                     price: 8.5,
+                    type: 'main',
                 },
                 {
                     title: 'ChilliDog',
                     desc:
                         'Hotdog con chille, queso y cebolla picada en pan artesanal.',
-                    options: ['Papas fritas', 'Aros de cebolla', 'Camote'],
+                    options: [
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Aros de cebolla', price: 1},
+                        {title: 'Camote', price: 0},
+                    ],
                     pic: 'hotdog.jpg',
                     price: 8.5,
+                    type: 'main',
                 },
                 {
                     title: 'Bebidas',
                     desc: '',
-                    options: ['Coca Cola', 'Fresca', 'Ginger Ale'],
+                    options: [
+                        {title: 'Coca Cola', price: 1},
+                        {title: 'Ginger Ale', price: 1},
+                        {title: 'Fresca', price: 1},
+                    ],
                     price: 1.0,
-
                     pic: 'soda.jpg',
+                    type: 'drinks',
                 },
             ],
         }
     },
     methods: {
         selectItem(index) {
-            this.selectedItem = {}
-            this.selectedItem = {
-                title: this.menu[index].title,
-                options: this.menu[index].options,
-                price: this.menu[index].price,
-                amount: 1,
-            }
+            this.selectedItemIndex = index
+            this.selectedItem = Object.assign({}, this.menu[index])
             this.optionsDialog = true
         },
+        checkIfDuplicate() {
+            let isDuplicate = false
+            if (this.cart.length <= 0) {
+                isDuplicate = false
+            }
+
+            this.cart.forEach(c => {
+                if (
+                    c.type === this.selectedItem.type &&
+                    c.title === this.selectedItem.title &&
+                    c.options.title === this.selectedItem.options.title
+                ) {
+                    isDuplicate = true
+                }
+            })
+
+            return isDuplicate
+        },
         addItemToCart(option) {
-            this.selectedItem.selectedOption = option
-            if (this.cart.length == 0) {
+            this.selectedItem.options = option
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
                 this.optionsDialog = false
                 this.successDialog = true
                 this.calculateTotal()
-                return
+            } else {
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
             }
-            for (let i = 0; i < this.cart.length; i++) {
-                if (
-                    this.cart[i].title == this.selectedItem.title &&
-                    this.cart[i].selectedOption ==
-                        this.selectedItem.selectedOption
-                ) {
-                    this.cart[i].amount++
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                    return
-                }
-            }
-            this.cart.push(this.selectedItem)
-            this.optionsDialog = false
-            this.successDialog = true
-            this.calculateTotal()
         },
-        removeItemFromCart: function (i) {
+        removeItemFromCart(i) {
             this.cart.splice(i, 1)
         },
-        calculateTotal: function () {
+        calculateTotal() {
             let total = 0
-            for (let item of this.cart) {
-                total += item.amount * item.price
-            }
+            this.cart.forEach(c => {
+                if (c.price) total += c.price * c.amount
+                total += c.options.price * c.amount
+            })
             this.total = total
         },
         generateMessage() {
             let message =
                 'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                if (item.title != 'Bebidas')
-                    message += `- (${item.amount}) ${item.title} con ${item.selectedOption}%0D%0A`
-                else
-                    message += `- (${item.amount}) Bebida - ${item.selectedOption}%0D%0A`
+                if (item.type == 'main')
+                    message += `- (${item.amount}) ${item.title} con ${item.options.title}%0D%0A`
+                if (item.type == 'extras')
+                    message += `- (${item.amount}) Extra - ${item.options.title}%0D%0A`
+                if (item.type == 'drinks')
+                    message += `- (${item.amount}) Bebida - ${item.options.title}%0D%0A`
             }
             message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
@@ -332,11 +358,11 @@ export default {
         },
     },
     watch: {
-        selectedArea: function () {
+        selectedArea() {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function () {
+        cart() {
             this.calculateTotal()
             if (this.cart.length > 0) {
                 this.seamless = true
