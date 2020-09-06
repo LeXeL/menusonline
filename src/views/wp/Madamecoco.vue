@@ -241,7 +241,7 @@ export default {
                 {
                     title: 'Filete de pescado empanizado (4 porciones)',
                     desc:
-                        'Para 4 personas - Acompañado con arroz blanco, platano en tentacion y salsa de la casa.',
+                        'Para 4 personas - Acompañado con arroz blanco, plátano en tentación y salsa de la casa.',
                     options: [
                         {title: 'Arroz con coco', price: 1.5},
                         {title: 'Papas fritas', price: 0},
@@ -250,7 +250,7 @@ export default {
                     price: 28,
                 },
                 {
-                    title: 'Menu Kids',
+                    title: 'Kids Menu',
                     desc:
                         'Deditos de pescados empanizados acompañados de papas fritas.',
                     pic: 'kids.jpeg',
@@ -304,7 +304,7 @@ export default {
                 {
                     title: 'Botella de picante',
                     type: 'extras',
-                    options: [{title: 'Presentacion de 240ml', price: 0}],
+                    options: [{title: 'Presentación de 240ml', price: 0}],
                     desc: '',
                     price: 5,
                 },
