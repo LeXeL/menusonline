@@ -1,71 +1,84 @@
 <template>
-    <q-page>
-        <q-img :src="require('@/assets/wp/ceciliapescao/logo.jpg')" />
+    <q-page class="bg-grey-2">
+        <q-img
+            :src="require('@/assets/wp/ceciliapescao/logo.jpg')"
+            class="shadow-7"
+        />
         <div class="q-pa-md">
-            <div class="text-h4 text-center q-mt-sm q-mb-xl lobster">
-                <strong>Realiza tu pedido</strong>
-            </div>
-
             <!-- MENU ITEMS -->
-            <div
-                class="row q-mb-lg bg-grey-3 q-pa-md rounded-borders"
+            <q-card
+                class="full-width q-mb-lg"
                 v-for="(item, i) in menu"
                 :key="i"
             >
-                <div class="col">
-                    <div class="text-h5 lobster">{{ item.title }}</div>
-                    <div class="text-h6 q-mb-md">
-                        <strong>$ {{ item.price.toFixed(2) }}</strong>
+                <q-img
+                    v-if="item.pic"
+                    :src="require(`@/assets/wp/demo/${item.pic}`)"
+                />
+                <q-card-section class="q-pb-none">
+                    <div class="row">
+                        <div class="col text-h6">{{ item.title }}</div>
                     </div>
-                    <q-btn
-                        color="amber"
-                        text-color="black"
-                        class="full-width"
-                        @click="selectItem(i)"
-                    >Agregar</q-btn>
-                </div>
-            </div>
+                    <div class="row">
+                        <div class="col text-subtitle2">
+                            {{ item.subtitle }}
+                        </div>
+                    </div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none">
+                    <div class="text-h6 poppins-bold">
+                        $ {{ item.price.toFixed(2) }}
+                    </div>
+                    <div class="text-caption text-grey">{{ item.desc }}</div>
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-actions>
+                    <q-space />
+                    <q-btn flat color="indigo-10" @click="selectItem(i)"
+                        >Agregar</q-btn
+                    >
+                </q-card-actions>
+            </q-card>
             <!-- END MENU ITEMS -->
-
-            <hr />
-
-            <!-- TOTAL TO PAY -->
-            <div class="row q-my-lg">
-                <div class="col">
-                    <div class="text-h5 text-right afrika">
-                        <strong>TOTAL: $ {{ total.toFixed(2) }}</strong>
-                    </div>
-                </div>
-            </div>
-            <!-- END TOTAL TO PAY -->
-
-            <!-- VIEW CART BUTTON -->
-            <div class="row q-mb-md">
-                <q-btn color="green-7" class="full-width" @click="cartDialog = true">Ver carrito</q-btn>
-            </div>
-            <!-- END VIEW CART BUTTON -->
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card style="width: 700px; max-width: 80vw;">
-                    <q-card-section>
-                        <div class="text-h5 text-center lobster">
-                            <strong>Elija</strong>
+                <q-card
+                    style="width: 700px; max-width: 80vw;"
+                    class="bg-grey-2"
+                >
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">
+                            ELIJA
                         </div>
                     </q-card-section>
+                    <q-separator />
                     <q-card-section>
                         <q-btn
                             color="green-7"
-                            class="afrika full-width q-mb-md"
-                            v-for="option in selectedItem.options"
-                            :key="option"
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(option, i) in menu[selectedItemIndex]
+                                .options"
+                            :key="i"
                             @click="addItemToCart(option)"
-                        >{{ option }}</q-btn>
+                        >
+                            {{ option.title }}
+                            <br />
+                            {{
+                                option.price > 0
+                                    ? '$' + option.price.toFixed(2)
+                                    : ''
+                            }}
+                        </q-btn>
                         <q-btn
                             color="red-7"
-                            class="afrika full-width q-mb-md"
+                            class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
-                        >Cancelar</q-btn>
+                            >Cancelar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -73,85 +86,210 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card style="width: 700px; max-width: 80vw;">
+                <q-card
+                    style="width: 700px; max-width: 80vw;"
+                    class="bg-grey-2"
+                >
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">Agregado con exito</div>
+                        <div class="text-h6 text-center poppins-bold">
+                            Agregado con exito
+                        </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
-                            class="afrika full-width q-mb-md"
+                            class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
-                        >Aceptar</q-btn>
+                            >Aceptar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
             <!-- END SUCCESS DIALOG -->
 
             <!-- CART DIALOG -->
-            <q-dialog v-model="cartDialog">
-                <q-card style="width: 700px; max-width: 80vw;" v-if="cart.length > 0">
+            <q-dialog
+                v-model="cartDialog"
+                maximized
+                transition-show="slide-up"
+                transition-hide="slide-down"
+            >
+                <q-card class="bg-grey-9 text-white">
+                    <q-bar style="height: 45px;">
+                        <q-space />
+                        <q-btn
+                            dense
+                            flat
+                            icon="close"
+                            size="lg"
+                            v-close-popup
+                        ></q-btn>
+                    </q-bar>
                     <q-card-section>
-                        <div class="text-h5 text-center lobster">Detalle de pedido</div>
+                        <div class="text-h6 text-center poppins-bold">
+                            Detalle de pedido
+                        </div>
                     </q-card-section>
-                    <q-card-section>
-                        <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
+
+                    <q-card-section v-if="cart.length > 0">
+                        <div
+                            class="row q-mb-md"
+                            v-for="(item, i) in cart"
+                            :key="i"
+                        >
                             <div class="col-2">
-                                <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
+                                <q-btn
+                                    color="red-7"
+                                    size="sm"
+                                    @click="removeItemFromCart(i)"
+                                >
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </div>
 
                             <div class="col">
-                                <div
-                                    class="text-body2 q-pl-sm"
-                                    v-if="item.title != 'Lata de Coca Cola'"
-                                >
-                                    <strong>
-                                        ({{ item.amount }})
-                                        {{ item.title }} con
-                                        {{ item.selectedOption }}
-                                    </strong>
-                                </div>
-                                <div class="text-body2 q-pl-sm" v-else>
-                                    <strong>
-                                        ({{ item.amount }})
+                                <div class="text-body2 poppins-regular">
+                                    <strong v-if="item.type == 'starter'">
+                                        ({{ item.amount }}) Entrada -
                                         {{ item.title }}
+                                    </strong>
+                                    <strong v-if="item.type == 'main'">
+                                        ({{ item.amount }}) {{ item.title }} -
+                                        {{ item.options.title }}
+                                    </strong>
+                                    <strong v-if="item.type == 'ceviche'">
+                                        ({{ item.amount }}) {{ item.title }}
+                                    </strong>
+                                    <strong v-if="item.type == 'side'">
+                                        ({{ item.amount }}) Extra -
+                                        {{ item.options.title }}
+                                    </strong>
+                                    <strong v-if="item.type == 'drink'">
+                                        ({{ item.amount }}) {{ item.title }} -
+                                        {{ item.options.title }}
                                     </strong>
                                 </div>
                             </div>
                         </div>
                     </q-card-section>
-                    <hr />
-                    <q-card-section>
-                        <q-btn
-                            color="green-7"
-                            class="full-width q-mb-md afrika"
-                            @click="sendChat"
-                        >Enviar</q-btn>
-                        <q-btn
-                            color="red-7"
-                            class="full-width q-mb-md afrika"
-                            @click="cartDialog = false"
-                        >Cancelar</q-btn>
+                    <q-card-section v-else>
+                        <div class="row">
+                            <div class="col text-grey-6 text-center">
+                                <i
+                                    class="fas fa-utensils q-mt-lg q-mb-md"
+                                    style="font-size: 75px;"
+                                ></i>
+                                <div class="text-h5 poppins-bold q-mb-lg">
+                                    Tu carrito esta vacio
+                                </div>
+                            </div>
+                        </div>
                     </q-card-section>
-                </q-card>
-                <q-card style="width: 700px; max-width: 80vw;" v-else>
+
+                    <q-separator dark />
                     <q-card-section>
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Metodo de entrega:
+                            </div>
+                            <q-btn-toggle
+                                v-model="selectedPickupMethod"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="indigo-10"
+                                color="white"
+                                text-color="black"
+                                :options="pickupMethods"
+                            />
+                        </div>
                         <div
-                            class="text-h6 text-center afrika"
-                        >Primero debes agregar algo a tu pedido.</div>
+                            class="row q-mb-md"
+                            v-if="selectedPickupMethod == 'Delivery'"
+                        >
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Direccion de entrega (completa):
+                            </div>
+                            <q-input
+                                v-model="address"
+                                filled
+                                dark
+                                type="textarea"
+                                class="full-width poppins-regular"
+                                placeholder="Barriada, No. Calle, No. Casa"
+                                color="indigo-10"
+                                rows="4"
+                            />
+                        </div>
+                        <div class="row">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Metodo de pago:
+                            </div>
+                            <q-btn-toggle
+                                v-model="selectedPaymentMethod"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="indigo-10"
+                                color="white"
+                                text-color="black"
+                                :options="paymentMethods"
+                            />
+                        </div>
+                    </q-card-section>
+                    <q-card-section v-if="cart.length > 0">
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="text-h5 poppins-bold">
+                                    Total: $ {{ total.toFixed(2) }}
+                                </div>
+                            </div>
+                        </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
-                            class="afrika full-width q-mb-md"
-                            @click="cartDialog = false"
-                        >Aceptar</q-btn>
+                            class="full-width q-mb-md poppins-bold"
+                            @click="sendChat"
+                            :disable="cart.length <= 0"
+                            >Enviar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
             <!-- END CART DIALOG -->
+
+            <!-- NEW DIALOG -->
+            <q-dialog v-model="seamless" seamless position="bottom">
+                <q-card
+                    style="width: 350px; border-radius: 0;"
+                    class="bg-indigo-10 text-white"
+                >
+                    <q-card-section class="row items-center no-wrap">
+                        <div>
+                            <div class="text-h6 poppins-bold">
+                                <span class="text-subtitle2 poppins-bold"
+                                    >Total:</span
+                                >
+                                $
+                                {{ total.toFixed(2) }}
+                            </div>
+                        </div>
+
+                        <q-space />
+
+                        <q-btn
+                            flat
+                            icon="shopping_cart"
+                            @click="cartDialog = true"
+                            label="Ver carrito"
+                        />
+                        <!-- <q-btn flat round icon="send" /> -->
+                        <!-- <q-btn flat round icon="close" /> -->
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END NEW DIALOG -->
         </div>
     </q-page>
 </template>
@@ -160,8 +298,22 @@
 export default {
     data() {
         return {
-            whatsappNumber: '66189701',
+            selectedItemIndex: 0,
+            seamless: false,
+            whatsappNumber: '62042578',
             selectedItem: {},
+            paymentMethods: [
+                {label: 'Yappy', value: 'Yappy'},
+                {label: 'Efectivo', value: 'Efectivo'},
+                {label: 'Tarjeta', value: 'Tarjeta'},
+            ],
+            pickupMethods: [
+                {label: 'Delivery', value: 'Delivery'},
+                {label: 'Retirar en local', value: 'Retirar en local'},
+            ],
+            selectedPaymentMethod: null,
+            selectedPickupMethod: '',
+            address: '',
             total: 0,
             optionsDialog: false,
             successDialog: false,
@@ -169,140 +321,779 @@ export default {
             cart: [],
             menu: [
                 {
-                    title: 'Pescao Frito con Escabeche',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 8,
-                },
-                {
-                    title: 'Pescao Frito con Mixto',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 12,
-                },
-                {
-                    title: 'Filete de Pescao',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    title: 'Almejas',
+                    subtitle: 'Clams',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
                     price: 6,
+                    type: 'starter',
                 },
                 {
-                    title: 'Filete de Pescao con Mixto',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    title: 'Deditos de pescado',
+                    subtitle: 'Fish fingers',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 6,
+                    type: 'starter',
+                },
+                {
+                    title: 'Buffalo Wings',
+                    subtitle: '',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 6,
+                    type: 'starter',
+                },
+                {
+                    title: 'Arañitas',
+                    subtitle: 'Fried baby squid',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 6,
+                    type: 'starter',
+                },
+                {
+                    title: 'Pescado entero frito (chico)',
+                    subtitle: 'Fried fish (small)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
                     price: 10,
+                    type: 'main',
                 },
                 {
-                    title: 'Filete con Camarones',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 10,
+                    title: 'Pescado entero frito (mediano)',
+                    subtitle: 'Fried fish (medium)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 12,
+                    type: 'main',
                 },
                 {
-                    title: 'Langostinos al Ajillo',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 10,
+                    title: 'Pescado entero frito (grande)',
+                    subtitle: 'Fried fish (Big)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 15,
+                    type: 'main',
                 },
                 {
-                    title: 'Anillos de Calamar a la Criolla',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    title: 'Filete de pescado frito',
+                    subtitle: 'Fried fish filet',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
                     price: 8,
+                    type: 'main',
+                },
+                {
+                    title: 'Filete de pescado frito con salsa al ajillo',
+                    subtitle: 'Fried fish filet with garlic sause',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 9,
+                    type: 'main',
+                },
+                {
+                    title: 'Filete de pescado frito apanado',
+                    subtitle: 'Breaded fried fish filet',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 9,
+                    type: 'main',
+                },
+                {
+                    title: 'Especial de la casa, Pescado a lo macho',
+                    subtitle: '',
+                    desc:
+                        'Pescado entero frito con mixto de marisco, camarones, almejas y langosta. / Specialty of the house, fried fish with seafood mix, shrimps, clams and lobster.',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 35,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con almejas (chico)',
+                    subtitle: 'Fried fish with clams (small)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 14,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con almejas (mediano)',
+                    subtitle: 'Fried fish with clams (medium)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 16,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con almejas (grande)',
+                    subtitle: 'Fried fish with clams (big)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 19,
+                    type: 'main',
+                },
+
+                {
+                    title: 'Pescado frito con camarones (chico)',
+                    subtitle: 'Fried fish with shrimps (small)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 14,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con camarones (mediano)',
+                    subtitle: 'Fried fish with shrimps (medium)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 16,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con camarones (grande)',
+                    subtitle: 'Fried fish with shrimps (big)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 19,
+                    type: 'main',
+                },
+
+                {
+                    title: 'Pescado frito con mixto de mariscos (chico)',
+                    subtitle: 'Fried fish with seafood mix (small)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 14,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con mixto de mariscos (mediano)',
+                    subtitle: 'Fried fish with seafood mix (medium)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 16,
+                    type: 'main',
+                },
+                {
+                    title: 'Pescado frito con mixto de mariscos (grande)',
+                    subtitle: 'Fried fish with seafood mix (big)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 19,
+                    type: 'main',
+                },
+
+                {
+                    title: 'Filete de pescado frito con almejas',
+                    subtitle: 'Fried fish filet with clams',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 12,
+                    type: 'main',
+                },
+                {
+                    title: 'Filete de pescado frito con camarones',
+                    subtitle: 'Fried fish filet with shrimps',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 12,
+                    type: 'main',
+                },
+                {
+                    title: 'Filete de pescado frito con mixto de mariscos',
+                    subtitle: 'Fried fish filet with seafood mix',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 12,
+                    type: 'main',
+                },
+                {
+                    title: 'Picada mixta (pequeña)',
+                    subtitle: 'Mixed platter (small)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 20,
+                    type: 'main',
+                },
+                {
+                    title: 'Picada mixta (grande)',
+                    subtitle: 'Mixed platter (big)',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 30,
+                    type: 'main',
+                },
+                {
+                    title: 'Langosta',
+                    subtitle: 'Lobster',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 35,
+                    type: 'main',
+                },
+                {
+                    title: 'Langostinos',
+                    subtitle: 'Jumbo shrimps',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 12,
+                    type: 'main',
                 },
                 {
                     title: 'Camarones al ajillo',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
+                    subtitle: 'Shrimps in garlic sauce',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
                     price: 10,
+                    type: 'main',
                 },
                 {
-                    title: 'Mixto de Mariscos en leche de coco',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 7,
+                    title: 'Camarones apanados',
+                    subtitle: 'Breaded shrimps',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 10,
+                    type: 'main',
                 },
                 {
-                    title: 'Almejas al Ajillo (entrada)',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 5,
+                    title: 'Mixto de mariscos',
+                    subtitle: 'Seafood mix',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 10,
+                    type: 'main',
                 },
                 {
-                    title: 'Deditos de Pollo',
-                    options: ['Arroz con coco', 'Yuca al mojo', 'Patacones'],
-                    price: 6,
+                    title: 'Patacones rellenos',
+                    subtitle: 'Fried plantain cups filled with seafood',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 10,
+                    type: 'main',
+                },
+                {
+                    title: 'Patacones rellenos de camarones',
+                    subtitle: 'Fried plantain cups filled with shrimps',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 12,
+                    type: 'main',
+                },
+                {
+                    title: 'Tiritas de pollo frito',
+                    subtitle: 'Chicken tenders',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 8,
+                    type: 'main',
+                },
+                {
+                    title: 'Ceviche de pescado',
+                    subtitle: 'Fish',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 2,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Ceviche de camaron',
+                    subtitle: 'Shrimp',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 3.5,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Ceviche de pulpo',
+                    subtitle: 'Octopus',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 3,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Ceviche de combinacion',
+                    subtitle: 'Combination',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 4,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Ceviche de concha negra',
+                    subtitle: 'Black shell',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 4.5,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Ceviche mediterraneo',
+                    subtitle: '',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 4.25,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Cocktail de combinacion',
+                    subtitle: 'Combination cocktail',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 4.25,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Cocktail de camaron',
+                    subtitle: 'Shrimp Cocktail',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 4,
+                    type: 'ceviche',
+                },
+                {
+                    title: 'Cerveza nacional',
+                    subtitle: 'National beer',
+                    desc: '',
+                    options: [
+                        {title: 'Atlas', price: 0},
+                        {title: 'Balboa', price: 0},
+                        {title: 'Panama', price: 0},
+                        {title: 'Soberana', price: 0},
+                    ],
+                    pic: '',
+                    price: 1.25,
+                    type: 'drink',
+                },
+                {
+                    title: 'Cerveza internacional',
+                    subtitle: 'International beer',
+                    desc: '',
+                    options: [
+                        {title: 'Miller Lite', price: 0},
+                        {title: 'Coors Light', price: 0},
+                    ],
+                    pic: '',
+                    price: 2,
+                    type: 'drink',
+                },
+                {
+                    title: 'Corona',
+                    subtitle: '',
+                    desc: '',
+                    options: [{title: 'Botella', price: 0}],
+                    pic: '',
+                    price: 2.5,
+                    type: 'drink',
+                },
+                {
+                    title: 'Smirnoff Ice',
+                    subtitle: '',
+                    desc: '',
+                    options: [{title: 'Botella', price: 0}],
+                    pic: '',
+                    price: 2.5,
+                    type: 'drink',
+                },
+                {
+                    title: 'Gatorade',
+                    subtitle: '',
+                    desc: '',
+                    options: [{title: 'Botella', price: 0}],
+                    pic: '',
+                    price: 2,
+                    type: 'drink',
+                },
+                {
+                    title: 'Soda',
+                    subtitle: 'Soft drinks',
+                    desc: '',
+                    options: [
+                        {title: 'Coca Cola', price: 0},
+                        {title: 'Squirt', price: 0},
+                        {title: 'Ginger Ale', price: 0},
+                    ],
+                    pic: '',
+                    price: 1,
+                    type: 'drink',
+                },
+                {
+                    title: 'Agua',
+                    subtitle: 'Bottled water',
+                    desc: '',
+                    options: [{title: 'Botella', price: 0}],
+                    pic: '',
+                    price: 1,
+                    type: 'drink',
+                },
+                {
+                    title: 'Te frio',
+                    subtitle: 'Iced tea',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 2,
+                    type: 'drink',
+                },
+                {
+                    title: 'Limonada',
+                    subtitle: 'Lemonade',
+                    desc: '',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: '',
+                    price: 2,
+                    type: 'drink',
+                },
+                {
+                    title: 'Acompañamientos adicionales',
+                    subtitle: 'Sides',
+                    desc: '',
+                    options: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    pic: '',
+                    price: 2,
+                    type: 'side',
+                },
+                {
+                    title: 'Salsas de su eleccion',
+                    subtitle: 'Sides',
+                    desc: '',
+                    options: [
+                        {title: 'Cangrejo', price: 0},
+                        {title: 'Al ajillo', price: 0},
+                        {title: 'Caribeña', price: 0},
+                        {title: 'Escabeche', price: 0},
+                    ],
+                    pic: '',
+                    price: 2,
+                    type: 'side',
                 },
             ],
         }
     },
     methods: {
         selectItem(index) {
-            this.selectedItem = {}
-            this.selectedItem = {
-                title: this.menu[index].title,
-                price: this.menu[index].price,
-                options: this.menu[index].options,
-                amount: 1,
-            }
+            this.selectedItemIndex = index
+            this.selectedItem = Object.assign({}, this.menu[index])
             this.optionsDialog = true
         },
+        checkIfDuplicate() {
+            let isDuplicate = false
+            if (this.cart.length <= 0) {
+                isDuplicate = false
+            }
+
+            this.cart.forEach(c => {
+                if (
+                    c.type === this.selectedItem.type &&
+                    c.title === this.selectedItem.title &&
+                    c.options.title === this.selectedItem.options.title
+                ) {
+                    isDuplicate = true
+                }
+            })
+
+            return isDuplicate
+        },
         addItemToCart(option) {
-            this.selectedItem.selectedOption = option
-            if (this.cart.length == 0) {
+            this.selectedItem.options = option
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
                 this.optionsDialog = false
                 this.successDialog = true
                 this.calculateTotal()
-                return
+            } else {
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
             }
-            for (let i = 0; i < this.cart.length; i++) {
-                if (
-                    this.cart[i].title == this.selectedItem.title &&
-                    this.cart[i].selectedOption ==
-                        this.selectedItem.selectedOption
-                ) {
-                    this.cart[i].amount++
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                    return
-                }
-            }
-            this.cart.push(this.selectedItem)
-            this.optionsDialog = false
-            this.successDialog = true
-            this.calculateTotal()
         },
-        removeItemFromCart: function (i) {
+        removeItemFromCart(i) {
             this.cart.splice(i, 1)
         },
-        calculateTotal: function () {
+        calculateTotal() {
             let total = 0
-            for (let item of this.cart) {
-                total += item.amount * item.price
-            }
+            this.cart.forEach(c => {
+                if (c.price) total += c.price * c.amount
+                total += c.options.price * c.amount
+            })
             this.total = total
         },
         generateMessage() {
             let message =
                 'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} con ${item.selectedOption}%0D%0A`
+                if (item.type == 'main')
+                    message += `- (${item.amount}) ${item.title} con ${item.options.title}%0D%0A`
+                if (item.type == 'extras')
+                    message += `- (${item.amount}) Extra - ${item.options.title}%0D%0A`
+                if (item.type == 'drinks')
+                    message += `- (${item.amount}) Bebida - ${item.options.title}%0D%0A`
             }
-            message += `%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
+                this.selectedPaymentMethod
+            }%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
         },
         sendChat() {
-            window.location.href = `https://wa.me/507${
-                this.whatsappNumber
-            }?text=${this.generateMessage()}`
+            if (this.address == '') {
+                alert(
+                    'Debes ingresar tu direccion completa para la entrega de tu pedido.'
+                )
+                return
+            }
+            if (this.selectedPaymentMethod == null) {
+                alert('Debes seleccionar un metodo de pago.')
+                return
+            } else {
+                this.$analytics.logEvent('wp-ceciliapescao', {
+                    content_action: 'Orden Completada',
+                })
+                window.location.href = `https://wa.me/507${
+                    this.whatsappNumber
+                }?text=${this.generateMessage()}`
+            }
         },
     },
+    mounted() {
+        this.$store.commit('SET_DISPLAYFOOTER', false)
+        let path = this.$route.params.path
+        this.$analytics.logEvent('wp-ceciliapescao', {
+            path,
+        })
+    },
     watch: {
-        cart: function () {
+        selectedArea() {
+            this.cart = []
             this.calculateTotal()
+        },
+        cart() {
+            this.calculateTotal()
+            if (this.cart.length > 0) {
+                this.seamless = true
+                this.$store.commit('SET_DISPLAYFOOTER', true)
+            } else {
+                this.seamless = false
+                this.$store.commit('SET_DISPLAYFOOTER', false)
+            }
         },
     },
 }
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
-.lobster {
-    font-family: 'Lobster', cursive;
+.poppins-regular {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+.poppins-bold {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
 }
 </style>
