@@ -6,13 +6,14 @@
                 <div class="container">
                     <div class="row text-center">
                         <div class="col">
-                            <q-img
-                                :src="require('@/assets/landing/logo_grey.png')"
-                                style="width: 150px;"
-                                @click="$router.push('/')"
-                            />
+                            <a href="https://www.instagram.com/blueballoon.io/">
+                                <q-img
+                                    :src="require('@/assets/landing/logo_grey.png')"
+                                    style="width: 150px;"
+                                />
+                            </a>
 
-                            <p>Powered By BlueBalloon Inc.</p>
+                            <p>Powered By a BlueBalloon Inc.</p>
                         </div>
                     </div>
                 </div>
