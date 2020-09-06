@@ -146,7 +146,7 @@
                     <q-card-section>
                         <div class="row text-center">
                             <div class="col">
-                                <div class="text-h6 poppins-bold q-mb-md">Datos de orden</div>
+                                <div class="text-h6 poppins-bold q-mb-md">Datos de pedido</div>
                             </div>
                         </div>
                         <div class="row q-mb-md">
