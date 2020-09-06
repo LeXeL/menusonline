@@ -253,9 +253,9 @@ export default {
                     title: 'Bebidas',
                     desc: '',
                     options: [
-                        {title: 'Coca Cola', price: 1},
-                        {title: 'Ginger Ale', price: 1},
-                        {title: 'Fresca', price: 1},
+                        {title: 'Coca Cola', price: 0},
+                        {title: 'Ginger Ale', price: 0},
+                        {title: 'Fresca', price: 0},
                     ],
                     price: 1.0,
                     pic: 'soda.jpg',
