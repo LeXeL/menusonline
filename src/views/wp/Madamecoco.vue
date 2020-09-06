@@ -129,6 +129,13 @@
 
                     <q-separator dark />
                     <q-card-section>
+                        <GoogleMaps
+                            v-if="Object.keys(center).length > 0"
+                            @markerPosition="setMarkerPosition"
+                            :editable="true"
+                            :markers="markers"
+                            :mapCenter="center"
+                        ></GoogleMaps>
                         <div class="row q-mb-md">
                             <div
                                 class="text-subtitle2 poppins-bold q-mb-sm"
@@ -208,6 +215,7 @@
 </template>
 
 <script>
+import GoogleMaps from '../../components/general/GoogleMaps'
 export default {
     data() {
         return {
@@ -222,9 +230,14 @@ export default {
             selectedPaymentMethod: null,
             address: '',
             total: 0,
+            location: [],
+            markers: [],
+            center: {},
             optionsDialog: false,
             successDialog: false,
             cartDialog: false,
+            googleSheetLink:
+                'https://script.google.com/macros/s/AKfycbxJac49DFrEX16U1v6qUpEux8gWkIAdQcis6prSE2-VW9fEsMUp/exec',
             cart: [],
             menu: [
                 {
@@ -387,7 +400,83 @@ export default {
             message = message.replace(/#/g, '%23')
             return message
         },
-        sendChat() {
+        async sendToGoogleDriveSheet() {
+            let message = ''
+            for (let item of this.cart) {
+                if (item.type == 'main')
+                    message += `(${item.amount}) ${item.title} con ${item.options.title}\n`
+                if (item.type == 'extras')
+                    message += `(${item.amount}) Extra - ${item.options.title}\n`
+                if (item.type == 'drinks')
+                    message += `(${item.amount}) Bebida - ${item.options.title}\n`
+            }
+            let data = {
+                id: Math.floor(100000 + Math.random() * 900000),
+                pedido: message,
+                status: 'orden creada',
+                direcion_1: this.getLocationForMessage(),
+                direcion_2: this.address,
+                total: this.total,
+                metodo_de_pago: this.selectedPaymentMethod,
+            }
+            var url =
+                'https://script.google.com/macros/s/AKfycbxJac49DFrEX16U1v6qUpEux8gWkIAdQcis6prSE2-VW9fEsMUp/exec'
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST', url)
+            // xhr.withCredentials = true;
+            xhr.setRequestHeader(
+                'Content-Type',
+                'application/x-www-form-urlencoded'
+            )
+            // url encode form data for sending as post data
+            var encoded = Object.keys(data)
+                .map(function (k) {
+                    return (
+                        encodeURIComponent(k) +
+                        '=' +
+                        encodeURIComponent(data[k])
+                    )
+                })
+                .join('&')
+            await xhr.send(encoded)
+        },
+        getLocationForMessage() {
+            if (this.location.length <= 0) {
+                let lat = parseFloat(this.center.lat)
+                let lng = parseFloat(this.center.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            } else {
+                let lat = parseFloat(this.location.lat)
+                let lng = parseFloat(this.location.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            }
+        },
+        setMarkerPosition(event) {
+            this.location = event
+        },
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.center = {
+                        lat: parseFloat(position.coords.latitude),
+                        lng: parseFloat(position.coords.longitude),
+                    }
+                    this.markers.push({position: this.center})
+                },
+                error => {
+                    this.center = {
+                        lat: parseFloat(9.068463),
+                        lng: parseFloat(-79.452694),
+                    }
+                    this.markers.push({position: this.center})
+                }
+            )
+        },
+        async sendChat() {
             if (this.address == '') {
                 alert(
                     'Debes ingresar tu direccion completa para la entrega de tu pedido.'
@@ -401,6 +490,7 @@ export default {
                 this.$analytics.logEvent('wp-madamecoco', {
                     content_action: 'Orden Completada',
                 })
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
@@ -423,12 +513,16 @@ export default {
             }
         },
     },
+    components: {
+        GoogleMaps,
+    },
     mounted() {
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
         this.$analytics.logEvent('wp-madamecoco', {
             path,
         })
+        this.geolocate()
     },
 }
 </script>
