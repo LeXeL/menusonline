@@ -14,7 +14,10 @@
                 </q-card-section>
 
                 <q-card-section class="q-pt-none">
-                    <div class="text-h6 poppins-bold">$ {{ item.price.toFixed(2) }}</div>
+                    <div
+                        v-if="item.price"
+                        class="text-h6 poppins-bold"
+                    >$ {{ item.price.toFixed(2) }}</div>
                     <div class="text-caption text-grey">{{ item.desc }}</div>
                 </q-card-section>
 
@@ -25,7 +28,6 @@
                     <q-btn flat color="orange-9" @click="selectItem(i)">Agregar</q-btn>
                 </q-card-actions>
             </q-card>
-            <div style="height: 50px;" v-if="cart.length > 0"></div>
             <!-- END MENU ITEMS -->
 
             <!-- OPTIONS DIALOG -->
@@ -351,6 +353,9 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
+                this.$analytics.logEvent('wp-demo', {
+                    content_action: 'Orden Completada',
+                })
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
@@ -372,6 +377,13 @@ export default {
                 this.$store.commit('SET_DISPLAYFOOTER', false)
             }
         },
+    },
+    mounted() {
+        this.$store.commit('SET_DISPLAYFOOTER', false)
+        let path = this.$route.params.path
+        this.$analytics.logEvent('wp-demo', {
+            path,
+        })
     },
 }
 </script>

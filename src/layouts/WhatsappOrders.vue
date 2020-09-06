@@ -9,10 +9,10 @@
                             <q-img
                                 :src="require('@/assets/landing/logo_grey.png')"
                                 style="width: 150px;"
-                                @click="$router.push('/')"
+                                @click="$router.push('https://www.instagram.com/blueballoon.io/')"
                             />
 
-                            <p>Powered By BlueBalloon Inc.</p>
+                            <p>Powered By a BlueBalloon Inc.</p>
                         </div>
                     </div>
                 </div>
