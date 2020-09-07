@@ -2,35 +2,50 @@
     <q-page class="bg-grey-2">
         <q-img :src="require('@/assets/wp/ceciliapescao/logo.jpg')" class="shadow-7" />
         <div class="q-pa-md">
-            <div class="text-h6 text-center q-mb-md text-indigo-10 poppins-bold">ENTRADAS / STARTERS</div>
-            <!-- <div class="text-h6 text-center q-mb-md text-indigo-10">PLATILLOS / MAIN DISHES</div>
-            <div class="text-h6 text-center q-mb-md text-indigo-10">CEVICHES</div>
-            <div class="text-h6 text-center q-mb-md text-indigo-10">BEBIDAS / DRINKS</div>
-            <div class="text-h6 text-center q-mb-md text-indigo-10">ACOMPAÑAMIENTOS / SIDES</div>-->
             <!-- MENU ITEMS -->
-            <q-card class="full-width q-mb-lg" v-for="(item, i) in menu" :key="i">
-                <q-img v-if="item.pic" :src="require(`@/assets/wp/demo/${item.pic}`)" />
-                <q-card-section class="q-pb-none">
-                    <div class="row">
-                        <div class="col text-h6">{{ item.title }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="col text-subtitle2">{{ item.subtitle }}</div>
-                    </div>
-                </q-card-section>
+            <div v-for="(item, i) in menu" :key="i">
+                <div
+                    v-if="i == 0"
+                    class="text-h6 text-center q-mb-md text-indigo-10 poppins-bold"
+                >ENTRADAS / STARTERS</div>
+                <div
+                    v-if="i == 4"
+                    class="text-h6 text-center q-mb-md text-indigo-10"
+                >PLATILLOS / MAIN DISHES</div>
+                <div v-if="i == 33" class="text-h6 text-center q-mb-md text-indigo-10">CEVICHES</div>
+                <div
+                    v-if="i == 41"
+                    class="text-h6 text-center q-mb-md text-indigo-10"
+                >BEBIDAS / DRINKS</div>
+                <div
+                    v-if="i == 50"
+                    class="text-h6 text-center q-mb-md text-indigo-10"
+                >ACOMPAÑAMIENTOS / SIDES</div>
+                <q-card class="full-width q-mb-lg">
+                    <q-img v-if="item.pic" :src="require(`@/assets/wp/demo/${item.pic}`)" />
+                    <q-card-section class="q-pb-none">
+                        <div class="row">
+                            <div class="col text-h6">{{ item.title }}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-subtitle2">{{ item.subtitle }}</div>
+                        </div>
+                    </q-card-section>
 
-                <q-card-section class="q-pt-none">
-                    <div class="text-h6 poppins-bold">$ {{ item.price.toFixed(2) }}</div>
-                    <div class="text-caption text-grey">{{ item.desc }}</div>
-                </q-card-section>
+                    <q-card-section class="q-pt-none">
+                        <div class="text-h6 poppins-bold">$ {{ item.price.toFixed(2) }}</div>
+                        <div class="text-caption text-grey">{{ item.desc }}</div>
+                    </q-card-section>
 
-                <q-separator />
+                    <q-separator />
 
-                <q-card-actions>
-                    <q-space />
-                    <q-btn flat color="indigo-10" @click="selectItem(i)">Agregar</q-btn>
-                </q-card-actions>
-            </q-card>
+                    <q-card-actions>
+                        <q-space />
+                        <q-btn flat color="indigo-10" @click="selectItem(i)">Agregar</q-btn>
+                    </q-card-actions>
+                </q-card>
+            </div>
+
             <!-- END MENU ITEMS -->
 
             <!-- OPTIONS DIALOG -->
@@ -268,12 +283,14 @@
 
 <script>
 import GoogleMaps from '../../components/general/GoogleMaps'
+import emailjs from 'emailjs-com'
+
 export default {
     data() {
         return {
             selectedItemIndex: 0,
             name: '',
-            orderNo: Math.floor(100000 + Math.random() * 900000),
+            orderNo: '',
             seamless: false,
             whatsappNumber: '62042578',
             selectedItem: {},
@@ -1065,7 +1082,41 @@ export default {
             message = message.replace(/#/g, '%23')
             return message
         },
-        sendChat() {
+        async sendEmail() {
+            let message = ''
+            for (let item of this.cart) {
+                if (item.type == 'starter')
+                    message += `(${item.amount}) ${item.title}<br>`
+                if (item.type == 'main')
+                    message += `(${item.amount}) ${item.title} con ${item.options.title}<br>`
+                if (item.type == 'ceviche')
+                    message += `(${item.amount}) ${item.title}<br>`
+                if (item.type == 'side')
+                    message += `(${item.amount}) Extra - ${item.title} - ${item.options.title}<br>`
+                if (item.type == 'drink')
+                    message += `(${item.amount}) ${item.title} - ${item.options.title}<br>`
+            }
+            let data = {
+                id: this.orderNo,
+                pedido: message,
+                nombre: this.name,
+                status: 'orden creada',
+                total: this.total,
+                metodo_de_pago: this.selectedPaymentMethod,
+                metodo_de_entrega: this.selectedPickupMethod,
+            }
+            if (data.metodo_de_entrega === 'Delivery') {
+                data.direcion_1 = this.getLocationForMessage()
+                data.direcion_2 = this.address
+            }
+            await emailjs.send(
+                'gmail',
+                'template_n11yl4q',
+                data,
+                'user_l9KYZVj8DNvwXi3kegar5'
+            )
+        },
+        async sendChat() {
             if (this.name == '') {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
                 return
@@ -1084,9 +1135,11 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
+                this.orderNo = Math.floor(100000 + Math.random() * 900000)
                 this.$analytics.logEvent('wp-ceciliapescao', {
                     content_action: 'Orden Completada',
                 })
+                await this.sendEmail()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
