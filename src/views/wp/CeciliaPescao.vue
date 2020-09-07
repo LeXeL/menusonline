@@ -6,20 +6,23 @@
             <div v-for="(item, i) in menu" :key="i">
                 <div
                     v-if="i == 0"
-                    class="text-h6 text-center q-mb-md text-indigo-10 poppins-bold"
+                    class="text-h6 text-center q-my-lg text-indigo-10 poppins-bold"
                 >ENTRADAS / STARTERS</div>
                 <div
                     v-if="i == 4"
-                    class="text-h6 text-center q-mb-md text-indigo-10"
+                    class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >PLATILLOS / MAIN DISHES</div>
-                <div v-if="i == 33" class="text-h6 text-center q-mb-md text-indigo-10">CEVICHES</div>
+                <div
+                    v-if="i == 33"
+                    class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
+                >CEVICHES</div>
                 <div
                     v-if="i == 41"
-                    class="text-h6 text-center q-mb-md text-indigo-10"
+                    class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >BEBIDAS / DRINKS</div>
                 <div
                     v-if="i == 50"
-                    class="text-h6 text-center q-mb-md text-indigo-10"
+                    class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >ACOMPAÑAMIENTOS / SIDES</div>
                 <q-card class="full-width q-mb-lg">
                     <q-img v-if="item.pic" :src="require(`@/assets/wp/demo/${item.pic}`)" />
