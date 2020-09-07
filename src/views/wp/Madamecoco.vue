@@ -438,8 +438,6 @@ export default {
         },
         async sendToGoogleDriveSheet() {
             let message = ''
-            let id = Math.floor(100000 + Math.random() * 900000)
-            this.orderNo = id
             for (let item of this.cart) {
                 if (item.type == 'main')
                     message += `(${item.amount}) ${item.title} con ${item.options.title}\n`
@@ -449,8 +447,9 @@ export default {
                     message += `(${item.amount}) Bebida - ${item.options.title}\n`
             }
             let data = {
-                id: id,
+                id: this.orderNo,
                 pedido: message,
+                nombre: this.name,
                 status: 'orden creada',
                 direcion_1: this.getLocationForMessage(),
                 direcion_2: this.address,
@@ -529,6 +528,7 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
+                this.orderNo = Math.floor(100000 + Math.random() * 900000)
                 this.$analytics.logEvent('wp-madamecoco', {
                     content_action: 'Orden Completada',
                 })
