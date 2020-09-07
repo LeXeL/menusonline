@@ -127,7 +127,48 @@
 
                     <q-separator dark />
                     <q-card-section>
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="text-h6 poppins-bold q-mb-md">Datos de orden</div>
+                            </div>
+                        </div>
                         <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Nombre:</div>
+                            <q-input
+                                v-model="name"
+                                filled
+                                dark
+                                type="text"
+                                class="full-width poppins-regular"
+                                placeholder="Jose Perez"
+                                color="orange-9"
+                            />
+                        </div>
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de entrega:</div>
+                            <q-btn-toggle
+                                v-model="selectedPickupMethod"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="orange-9"
+                                color="white"
+                                text-color="black"
+                                :options="pickupMethods"
+                            />
+                        </div>
+                        <div class="row" v-if="this.selectedPickupMethod == 'Delivery'">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Ubicacion de entrega:</div>
+                        </div>
+                        <GoogleMaps
+                            class="q-mb-md"
+                            v-if="Object.keys(center).length > 0 && this.selectedPickupMethod == 'Delivery'"
+                            @markerPosition="setMarkerPosition"
+                            :editable="true"
+                            :markers="markers"
+                            :mapCenter="center"
+                        ></GoogleMaps>
+                        <div class="row q-mb-md" v-if="selectedPickupMethod == 'Delivery'">
                             <div
                                 class="text-subtitle2 poppins-bold q-mb-sm"
                             >Direccion de entrega (completa):</div>
@@ -206,9 +247,13 @@
 </template>
 
 <script>
+import GoogleMaps from '../../components/general/GoogleMaps'
+
 export default {
     data() {
         return {
+            orderNo: '',
+            name: '',
             selectedItemIndex: 0,
             seamless: false,
             whatsappNumber: '62042578',
@@ -217,9 +262,17 @@ export default {
                 {label: 'Yappy', value: 'Yappy'},
                 {label: 'Efectivo', value: 'Efectivo'},
             ],
+            pickupMethods: [
+                {label: 'Delivery', value: 'Delivery'},
+                {label: 'Retirar en local', value: 'Retirar en local'},
+            ],
+            selectedPickupMethod: '',
             selectedPaymentMethod: null,
             address: '',
             total: 0,
+            location: [],
+            markers: [],
+            center: {},
             optionsDialog: false,
             successDialog: false,
             cartDialog: false,
@@ -335,15 +388,113 @@ export default {
                 if (item.type == 'drinks')
                     message += `- (${item.amount}) Bebida - ${item.options.title}%0D%0A`
             }
-            message += `%0D%0ADireccion: ${this.address}%0D%0AMetodo de pago: ${
+            message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
+            if (this.selectedPickupMethod == 'Delivery') {
+                message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
+                    this.address
+                }`
+            }
+            message += `%0D%0AMetodo de entrega: ${
+                this.selectedPickupMethod
+            }%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
             }%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
         },
-        sendChat() {
-            if (this.address == '') {
+        async sendToGoogleDriveSheet() {
+            let message = ''
+            for (let item of this.cart) {
+                if (item.type == 'main')
+                    message += `(${item.amount}) ${item.title} con ${item.options.title}\n`
+                if (item.type == 'extras')
+                    message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
+                if (item.type == 'drinks')
+                    message += `(${item.amount}) Bebida - ${item.options.title}\n`
+            }
+            let data = {
+                id: this.orderNo,
+                pedido: message,
+                nombre: this.name,
+                status: 'orden creada',
+                total: this.total,
+                metodo_de_pago: this.selectedPaymentMethod,
+                metodo_de_entrega: this.selectedPickupMethod,
+            }
+            if (data.metodo_de_entrega === 'Delivery') {
+                data.direcion_1 = this.getLocationForMessage()
+                data.direcion_2 = this.address
+            }
+            var url =
+                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST', url)
+            // xhr.withCredentials = true;
+            xhr.setRequestHeader(
+                'Content-Type',
+                'application/x-www-form-urlencoded'
+            )
+            // url encode form data for sending as post data
+            var encoded = Object.keys(data)
+                .map(function (k) {
+                    return (
+                        encodeURIComponent(k) +
+                        '=' +
+                        encodeURIComponent(data[k])
+                    )
+                })
+                .join('&')
+            await xhr.send(encoded)
+        },
+        getLocationForMessage() {
+            if (this.location.length <= 0) {
+                let lat = parseFloat(this.center.lat)
+                let lng = parseFloat(this.center.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            } else {
+                let lat = parseFloat(this.location.lat)
+                let lng = parseFloat(this.location.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            }
+        },
+
+        setMarkerPosition(event) {
+            this.location = event
+        },
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.center = {
+                        lat: parseFloat(position.coords.latitude),
+                        lng: parseFloat(position.coords.longitude),
+                    }
+                    this.markers.push({position: this.center})
+                },
+                error => {
+                    this.center = {
+                        lat: parseFloat(9.068463),
+                        lng: parseFloat(-79.452694),
+                    }
+                    this.markers.push({position: this.center})
+                }
+            )
+        },
+        async sendChat() {
+            if (this.name == '') {
+                alert('Debes ingresar tu nombre para enviar el pedido.')
+                return
+            }
+            if (this.selectedPickupMethod == '') {
+                alert('Debes seleccionar un metodo de entrega.')
+                return
+            }
+            if (this.address == '' && this.selectedPickupMethod == 'Delivery') {
                 alert(
                     'Debes ingresar tu direccion completa para la entrega de tu pedido.'
                 )
@@ -353,9 +504,11 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
+                this.orderNo = Math.floor(100000 + Math.random() * 900000)
                 this.$analytics.logEvent('wp-demo', {
                     content_action: 'Orden Completada',
                 })
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
@@ -378,12 +531,16 @@ export default {
             }
         },
     },
+    components: {
+        GoogleMaps,
+    },
     mounted() {
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
         this.$analytics.logEvent('wp-demo', {
             path,
         })
+        this.geolocate()
     },
 }
 </script>
