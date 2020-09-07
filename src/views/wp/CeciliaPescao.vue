@@ -258,7 +258,10 @@
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
                             :disable="cart.length <= 0"
-                        >Enviar</q-btn>
+                        >
+                            <!-- <span>Enviar</span> -->
+                            <q-spinner-facebook color="white" size="1em" />
+                        </q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
