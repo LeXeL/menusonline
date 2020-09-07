@@ -1,7 +1,17 @@
 <template>
     <q-page class="bg-grey-2">
         <q-img :src="require('@/assets/wp/ceciliapescao/logo.jpg')" class="shadow-7" />
+
         <div class="q-pa-md">
+            <div class="text-subtitle2 text-indigo-10 q-mb-sm q-mt-md">Categorias</div>
+            <q-select
+                filled
+                v-model="selectedCategory"
+                :options="categories"
+                class="q-mb-md"
+                label="Seleccione"
+                color="indigo-10"
+            />
             <!-- MENU ITEMS -->
             <div v-for="(item, i) in menu" :key="i">
                 <div
@@ -291,6 +301,15 @@ import emailjs from 'emailjs-com'
 export default {
     data() {
         return {
+            selectedCategory: null,
+            categories: [
+                'Todo / All',
+                'Entradas / Starters',
+                'Platillos / Main dishes',
+                'Ceviches',
+                'Bebidas / Drinks',
+                'Acompañantes / Sides',
+            ],
             selectedItemIndex: 0,
             name: '',
             orderNo: '',
