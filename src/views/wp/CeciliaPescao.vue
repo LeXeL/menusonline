@@ -42,8 +42,9 @@
                     <q-separator />
                     <q-card-section>
                         <q-btn
-                            color="green-7"
+                            color="indigo-10"
                             class="poppins-bold full-width q-mb-md"
+                            outline
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
@@ -59,6 +60,7 @@
                         </q-btn>
                         <q-btn
                             color="red-7"
+                            flat
                             class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
                         >Cancelar</q-btn>
@@ -75,7 +77,8 @@
                     </q-card-section>
                     <q-card-section>
                         <q-btn
-                            color="green-7"
+                            color="indigo-10"
+                            outline
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
                         >Aceptar</q-btn>
