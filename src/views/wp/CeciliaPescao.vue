@@ -257,7 +257,7 @@
                             color="green-7"
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
-                            :disable="cart.length <= 0"
+                            :disable="cart.length <= 0 || displayLoading"
                         >
                             <span v-if="!displayLoading">Enviar</span>
                             <q-spinner-facebook v-if="displayLoading" color="white" size="1em" />
