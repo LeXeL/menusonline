@@ -13,7 +13,7 @@
                 color="indigo-10"
             />
             <!-- MENU ITEMS -->
-            <div v-for="(item, i) in menu" :key="i">
+            <div v-for="(item, i) in filterMenu(menu)" :key="i">
                 <div
                     v-if="i == 0"
                     class="text-h6 text-center q-my-lg text-indigo-10 poppins-bold"
@@ -983,6 +983,26 @@ export default {
         }
     },
     methods: {
+        filterMenu(menu) {
+            let type = ''
+            if (this.selectedCategory === 'Todo / All') {
+                type = 'all'
+                return this.menu
+            }
+            if (this.selectedCategory === null) {
+                return this.menu
+            }
+            if (this.selectedCategory === 'Entradas / Starters')
+                type = 'starter'
+            if (this.selectedCategory === 'Platillos / Main dishes')
+                type = 'main'
+            if (this.selectedCategory === 'Ceviches') type = 'ceviche'
+            if (this.selectedCategory === 'Bebidas / Drinks') type = 'drinks'
+            if (this.selectedCategory === 'Acompañantes / Sides') type = 'side'
+            return menu.filter(m => {
+                if (m.type === type) return m
+            })
+        },
         selectItem(index) {
             this.selectedItemIndex = index
             this.selectedItem = Object.assign({}, this.menu[index])
