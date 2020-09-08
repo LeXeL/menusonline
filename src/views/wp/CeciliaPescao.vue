@@ -1196,10 +1196,10 @@ export default {
                 })
                 this.displayLoading = true
                 await this.sendEmail()
-                this.displayLoading = false
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
+                this.displayLoading = false
             }
         },
     },
