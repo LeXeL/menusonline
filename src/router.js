@@ -11,6 +11,7 @@ import BiggFive from './views/wp/BiggFive'
 import CeciliaPescao from './views/wp/CeciliaPescao'
 import Enid from './views/wp/Enid'
 import Madamecoco from './views/wp/Madamecoco'
+import PanamaHotdog from './views/wp/PanamaHotdog'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -89,6 +90,11 @@ export default new Router({
                     path: '/wp/madamecoco',
                     name: 'madamecoco',
                     component: Madamecoco,
+                },
+                {
+                    path: '/wp/panamahotdog',
+                    name: 'panamahotdog',
+                    component: PanamaHotdog,
                 },
             ],
         },
