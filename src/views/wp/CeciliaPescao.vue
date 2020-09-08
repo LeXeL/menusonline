@@ -1196,9 +1196,10 @@ export default {
                 })
                 this.displayLoading = true
                 await this.sendEmail()
-                window.location.href = `https://wa.me/507${
-                    this.whatsappNumber
-                }?text=${this.generateMessage()}`
+                let whatsappMessage = await this.generateMessage()
+                this.cart = []
+                this.seamless = false
+                window.location.href = `https://wa.me/507${this.whatsappNumber}?text=${whatsappMessage}`
                 this.displayLoading = false
             }
         },
