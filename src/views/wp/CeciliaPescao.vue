@@ -188,7 +188,7 @@
                                 dark
                                 type="text"
                                 class="full-width poppins-regular"
-                                placeholder="Jose Perez"
+                                placeholder="Nombre Apellido"
                                 color="indigo-10"
                             />
                         </div>
