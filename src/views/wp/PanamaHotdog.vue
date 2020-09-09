@@ -242,6 +242,10 @@
                         <div class="row">
                             <div class="col text-center">
                                 <div class="text-h5 poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
+                                <div
+                                    class="text-subtitle2 poppins-bold text-red-8"
+                                    v-if="selectedPickupMethod == 'Delivery'"
+                                >Sin costos por delivery.</div>
                             </div>
                         </div>
                     </q-card-section>
@@ -473,7 +477,7 @@ export default {
                     desc:
                         'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'hamburguesa_bulldog.jpeg',
                     price: 6,
                     options: [
                         {
@@ -487,7 +491,7 @@ export default {
                     desc:
                         'Tender de pechuga de pollo, queso blanco, salsa tartara.',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'arepa_pollo.jpg',
                     price: 4,
                     options: [
                         {
@@ -543,7 +547,7 @@ export default {
                     desc:
                         'Pechuga de pollo apanada, pico de gallo, queso amarillo fundido, mayonesa.',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'burrito_pollo.jpeg',
                     price: 4,
                     options: [
                         {
@@ -557,7 +561,7 @@ export default {
                     desc:
                         'Ketchup, mayonesa, pico de gallo, carne molida, pollo, queso amarillo fundido.',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'burrito_mixto.jpg',
                     price: 5,
                     options: [
                         {
@@ -583,7 +587,7 @@ export default {
                     title: 'Combito de hamburguesa',
                     desc: '4 alas, papas, hamburguesa y soda',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'combito_hamburguesa.jpeg',
                     price: 6,
                     options: [
                         {
@@ -716,7 +720,7 @@ export default {
                     title: 'Papas fritas',
                     desc: 'Orden extra de papas fritas.',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'orden_papas.jpeg',
                     price: 1.5,
                     options: [
                         {
@@ -830,7 +834,7 @@ export default {
                     title: 'Limonada con hierbabuena',
                     desc: '',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'limonada.jpg',
                     options: [
                         {
                             title: 'Regular',
@@ -848,14 +852,31 @@ export default {
                     desc: '',
                     type: 'extra',
                     pic: 'filete_de_pescado.jpeg',
-                    price: 10,
+                    options: [
+                        {
+                            title: 'Filete',
+                            price: 8,
+                        },
+                        {
+                            title: 'Entero',
+                            price: 10,
+                        },
+                    ],
+                    days: [1, 2, 3, 4, 5, 6, 7],
+                },
+                {
+                    title: 'Patacones',
+                    desc: 'Orden extra de patacones fritos.',
+                    type: 'extra',
+                    pic: 'patacones.jpg',
+                    price: 1.5,
                     options: [
                         {
                             title: 'Regular',
                             price: 0,
                         },
                     ],
-                    days: [5, 6],
+                    days: [1, 2, 3, 4, 5, 6, 7],
                 },
                 {
                     title: 'Saus',
@@ -870,7 +891,7 @@ export default {
                             price: 0,
                         },
                     ],
-                    days: [5],
+                    days: [1, 2, 3, 4, 5, 6, 7],
                 },
                 {
                     title: 'Ceviche',
@@ -880,15 +901,15 @@ export default {
                     pic: 'ceviche.jpeg',
                     options: [
                         {
-                            title: 'Tradicional',
-                            price: 2.5,
+                            title: 'Tradicional 16oz.',
+                            price: 5,
                         },
                         {
-                            title: 'Gourmet',
-                            price: 3,
+                            title: 'Gourmet 16oz.',
+                            price: 6,
                         },
                     ],
-                    days: [5, 6],
+                    days: [1, 2, 3, 4, 5, 6, 7],
                 },
             ],
         }
@@ -965,7 +986,7 @@ export default {
             let message =
                 'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} con ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
