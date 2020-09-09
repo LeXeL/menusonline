@@ -242,6 +242,10 @@
                         <div class="row">
                             <div class="col text-center">
                                 <div class="text-h5 poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
+                                <div
+                                    class="text-subtitle2 poppins-bold text-red-8"
+                                    v-if="selectedPickupMethod == 'Delivery'"
+                                >Sin costos por delivery.</div>
                             </div>
                         </div>
                     </q-card-section>
