@@ -620,7 +620,7 @@ export default {
                     title: 'Combito de Hotdog Panameño',
                     desc: '4 alas, papas, hotdog panameño y soda',
                     type: 'main',
-                    pic: 'empty.png',
+                    pic: 'combito_hawaiiano.jpg',
                     price: 6,
                     options: [
                         {
