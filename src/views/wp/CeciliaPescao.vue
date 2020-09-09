@@ -380,10 +380,11 @@ export default {
                 {
                     title: 'Pescado entero frito (chico)',
                     subtitle: 'Fried fish (small)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -394,10 +395,11 @@ export default {
                 {
                     title: 'Pescado entero frito (mediano)',
                     subtitle: 'Fried fish (medium)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -408,10 +410,11 @@ export default {
                 {
                     title: 'Pescado entero frito (grande)',
                     subtitle: 'Fried fish (Big)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -422,10 +425,11 @@ export default {
                 {
                     title: 'Filete de pescado frito',
                     subtitle: 'Fried fish filet',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -436,10 +440,11 @@ export default {
                 {
                     title: 'Filete de pescado frito con salsa al ajillo',
                     subtitle: 'Fried fish filet with garlic sause',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -450,10 +455,11 @@ export default {
                 {
                     title: 'Filete de pescado frito apanado',
                     subtitle: 'Breaded fried fish filet',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -465,10 +471,11 @@ export default {
                     title: 'Especial de la casa, Pescado a lo macho',
                     subtitle: '',
                     desc:
-                        'Pescado entero frito con mixto de marisco, camarones, almejas y langosta. / Specialty of the house, fried fish with seafood mix, shrimps, clams and lobster.',
+                        'Pescado entero frito con mixto de marisco, camarones, almejas y langosta, con ensalada y acompañamiento de su eleccion. / Specialty of the house, fried fish with seafood mix, shrimps, clams and lobster, with salad and side of your choice.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -479,10 +486,11 @@ export default {
                 {
                     title: 'Pescado frito con almejas (chico)',
                     subtitle: 'Fried fish with clams (small)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -493,10 +501,11 @@ export default {
                 {
                     title: 'Pescado frito con almejas (mediano)',
                     subtitle: 'Fried fish with clams (medium)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -507,10 +516,11 @@ export default {
                 {
                     title: 'Pescado frito con almejas (grande)',
                     subtitle: 'Fried fish with clams (big)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -522,10 +532,11 @@ export default {
                 {
                     title: 'Pescado frito con camarones (chico)',
                     subtitle: 'Fried fish with shrimps (small)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -536,10 +547,11 @@ export default {
                 {
                     title: 'Pescado frito con camarones (mediano)',
                     subtitle: 'Fried fish with shrimps (medium)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -550,10 +562,11 @@ export default {
                 {
                     title: 'Pescado frito con camarones (grande)',
                     subtitle: 'Fried fish with shrimps (big)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -565,10 +578,11 @@ export default {
                 {
                     title: 'Pescado frito con mixto de mariscos (chico)',
                     subtitle: 'Fried fish with seafood mix (small)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -579,10 +593,11 @@ export default {
                 {
                     title: 'Pescado frito con mixto de mariscos (mediano)',
                     subtitle: 'Fried fish with seafood mix (medium)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -593,10 +608,11 @@ export default {
                 {
                     title: 'Pescado frito con mixto de mariscos (grande)',
                     subtitle: 'Fried fish with seafood mix (big)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -608,10 +624,11 @@ export default {
                 {
                     title: 'Filete de pescado frito con almejas',
                     subtitle: 'Fried fish filet with clams',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -622,10 +639,11 @@ export default {
                 {
                     title: 'Filete de pescado frito con camarones',
                     subtitle: 'Fried fish filet with shrimps',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -636,10 +654,11 @@ export default {
                 {
                     title: 'Filete de pescado frito con mixto de mariscos',
                     subtitle: 'Fried fish filet with seafood mix',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -650,10 +669,11 @@ export default {
                 {
                     title: 'Picada mixta (pequeña)',
                     subtitle: 'Mixed platter (small)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -664,10 +684,11 @@ export default {
                 {
                     title: 'Picada mixta (grande)',
                     subtitle: 'Mixed platter (big)',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -678,10 +699,11 @@ export default {
                 {
                     title: 'Langosta',
                     subtitle: 'Lobster',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -692,10 +714,11 @@ export default {
                 {
                     title: 'Langostinos',
                     subtitle: 'Jumbo shrimps',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -706,10 +729,11 @@ export default {
                 {
                     title: 'Camarones al ajillo',
                     subtitle: 'Shrimps in garlic sauce',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -720,10 +744,11 @@ export default {
                 {
                     title: 'Camarones apanados',
                     subtitle: 'Breaded shrimps',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -734,10 +759,11 @@ export default {
                 {
                     title: 'Mixto de mariscos',
                     subtitle: 'Seafood mix',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -746,12 +772,13 @@ export default {
                     type: 'main',
                 },
                 {
-                    title: 'Patacones rellenos',
+                    title: 'Patacones rellenos mixtos',
                     subtitle: 'Fried plantain cups filled with seafood',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -762,10 +789,11 @@ export default {
                 {
                     title: 'Patacones rellenos de camarones',
                     subtitle: 'Fried plantain cups filled with shrimps',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -776,10 +804,11 @@ export default {
                 {
                     title: 'Tiritas de pollo frito',
                     subtitle: 'Chicken tenders',
-                    desc: '',
+                    desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
@@ -959,6 +988,7 @@ export default {
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
