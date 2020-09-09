@@ -15,23 +15,23 @@
             <!-- MENU ITEMS -->
             <div v-for="(item, i) in filterMenu(menu)" :key="i">
                 <div
-                    v-if="i == 0"
+                    v-if="item.title == 'Almejas'"
                     class="text-h6 text-center q-my-lg text-indigo-10 poppins-bold"
                 >ENTRADAS / STARTERS</div>
                 <div
-                    v-if="i == 4"
+                    v-if="item.title == 'Pescado entero frito (chico)'"
                     class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >PLATILLOS / MAIN DISHES</div>
                 <div
-                    v-if="i == 33"
+                    v-if="item.title == 'Ceviche de pescado'"
                     class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >CEVICHES</div>
                 <div
-                    v-if="i == 41"
+                    v-if="item.title == 'Cerveza nacional'"
                     class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >BEBIDAS / DRINKS</div>
                 <div
-                    v-if="i == 50"
+                    v-if="item.title == 'Acompañamientos adicionales'"
                     class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >ACOMPAÑAMIENTOS / SIDES</div>
                 <q-card class="full-width q-mb-lg">
@@ -54,7 +54,7 @@
 
                     <q-card-actions>
                         <q-space />
-                        <q-btn flat color="indigo-10" @click="selectItem(i)">Agregar</q-btn>
+                        <q-btn flat color="indigo-10" @click="selectItem(item)">Agregar</q-btn>
                     </q-card-actions>
                 </q-card>
             </div>
@@ -257,10 +257,10 @@
                             color="green-7"
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
-                            :disable="cart.length <= 0"
+                            :disable="cart.length <= 0 || displayLoading"
                         >
-                            <!-- <span>Enviar</span> -->
-                            <q-spinner-facebook color="white" size="1em" />
+                            <span v-if="!displayLoading">Enviar</span>
+                            <q-spinner-facebook v-if="displayLoading" color="white" size="1em" />
                         </q-btn>
                     </q-card-section>
                 </q-card>
@@ -317,6 +317,7 @@ export default {
             name: '',
             orderNo: '',
             seamless: false,
+            displayLoading: false,
             whatsappNumber: '62042578',
             selectedItem: {},
             paymentMethods: [
@@ -997,15 +998,24 @@ export default {
             if (this.selectedCategory === 'Platillos / Main dishes')
                 type = 'main'
             if (this.selectedCategory === 'Ceviches') type = 'ceviche'
-            if (this.selectedCategory === 'Bebidas / Drinks') type = 'drinks'
+            if (this.selectedCategory === 'Bebidas / Drinks') type = 'drink'
             if (this.selectedCategory === 'Acompañantes / Sides') type = 'side'
             return menu.filter(m => {
                 if (m.type === type) return m
             })
         },
-        selectItem(index) {
-            this.selectedItemIndex = index
-            this.selectedItem = Object.assign({}, this.menu[index])
+        selectItem(item) {
+            let itemInMenu = this.menu.filter((m, index) => {
+                if (m.title === item.title) {
+                    console.log(index)
+                    this.selectedItemIndex = index
+                    return m
+                }
+            })
+            this.selectedItem = Object.assign(
+                {},
+                this.menu[this.selectedItemIndex]
+            )
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -1184,10 +1194,13 @@ export default {
                 this.$analytics.logEvent('wp-ceciliapescao', {
                     content_action: 'Orden Completada',
                 })
+                this.displayLoading = true
                 await this.sendEmail()
-                window.location.href = `https://wa.me/507${
-                    this.whatsappNumber
-                }?text=${this.generateMessage()}`
+                let whatsappMessage = await this.generateMessage()
+                this.cart = []
+                this.seamless = false
+                window.location.href = `https://wa.me/507${this.whatsappNumber}?text=${whatsappMessage}`
+                this.displayLoading = false
             }
         },
     },
