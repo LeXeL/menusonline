@@ -487,44 +487,23 @@ export default {
                     ],
                 },
                 {
-                    title: 'Arepa de pollo',
+                    title: 'Arepas',
                     desc:
-                        'Tender de pechuga de pollo, queso blanco, salsa tartara.',
-                    type: 'main',
-                    pic: 'arepa_pollo.jpg',
-                    price: 4,
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Arepa de carne desmechada',
-                    desc:
-                        'Carne desmechada, queso blanco, salsa de ajo, chicharrón.',
-                    type: 'main',
-                    pic: 'arepa_carne_desmechada.jpeg',
-                    price: 4,
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Arepa Mixta',
-                    desc:
-                        'Pollo, carne, chorizo, queso blanco, salsa tartara, chicharrón.',
+                        'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
                     type: 'main',
                     pic: 'arepa_mixta.jpeg',
-                    price: 4,
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Pollo',
+                            price: 4,
+                        },
+                        {
+                            title: 'Carne desmechada',
+                            price: 4,
+                        },
+                        {
+                            title: 'Mixta',
+                            price: 4,
                         },
                     ],
                 },
