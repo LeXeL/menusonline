@@ -331,6 +331,8 @@ export default {
                     type: 'main',
                     pic: 'hotdog_hawaiiano.jpg',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -349,6 +351,8 @@ export default {
                     type: 'main',
                     pic: 'hotdog_panameno.jpeg',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -367,6 +371,8 @@ export default {
                     type: 'main',
                     pic: 'chillidog.jpeg',
                     price: 2.5,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -384,6 +390,8 @@ export default {
                         'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
                     type: 'main',
                     pic: 'salchipapas.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Pequeño',
@@ -401,6 +409,8 @@ export default {
                         'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
                     type: 'main',
                     pic: 'salchipapas_revoltosa.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Carne molida - Pequeño',
@@ -435,6 +445,8 @@ export default {
                     type: 'main',
                     pic: 'hamburguesa_carne.jpeg',
                     price: 4,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -452,6 +464,8 @@ export default {
                         'Mayonesa, lechuga, tomate, tender de pechuga de pollo, queso blanco, o amarillo.',
                     type: 'main',
                     pic: 'hamburguesa_pollo.jpeg',
+                    styles: [],
+                    sides: [],
                     price: 4,
                     options: [
                         {
@@ -478,6 +492,8 @@ export default {
                         'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
                     type: 'main',
                     pic: 'hamburguesa_bulldog.jpeg',
+                    styles: [],
+                    sides: [],
                     price: 6,
                     options: [
                         {
@@ -492,6 +508,8 @@ export default {
                         'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
                     type: 'main',
                     pic: 'arepa_mixta.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Pollo',
@@ -513,6 +531,8 @@ export default {
                         'Elige entre burrito de carne, burrito de pollo o burrito mixto.',
                     type: 'main',
                     pic: 'burrito_carne.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Carne',
@@ -534,6 +554,8 @@ export default {
                     type: 'main',
                     pic: 'club_sandwich.jpeg',
                     price: 6,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -547,6 +569,8 @@ export default {
                     type: 'main',
                     pic: 'combito_hamburguesa.jpeg',
                     price: 6,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Coca Cola',
@@ -575,44 +599,23 @@ export default {
                     ],
                 },
                 {
-                    title: 'Combito de Hotdog Panameño',
-                    desc: '4 alas, papas, hotdog panameño y soda',
+                    title: 'Combito de Hotdog',
+                    desc:
+                        'Elije entre Hotdog Panameño o Hotdog Hawaiiano, acompañado de 4 alas, papas y soda.',
                     type: 'main',
                     pic: 'combito_hawaiiano.jpg',
                     price: 6,
-                    options: [
+                    styles: [
                         {
-                            title: 'Coca Cola',
+                            title: 'Hotdog Hawaiiano',
                             price: 0,
                         },
                         {
-                            title: 'GingerAle',
-                            price: 0,
-                        },
-                        {
-                            title: 'Dr. Pepper',
-                            price: 0,
-                        },
-                        {
-                            title: 'Kist Fresa',
-                            price: 0,
-                        },
-                        {
-                            title: 'Maltin Polar',
-                            price: 0,
-                        },
-                        {
-                            title: 'Root Beer',
+                            title: 'Hotdog Panameño',
                             price: 0,
                         },
                     ],
-                },
-                {
-                    title: 'Combito de Hotdog Hawaiiano',
-                    desc: '4 alas, papas, hotdog hawaiiano y soda',
-                    type: 'main',
-                    pic: 'combito_hawaiiano.jpg',
-                    price: 6,
+                    sides: [],
                     options: [
                         {
                             title: 'Coca Cola',
@@ -646,6 +649,8 @@ export default {
                     type: 'main',
                     pic: 'alitas.jpeg',
                     price: 6,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -659,6 +664,8 @@ export default {
                     type: 'main',
                     pic: 'empanadas.jpeg',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Carne molida',
@@ -680,6 +687,8 @@ export default {
                     type: 'main',
                     pic: 'orden_papas.jpeg',
                     price: 1.5,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -694,6 +703,8 @@ export default {
                     type: 'main',
                     pic: 'soda.jpg',
                     price: 1,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Coca Cola',
@@ -727,6 +738,8 @@ export default {
                     type: 'main',
                     pic: 'jugos.jpg',
                     price: 1,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Melocoton',
@@ -748,6 +761,8 @@ export default {
                     type: 'main',
                     pic: 'agua.jpg',
                     price: 1,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Botella 600ml',
@@ -761,6 +776,8 @@ export default {
                         'Batidos de fresa, maracuya, papaya, Melocoton, Guanabana, Cornflakes.',
                     type: 'main',
                     pic: 'batido.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Fresa',
@@ -793,6 +810,8 @@ export default {
                     desc: '',
                     type: 'main',
                     pic: 'limonada.jpg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -810,6 +829,8 @@ export default {
                     desc: '',
                     type: 'extra',
                     pic: 'filete_de_pescado.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Filete',
@@ -828,6 +849,8 @@ export default {
                     type: 'extra',
                     pic: 'patacones.jpg',
                     price: 1.5,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -842,6 +865,8 @@ export default {
                     desc: '',
                     type: 'extra',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     pic: 'saus.jpeg',
                     options: [
                         {
@@ -857,6 +882,8 @@ export default {
                     desc: '',
                     type: 'extra',
                     pic: 'ceviche.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Tradicional 16oz.',
