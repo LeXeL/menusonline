@@ -10,7 +10,7 @@
                 >&nbsp;PanamaHotdogOficial</a>
             </div>
             <div class="text-subtitle2 poppins-bold q-mb-lg">
-                <i class="fab fa-whatsapp text-red-8"></i> Comprobantes al 65656565
+                <i class="fab fa-whatsapp text-red-8"></i> Comprobantes al 6684-7121
             </div>
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
 
@@ -529,44 +529,23 @@ export default {
                     ],
                 },
                 {
-                    title: 'Burrito de carne',
+                    title: 'Burritos',
                     desc:
-                        'Carne molida, queso amarillo, ketchup, mayonesa, pico de gallo.',
+                        'Elige entre burrito de carne, burrito de pollo o burrito mixto.',
                     type: 'main',
                     pic: 'burrito_carne.jpeg',
-                    price: 4,
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                            price: 4,
                         },
-                    ],
-                },
-                {
-                    title: 'Burrito de pollo',
-                    desc:
-                        'Pechuga de pollo apanada, pico de gallo, queso amarillo fundido, mayonesa.',
-                    type: 'main',
-                    pic: 'burrito_pollo.jpeg',
-                    price: 4,
-                    options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Pollo',
+                            price: 4,
                         },
-                    ],
-                },
-                {
-                    title: 'Burrito mixto',
-                    desc:
-                        'Ketchup, mayonesa, pico de gallo, carne molida, pollo, queso amarillo fundido.',
-                    type: 'main',
-                    pic: 'burrito_mixto.jpg',
-                    price: 5,
-                    options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Mixto',
+                            price: 4,
                         },
                     ],
                 },
