@@ -1,143 +1,61 @@
 <template>
-    <q-page class="bg-black text-white">
-        <q-img :src="require('@/assets/wp/biggfive/logo.jpeg')" />
+    <q-page class="bg-grey-2">
+        <q-img :src="require('@/assets/wp/biggfive/logo.jpeg')" class="shadow-7" />
         <div class="q-pa-md">
-            <div class="text-h5 text-center q-mt-sm q-mb-lg afrika">Realiza tu pedido</div>
-            <!-- SELECT AREA -->
-            <div class="row q-mb-xl">
-                <q-select
-                    dark
-                    filled
-                    color="red-7"
-                    v-model="selectedArea"
-                    :options="areas"
-                    label="Selecciona un area"
-                    class="full-width q-mb-md"
-                />
-                <div
-                    class="text-body2 text-center"
-                    v-if="selectedArea == 'Panama Pacifico & Panama Centro'"
-                >
-                    <strong>
-                        Los pedidos para Panama Pacifico & Panama Centro seran
-                        entregados el viernes 28 de agosto.
-                    </strong>
-                </div>
-                <div class="text-body2 text-center" v-if="selectedArea == 'Panama Oeste'">
-                    <strong>
-                        Los pedidos para Panama Oeste seran entregados el
-                        saabdo 29 de agosto.
-                    </strong>
-                </div>
-            </div>
-            <!-- END SELECT AREA -->
+            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
 
             <!-- MENU ITEMS -->
-            <div class="row q-mb-lg" v-for="(item, i) in menu" :key="i">
-                <div class="col">
-                    <q-img
-                        class="rounded-borders"
-                        :src="require(`@/assets/wp/biggfive/${item.pic}`)"
-                    />
-                </div>
-                <div class="col q-px-md">
-                    <div class="text-h6 q-mb-sm afrika">{{ item.title }}</div>
-                    <div class="text-body2 q-mb-sm">{{ item.desc }}</div>
+            <q-card class="full-width q-mb-lg" v-for="(item, i) in menu" :key="i">
+                <q-img v-if="item.pic" :src="require(`@/assets/wp/biggfive/${item.pic}`)" />
+                <q-card-section class="q-pb-none">
+                    <div class="row">
+                        <div class="col text-h6">{{ item.title }}</div>
+                    </div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none">
                     <div
-                        class="text-h6 q-mb-md afrika"
-                        v-if="selectedArea == 'Panama Pacifico & Panama Centro'"
-                    >$ {{ item.pricePma.toFixed(2) }}</div>
-                    <div
-                        class="text-h6 q-mb-md afrika"
-                        v-if="selectedArea == 'Panama Oeste'"
-                    >$ {{ item.priceWest.toFixed(2) }}</div>
-                    <q-btn color="amber" text-color="black" @click="selectItem(i)">Agregar</q-btn>
-                </div>
-            </div>
+                        v-if="item.price"
+                        class="text-h6 poppins-bold"
+                    >$ {{ item.price.toFixed(2) }}</div>
+                    <div class="text-caption text-grey">{{ item.desc }}</div>
+                </q-card-section>
+
+                <q-separator />
+
+                <q-card-actions>
+                    <q-space />
+                    <q-btn flat color="red-7" @click="selectItem(i)">Agregar</q-btn>
+                </q-card-actions>
+            </q-card>
             <!-- END MENU ITEMS -->
-
-            <!-- ADDRESS INPUT -->
-            <div class="row q-my-lg q-pt-lg">
-                <div class="text-h6 q-mb-md afrika">Direccion de entrega (completa)</div>
-                <q-input
-                    v-model="address"
-                    filled
-                    type="textarea"
-                    class="full-width"
-                    placeholder="Barriada, No. Calle, No. Casa"
-                    dark
-                    color="red-7"
-                    rows="4"
-                />
-            </div>
-            <!-- END ADDRESS INPUT -->
-
-            <!-- PAYMENT METHOD RADIOS -->
-            <div class="row q-mb-lg">
-                <div class="text-h6 q-mb-sm afrika">Metodo de pago:</div>
-                <q-option-group
-                    :options="paymentMethods"
-                    type="radio"
-                    v-model="selectedPaymentMethod"
-                    dark
-                    class="full-width"
-                    color="red-7"
-                    size="md"
-                />
-            </div>
-            <!-- END PAYMENT METHOD RADIOS -->
-
-            <hr dark />
-
-            <!-- TOTAL TO PAY -->
-            <div class="row q-my-lg">
-                <div class="col">
-                    <div class="text-h5 text-right afrika">Total: $ {{ total.toFixed(2) }}</div>
-                </div>
-            </div>
-            <!-- END TOTAL TO PAY -->
-
-            <!-- VIEW CART BUTTON -->
-            <div class="row q-mb-md">
-                <q-btn
-                    color="green-7"
-                    class="full-width afrika"
-                    @click="cartDialog = true"
-                >Ver carrito</q-btn>
-            </div>
-            <!-- END VIEW CART BUTTON -->
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card style="width: 700px; max-width: 80vw;" dark v-if="selectedArea != null">
-                    <q-card-section>
-                        <div class="text-h6 text-center afrika">ELIJA</div>
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
                     </q-card-section>
+                    <q-separator />
                     <q-card-section>
                         <q-btn
-                            color="green-7"
-                            class="afrika full-width q-mb-md"
-                            v-for="option in selectedItem.options"
-                            :key="option"
+                            color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(option, i) in menu[selectedItemIndex].options"
+                            :key="i"
                             @click="addItemToCart(option)"
-                        >{{ option }}</q-btn>
+                        >
+                            {{ option.title }}
+                            <br />
+                            {{ option.price > 0 ? '$'+option.price.toFixed(2):'' }}
+                        </q-btn>
                         <q-btn
                             color="red-7"
-                            class="afrika full-width q-mb-md"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
                         >Cancelar</q-btn>
-                    </q-card-section>
-                </q-card>
-                <q-card style="width: 700px; max-width: 80vw;" dark v-else>
-                    <q-card-section>
-                        <div class="text-h6 text-center afrika">Primero seleccione un area.</div>
-                    </q-card-section>
-                    <q-card-section>
-                        <q-btn
-                            color="green-7"
-                            class="afrika full-width q-mb-md"
-                            @click="optionsDialog = false"
-                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -145,14 +63,15 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card style="width: 700px; max-width: 80vw;" dark>
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">Agregado con exito</div>
+                        <div class="text-h6 text-center poppins-bold">Agregado con exito</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
-                            color="green-7"
-                            class="afrika full-width q-mb-md"
+                            color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
                         >Aceptar</q-btn>
                     </q-card-section>
@@ -161,12 +80,22 @@
             <!-- END SUCCESS DIALOG -->
 
             <!-- CART DIALOG -->
-            <q-dialog v-model="cartDialog">
-                <q-card style="width: 700px; max-width: 80vw;" dark v-if="cart.length > 0">
+            <q-dialog
+                v-model="cartDialog"
+                maximized
+                transition-show="slide-up"
+                transition-hide="slide-down"
+            >
+                <q-card class="bg-grey-9 text-white">
+                    <q-bar style="height: 45px;">
+                        <q-space />
+                        <q-btn dense flat icon="close" size="lg" v-close-popup></q-btn>
+                    </q-bar>
                     <q-card-section>
-                        <div class="text-h6 text-center afrika">Detalle de pedido</div>
+                        <div class="text-h6 text-center poppins-bold">Detalle de pedido</div>
                     </q-card-section>
-                    <q-card-section>
+
+                    <q-card-section v-if="cart.length > 0">
                         <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
                             <div class="col-2">
                                 <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
@@ -175,194 +104,417 @@
                             </div>
 
                             <div class="col">
-                                <div
-                                    class="text-body2 q-pl-sm"
-                                    v-if="item.title != 'Lata de Coca Cola'"
-                                >
-                                    <strong>
-                                        ({{ item.amount }})
-                                        {{ item.title }} con
-                                        {{ item.selectedOption }}
+                                <div class="text-body2 poppins-regular">
+                                    <strong v-if="item.type == 'main'">
+                                        ({{ item.amount }}) {{ item.title }} -
+                                        {{item.options.title}}
                                     </strong>
-                                </div>
-                                <div class="text-body2 q-pl-sm" v-else>
-                                    <strong>
-                                        ({{ item.amount }})
-                                        {{ item.title }}
-                                    </strong>
+                                    <strong
+                                        v-if="item.type == 'extras'"
+                                    >({{ item.amount }}) Extra - {{item.options.title}}</strong>
+                                    <strong
+                                        v-if="item.type == 'drinks'"
+                                    >({{ item.amount }}) Bebida - {{item.options.title}}</strong>
                                 </div>
                             </div>
                         </div>
                     </q-card-section>
-                    <hr />
+                    <q-card-section v-else>
+                        <div class="row">
+                            <div class="col text-grey-6 text-center">
+                                <i class="fas fa-utensils q-mt-lg q-mb-md" style="font-size: 75px;"></i>
+                                <div class="text-h5 poppins-bold q-mb-lg">Tu carrito esta vacio</div>
+                            </div>
+                        </div>
+                    </q-card-section>
+
+                    <q-separator dark />
                     <q-card-section>
-                        <div class="text-body2">
-                            <strong>Direccion de entrega:</strong>
-                            {{ address }}
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="text-h6 poppins-bold q-mb-md">Datos de orden</div>
+                            </div>
                         </div>
-                        <div class="text-body2">
-                            <strong>Metodo de pago:</strong>
-                            {{ selectedPaymentMethod }}
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Nombre:</div>
+                            <q-input
+                                v-model="name"
+                                filled
+                                dark
+                                type="text"
+                                class="full-width poppins-regular"
+                                placeholder="Nombre Apellido"
+                                color="red-7"
+                            />
                         </div>
-                        <br />
-                        <div class="text-body2 text-center" v-if="selectedPaymentMethod == 'Yappy'">
-                            Recuerda enviar el comprobante de pago a nuestro
-                            Whatsapp.
+                        <!-- <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de entrega:</div>
+                            <q-btn-toggle
+                                v-model="selectedPickupMethod"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="red-7"
+                                color="white"
+                                text-color="black"
+                                :options="pickupMethods"
+                            />
+                        </div>-->
+                        <div class="row" v-if="this.selectedPickupMethod == 'Delivery'">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Ubicacion de entrega:</div>
+                        </div>
+                        <GoogleMaps
+                            class="q-mb-md"
+                            v-if="Object.keys(center).length > 0 && this.selectedPickupMethod == 'Delivery'"
+                            @markerPosition="setMarkerPosition"
+                            :editable="true"
+                            :markers="markers"
+                            :mapCenter="center"
+                        ></GoogleMaps>
+                        <div class="row q-mb-md" v-if="selectedPickupMethod == 'Delivery'">
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm"
+                            >Direccion de entrega (completa):</div>
+                            <q-input
+                                v-model="address"
+                                filled
+                                dark
+                                type="textarea"
+                                class="full-width poppins-regular"
+                                placeholder="Barriada, No. Calle, No. Casa"
+                                color="red-7"
+                                rows="4"
+                            />
+                        </div>
+                        <div class="row">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de pago:</div>
+                            <q-btn-toggle
+                                v-model="selectedPaymentMethod"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="red-7"
+                                color="white"
+                                text-color="black"
+                                :options="paymentMethods"
+                            />
+                            <div
+                                class="text-subtitle2 text-center q-mt-lg poppins-bold"
+                                v-if="selectedPaymentMethod == 'Yappy'"
+                            >Recuerda enviar el comprobante de pago por WhatsApp al numero 6112-7723</div>
+                        </div>
+                    </q-card-section>
+                    <q-card-section v-if="cart.length > 0">
+                        <div class="row">
+                            <div class="col text-center">
+                                <div class="text-h5 poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
+                            </div>
                         </div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
                             color="green-7"
-                            class="full-width q-mb-md afrika"
+                            class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
+                            :disable="cart.length <= 0"
                         >Enviar</q-btn>
-                        <q-btn
-                            color="red-7"
-                            class="full-width q-mb-md afrika"
-                            @click="cartDialog = false"
-                        >Cancelar</q-btn>
-                    </q-card-section>
-                </q-card>
-                <q-card style="width: 700px; max-width: 80vw;" dark v-else>
-                    <q-card-section>
-                        <div
-                            class="text-h6 text-center afrika"
-                        >Primero debes agregar algo a tu pedido.</div>
-                    </q-card-section>
-                    <q-card-section>
-                        <q-btn
-                            color="green-7"
-                            class="afrika full-width q-mb-md"
-                            @click="cartDialog = false"
-                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
             <!-- END CART DIALOG -->
+
+            <!-- NEW DIALOG -->
+            <q-dialog v-model="seamless" seamless position="bottom">
+                <q-card style="width: 350px; border-radius: 0;" class="bg-red-7 text-white">
+                    <q-card-section class="row items-center no-wrap">
+                        <div>
+                            <div class="text-h6 poppins-bold">
+                                <span class="text-subtitle2 poppins-bold">Total:</span>
+                                $
+                                {{ total.toFixed(2) }}
+                            </div>
+                        </div>
+
+                        <q-space />
+
+                        <q-btn
+                            flat
+                            icon="shopping_cart"
+                            @click="cartDialog = true"
+                            label="Ver carrito"
+                        />
+                        <!-- <q-btn flat round icon="send" /> -->
+                        <!-- <q-btn flat round icon="close" /> -->
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END NEW DIALOG -->
         </div>
     </q-page>
 </template>
 
 <script>
+import GoogleMaps from '../../components/general/GoogleMaps'
+
 export default {
     data() {
         return {
+            orderNo: '',
+            name: '',
+            selectedItemIndex: 0,
+            seamless: false,
             whatsappNumber: '61127723',
-            selectedArea: null,
-            areas: ['Panama Pacifico & Panama Centro', 'Panama Oeste'],
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
                 {label: 'Efectivo', value: 'Efectivo'},
             ],
+            pickupMethods: [
+                {label: 'Delivery', value: 'Delivery'},
+                {label: 'Retirar en local', value: 'Retirar en local'},
+            ],
+            selectedPickupMethod: 'Delivery',
             selectedPaymentMethod: null,
             address: '',
             total: 0,
+            location: [],
+            markers: [],
+            center: {},
             optionsDialog: false,
             successDialog: false,
             cartDialog: false,
             cart: [],
             menu: [
                 {
-                    title: 'Fish Bobotie',
+                    title: 'Alitas en salsa Peri Peri (Combo)',
                     desc:
-                        'Pescado al horno con especias acompañado de nuestro arroz amarillo o puré, chutney de mango y sambals (ensalada de pepino)',
-                    options: ['Arroz amarillo', 'Pure'],
-                    pic: 'fish_bobotie.jpeg',
-                    pricePma: 8.5,
-                    priceWest: 7.5,
+                        '6 Alitas a la brasa en salsa picante Peri Peri o salsa de hierbas y limon. Acompañado de papas western.',
+                    options: [
+                        {title: 'Salsa Peri Peri', price: 0},
+                        {title: 'Salsa de hierbas y limon', price: 0},
+                    ],
+                    pic: 'alitas_1.jpeg',
+                    price: 5.5,
+                    type: 'main',
                 },
                 {
-                    title: 'Meat Bobotie',
+                    title: 'Alitas en salsa Peri Peri (Solo alitas)',
                     desc:
-                        'Carne al horno con especias acompañado de nuestro arroz amarillo o puré, chutney de mango y sambals (ensalada de pepino)',
-                    options: ['Arroz amarillo', 'Pure'],
-                    pic: 'meat_bobotie.jpeg',
-                    pricePma: 8.5,
-                    priceWest: 7.5,
+                        '6 Alitas a la brasa en salsa picante Peri Peri o salsa de hierbas y limon.',
+                    options: [
+                        {title: 'Salsa Peri Peri', price: 0},
+                        {title: 'Salsa de hierbas y limon', price: 0},
+                    ],
+                    pic: 'alitas_2.jpeg',
+                    price: 3.5,
+                    type: 'main',
                 },
                 {
-                    title: 'Lata de Coca Cola',
+                    title: 'Boerwor Rolls',
+                    desc:
+                        'Choripan con chorizo tradicional sudafricano en cebolla y tomates, acompañado de papas western.',
+                    options: [{title: 'Regular', price: 0}],
+                    pic: 'choripan.jpeg',
+                    price: 5.5,
+                    type: 'main',
+                },
+                {
+                    title: 'Pollo en salsa Peri Peri',
+                    desc:
+                        'Muslo encuentro en salsa picante Peri Peri o salsa de hierbas y limon, acompañado de papas western.',
+                    options: [
+                        {title: 'Salsa Peri Peri', price: 0},
+                        {title: 'Salsa de hierbas y limon', price: 0},
+                    ],
+                    pic: 'pollo.jpg',
+                    price: 6.5,
+                    type: 'main',
+                },
+                {
+                    title: 'Soda',
                     desc: '',
-                    options: ['Agregar Coca Cola'],
-                    pricePma: 1.0,
-                    priceWest: 1.0,
+                    options: [{title: 'Coca Cola', price: 0}],
                     pic: 'soda.jpg',
+                    price: 1,
+                    type: 'main',
                 },
             ],
         }
     },
     methods: {
         selectItem(index) {
-            this.selectedItem = {}
-            this.selectedItem = {
-                title: this.menu[index].title,
-                options: this.menu[index].options,
-                amount: 1,
-            }
-            if (this.selectedArea == 'Panama Pacifico & Panama Centro')
-                this.selectedItem.price = this.menu[index].pricePma
-            else this.selectedItem.price = this.menu[index].priceWest
-
+            this.selectedItemIndex = index
+            this.selectedItem = Object.assign({}, this.menu[index])
             this.optionsDialog = true
         },
+        checkIfDuplicate() {
+            let isDuplicate = false
+            if (this.cart.length <= 0) {
+                isDuplicate = false
+            }
+
+            this.cart.forEach(c => {
+                if (
+                    c.type === this.selectedItem.type &&
+                    c.title === this.selectedItem.title &&
+                    c.options.title === this.selectedItem.options.title
+                ) {
+                    isDuplicate = true
+                }
+            })
+
+            return isDuplicate
+        },
         addItemToCart(option) {
-            this.selectedItem.selectedOption = option
-            if (this.cart.length == 0) {
+            this.selectedItem.options = option
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
                 this.optionsDialog = false
                 this.successDialog = true
                 this.calculateTotal()
-                return
+            } else {
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
             }
-            for (let i = 0; i < this.cart.length; i++) {
-                if (
-                    this.cart[i].title == this.selectedItem.title &&
-                    this.cart[i].selectedOption ==
-                        this.selectedItem.selectedOption
-                ) {
-                    this.cart[i].amount++
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                    return
-                }
-            }
-            this.cart.push(this.selectedItem)
-            this.optionsDialog = false
-            this.successDialog = true
-            this.calculateTotal()
         },
-        removeItemFromCart: function (i) {
+        removeItemFromCart(i) {
             this.cart.splice(i, 1)
         },
-        calculateTotal: function () {
+        calculateTotal() {
             let total = 0
-            for (let item of this.cart) {
-                total += item.amount * item.price
-            }
+            this.cart.forEach(c => {
+                if (c.price) total += c.price * c.amount
+                total += c.options.price * c.amount
+            })
             this.total = total
         },
         generateMessage() {
             let message =
-                'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
+                'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                if (item.title != 'Lata de Coca Cola')
-                    message += `- (${item.amount}) ${item.title} con ${item.selectedOption}%0D%0A`
-                else message += `- (${item.amount}) ${item.title}%0D%0A`
+                if (item.type == 'main')
+                    message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                if (item.type == 'extras')
+                    message += `- (${item.amount}) Extra - ${item.options.title}%0D%0A`
+                if (item.type == 'drinks')
+                    message += `- (${item.amount}) Bebida - ${item.options.title}%0D%0A`
             }
-            // message = message.slice(0, -2)
-            message += `%0D%0AArea de: ${this.selectedArea}%0D%0ADireccion: ${
-                this.address
-            }%0D%0AMetodo de pago: ${
+            message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
+            if (this.selectedPickupMethod == 'Delivery') {
+                message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
+                    this.address
+                }`
+            }
+            message += `%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
-            }%0D%0ATotal: $ ${this.total.toFixed(2)} (wk2)`
+            }%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
             return message
         },
-        sendChat() {
-            if (this.address == '') {
+        async sendToGoogleDriveSheet() {
+            let message = ''
+            for (let item of this.cart) {
+                if (item.type == 'main')
+                    message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
+                if (item.type == 'extras')
+                    message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
+                if (item.type == 'drinks')
+                    message += `(${item.amount}) Bebida - ${item.options.title}\n`
+            }
+            let data = {
+                id: this.orderNo,
+                pedido: message,
+                nombre: this.name,
+                status: 'orden creada',
+                total: this.total,
+                metodo_de_pago: this.selectedPaymentMethod,
+                metodo_de_entrega: this.selectedPickupMethod,
+            }
+            if (data.metodo_de_entrega === 'Delivery') {
+                data.direcion_1 = this.getLocationForMessage()
+                data.direcion_2 = this.address
+            }
+            var url =
+                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST', url)
+            // xhr.withCredentials = true;
+            xhr.setRequestHeader(
+                'Content-Type',
+                'application/x-www-form-urlencoded'
+            )
+            // url encode form data for sending as post data
+            var encoded = Object.keys(data)
+                .map(function (k) {
+                    return (
+                        encodeURIComponent(k) +
+                        '=' +
+                        encodeURIComponent(data[k])
+                    )
+                })
+                .join('&')
+            await xhr.send(encoded)
+        },
+        getLocationForMessage() {
+            if (this.location.length <= 0) {
+                let lat = parseFloat(this.center.lat)
+                let lng = parseFloat(this.center.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            } else {
+                let lat = parseFloat(this.location.lat)
+                let lng = parseFloat(this.location.lng)
+                if (lat < 0) lat = `+${lat}`
+                if (lng < 0) lng = `+${lng}`
+                return `https://www.google.com/maps?q=${lat},${lng}`
+            }
+        },
+
+        setMarkerPosition(event) {
+            this.location = event
+        },
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.center = {
+                        lat: parseFloat(position.coords.latitude),
+                        lng: parseFloat(position.coords.longitude),
+                    }
+                    this.markers.push({position: this.center})
+                },
+                error => {
+                    this.center = {
+                        lat: parseFloat(9.068463),
+                        lng: parseFloat(-79.452694),
+                    }
+                    this.markers.push({position: this.center})
+                }
+            )
+        },
+        async sendChat() {
+            if (this.name == '') {
+                alert('Debes ingresar tu nombre para enviar el pedido.')
+                return
+            }
+            if (this.selectedPickupMethod == '') {
+                alert('Debes seleccionar un metodo de entrega.')
+                return
+            }
+            if (this.address == '' && this.selectedPickupMethod == 'Delivery') {
                 alert(
                     'Debes ingresar tu direccion completa para la entrega de tu pedido.'
                 )
@@ -372,6 +524,11 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
+                this.orderNo = Math.floor(100000 + Math.random() * 900000)
+                this.$analytics.logEvent('wp-biggfive', {
+                    content_action: 'Orden Completada',
+                })
+                // await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
@@ -379,24 +536,45 @@ export default {
         },
     },
     watch: {
-        selectedArea: function () {
+        selectedArea() {
             this.cart = []
             this.calculateTotal()
         },
-        cart: function () {
+        cart() {
             this.calculateTotal()
+            if (this.cart.length > 0) {
+                this.seamless = true
+                this.$store.commit('SET_DISPLAYFOOTER', true)
+            } else {
+                this.seamless = false
+                this.$store.commit('SET_DISPLAYFOOTER', false)
+            }
         },
+    },
+    components: {
+        GoogleMaps,
+    },
+    mounted() {
+        this.$store.commit('SET_DISPLAYFOOTER', false)
+        let path = this.$route.params.path
+        this.$analytics.logEvent('wp-biggfive', {
+            path,
+        })
+        this.geolocate()
     },
 }
 </script>
 
 <style scoped>
-@font-face {
-    font-family: Afrika;
-    src: url('../../assets/wp/biggfive/south_afirkas_ 2100.ttf');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.poppins-regular {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
 }
 
-.afrika {
-    font-family: Afrika;
+.poppins-bold {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
 }
 </style>
