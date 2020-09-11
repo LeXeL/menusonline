@@ -49,6 +49,37 @@
             </q-card>
             <!-- END MENU ITEMS -->
 
+            <!-- STYLES DIALOG -->
+            <q-dialog v-model="stylesDialog">
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">ESTILO</div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            text-color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(style, i) in menu[selectedItemIndex].styles"
+                            :key="i"
+                            @click="addItemToCart('style',style)"
+                        >
+                            {{ style.title }}
+                            <br />
+                            {{ style.price > 0 ? '$'+style.price.toFixed(2):'' }}
+                        </q-btn>
+                        <q-btn
+                            color="red-7"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="stylesDialog = false"
+                        >Cancelar</q-btn>
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END STYLES DIALOG -->
+
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
                 <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
@@ -63,7 +94,7 @@
                             class="poppins-bold full-width q-mb-md"
                             v-for="(option, i) in menu[selectedItemIndex].options"
                             :key="i"
-                            @click="addItemToCart(option)"
+                            @click="addItemToCart('option',option)"
                         >
                             {{ option.title }}
                             <br />
@@ -125,7 +156,7 @@
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
                                     <strong>
-                                        ({{ item.amount }}) {{ item.title }} -
+                                        ({{ item.amount }}) {{ item.title }} {{item.styles.title ? item.styles.title :''}} -
                                         {{item.options.title}}
                                     </strong>
                                     <!-- <strong
@@ -320,6 +351,7 @@ export default {
             markers: [],
             center: {},
             optionsDialog: false,
+            stylesDialog: false,
             successDialog: false,
             cartDialog: false,
             cart: [],
@@ -913,6 +945,10 @@ export default {
         selectItem(index) {
             this.selectedItemIndex = index
             this.selectedItem = Object.assign({}, this.menu[index])
+            if (this.selectedItem.styles.length > 0) {
+                this.stylesDialog = true
+                return
+            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -933,27 +969,33 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart(option) {
-            this.selectedItem.options = option
-            if (!this.checkIfDuplicate()) {
-                this.selectedItem.amount = 1
-                this.cart.push(this.selectedItem)
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
+        addItemToCart(section, item) {
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                this.optionsDialog = true
             } else {
-                this.cart.forEach(c => {
-                    if (
-                        c.type === this.selectedItem.type &&
-                        c.title === this.selectedItem.title &&
-                        c.options.title === this.selectedItem.options.title
-                    ) {
-                        c.amount++
-                    }
-                })
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
+                this.selectedItem.options = item
+                if (!this.checkIfDuplicate()) {
+                    this.selectedItem.amount = 1
+                    this.cart.push(this.selectedItem)
+                    this.optionsDialog = false
+                    this.successDialog = true
+                    this.calculateTotal()
+                } else {
+                    this.cart.forEach(c => {
+                        if (
+                            c.type === this.selectedItem.type &&
+                            c.title === this.selectedItem.title &&
+                            c.options.title === this.selectedItem.options.title
+                        ) {
+                            c.amount++
+                        }
+                    })
+                    this.optionsDialog = false
+                    this.successDialog = true
+                    this.calculateTotal()
+                }
             }
         },
         removeItemFromCart(i) {
