@@ -10,7 +10,7 @@
                 >&nbsp;PanamaHotdogOficial</a>
             </div>
             <div class="text-subtitle2 poppins-bold q-mb-lg">
-                <i class="fab fa-whatsapp text-red-8"></i> Comprobantes al 65656565
+                <i class="fab fa-whatsapp text-red-8"></i> Comprobantes al 6684-7121
             </div>
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
 
@@ -49,6 +49,37 @@
             </q-card>
             <!-- END MENU ITEMS -->
 
+            <!-- STYLES DIALOG -->
+            <q-dialog v-model="stylesDialog">
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">ESTILO</div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            text-color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(style, i) in menu[selectedItemIndex].styles"
+                            :key="i"
+                            @click="addItemToCart('style',style)"
+                        >
+                            {{ style.title }}
+                            <br />
+                            {{ style.price > 0 ? '$'+style.price.toFixed(2):'' }}
+                        </q-btn>
+                        <q-btn
+                            color="red-7"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="stylesDialog = false"
+                        >Cancelar</q-btn>
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END STYLES DIALOG -->
+
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
                 <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
@@ -63,7 +94,7 @@
                             class="poppins-bold full-width q-mb-md"
                             v-for="(option, i) in menu[selectedItemIndex].options"
                             :key="i"
-                            @click="addItemToCart(option)"
+                            @click="addItemToCart('option',option)"
                         >
                             {{ option.title }}
                             <br />
@@ -125,7 +156,7 @@
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
                                     <strong>
-                                        ({{ item.amount }}) {{ item.title }} -
+                                        ({{ item.amount }}) {{ item.title }} {{item.styles.title ? `- ${item.styles.title}` :''}} -
                                         {{item.options.title}}
                                     </strong>
                                     <!-- <strong
@@ -235,7 +266,7 @@
                             <div
                                 class="text-subtitle2 text-center q-mt-lg poppins-bold"
                                 v-if="selectedPaymentMethod == 'Yappy'"
-                            >Recuerda enviar el comprobante de pago por WhatsApp al numero 65656565</div>
+                            >Recuerda enviar el comprobante de pago por WhatsApp al numero 6684-7121</div>
                         </div>
                     </q-card-section>
                     <q-card-section v-if="cart.length > 0">
@@ -302,7 +333,7 @@ export default {
             specialComments: '',
             selectedItemIndex: 0,
             seamless: false,
-            whatsappNumber: '62042578',
+            whatsappNumber: '60539696',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -320,6 +351,7 @@ export default {
             markers: [],
             center: {},
             optionsDialog: false,
+            stylesDialog: false,
             successDialog: false,
             cartDialog: false,
             cart: [],
@@ -331,6 +363,8 @@ export default {
                     type: 'main',
                     pic: 'hotdog_hawaiiano.jpg',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -349,6 +383,8 @@ export default {
                     type: 'main',
                     pic: 'hotdog_panameno.jpeg',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -367,6 +403,8 @@ export default {
                     type: 'main',
                     pic: 'chillidog.jpeg',
                     price: 2.5,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -384,6 +422,8 @@ export default {
                         'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
                     type: 'main',
                     pic: 'salchipapas.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Pequeño',
@@ -401,6 +441,8 @@ export default {
                         'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
                     type: 'main',
                     pic: 'salchipapas_revoltosa.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Carne molida - Pequeño',
@@ -435,6 +477,8 @@ export default {
                     type: 'main',
                     pic: 'hamburguesa_carne.jpeg',
                     price: 4,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -452,6 +496,8 @@ export default {
                         'Mayonesa, lechuga, tomate, tender de pechuga de pollo, queso blanco, o amarillo.',
                     type: 'main',
                     pic: 'hamburguesa_pollo.jpeg',
+                    styles: [],
+                    sides: [],
                     price: 4,
                     options: [
                         {
@@ -478,6 +524,8 @@ export default {
                         'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
                     type: 'main',
                     pic: 'hamburguesa_bulldog.jpeg',
+                    styles: [],
+                    sides: [],
                     price: 6,
                     options: [
                         {
@@ -487,86 +535,48 @@ export default {
                     ],
                 },
                 {
-                    title: 'Arepa de pollo',
+                    title: 'Arepas',
                     desc:
-                        'Tender de pechuga de pollo, queso blanco, salsa tartara.',
-                    type: 'main',
-                    pic: 'arepa_pollo.jpg',
-                    price: 4,
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Arepa de carne desmechada',
-                    desc:
-                        'Carne desmechada, queso blanco, salsa de ajo, chicharrón.',
-                    type: 'main',
-                    pic: 'arepa_carne_desmechada.jpeg',
-                    price: 4,
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Arepa Mixta',
-                    desc:
-                        'Pollo, carne, chorizo, queso blanco, salsa tartara, chicharrón.',
+                        'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
                     type: 'main',
                     pic: 'arepa_mixta.jpeg',
-                    price: 4,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Pollo',
+                            price: 4,
+                        },
+                        {
+                            title: 'Carne desmechada',
+                            price: 4,
+                        },
+                        {
+                            title: 'Mixta',
+                            price: 4,
                         },
                     ],
                 },
                 {
-                    title: 'Burrito de carne',
+                    title: 'Burritos',
                     desc:
-                        'Carne molida, queso amarillo, ketchup, mayonesa, pico de gallo.',
+                        'Elige entre burrito de carne, burrito de pollo o burrito mixto.',
                     type: 'main',
                     pic: 'burrito_carne.jpeg',
-                    price: 4,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                            price: 4,
                         },
-                    ],
-                },
-                {
-                    title: 'Burrito de pollo',
-                    desc:
-                        'Pechuga de pollo apanada, pico de gallo, queso amarillo fundido, mayonesa.',
-                    type: 'main',
-                    pic: 'burrito_pollo.jpeg',
-                    price: 4,
-                    options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Pollo',
+                            price: 4,
                         },
-                    ],
-                },
-                {
-                    title: 'Burrito mixto',
-                    desc:
-                        'Ketchup, mayonesa, pico de gallo, carne molida, pollo, queso amarillo fundido.',
-                    type: 'main',
-                    pic: 'burrito_mixto.jpg',
-                    price: 5,
-                    options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Mixto',
+                            price: 4,
                         },
                     ],
                 },
@@ -576,6 +586,8 @@ export default {
                     type: 'main',
                     pic: 'club_sandwich.jpeg',
                     price: 6,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -589,6 +601,8 @@ export default {
                     type: 'main',
                     pic: 'combito_hamburguesa.jpeg',
                     price: 6,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Coca Cola',
@@ -617,44 +631,23 @@ export default {
                     ],
                 },
                 {
-                    title: 'Combito de Hotdog Panameño',
-                    desc: '4 alas, papas, hotdog panameño y soda',
+                    title: 'Combito de Hotdog',
+                    desc:
+                        'Elije entre Hotdog Panameño o Hotdog Hawaiiano, acompañado de 4 alas, papas y soda.',
                     type: 'main',
                     pic: 'combito_hawaiiano.jpg',
                     price: 6,
-                    options: [
+                    styles: [
                         {
-                            title: 'Coca Cola',
+                            title: 'Hotdog Hawaiiano',
                             price: 0,
                         },
                         {
-                            title: 'GingerAle',
-                            price: 0,
-                        },
-                        {
-                            title: 'Dr. Pepper',
-                            price: 0,
-                        },
-                        {
-                            title: 'Kist Fresa',
-                            price: 0,
-                        },
-                        {
-                            title: 'Maltin Polar',
-                            price: 0,
-                        },
-                        {
-                            title: 'Root Beer',
+                            title: 'Hotdog Panameño',
                             price: 0,
                         },
                     ],
-                },
-                {
-                    title: 'Combito de Hotdog Hawaiiano',
-                    desc: '4 alas, papas, hotdog hawaiiano y soda',
-                    type: 'main',
-                    pic: 'combito_hawaiiano.jpg',
-                    price: 6,
+                    sides: [],
                     options: [
                         {
                             title: 'Coca Cola',
@@ -688,6 +681,8 @@ export default {
                     type: 'main',
                     pic: 'alitas.jpeg',
                     price: 6,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -701,6 +696,8 @@ export default {
                     type: 'main',
                     pic: 'empanadas.jpeg',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Carne molida',
@@ -722,6 +719,8 @@ export default {
                     type: 'main',
                     pic: 'orden_papas.jpeg',
                     price: 1.5,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -736,6 +735,8 @@ export default {
                     type: 'main',
                     pic: 'soda.jpg',
                     price: 1,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Coca Cola',
@@ -769,6 +770,8 @@ export default {
                     type: 'main',
                     pic: 'jugos.jpg',
                     price: 1,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Melocoton',
@@ -790,6 +793,8 @@ export default {
                     type: 'main',
                     pic: 'agua.jpg',
                     price: 1,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Botella 600ml',
@@ -803,6 +808,8 @@ export default {
                         'Batidos de fresa, maracuya, papaya, Melocoton, Guanabana, Cornflakes.',
                     type: 'main',
                     pic: 'batido.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Fresa',
@@ -835,6 +842,8 @@ export default {
                     desc: '',
                     type: 'main',
                     pic: 'limonada.jpg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -852,6 +861,8 @@ export default {
                     desc: '',
                     type: 'extra',
                     pic: 'filete_de_pescado.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Filete',
@@ -862,21 +873,24 @@ export default {
                             price: 10,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5, 6],
                 },
                 {
                     title: 'Patacones',
+                    subtitle: 'Solo viernes y sabados',
                     desc: 'Orden extra de patacones fritos.',
                     type: 'extra',
                     pic: 'patacones.jpg',
                     price: 1.5,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Regular',
                             price: 0,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5, 6],
                 },
                 {
                     title: 'Saus',
@@ -884,6 +898,8 @@ export default {
                     desc: '',
                     type: 'extra',
                     price: 2,
+                    styles: [],
+                    sides: [],
                     pic: 'saus.jpeg',
                     options: [
                         {
@@ -891,7 +907,7 @@ export default {
                             price: 0,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5],
                 },
                 {
                     title: 'Ceviche',
@@ -899,6 +915,8 @@ export default {
                     desc: '',
                     type: 'extra',
                     pic: 'ceviche.jpeg',
+                    styles: [],
+                    sides: [],
                     options: [
                         {
                             title: 'Tradicional 16oz.',
@@ -909,7 +927,7 @@ export default {
                             price: 6,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5, 6],
                 },
             ],
         }
@@ -928,6 +946,10 @@ export default {
         selectItem(index) {
             this.selectedItemIndex = index
             this.selectedItem = Object.assign({}, this.menu[index])
+            if (this.selectedItem.styles.length > 0) {
+                this.stylesDialog = true
+                return
+            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -948,27 +970,33 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart(option) {
-            this.selectedItem.options = option
-            if (!this.checkIfDuplicate()) {
-                this.selectedItem.amount = 1
-                this.cart.push(this.selectedItem)
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
+        addItemToCart(section, item) {
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                this.optionsDialog = true
             } else {
-                this.cart.forEach(c => {
-                    if (
-                        c.type === this.selectedItem.type &&
-                        c.title === this.selectedItem.title &&
-                        c.options.title === this.selectedItem.options.title
-                    ) {
-                        c.amount++
-                    }
-                })
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
+                this.selectedItem.options = item
+                if (!this.checkIfDuplicate()) {
+                    this.selectedItem.amount = 1
+                    this.cart.push(this.selectedItem)
+                    this.optionsDialog = false
+                    this.successDialog = true
+                    this.calculateTotal()
+                } else {
+                    this.cart.forEach(c => {
+                        if (
+                            c.type === this.selectedItem.type &&
+                            c.title === this.selectedItem.title &&
+                            c.options.title === this.selectedItem.options.title
+                        ) {
+                            c.amount++
+                        }
+                    })
+                    this.optionsDialog = false
+                    this.successDialog = true
+                    this.calculateTotal()
+                }
             }
         },
         removeItemFromCart(i) {
@@ -984,9 +1012,11 @@ export default {
         },
         generateMessage() {
             let message =
-                'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
+                'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${
+                    item.styles.title ? item.styles.title : ''
+                } - ${item.options.title}%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
