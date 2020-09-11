@@ -156,7 +156,7 @@
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
                                     <strong>
-                                        ({{ item.amount }}) {{ item.title }} {{item.styles.title ? item.styles.title :''}} -
+                                        ({{ item.amount }}) {{ item.title }} {{item.styles.title ? `- ${item.styles.title}` :''}} -
                                         {{item.options.title}}
                                     </strong>
                                     <!-- <strong
@@ -266,7 +266,7 @@
                             <div
                                 class="text-subtitle2 text-center q-mt-lg poppins-bold"
                                 v-if="selectedPaymentMethod == 'Yappy'"
-                            >Recuerda enviar el comprobante de pago por WhatsApp al numero 65656565</div>
+                            >Recuerda enviar el comprobante de pago por WhatsApp al numero 6684-7121</div>
                         </div>
                     </q-card-section>
                     <q-card-section v-if="cart.length > 0">
@@ -333,7 +333,7 @@ export default {
             specialComments: '',
             selectedItemIndex: 0,
             seamless: false,
-            whatsappNumber: '62042578',
+            whatsappNumber: '60539696',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -873,10 +873,11 @@ export default {
                             price: 10,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5, 6],
                 },
                 {
                     title: 'Patacones',
+                    subtitle: 'Solo viernes y sabados',
                     desc: 'Orden extra de patacones fritos.',
                     type: 'extra',
                     pic: 'patacones.jpg',
@@ -889,7 +890,7 @@ export default {
                             price: 0,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5, 6],
                 },
                 {
                     title: 'Saus',
@@ -906,7 +907,7 @@ export default {
                             price: 0,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5],
                 },
                 {
                     title: 'Ceviche',
@@ -926,7 +927,7 @@ export default {
                             price: 6,
                         },
                     ],
-                    days: [1, 2, 3, 4, 5, 6, 7],
+                    days: [5, 6],
                 },
             ],
         }
@@ -1011,9 +1012,11 @@ export default {
         },
         generateMessage() {
             let message =
-                'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
+                'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${
+                    item.styles.title ? item.styles.title : ''
+                } - ${item.options.title}%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
