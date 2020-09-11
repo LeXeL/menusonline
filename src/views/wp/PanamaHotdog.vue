@@ -600,7 +600,7 @@ export default {
                     desc: '4 alas, papas, hamburguesa y soda',
                     type: 'main',
                     pic: 'combito_hamburguesa.jpeg',
-                    price: 6,
+                    price: 8,
                     styles: [],
                     sides: [],
                     options: [
