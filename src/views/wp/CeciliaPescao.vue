@@ -1026,7 +1026,6 @@ export default {
         selectItem(item) {
             let itemInMenu = this.menu.filter((m, index) => {
                 if (m.title === item.title) {
-                    console.log(index)
                     this.selectedItemIndex = index
                     return m
                 }
@@ -1131,8 +1130,8 @@ export default {
             let total = 0
             this.cart.forEach(c => {
                 if (c.price) total += c.price * c.amount
-                if (c.options.length > 0) total += c.options.price * c.amount
-                if (c.styles.length > 0) total += c.styles.price * c.amount
+                if (c.options.price) total += c.options.price * c.amount
+                if (c.styles.price) total += c.styles.price * c.amount
             })
             this.total = total
         },
