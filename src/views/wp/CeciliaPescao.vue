@@ -67,7 +67,7 @@
             <q-dialog v-model="stylesDialog">
                 <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
-                        <div class="text-h6 text-center poppins-bold">ESTILO</div>
+                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
@@ -179,7 +179,7 @@
                                         {{ item.title }}
                                     </strong>
                                     <strong v-if="item.type == 'main'">
-                                        ({{ item.amount }}) {{ item.title }} -
+                                        ({{ item.amount }}) {{ item.title }} {{item.styles.title ? `- ${item.styles.title}` :''}} -
                                         {{ item.options.title }}
                                     </strong>
                                     <strong
@@ -472,6 +472,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 9,
                     type: 'main',
@@ -915,6 +916,7 @@ export default {
                     subtitle: '',
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 2.5,
                     type: 'drink',
@@ -1142,7 +1144,9 @@ export default {
                 if (item.type == 'starter')
                     message += `- (${item.amount}) ${item.title}%0D%0A`
                 if (item.type == 'main')
-                    message += `- (${item.amount}) ${item.title} con ${item.options.title}%0D%0A`
+                    message += `- (${item.amount}) ${item.title} ${
+                        item.styles.title ? '- ' + item.styles.title + ' ' : ''
+                    } - ${item.options.title}%0D%0A`
                 if (item.type == 'ceviche')
                     message += `- (${item.amount}) ${item.title}%0D%0A`
                 if (item.type == 'side')
@@ -1172,7 +1176,9 @@ export default {
                 if (item.type == 'starter')
                     message += `(${item.amount}) ${item.title}<br>`
                 if (item.type == 'main')
-                    message += `(${item.amount}) ${item.title} con ${item.options.title}<br>`
+                    message += `(${item.amount}) ${item.title} ${
+                        item.styles.title ? '- ' + item.styles.title + ' ' : ''
+                    } - ${item.options.title}<br>`
                 if (item.type == 'ceviche')
                     message += `(${item.amount}) ${item.title}<br>`
                 if (item.type == 'side')
