@@ -19,7 +19,7 @@
                     class="text-h6 text-center q-my-lg text-indigo-10 poppins-bold"
                 >ENTRADAS / STARTERS</div>
                 <div
-                    v-if="item.title == 'Pescado entero frito (chico)'"
+                    v-if="item.title == 'Pescado entero frito'"
                     class="text-h6 text-center q-mt-xl q-mb-lg text-indigo-10 poppins-bold"
                 >PLATILLOS / MAIN DISHES</div>
                 <div
@@ -46,7 +46,9 @@
                     </q-card-section>
 
                     <q-card-section class="q-pt-none">
-                        <div class="text-h6 poppins-bold">$ {{ item.price.toFixed(2) }}</div>
+                        <div
+                            class="text-h6 poppins-bold"
+                        >{{ item.price > 0 ? '$'+ item.price.toFixed(2):'' }}</div>
                         <div class="text-caption text-grey">{{ item.desc }}</div>
                     </q-card-section>
 
@@ -60,6 +62,37 @@
             </div>
 
             <!-- END MENU ITEMS -->
+
+            <!-- STYLES DIALOG -->
+            <q-dialog v-model="stylesDialog">
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">ESTILO</div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            outline
+                            color="indigo-10"
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(style, i) in menu[selectedItemIndex].styles"
+                            :key="i"
+                            @click="addItemToCart('style',style)"
+                        >
+                            {{ style.title }}
+                            <br />
+                            {{ style.price > 0 ? '$'+style.price.toFixed(2):'' }}
+                        </q-btn>
+                        <q-btn
+                            color="red-7"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="stylesDialog = false"
+                        >Cancelar</q-btn>
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END STYLES DIALOG -->
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
@@ -76,7 +109,7 @@
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="addItemToCart(option)"
+                            @click="addItemToCart('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -337,6 +370,7 @@ export default {
             markers: [],
             center: {},
             optionsDialog: false,
+            stylesDialog: false,
             successDialog: false,
             cartDialog: false,
             cart: [],
@@ -346,6 +380,7 @@ export default {
                     subtitle: 'Clams in garlic sauce',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 6,
                     type: 'starter',
@@ -355,6 +390,7 @@ export default {
                     subtitle: 'Fish fingers',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 6,
                     type: 'starter',
@@ -364,6 +400,7 @@ export default {
                     subtitle: 'Buffalo wings',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 6,
                     type: 'starter',
@@ -373,14 +410,16 @@ export default {
                     subtitle: 'Fried baby squid',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 6,
                     type: 'starter',
                 },
                 {
-                    title: 'Pescado entero frito (chico)',
-                    subtitle: 'Fried fish (small)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
+                    title: 'Pescado entero frito',
+                    subtitle: 'Fried fish',
+                    desc:
+                        'Pescado entero frito chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
@@ -388,38 +427,22 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
-                    pic: '',
-                    price: 10,
-                    type: 'main',
-                },
-                {
-                    title: 'Pescado entero frito (mediano)',
-                    subtitle: 'Fried fish (medium)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
+                    styles: [
+                        {
+                            title: 'Chico',
+                            price: 10,
+                        },
+                        {
+                            title: 'Mediano',
+                            price: 12,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 15,
+                        },
                     ],
                     pic: '',
-                    price: 12,
-                    type: 'main',
-                },
-                {
-                    title: 'Pescado entero frito (grande)',
-                    subtitle: 'Fried fish (Big)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 15,
+                    price: 0,
                     type: 'main',
                 },
                 {
@@ -433,6 +456,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 8,
                     type: 'main',
@@ -463,6 +487,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 9,
                     type: 'main',
@@ -479,14 +504,16 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 35,
                     type: 'main',
                 },
                 {
-                    title: 'Pescado frito con almejas (chico)',
-                    subtitle: 'Fried fish with clams (small)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
+                    title: 'Pescado frito con almejas',
+                    subtitle: 'Fried fish with clams',
+                    desc:
+                        'Pescado frito con almejas chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
@@ -494,14 +521,29 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [
+                        {
+                            title: 'Chico',
+                            price: 14,
+                        },
+                        {
+                            title: 'Mediano',
+                            price: 16,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 19,
+                        },
+                    ],
                     pic: '',
-                    price: 14,
+                    price: 0,
                     type: 'main',
                 },
                 {
-                    title: 'Pescado frito con almejas (mediano)',
-                    subtitle: 'Fried fish with clams (medium)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
+                    title: 'Pescado frito con camarones',
+                    subtitle: 'Fried fish with shrimps',
+                    desc:
+                        'Pescado frito con camarones chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
@@ -509,14 +551,29 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [
+                        {
+                            title: 'Chico',
+                            price: 14,
+                        },
+                        {
+                            title: 'Mediano',
+                            price: 16,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 19,
+                        },
+                    ],
                     pic: '',
-                    price: 16,
+                    price: 0,
                     type: 'main',
                 },
                 {
-                    title: 'Pescado frito con almejas (grande)',
-                    subtitle: 'Fried fish with clams (big)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
+                    title: 'Pescado frito con mixto de mariscos',
+                    subtitle: 'Fried fish with seafood mix',
+                    desc:
+                        'Pescado frito con mixto de mariscos chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
@@ -524,103 +581,24 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
-                    pic: '',
-                    price: 19,
-                    type: 'main',
-                },
-
-                {
-                    title: 'Pescado frito con camarones (chico)',
-                    subtitle: 'Fried fish with shrimps (small)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
+                    styles: [
+                        {
+                            title: 'Chico',
+                            price: 14,
+                        },
+                        {
+                            title: 'Mediano',
+                            price: 16,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 19,
+                        },
                     ],
                     pic: '',
-                    price: 14,
+                    price: 0,
                     type: 'main',
                 },
-                {
-                    title: 'Pescado frito con camarones (mediano)',
-                    subtitle: 'Fried fish with shrimps (medium)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 16,
-                    type: 'main',
-                },
-                {
-                    title: 'Pescado frito con camarones (grande)',
-                    subtitle: 'Fried fish with shrimps (big)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 19,
-                    type: 'main',
-                },
-
-                {
-                    title: 'Pescado frito con mixto de mariscos (chico)',
-                    subtitle: 'Fried fish with seafood mix (small)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 14,
-                    type: 'main',
-                },
-                {
-                    title: 'Pescado frito con mixto de mariscos (mediano)',
-                    subtitle: 'Fried fish with seafood mix (medium)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 16,
-                    type: 'main',
-                },
-                {
-                    title: 'Pescado frito con mixto de mariscos (grande)',
-                    subtitle: 'Fried fish with seafood mix (big)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 19,
-                    type: 'main',
-                },
-
                 {
                     title: 'Filete de pescado frito con almejas',
                     subtitle: 'Fried fish filet with clams',
@@ -632,6 +610,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 12,
                     type: 'main',
@@ -647,6 +626,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 12,
                     type: 'main',
@@ -662,14 +642,16 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 12,
                     type: 'main',
                 },
                 {
-                    title: 'Picada mixta (pequeña)',
-                    subtitle: 'Mixed platter (small)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
+                    title: 'Picada mixta',
+                    subtitle: 'Mixed platter',
+                    desc:
+                        'Picada mixta chicha o grande con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
                         {title: 'Yuca al mojo', price: 0},
@@ -677,25 +659,21 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
-                    pic: '',
-                    price: 20,
-                    type: 'main',
-                },
-                {
-                    title: 'Picada mixta (grande)',
-                    subtitle: 'Mixed platter (big)',
-                    desc: 'Con ensalada y acompañamiento de su eleccion.',
-                    options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
+                    styles: [
+                        {
+                            title: 'Chica',
+                            price: 20,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 30,
+                        },
                     ],
                     pic: '',
-                    price: 30,
+                    price: 0,
                     type: 'main',
                 },
+
                 {
                     title: 'Langosta',
                     subtitle: 'Lobster',
@@ -707,6 +685,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 35,
                     type: 'main',
@@ -722,6 +701,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 12,
                     type: 'main',
@@ -737,6 +717,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 10,
                     type: 'main',
@@ -752,6 +733,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 10,
                     type: 'main',
@@ -767,6 +749,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 10,
                     type: 'main',
@@ -782,6 +765,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 10,
                     type: 'main',
@@ -797,6 +781,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 12,
                     type: 'main',
@@ -812,6 +797,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 8,
                     type: 'main',
@@ -821,6 +807,7 @@ export default {
                     subtitle: 'Fish',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 2,
                     type: 'ceviche',
@@ -830,6 +817,7 @@ export default {
                     subtitle: 'Shrimp',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 3.5,
                     type: 'ceviche',
@@ -839,6 +827,7 @@ export default {
                     subtitle: 'Octopus',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 3,
                     type: 'ceviche',
@@ -848,6 +837,7 @@ export default {
                     subtitle: 'Combination',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 4,
                     type: 'ceviche',
@@ -857,6 +847,7 @@ export default {
                     subtitle: 'Black shell',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 4.5,
                     type: 'ceviche',
@@ -866,6 +857,7 @@ export default {
                     subtitle: '',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 4.25,
                     type: 'ceviche',
@@ -875,6 +867,7 @@ export default {
                     subtitle: 'Combination cocktail',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 4.25,
                     type: 'ceviche',
@@ -884,6 +877,7 @@ export default {
                     subtitle: 'Shrimp Cocktail',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 4,
                     type: 'ceviche',
@@ -898,6 +892,7 @@ export default {
                         {title: 'Panama', price: 0},
                         {title: 'Soberana', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 1.25,
                     type: 'drink',
@@ -910,6 +905,7 @@ export default {
                         {title: 'Miller Lite', price: 0},
                         {title: 'Coors Light', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -928,6 +924,7 @@ export default {
                     subtitle: '',
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 2.5,
                     type: 'drink',
@@ -937,6 +934,7 @@ export default {
                     subtitle: '',
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -950,6 +948,7 @@ export default {
                         {title: 'Squirt', price: 0},
                         {title: 'Ginger Ale', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 1,
                     type: 'drink',
@@ -959,6 +958,7 @@ export default {
                     subtitle: 'Bottled water',
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 1,
                     type: 'drink',
@@ -968,6 +968,7 @@ export default {
                     subtitle: 'Iced tea',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -977,6 +978,7 @@ export default {
                     subtitle: 'Lemonade',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
+                    styles: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -992,6 +994,7 @@ export default {
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
                     ],
+                    styles: [],
                     pic: '',
                     price: 2,
                     type: 'side',
@@ -1032,6 +1035,10 @@ export default {
                 {},
                 this.menu[this.selectedItemIndex]
             )
+            if (this.selectedItem.styles.length > 0) {
+                this.stylesDialog = true
+                return
+            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -1052,27 +1059,33 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart(option) {
-            this.selectedItem.options = option
-            if (!this.checkIfDuplicate()) {
-                this.selectedItem.amount = 1
-                this.cart.push(this.selectedItem)
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
+        addItemToCart(section, item) {
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                this.optionsDialog = true
             } else {
-                this.cart.forEach(c => {
-                    if (
-                        c.type === this.selectedItem.type &&
-                        c.title === this.selectedItem.title &&
-                        c.options.title === this.selectedItem.options.title
-                    ) {
-                        c.amount++
-                    }
-                })
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
+                this.selectedItem.options = item
+                if (!this.checkIfDuplicate()) {
+                    this.selectedItem.amount = 1
+                    this.cart.push(this.selectedItem)
+                    this.optionsDialog = false
+                    this.successDialog = true
+                    this.calculateTotal()
+                } else {
+                    this.cart.forEach(c => {
+                        if (
+                            c.type === this.selectedItem.type &&
+                            c.title === this.selectedItem.title &&
+                            c.options.title === this.selectedItem.options.title
+                        ) {
+                            c.amount++
+                        }
+                    })
+                    this.optionsDialog = false
+                    this.successDialog = true
+                    this.calculateTotal()
+                }
             }
         },
         removeItemFromCart(i) {
@@ -1118,7 +1131,8 @@ export default {
             let total = 0
             this.cart.forEach(c => {
                 if (c.price) total += c.price * c.amount
-                total += c.options.price * c.amount
+                if (c.options) total += c.options.price * c.amount
+                if (c.styles) total += c.styles.price * c.amount
             })
             this.total = total
         },
