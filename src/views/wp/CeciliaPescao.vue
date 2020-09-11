@@ -342,8 +342,8 @@ export default {
             cart: [],
             menu: [
                 {
-                    title: 'Almejas',
-                    subtitle: 'Clams',
+                    title: 'Almejas al ajillo',
+                    subtitle: 'Clams in garlic sauce',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     pic: '',
@@ -360,8 +360,8 @@ export default {
                     type: 'starter',
                 },
                 {
-                    title: 'Buffalo Wings',
-                    subtitle: '',
+                    title: 'Alitas',
+                    subtitle: 'Buffalo wings',
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     pic: '',
@@ -439,7 +439,7 @@ export default {
                 },
                 {
                     title: 'Filete de pescado frito con salsa al ajillo',
-                    subtitle: 'Fried fish filet with garlic sause',
+                    subtitle: 'Fried fish filet with garlic sauce',
                     desc: 'Con ensalada y acompañamiento de su eleccion.',
                     options: [
                         {title: 'Patacones', price: 0},
@@ -991,20 +991,6 @@ export default {
                         {title: 'Yuca frita', price: 0},
                         {title: 'Papas fritas', price: 0},
                         {title: 'Arroz', price: 0},
-                    ],
-                    pic: '',
-                    price: 2,
-                    type: 'side',
-                },
-                {
-                    title: 'Salsas de su eleccion',
-                    subtitle: 'Sides',
-                    desc: '',
-                    options: [
-                        {title: 'Cangrejo', price: 0},
-                        {title: 'Al ajillo', price: 0},
-                        {title: 'Caribeña', price: 0},
-                        {title: 'Escabeche', price: 0},
                     ],
                     pic: '',
                     price: 2,
