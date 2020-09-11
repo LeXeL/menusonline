@@ -1006,7 +1006,8 @@ export default {
             let total = 0
             this.cart.forEach(c => {
                 if (c.price) total += c.price * c.amount
-                total += c.options.price * c.amount
+                if (c.options) total += c.options.price * c.amount
+                if (c.styles) total += c.styles.price * c.amount
             })
             this.total = total
         },
