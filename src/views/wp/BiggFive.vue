@@ -448,7 +448,9 @@ export default {
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.selectedPickupMethod == 'Delivery') {
-                message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
+                message += `%0D%0AArea: ${
+                    this.selectedArea
+                }%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
                     this.address
                 }`
             }
