@@ -38,7 +38,10 @@
                     <q-img v-if="item.pic" :src="require(`@/assets/wp/demo/${item.pic}`)" />
                     <q-card-section class="q-pb-none">
                         <div class="row">
-                            <div class="col text-h6">{{ item.title }}</div>
+                            <div
+                                class="col text-h6"
+                                style="text-transform: uppercase;"
+                            >{{ item.title }}</div>
                         </div>
                         <div class="row">
                             <div class="col text-subtitle2">{{ item.subtitle }}</div>
@@ -49,6 +52,10 @@
                         <div
                             class="text-h6 poppins-bold"
                         >{{ item.price > 0 ? '$'+ item.price.toFixed(2):'' }}</div>
+                        <div
+                            class="text-h6 poppins-bold"
+                            v-if="item.price == 0"
+                        >Desde $ {{ item.styles[0].price.toFixed(2) }}</div>
                         <div class="text-caption text-grey">{{ item.desc }}</div>
                     </q-card-section>
 
@@ -851,16 +858,6 @@ export default {
                     styles: [],
                     pic: '',
                     price: 4.5,
-                    type: 'ceviche',
-                },
-                {
-                    title: 'Ceviche mediterraneo',
-                    subtitle: '',
-                    desc: '',
-                    options: [{title: 'Regular', price: 0}],
-                    styles: [],
-                    pic: '',
-                    price: 4.25,
                     type: 'ceviche',
                 },
                 {
