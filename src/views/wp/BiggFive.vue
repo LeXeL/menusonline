@@ -448,7 +448,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbz-YhDgzuKjw-FBFpPENmj_V1t16ogQ4Mi5Gf_3_LBEWjK3Q0KZ/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -528,10 +528,10 @@ export default {
                 this.$analytics.logEvent('wp-biggfive', {
                     content_action: 'Orden Completada',
                 })
-                // await this.sendToGoogleDriveSheet()
-                window.location.href = `https://wa.me/507${
-                    this.whatsappNumber
-                }?text=${this.generateMessage()}`
+                await this.sendToGoogleDriveSheet()
+                // window.location.href = `https://wa.me/507${
+                //     this.whatsappNumber
+                // }?text=${this.generateMessage()}`
             }
         },
     },
