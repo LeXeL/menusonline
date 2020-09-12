@@ -15,7 +15,7 @@
             <!-- MENU ITEMS -->
             <div v-for="(item, i) in filterMenu(menu)" :key="i">
                 <div
-                    v-if="item.title == 'Almejas'"
+                    v-if="item.title == 'Almejas al ajillo'"
                     class="text-h6 text-center q-my-lg text-indigo-10 poppins-bold"
                 >ENTRADAS / STARTERS</div>
                 <div
