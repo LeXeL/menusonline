@@ -529,9 +529,9 @@ export default {
                     content_action: 'Orden Completada',
                 })
                 await this.sendToGoogleDriveSheet()
-                // window.location.href = `https://wa.me/507${
-                //     this.whatsappNumber
-                // }?text=${this.generateMessage()}`
+                window.location.href = `https://wa.me/507${
+                    this.whatsappNumber
+                }?text=${this.generateMessage()}`
             }
         },
     },
