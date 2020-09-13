@@ -480,6 +480,7 @@ export default {
                 total: this.total,
                 metodo_de_pago: this.selectedPaymentMethod,
                 metodo_de_entrega: this.selectedPickupMethod,
+                selectedArea: this.selectedArea,
             }
             if (data.metodo_de_entrega === 'Delivery') {
                 data.direcion_1 = this.getLocationForMessage()
