@@ -160,6 +160,19 @@
                                 :options="pickupMethods"
                             />
                         </div>-->
+                        <div class="row">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Area:</div>
+                            <q-btn-toggle
+                                v-model="selectedArea"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width q-mb-md"
+                                toggle-color="red-7"
+                                color="white"
+                                text-color="black"
+                                :options="areas"
+                            />
+                        </div>
                         <div class="row" v-if="this.selectedPickupMethod == 'Delivery'">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">Ubicacion de entrega:</div>
                         </div>
@@ -208,6 +221,10 @@
                         <div class="row">
                             <div class="col text-center">
                                 <div class="text-h5 poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
+                                <div
+                                    class="text-subtitle2 poppins-bold text-red-7"
+                                    v-if="selectedArea == 'Pma Centro & Pma Pacifico'"
+                                >* Delivery de $1.00 includio</div>
                             </div>
                         </div>
                     </q-card-section>
@@ -275,6 +292,14 @@ export default {
             seamless: false,
             whatsappNumber: '61127723',
             selectedItem: {},
+            areas: [
+                {
+                    label: 'Pma Centro & Pma Pacifico',
+                    value: 'Pma Centro & Pma Pacifico',
+                },
+                {label: 'Playa Dorada', value: 'Playa Dorada'},
+            ],
+            selectedArea: '',
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
                 {label: 'Efectivo', value: 'Efectivo'},
@@ -331,7 +356,7 @@ export default {
                 {
                     title: 'Pollo en salsa Peri Peri',
                     desc:
-                        'Muslo encuentro en salsa picante Peri Peri o salsa de hierbas y limon, acompañado de papas western.',
+                        'Muslo encuentro en salsa picante Peri Peri o salsa de hierbas y limon, acompañado arroz y ensalada.',
                     options: [
                         {title: 'Salsa Peri Peri', price: 0},
                         {title: 'Salsa de hierbas y limon', price: 0},
@@ -407,6 +432,7 @@ export default {
                 if (c.price) total += c.price * c.amount
                 total += c.options.price * c.amount
             })
+            if (this.selectedArea == 'Pma Centro & Pma Pacifico') total++
             this.total = total
         },
         generateMessage() {
@@ -422,7 +448,9 @@ export default {
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.selectedPickupMethod == 'Delivery') {
-                message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
+                message += `%0D%0AArea: ${
+                    this.selectedArea
+                }%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
                     this.address
                 }`
             }
@@ -452,6 +480,7 @@ export default {
                 total: this.total,
                 metodo_de_pago: this.selectedPaymentMethod,
                 metodo_de_entrega: this.selectedPickupMethod,
+                selectedArea: this.selectedArea,
             }
             if (data.metodo_de_entrega === 'Delivery') {
                 data.direcion_1 = this.getLocationForMessage()
@@ -508,8 +537,8 @@ export default {
                 },
                 error => {
                     this.center = {
-                        lat: parseFloat(9.068463),
-                        lng: parseFloat(-79.452694),
+                        lat: parseFloat(8.8927895),
+                        lng: parseFloat(-79.6730946),
                     }
                     this.markers.push({position: this.center})
                 }
@@ -518,6 +547,10 @@ export default {
         async sendChat() {
             if (this.name == '') {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
+                return
+            }
+            if (this.selectedArea == '') {
+                alert('Debes seleccionar un area de entrega.')
                 return
             }
             if (this.selectedPickupMethod == '') {
@@ -547,7 +580,6 @@ export default {
     },
     watch: {
         selectedArea() {
-            this.cart = []
             this.calculateTotal()
         },
         cart() {
