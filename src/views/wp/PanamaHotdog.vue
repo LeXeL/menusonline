@@ -266,9 +266,10 @@
                                 filled
                                 dark
                                 type="text"
-                                class="full-width poppins-regular data-hj-allow"
+                                class="full-width poppins-regular"
                                 placeholder="Nombre Apellido"
                                 color="red-7"
+                                data-hj-allow
                             />
                         </div>
                         <div class="row q-mb-md">
@@ -280,10 +281,11 @@
                                 filled
                                 dark
                                 type="textarea"
-                                class="full-width poppins-regular data-hj-allow"
+                                class="full-width poppins-regular"
                                 placeholder="Las hamburguesas sin ketchup porfavor."
                                 color="red-7"
                                 rows="4"
+                                data-hj-allow
                             />
                         </div>
                         <div class="row q-mb-md">
@@ -332,10 +334,11 @@
                                 filled
                                 dark
                                 type="textarea"
-                                class="full-width poppins-regular data-hj-allow"
+                                class="full-width poppins-regular"
                                 placeholder="Barriada, No. Calle, No. Casa"
                                 color="red-7"
                                 rows="4"
+                                data-hj-allow
                             />
                         </div>
                         <div class="row">
@@ -1074,7 +1077,8 @@ export default {
                 if (
                     c.type === this.selectedItem.type &&
                     c.title === this.selectedItem.title &&
-                    c.options.title === this.selectedItem.options.title
+                    c.options.title === this.selectedItem.options.title &&
+                    c.styles.title === this.selectedItem.styles.title
                 ) {
                     isDuplicate = true
                 }
@@ -1100,7 +1104,9 @@ export default {
                         if (
                             c.type === this.selectedItem.type &&
                             c.title === this.selectedItem.title &&
-                            c.options.title === this.selectedItem.options.title
+                            c.options.title ===
+                                this.selectedItem.options.title &&
+                            c.styles.title === this.selectedItem.styles.title
                         ) {
                             c.amount++
                         }
