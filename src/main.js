@@ -31,8 +31,14 @@ Vue.use(VueGoogleMaps, {
         libraries: 'places', // necessary for places input
     },
 })
+if (process.env.NODE_ENV == 'production') {
+    var isProduction = false
+} else {
+    var isProduction = true
+}
 Vue.use(Hotjar, {
     id: '1989589', // Hotjar Site ID
+    isProduction: isProduction,
 })
 
 Vue.config.productionTip = false
