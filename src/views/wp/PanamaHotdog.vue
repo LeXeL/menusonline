@@ -1092,12 +1092,16 @@ export default {
             await xhr.send(encoded)
         },
         getLocationForMessage() {
-            if (this.location.length <= 0) {
-                let lat = parseFloat(this.center.lat)
-                let lng = parseFloat(this.center.lng)
+            if (
+                this.location.length === 0 ||
+                this.location.lat === NaN ||
+                this.location.lng === NaN
+            ) {
+                // let lat = parseFloat(this.center.lat)
+                // let lng = parseFloat(this.center.lng)
                 // if (lat < 0) lat = `+${lat}`
                 // if (lng < 0) lng = `+${lng}`
-                return `https://waze.com/ul?ll=${lat},${lng}&z=10`
+                return `>> Pedir Ubicacion !!`
             } else {
                 let lat = parseFloat(this.location.lat)
                 let lng = parseFloat(this.location.lng)
@@ -1178,6 +1182,9 @@ export default {
         GoogleMaps,
     },
     mounted() {
+        if (this.$hj) {
+            this.$hj('vpv', 'funnel-step-one')
+        }
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
         this.$analytics.logEvent('wp-panamahotdog', {

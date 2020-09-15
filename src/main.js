@@ -14,6 +14,7 @@ import Confirm from '@/components/general/Confirm'
 import VueSmoothScroll from 'vue2-smooth-scroll'
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueMeta from 'vue-meta'
+import Hotjar from 'vue-hotjar'
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
@@ -29,6 +30,9 @@ Vue.use(VueGoogleMaps, {
         key: 'AIzaSyBQ9QbePVZeAjzIlUSyaT7fMUJZNLMFtwA',
         libraries: 'places', // necessary for places input
     },
+})
+Vue.use(Hotjar, {
+    id: '1989589', // Hotjar Site ID
 })
 
 Vue.config.productionTip = false

@@ -19,6 +19,7 @@
         "quasar": "^1.0.0",
         "vue": "^2.6.11",
         "vue-aos": "^1.0.1",
+        "vue-hotjar": "^1.2.0",
         "vue-meta": "^2.4.0",
         "vue-router": "^3.2.0",
         "vue2-google-maps": "^0.10.7",
