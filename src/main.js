@@ -32,9 +32,9 @@ Vue.use(VueGoogleMaps, {
     },
 })
 if (process.env.NODE_ENV == 'production') {
-    var isProduction = false
-} else {
     var isProduction = true
+} else {
+    var isProduction = false
 }
 Vue.use(Hotjar, {
     id: '1989589', // Hotjar Site ID
