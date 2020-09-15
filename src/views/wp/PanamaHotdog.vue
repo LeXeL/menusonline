@@ -1077,7 +1077,8 @@ export default {
                 if (
                     c.type === this.selectedItem.type &&
                     c.title === this.selectedItem.title &&
-                    c.options.title === this.selectedItem.options.title
+                    c.options.title === this.selectedItem.options.title &&
+                    c.styles.title === this.selectedItem.styles.title
                 ) {
                     isDuplicate = true
                 }
@@ -1103,7 +1104,9 @@ export default {
                         if (
                             c.type === this.selectedItem.type &&
                             c.title === this.selectedItem.title &&
-                            c.options.title === this.selectedItem.options.title
+                            c.options.title ===
+                                this.selectedItem.options.title &&
+                            c.styles.title === this.selectedItem.styles.title
                         ) {
                             c.amount++
                         }
