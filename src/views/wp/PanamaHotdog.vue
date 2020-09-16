@@ -1,52 +1,38 @@
 <template>
     <q-page class="bg-grey-2">
-        <q-img
-            :src="require('@/assets/wp/panamahotdog/logo.jpg')"
-            class="shadow-7"
-        />
+        <q-img :src="require('@/assets/wp/panamahotdog/logo.jpg')" class="shadow-7" />
         <div class="q-pa-md">
             <div class="text-subtitle2 poppins-bold q-mt-sm">
                 <i class="fab fa-instagram text-red-8"></i>
                 <a
                     href="http://www.instagram.com/panamahotdogoficial"
                     style="text-decoration: none; color: black;"
-                    >&nbsp;PanamaHotdogOficial</a
-                >
+                >&nbsp;PanamaHotdogOficial</a>
             </div>
             <div class="text-subtitle2 poppins-bold q-mb-lg">
                 <i class="fab fa-whatsapp text-red-8"></i> Comprobantes al
                 6684-7121
             </div>
-            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
-                REALIZA TU PEDIDO
-            </div>
+            <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">REALIZA TU PEDIDO</div>
 
             <!-- MENU ITEMS -->
-            <q-card
-                class="full-width q-mb-lg"
-                v-for="(item, i) in menu"
-                :key="i"
-            >
-                <q-img
-                    v-if="item.pic"
-                    :src="require(`@/assets/wp/panamahotdog/${item.pic}`)"
-                />
+            <q-card class="full-width q-mb-lg" v-for="(item, i) in menu" :key="i">
+                <q-img v-if="item.pic" :src="require(`@/assets/wp/panamahotdog/${item.pic}`)" />
                 <q-card-section class="q-pb-none">
                     <div class="row">
                         <div
                             class="text-subtitle2 poppins-bold text-red-8 full-width"
                             v-if="item.subtitle != null"
-                        >
-                            {{ item.subtitle }}
-                        </div>
+                        >{{ item.subtitle }}</div>
                         <div class="text-h6">{{ item.title }}</div>
                     </div>
                 </q-card-section>
 
                 <q-card-section class="q-pt-none">
-                    <div v-if="item.price" class="text-h6 poppins-bold">
-                        $ {{ item.price.toFixed(2) }}
-                    </div>
+                    <div
+                        v-if="item.price"
+                        class="text-h6 poppins-bold"
+                    >$ {{ item.price.toFixed(2) }}</div>
                     <div class="text-caption text-grey">{{ item.desc }}</div>
                 </q-card-section>
 
@@ -59,22 +45,16 @@
                         color="red-7"
                         @click="selectItem(i)"
                         :disable="isWeekendItem(item)"
-                        >Agregar</q-btn
-                    >
+                    >Agregar</q-btn>
                 </q-card-actions>
             </q-card>
             <!-- END MENU ITEMS -->
 
             <!-- STYLES DIALOG -->
             <q-dialog v-model="stylesDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
-                        <div class="text-h6 text-center poppins-bold">
-                            ESTILO
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">ESTILO</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
@@ -89,9 +69,9 @@
                             {{ style.title }}
                             <br />
                             {{
-                                style.price > 0
-                                    ? '$' + style.price.toFixed(2)
-                                    : ''
+                            style.price > 0
+                            ? '$' + style.price.toFixed(2)
+                            : ''
                             }}
                         </q-btn>
                         <q-btn
@@ -99,8 +79,7 @@
                             flat
                             class="poppins-bold full-width q-mb-md"
                             @click="stylesDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -108,14 +87,9 @@
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
-                        <div class="text-h6 text-center poppins-bold">
-                            ELIJA
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
@@ -131,9 +105,9 @@
                             {{ option.title }}
                             <br />
                             {{
-                                option.price > 0
-                                    ? '$' + option.price.toFixed(2)
-                                    : ''
+                            option.price > 0
+                            ? '$' + option.price.toFixed(2)
+                            : ''
                             }}
                         </q-btn>
                         <q-btn
@@ -141,8 +115,7 @@
                             flat
                             class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
-                            >Cancelar</q-btn
-                        >
+                        >Cancelar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -150,14 +123,9 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Agregado con exito
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">Agregado con exito</div>
                     </q-card-section>
                     <q-card-section>
                         <q-btn
@@ -165,8 +133,7 @@
                             outline
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
-                            >Aceptar</q-btn
-                        >
+                        >Aceptar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -182,32 +149,16 @@
                 <q-card class="bg-grey-9 text-white">
                     <q-bar style="height: 45px;">
                         <q-space />
-                        <q-btn
-                            dense
-                            flat
-                            icon="close"
-                            size="lg"
-                            v-close-popup
-                        ></q-btn>
+                        <q-btn dense flat icon="close" size="lg" v-close-popup></q-btn>
                     </q-bar>
                     <q-card-section>
-                        <div class="text-h6 text-center poppins-bold">
-                            Detalle de pedido
-                        </div>
+                        <div class="text-h6 text-center poppins-bold">Detalle de pedido</div>
                     </q-card-section>
 
                     <q-card-section v-if="cart.length > 0">
-                        <div
-                            class="row q-mb-md"
-                            v-for="(item, i) in cart"
-                            :key="i"
-                        >
+                        <div class="row q-mb-md" v-for="(item, i) in cart" :key="i">
                             <div class="col-2">
-                                <q-btn
-                                    color="red-7"
-                                    size="sm"
-                                    @click="removeItemFromCart(i)"
-                                >
+                                <q-btn color="red-7" size="sm" @click="removeItemFromCart(i)">
                                     <i class="fas fa-times"></i>
                                 </q-btn>
                             </div>
@@ -217,9 +168,9 @@
                                     <strong>
                                         ({{ item.amount }}) {{ item.title }}
                                         {{
-                                            item.styles.title
-                                                ? `- ${item.styles.title}`
-                                                : ''
+                                        item.styles.title
+                                        ? `- ${item.styles.title}`
+                                        : ''
                                         }}
                                         -
                                         {{ item.options.title }}
@@ -237,13 +188,8 @@
                     <q-card-section v-else>
                         <div class="row">
                             <div class="col text-grey-6 text-center">
-                                <i
-                                    class="fas fa-utensils q-mt-lg q-mb-md"
-                                    style="font-size: 75px;"
-                                ></i>
-                                <div class="text-h5 poppins-bold q-mb-lg">
-                                    Tu carrito esta vacio
-                                </div>
+                                <i class="fas fa-utensils q-mt-lg q-mb-md" style="font-size: 75px;"></i>
+                                <div class="text-h5 poppins-bold q-mb-lg">Tu carrito esta vacio</div>
                             </div>
                         </div>
                     </q-card-section>
@@ -252,15 +198,11 @@
                     <q-card-section>
                         <div class="row text-center">
                             <div class="col">
-                                <div class="text-h6 poppins-bold q-mb-md">
-                                    Datos de orden
-                                </div>
+                                <div class="text-h6 poppins-bold q-mb-md">Datos de orden</div>
                             </div>
                         </div>
                         <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Nombre: *
-                            </div>
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Nombre: *</div>
                             <q-input
                                 v-model="name"
                                 filled
@@ -273,9 +215,9 @@
                             />
                         </div>
                         <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Comentarios especiales de tu pedido:
-                            </div>
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm"
+                            >Comentarios especiales de tu pedido:</div>
                             <q-input
                                 v-model="specialComments"
                                 filled
@@ -289,9 +231,7 @@
                             />
                         </div>
                         <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Metodo de entrega: *
-                            </div>
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de entrega: *</div>
                             <q-btn-toggle
                                 v-model="selectedPickupMethod"
                                 spread
@@ -303,13 +243,8 @@
                                 :options="pickupMethods"
                             />
                         </div>
-                        <div
-                            class="row"
-                            v-if="this.selectedPickupMethod == 'Delivery'"
-                        >
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Ubicacion de entrega: *
-                            </div>
+                        <div class="row" v-if="this.selectedPickupMethod == 'Delivery'">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Ubicacion de entrega: *</div>
                         </div>
                         <GoogleMaps
                             class="q-mb-md"
@@ -322,13 +257,10 @@
                             :markers="markers"
                             :mapCenter="center"
                         ></GoogleMaps>
-                        <div
-                            class="row q-mb-md"
-                            v-if="selectedPickupMethod == 'Delivery'"
-                        >
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Direccion de entrega (completa): *
-                            </div>
+                        <div class="row q-mb-md" v-if="selectedPickupMethod == 'Delivery'">
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm"
+                            >Direccion de entrega (completa): *</div>
                             <q-input
                                 v-model="address"
                                 filled
@@ -342,9 +274,7 @@
                             />
                         </div>
                         <div class="row">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Metodo de pago: *
-                            </div>
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de pago: *</div>
                             <q-btn-toggle
                                 v-model="selectedPaymentMethod"
                                 spread
@@ -367,15 +297,11 @@
                     <q-card-section v-if="cart.length > 0">
                         <div class="row">
                             <div class="col text-center">
-                                <div class="text-h5 poppins-bold">
-                                    Total: $ {{ total.toFixed(2) }}
-                                </div>
+                                <div class="text-h5 poppins-bold">Total: $ {{ total.toFixed(2) }}</div>
                                 <div
                                     class="text-subtitle2 poppins-bold text-red-8"
                                     v-if="selectedPickupMethod == 'Delivery'"
-                                >
-                                    Sin costos por delivery.
-                                </div>
+                                >Sin costos por delivery.</div>
                             </div>
                         </div>
                     </q-card-section>
@@ -385,8 +311,7 @@
                             class="full-width q-mb-md poppins-bold"
                             @click="sendChat"
                             :disable="cart.length <= 0"
-                            >Enviar</q-btn
-                        >
+                        >Enviar</q-btn>
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -394,16 +319,11 @@
 
             <!-- NEW DIALOG -->
             <q-dialog v-model="seamless" seamless position="bottom">
-                <q-card
-                    style="width: 350px; border-radius: 0;"
-                    class="bg-red-7 text-white"
-                >
+                <q-card style="width: 350px; border-radius: 0;" class="bg-red-7 text-white">
                     <q-card-section class="row items-center no-wrap">
                         <div>
                             <div class="text-h6 poppins-bold">
-                                <span class="text-subtitle2 poppins-bold"
-                                    >Total:</span
-                                >
+                                <span class="text-subtitle2 poppins-bold">Total:</span>
                                 $
                                 {{ total.toFixed(2) }}
                             </div>
@@ -1189,7 +1109,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function(k) {
+                .map(function (k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +
@@ -1200,19 +1120,23 @@ export default {
             await xhr.send(encoded)
         },
         getLocationForMessage() {
-            if (
-                this.location.length === 0 ||
-                this.location.lat === NaN ||
-                this.location.lng === NaN
-            ) {
+            if (this.location.length === 0) {
+                if (
+                    parseFloat(this.center.lat) === parseFloat(9.068463) &&
+                    parseFloat(this.center.lng) === parseFloat(-79.452694)
+                ) {
+                    return `>> Pedir Ubicacion !!`
+                } else {
+                    return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
+                }
                 // let lat = parseFloat(this.center.lat)
                 // let lng = parseFloat(this.center.lng)
                 // if (lat < 0) lat = `+${lat}`
                 // if (lng < 0) lng = `+${lng}`
-                return `>> Pedir Ubicacion !!`
             } else {
                 let lat = parseFloat(this.location.lat)
                 let lng = parseFloat(this.location.lng)
+                if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
                 // if (lat < 0) lat = `+${lat}`
                 // if (lng < 0) lng = `+${lng}`
                 return `https://waze.com/ul?ll=${lat},${lng}&z=10`
