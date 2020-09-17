@@ -139,6 +139,26 @@
             </q-dialog>
             <!-- END SUCCESS DIALOG -->
 
+            <!-- LOCATION DIALOG -->
+            <q-dialog v-model="locationDialog" persistent>
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
+                    <q-card-section>
+                        <div
+                            class="text-subtitle2 text-center poppins-bold text-red-7"
+                        >Arrastra el marcador del mapa a la ubicacion donde deseas recibir tu pedido.</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-btn
+                            color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            @click="locationDialog = false"
+                        >Aceptar</q-btn>
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END LOCATION DIALOG -->
+
             <!-- CART DIALOG -->
             <q-dialog
                 v-model="cartDialog"
@@ -244,7 +264,12 @@
                             />
                         </div>
                         <div class="row" v-if="this.selectedPickupMethod == 'Delivery'">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">Ubicacion de entrega: *</div>
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm full-width"
+                            >Ubicacion de entrega: *</div>
+                            <!-- <div
+                                class="text-subtitle2 poppins-bold q-mb-sm text-red-7"
+                            >Arrastra el marcador a la ubicacion donde deseas recibir tu pedido.</div>-->
                         </div>
                         <GoogleMaps
                             class="q-mb-md"
@@ -389,6 +414,7 @@ export default {
             stylesDialog: false,
             successDialog: false,
             cartDialog: false,
+            locationDialog: false,
             cart: [],
             menu: [
                 {
@@ -1195,10 +1221,6 @@ export default {
         },
     },
     watch: {
-        selectedArea() {
-            this.cart = []
-            this.calculateTotal()
-        },
         cart() {
             this.calculateTotal()
             if (this.cart.length > 0) {
@@ -1208,6 +1230,10 @@ export default {
                 this.seamless = false
                 this.$store.commit('SET_DISPLAYFOOTER', false)
             }
+        },
+        selectedPickupMethod() {
+            if (this.selectedPickupMethod == 'Delivery')
+                this.locationDialog = true
         },
     },
     components: {
