@@ -657,6 +657,26 @@ export default {
                     ],
                 },
                 {
+                    title: 'Nachos',
+                    desc:
+                        'Nachos con pico de gallo, queso fundido y carne molida.',
+                    type: 'main',
+                    pic: 'nachos.jpeg',
+                    price: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Chicos',
+                            price: 3.5,
+                        },
+                        {
+                            title: 'Grandes',
+                            price: 6,
+                        },
+                    ],
+                },
+                {
                     title: 'Combito de hamburguesa',
                     desc: '4 alas, papas, hamburguesa y soda',
                     type: 'main',
