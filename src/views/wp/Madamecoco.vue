@@ -186,6 +186,7 @@
                                 class="full-width poppins-regular"
                                 placeholder="Nombre Apellido"
                                 color="orange-9"
+                                data-hj-allow
                             />
                         </div>
                         <div class="row">
@@ -212,6 +213,7 @@
                                 placeholder="Barriada, No. Calle, No. Casa"
                                 color="orange-9"
                                 rows="4"
+                                data-hj-allow
                             />
                         </div>
                         <div class="row">

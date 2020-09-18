@@ -267,9 +267,9 @@
                             <div
                                 class="text-subtitle2 poppins-bold q-mb-sm full-width"
                             >Ubicacion de entrega: *</div>
-                            <!-- <div
-                                class="text-subtitle2 poppins-bold q-mb-sm text-red-7"
-                            >Arrastra el marcador a la ubicacion donde deseas recibir tu pedido.</div>-->
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-md text-red-7"
+                            >Para mover el marcador debes arrastrarlo a la ubicacion que deseas recibir tu pedido.</div>
                         </div>
                         <GoogleMaps
                             class="q-mb-md"
@@ -1251,10 +1251,10 @@ export default {
                 this.$store.commit('SET_DISPLAYFOOTER', false)
             }
         },
-        selectedPickupMethod() {
-            if (this.selectedPickupMethod == 'Delivery')
-                this.locationDialog = true
-        },
+        // selectedPickupMethod() {
+        //     if (this.selectedPickupMethod == 'Delivery')
+        //         this.locationDialog = true
+        // },
     },
     components: {
         GoogleMaps,
