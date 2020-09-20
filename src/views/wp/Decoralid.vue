@@ -30,7 +30,7 @@
                     <q-space />
                     <q-btn
                         flat
-                        color="amber-7"
+                        color="amber-14"
                         @click="selectItem(i)"
                         :disable="isWeekendItem(item)"
                     >Agregar</q-btn>
@@ -42,12 +42,12 @@
             <q-dialog v-model="stylesDialog">
                 <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
-                        <div class="text-h6 text-center poppins-bold">ESTILO</div>
+                        <div class="text-h6 text-center poppins-bold">TOPPING</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
                         <q-btn
-                            text-color="amber-7"
+                            text-color="amber-14"
                             outline
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
@@ -77,12 +77,12 @@
             <q-dialog v-model="optionsDialog">
                 <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
-                        <div class="text-h6 text-center poppins-bold">ELIJA</div>
+                        <div class="text-h6 text-center poppins-bold">SABOR</div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
                         <q-btn
-                            text-color="amber-7"
+                            text-color="amber-14"
                             outline
                             class="poppins-bold full-width q-mb-md"
                             v-for="(option, i) in menu[selectedItemIndex]
@@ -117,7 +117,7 @@
                     </q-card-section>
                     <q-card-section>
                         <q-btn
-                            color="amber-7"
+                            color="amber-14"
                             outline
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
@@ -245,7 +245,7 @@
                                 spread
                                 all-caps
                                 class="poppins-bold full-width"
-                                toggle-color="amber-7"
+                                toggle-color="amber-14"
                                 color="white"
                                 text-color="black"
                                 :options="pickupMethods"
@@ -293,7 +293,7 @@
                                 spread
                                 all-caps
                                 class="poppins-bold full-width"
-                                toggle-color="amber-7"
+                                toggle-color="amber-14"
                                 color="white"
                                 text-color="black"
                                 :options="paymentMethods"
@@ -332,7 +332,7 @@
 
             <!-- NEW DIALOG -->
             <q-dialog v-model="seamless" seamless position="bottom">
-                <q-card style="width: 350px; border-radius: 0;" class="bg-amber-7 text-white">
+                <q-card style="width: 350px; border-radius: 0;" class="bg-amber-14 text-white">
                     <q-card-section class="row items-center no-wrap">
                         <div>
                             <div class="text-h6 poppins-bold">
@@ -434,7 +434,7 @@ export default {
                 {
                     title: 'Batidos de helados',
                     desc:
-                        'Elija entre 3 deliciosos sabores de marquesas. Chocolate con topping de Oreo y Cocosete, Maracuyá o Limón.',
+                        'Elija entre 6 deliciosos sabores de batidos de helado. Fresa y Oreo, Oreo, Chocolate, Fresa, Cocosete o Vainilla.',
                     type: 'main',
                     pic: '',
                     price: 0,
@@ -468,7 +468,106 @@ export default {
                             price: 2.5,
                         },
                     ],
-                }
+                },
+                {
+                    title: '2 Cupcakes sencillos',
+                    desc:
+                        'Dos cupcakes sencillos con los sabores que mas gustes.',
+                    type: 'main',
+                    pic: 'cupcakes_sencillos.jpeg',
+                    price: 2.5,
+                    styles: [
+                        {
+                            title: 'Oreo',
+                            price: 0,
+                        },
+                        {
+                            title: 'Pirucream',
+                            price: 0,
+                        },
+                        {
+                            title: 'Skittles',
+                            price: 0,
+                        },
+                        {
+                            title: 'Hersheys',
+                            price: 0,
+                        },
+                    ],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Chocolate',
+                            price: 0,
+                        },
+                        {
+                            title: 'Marmolado',
+                            price: 0,
+                        },
+                        {
+                            title: 'Vainilla',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: '2 Cupcakes rellenos',
+                    desc:
+                        'Dos cupcakes rellenos con los sabores que mas gustes.',
+                    type: 'main',
+                    pic: 'cupcakes.jpeg',
+                    price: 3,
+                    styles: [
+                        {
+                            title: 'Oreo',
+                            price: 0,
+                        },
+                        {
+                            title: 'Pirucream',
+                            price: 0,
+                        },
+                        {
+                            title: 'Skittles',
+                            price: 0,
+                        },
+                        {
+                            title: 'Hersheys',
+                            price: 0,
+                        },
+                    ],
+                    sides: [
+                        {
+                            title: 'Chocolate',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dulce de leche',
+                            price: 0,
+                        },
+                        {
+                            title: 'Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Chocomani',
+                            price: 0,
+                        },
+                    ],
+                    options: [
+                        {
+                            title: 'Chocolate',
+                            price: 0,
+                        },
+                        {
+                            title: 'Marmolado',
+                            price: 0,
+                        },
+                        {
+                            title: 'Vainilla',
+                            price: 0,
+                        },
+                    ],
+                },
             ],
         }
     },
