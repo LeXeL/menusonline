@@ -28,12 +28,7 @@
 
                 <q-card-actions>
                     <q-space />
-                    <q-btn
-                        flat
-                        color="amber-14"
-                        @click="selectItem(i)"
-                        :disable="isWeekendItem(item)"
-                    >Agregar</q-btn>
+                    <q-btn flat color="amber-14" @click="selectItem(i)">Agregar</q-btn>
                 </q-card-actions>
             </q-card>
             <!-- END MENU ITEMS -->
@@ -209,22 +204,20 @@
 
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
-                                    <strong>
-                                        ({{ item.amount }}) {{ item.title }}
-                                        {{
-                                        item.styles.title
-                                        ? `- ${item.styles.title}`
-                                        : ''
-                                        }}
-                                        -
-                                        {{ item.options.title }}
-                                    </strong>
-                                    <!-- <strong
-                                        v-if="item.type == 'extras'"
-                                    >({{ item.amount }}) Extra - {{item.options.title}}</strong>
-                                    <strong
-                                        v-if="item.type == 'drinks'"
-                                    >({{ item.amount }}) Bebida - {{item.options.title}}</strong>-->
+                                    <template v-if="item.type =='main'">
+                                        <strong>({{ item.amount }}) {{ item.title }} - {{ item.options.title }}</strong>
+                                    </template>
+                                    <template v-if="item.type == 'double'">
+                                        <strong>({{ item.amount }}) {{ item.title }}</strong>
+                                        <br />
+                                        <span v-for="(el, i) in 2" :key="i">
+                                            Sabor: {{item.options[i].title}} - Topping: {{item.styles[i].title}}
+                                            <span
+                                                v-if="item.sides.length > 0"
+                                            >- Relleno: {{item.sides[i].title}}</span>
+                                            <br />
+                                        </span>
+                                    </template>
                                 </div>
                             </div>
                         </div>
@@ -508,7 +501,7 @@ export default {
                     title: '2 Cupcakes sencillos',
                     desc:
                         'Dos cupcakes sencillos con los sabores que mas gustes.',
-                    type: 'main',
+                    type: 'double',
                     pic: 'cupcakes_sencillos.jpeg',
                     price: 2.5,
                     count: 1,
@@ -550,7 +543,7 @@ export default {
                     title: '2 Cupcakes rellenos',
                     desc:
                         'Dos cupcakes rellenos con los sabores que mas gustes.',
-                    type: 'main',
+                    type: 'double',
                     pic: 'cupcakes.jpeg',
                     price: 3,
                     count: 1,
@@ -609,16 +602,6 @@ export default {
         }
     },
     methods: {
-        isWeekendItem(item) {
-            let today = new Date().getDay()
-            if (item.type == 'main') {
-                return false
-            } else if (item.days.includes(today)) {
-                return false
-            } else {
-                return true
-            }
-        },
         selectItem(index) {
             this.selectedItemIndex = index
             this.selectedItem = JSON.parse(JSON.stringify(this.menu[index]))
@@ -760,9 +743,21 @@ export default {
             let message =
                 'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} ${
-                    item.styles.title ? '- ' + item.styles.title + ' ' : ''
-                }- ${item.options.title}%0D%0A`
+                if (item.type == 'main') {
+                    message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                }
+                if (item.type == 'double') {
+                    let s = ''
+                    for (let i = 0; i < 2; i++) {
+                        s += `*Sabor:* ${item.options[i].title} `
+                        s += `*Topping:* ${item.styles[i].title} `
+                        if (item.sides.length > 0) {
+                            s += `*Relleno:* ${item.sides[i].title}`
+                        }
+                        if (i < 1) s += `%0D%0A`
+                    }
+                    message += `- (${item.amount}) ${item.title}%0D%0A${s}%0D%0A`
+                }
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
