@@ -332,7 +332,7 @@
                                 v-if="selectedPaymentMethod == 'Yappy'"
                             >
                                 Recuerda enviar el comprobante de pago por
-                                WhatsApp al numero xxxx-xxxx
+                                WhatsApp.
                             </div>
                         </div>
                     </q-card-section>
@@ -410,7 +410,7 @@ export default {
             specialComments: '',
             selectedItemIndex: 0,
             seamless: false,
-            whatsappNumber: '62042578',
+            whatsappNumber: '66051517',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -780,12 +780,21 @@ export default {
         async sendToGoogleDriveSheet() {
             let message = ''
             for (let item of this.cart) {
-                if (item.type == 'main')
-                    message += `(${item.amount}) ${item.title} con ${item.options.title}\n`
-                if (item.type == 'extras')
-                    message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
-                if (item.type == 'drinks')
-                    message += `(${item.amount}) Bebida - ${item.options.title}\n`
+                if (item.type == 'main') {
+                    message += `(${item.amount}) ${item.title} ${item.options.title}\n`
+                }
+                if (item.type == 'double') {
+                    let s = ''
+                    for (let i = 0; i < 2; i++) {
+                        s += `Sabor: ${item.options[i].title} `
+                        s += `Topping: ${item.styles[i].title} `
+                        if (item.sides.length > 0) {
+                            s += `Relleno: ${item.sides[i].title}`
+                        }
+                        if (i < 1) s += `\n`
+                    }
+                    message += `- (${item.amount}) ${item.title}\n${s}\n`
+                }
             }
             let data = {
                 id: this.orderNo,
@@ -801,7 +810,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbzlwJKrbpmb1YrfSv7106EQsOAQ-YHx4Kb_cLS8Dn2p-85IOQvs/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -889,7 +898,7 @@ export default {
                 this.$analytics.logEvent('wp-panamahotdog', {
                     content_action: 'Orden Completada',
                 })
-                // await this.sendToGoogleDriveSheet()
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
