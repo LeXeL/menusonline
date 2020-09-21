@@ -281,7 +281,7 @@
                                 type="textarea"
                                 class="full-width poppins-regular"
                                 placeholder="Barriada, No. Calle, No. Casa"
-                                color="red-7"
+                                color="amber-14"
                                 rows="4"
                                 data-hj-allow
                             />
