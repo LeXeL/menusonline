@@ -12,6 +12,7 @@ import CeciliaPescao from './views/wp/CeciliaPescao'
 import Enid from './views/wp/Enid'
 import Madamecoco from './views/wp/Madamecoco'
 import PanamaHotdog from './views/wp/PanamaHotdog'
+import Decoralid from './views/wp/Decoralid'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -95,6 +96,11 @@ export default new Router({
                     path: '/wp/panamahotdog',
                     name: 'panamahotdog',
                     component: PanamaHotdog,
+                },
+                {
+                    path: '/wp/decoralid',
+                    name: 'decoralid',
+                    component: Decoralid,
                 },
             ],
         },
