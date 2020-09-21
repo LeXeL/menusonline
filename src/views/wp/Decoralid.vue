@@ -52,7 +52,7 @@
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
                             :key="i"
-                            @click="addItemToCart('style', style)"
+                            @click="handleDialogs('style', style)"
                         >
                             {{ style.title }}
                             <br />
@@ -88,7 +88,7 @@
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="addItemToCart('option', option)"
+                            @click="handleDialogs('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -108,6 +108,42 @@
                 </q-card>
             </q-dialog>
             <!-- END OPTIONS DIALOG -->
+
+            <!-- SIDE DIALOG -->
+            <q-dialog v-model="sideDialog">
+                <q-card style="width: 700px; max-width: 80vw;" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">RELLENO</div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            text-color="amber-14"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(side, i) in menu[selectedItemIndex]
+                                .sides"
+                            :key="i"
+                            @click="handleDialogs('side', side)"
+                        >
+                            {{ side.title }}
+                            <br />
+                            {{
+                            side.price > 0
+                            ? '$' + side.price.toFixed(2)
+                            : ''
+                            }}
+                        </q-btn>
+                        <q-btn
+                            color="red-7"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="sideDialog = false"
+                        >Cancelar</q-btn>
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END SIDE DIALOG -->
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
@@ -237,7 +273,7 @@
                                 rows="4"
                                 data-hj-allow
                             />
-                        </div> -->
+                        </div>-->
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de entrega: *</div>
                             <q-btn-toggle
@@ -400,6 +436,7 @@ export default {
             center: {},
             optionsDialog: false,
             stylesDialog: false,
+            sideDialog: false,
             successDialog: false,
             cartDialog: false,
             locationDialog: false,
@@ -412,9 +449,8 @@ export default {
                     type: 'main',
                     pic: 'marquesas.jpg',
                     price: 3,
-                    styles: [
-                        
-                    ],
+                    count: 0,
+                    styles: [],
                     sides: [],
                     options: [
                         {
@@ -438,9 +474,8 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 0,
-                    styles: [
-                        
-                    ],
+                    count: 0,
+                    styles: [],
                     sides: [],
                     options: [
                         {
@@ -476,6 +511,7 @@ export default {
                     type: 'main',
                     pic: 'cupcakes_sencillos.jpeg',
                     price: 2.5,
+                    count: 1,
                     styles: [
                         {
                             title: 'Oreo',
@@ -517,6 +553,7 @@ export default {
                     type: 'main',
                     pic: 'cupcakes.jpeg',
                     price: 3,
+                    count: 1,
                     styles: [
                         {
                             title: 'Oreo',
@@ -584,11 +621,7 @@ export default {
         },
         selectItem(index) {
             this.selectedItemIndex = index
-            this.selectedItem = Object.assign({}, this.menu[index])
-            if (this.selectedItem.styles.length > 0) {
-                this.stylesDialog = true
-                return
-            }
+            this.selectedItem = JSON.parse(JSON.stringify(this.menu[index]))
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -610,13 +643,8 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart(section, item) {
-            if (section === 'style') {
-                this.selectedItem.styles = item
-                this.stylesDialog = false
-                this.optionsDialog = true
-            } else {
-                this.selectedItem.options = item
+        addItemToCart() {
+            if (this.menu[this.selectedItemIndex].count === 0) {
                 if (!this.checkIfDuplicate()) {
                     this.selectedItem.amount = 1
                     this.cart.push(this.selectedItem)
@@ -630,7 +658,8 @@ export default {
                             c.title === this.selectedItem.title &&
                             c.options.title ===
                                 this.selectedItem.options.title &&
-                            c.styles.title === this.selectedItem.styles.title
+                            c.styles.title === this.selectedItem.styles.title &&
+                            c.sides.title === this.selectedItem.sides.title
                         ) {
                             c.amount++
                         }
@@ -638,6 +667,79 @@ export default {
                     this.optionsDialog = false
                     this.successDialog = true
                     this.calculateTotal()
+                }
+            } else {
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            }
+        },
+
+        handleDialogs(section, item) {
+            //option, style, side
+            if (section === 'option') {
+                if (this.selectedItem.count > 0) {
+                    this.selectedItem.options = []
+                    this.selectedItem.options.push(item)
+                } else {
+                    if (this.menu[this.selectedItemIndex].count === 0) {
+                        this.selectedItem.options = item
+                    } else {
+                        this.selectedItem.options.push(item)
+                    }
+                }
+                this.optionsDialog = false
+                if (this.menu[this.selectedItemIndex].styles.length > 0) {
+                    this.stylesDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'style') {
+                if (this.selectedItem.count > 0) {
+                    this.selectedItem.styles = []
+                    this.selectedItem.styles.push(item)
+                } else {
+                    if (this.menu[this.selectedItemIndex].count === 0) {
+                        this.selectedItem.styles = item
+                    } else {
+                        this.selectedItem.styles.push(item)
+                    }
+                }
+                this.stylesDialog = false
+                if (this.menu[this.selectedItemIndex].sides.length > 0) {
+                    this.sideDialog = true
+                } else {
+                    if (this.menu[this.selectedItemIndex].count === 0) {
+                        this.addItemToCart()
+                    } else {
+                        if (this.selectedItem.count === 0) {
+                            this.addItemToCart()
+                        } else {
+                            this.selectedItem.count--
+                            this.optionsDialog = true
+                        }
+                    }
+                }
+            }
+            if (section === 'side') {
+                if (this.selectedItem.count > 0) {
+                    this.selectedItem.sides = []
+                    this.selectedItem.sides.push(item)
+                    this.selectedItem.count--
+                    this.sideDialog = false
+                    this.optionsDialog = true
+                } else {
+                    this.sideDialog = false
+                    if (this.menu[this.selectedItemIndex].count === 0) {
+                        this.selectedItem.sides = item
+                    } else {
+                        this.selectedItem.sides.push(item)
+                    }
+                    this.optionsDialog = false
+                    this.addItemToCart()
                 }
             }
         },
@@ -650,6 +752,7 @@ export default {
                 if (c.price) total += c.price * c.amount
                 if (c.options.price) total += c.options.price * c.amount
                 if (c.styles.price) total += c.styles.price * c.amount
+                if (c.sides.price) total += c.sides.price * c.amount
             })
             this.total = total
         },
