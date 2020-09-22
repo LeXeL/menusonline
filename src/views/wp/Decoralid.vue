@@ -247,7 +247,7 @@
                                 type="text"
                                 class="full-width poppins-regular"
                                 placeholder="Nombre Apellido"
-                                color="red-7"
+                                color="amber-14"
                                 data-hj-allow
                             />
                         </div>
@@ -895,7 +895,7 @@ export default {
                 return
             } else {
                 this.orderNo = Math.floor(100000 + Math.random() * 900000)
-                this.$analytics.logEvent('wp-panamahotdog', {
+                this.$analytics.logEvent('wp-decoralid', {
                     content_action: 'Orden Completada',
                 })
                 await this.sendToGoogleDriveSheet()
@@ -930,7 +930,7 @@ export default {
         }
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
-        this.$analytics.logEvent('wp-panamahotdog', {
+        this.$analytics.logEvent('wp-decoralid', {
             path,
         })
         this.geolocate()
