@@ -577,7 +577,7 @@ export default {
             specialComments: '',
             selectedItemIndex: 0,
             seamless: false,
-            whatsappNumber: '66051517',
+            whatsappNumber: '67958328',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
