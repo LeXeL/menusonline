@@ -8,44 +8,125 @@
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
                 REALIZA TU PEDIDO
             </div>
+            <div class="text-subtitle2 text-red-8 q-mb-sm q-mt-md">
+                Categorias
+            </div>
+            <q-select
+                filled
+                v-model="selectedCategory"
+                :options="categories"
+                class="q-mb-md"
+                label="Seleccione"
+                color="red-8"
+            />
             <!-- MENU ITEMS -->
-            <q-card
-                class="full-width q-mb-lg"
-                v-for="(item, i) in menu"
-                :key="i"
-            >
-                <q-img
-                    v-if="item.pic"
-                    :src="require(`@/assets/wp/cerotranque/${item.pic}`)"
-                />
-                <q-card-section class="q-pb-none">
-                    <div class="row">
-                        <div
-                            class="text-subtitle2 poppins-bold text-red-8 full-width"
-                            v-if="item.subtitle != null"
-                        >
-                            {{ item.subtitle }}
-                        </div>
-                        <div class="text-h6">{{ item.title }}</div>
-                    </div>
-                </q-card-section>
-
-                <q-card-section class="q-pt-none">
-                    <div v-if="item.price" class="text-h6 poppins-bold">
-                        $ {{ item.price.toFixed(2) }}
-                    </div>
-                    <div class="text-caption text-grey">{{ item.desc }}</div>
-                </q-card-section>
-
-                <q-separator />
-
-                <q-card-actions>
-                    <q-space />
-                    <q-btn flat color="red-8" @click="selectItem(i)"
-                        >Agregar</q-btn
+            <div v-for="(item, i) in filterMenu(menu)" :key="i">
+                <div
+                    v-if="
+                        item.title ==
+                        'Picada de chuletas fritas con acompañante y soda'
+                    "
+                >
+                    <div
+                        class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
                     >
-                </q-card-actions>
-            </q-card>
+                        PICADAS
+                    </div>
+                    <q-card class="full-width q-mb-lg">
+                        <q-img
+                            :src="
+                                require(`@/assets/wp/cerotranque/picadas.png`)
+                            "
+                        />
+                    </q-card>
+                </div>
+
+                <div v-if="item.title == 'Cero Tranque Burger'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
+                    >
+                        HAMBURGUESAS
+                    </div>
+                    <q-card class="full-width q-mb-lg">
+                        <q-img
+                            :src="
+                                require(`@/assets/wp/cerotranque/hamburguesas.png`)
+                            "
+                        />
+                    </q-card>
+                </div>
+
+                <div v-if="item.title == 'Papas ChoriChips y Soda'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
+                    >
+                        PAPAS CHIPS
+                    </div>
+                    <q-card class="full-width q-mb-lg">
+                        <q-img
+                            :src="require(`@/assets/wp/cerotranque/papas.png`)"
+                        />
+                    </q-card>
+                </div>
+
+                <div v-if="item.title == 'Nachos Cero Tranque y Soda'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
+                    >
+                        ANTOJOS
+                    </div>
+                    <q-card class="full-width q-mb-lg">
+                        <q-img
+                            :src="require(`@/assets/wp/cerotranque/wings.png`)"
+                        />
+                    </q-card>
+                </div>
+
+                <div v-if="item.title == 'Hazlo combo'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
+                    >
+                        EXTRAS
+                    </div>
+                </div>
+
+                <q-card class="full-width q-mb-lg">
+                    <q-img
+                        v-if="item.pic"
+                        :src="require(`@/assets/wp/cerotranque/${item.pic}`)"
+                    />
+                    <q-card-section class="q-pb-none">
+                        <div class="row">
+                            <div
+                                class="text-subtitle2 poppins-bold text-red-8 full-width"
+                                v-if="item.subtitle != null"
+                            >
+                                {{ item.subtitle }}
+                            </div>
+                            <div class="text-h6">{{ item.title }}</div>
+                        </div>
+                    </q-card-section>
+
+                    <q-card-section class="q-pt-none">
+                        <div v-if="item.price" class="text-h6 poppins-bold">
+                            $ {{ item.price.toFixed(2) }}
+                        </div>
+                        <div class="text-caption text-grey">
+                            {{ item.desc }}
+                        </div>
+                    </q-card-section>
+
+                    <q-separator />
+
+                    <q-card-actions>
+                        <q-space />
+                        <q-btn flat color="red-8" @click="selectItem(i)"
+                            >Agregar</q-btn
+                        >
+                    </q-card-actions>
+                </q-card>
+            </div>
+
             <!-- END MENU ITEMS -->
 
             <!-- STYLES DIALOG -->
@@ -494,6 +575,15 @@ export default {
     },
     data() {
         return {
+            selectedCategory: null,
+            categories: [
+                'Todo',
+                'Picadas',
+                'Hamburguesas',
+                'Papas Chips',
+                'Antojos',
+                'Extras',
+            ],
             orderNo: '',
             name: '',
             specialComments: '',
@@ -979,6 +1069,24 @@ export default {
         }
     },
     methods: {
+        filterMenu(menu) {
+            let type = ''
+            if (this.selectedCategory === 'Todo') {
+                type = 'all'
+                return this.menu
+            }
+            if (this.selectedCategory === null) {
+                return this.menu
+            }
+            if (this.selectedCategory === 'Picadas') type = 'mix'
+            if (this.selectedCategory === 'Hamburguesas') type = 'burger'
+            if (this.selectedCategory === 'Papas Chips') type = 'chips'
+            if (this.selectedCategory === 'Antojos') type = 'whim'
+            if (this.selectedCategory === 'Extras') type = 'extra'
+            return menu.filter(m => {
+                if (m.type === type) return m
+            })
+        },
         selectItem(index) {
             this.selectedItemIndex = index
             this.selectedItem = JSON.parse(JSON.stringify(this.menu[index]))
