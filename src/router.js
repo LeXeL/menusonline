@@ -15,6 +15,7 @@ import PanamaHotdog from './views/wp/PanamaHotdog'
 import Decoralid from './views/wp/Decoralid'
 import RicaSazon from './views/wp/RicaSazon'
 import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
+import CeroTranque from './views/wp/CeroTranque'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -113,6 +114,11 @@ export default new Router({
                     path: '/wp/deliciasbocatorenas',
                     name: 'deliciasbocatorenas',
                     component: DeliciasBocatorenas,
+                },
+                {
+                    path: '/wp/cerotranque',
+                    name: 'cerotranque',
+                    component: CeroTranque,
                 },
             ],
         },
