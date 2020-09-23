@@ -331,29 +331,17 @@
 
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
-                                    <template v-if="item.type == 'main'">
-                                        <strong
-                                            >({{ item.amount }})
-                                            {{ item.title }} -
-                                            {{ item.options.title }}</strong
+                                    <strong>
+                                        ({{ item.amount }}) {{ item.title }} -
+                                        {{ item.options.title }}
+                                        <span
+                                            v-if="
+                                                item.styles.title != undefined
+                                            "
                                         >
-                                    </template>
-                                    <template v-if="item.type == 'double'">
-                                        <strong
-                                            >({{ item.amount }})
-                                            {{ item.title }}</strong
-                                        >
-                                        <br />
-                                        <span v-for="(el, i) in 2" :key="i">
-                                            Sabor: {{ item.options[i].title }} -
-                                            Topping: {{ item.styles[i].title }}
-                                            <span v-if="item.sides.length > 0"
-                                                >- Relleno:
-                                                {{ item.sides[i].title }}</span
-                                            >
-                                            <br />
+                                            {{ ` - ${item.styles.title}` }}
                                         </span>
-                                    </template>
+                                    </strong>
                                 </div>
                             </div>
                         </div>
@@ -1228,21 +1216,11 @@ export default {
             let message =
                 'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                if (item.type == 'main') {
-                    message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                if (item.styles.title != undefined) {
+                    message += `- ${item.styles.title}`
                 }
-                if (item.type == 'double') {
-                    let s = ''
-                    for (let i = 0; i < 2; i++) {
-                        s += `*Sabor:* ${item.options[i].title} `
-                        s += `*Topping:* ${item.styles[i].title} `
-                        if (item.sides.length > 0) {
-                            s += `*Relleno:* ${item.sides[i].title}`
-                        }
-                        if (i < 1) s += `%0D%0A`
-                    }
-                    message += `- (${item.amount}) ${item.title}%0D%0A${s}%0D%0A`
-                }
+                message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
@@ -1265,21 +1243,11 @@ export default {
         async sendToGoogleDriveSheet() {
             let message = ''
             for (let item of this.cart) {
-                if (item.type == 'main') {
-                    message += `(${item.amount}) ${item.title} ${item.options.title}\n`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                if (item.styles.title != undefined) {
+                    message += `- ${item.styles.title}`
                 }
-                if (item.type == 'double') {
-                    let s = ''
-                    for (let i = 0; i < 2; i++) {
-                        s += `Sabor: ${item.options[i].title} `
-                        s += `Topping: ${item.styles[i].title} `
-                        if (item.sides.length > 0) {
-                            s += `Relleno: ${item.sides[i].title}`
-                        }
-                        if (i < 1) s += `\n`
-                    }
-                    message += `- (${item.amount}) ${item.title}\n${s}\n`
-                }
+                message += `\n`
             }
             let data = {
                 id: this.orderNo,
