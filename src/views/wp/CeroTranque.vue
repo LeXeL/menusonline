@@ -1306,6 +1306,7 @@ export default {
                 nombre: this.name,
                 status: 'orden creada',
                 total: this.total,
+                local: this.selectedPremises,
                 metodo_de_pago: this.selectedPaymentMethod,
                 metodo_de_entrega: this.selectedPickupMethod,
             }
