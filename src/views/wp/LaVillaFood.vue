@@ -729,7 +729,7 @@ export default {
                 ) {
                     return `>> Pedir Ubicacion !!`
                 } else {
-                    return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
+                    return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
                 }
                 // let lat = parseFloat(this.center.lat)
                 // let lng = parseFloat(this.center.lng)
@@ -741,7 +741,7 @@ export default {
                 if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
                 // if (lat < 0) lat = `+${lat}`
                 // if (lng < 0) lng = `+${lng}`
-                return `https://waze.com/ul?ll=${lat},${lng}&z=10`
+                return `https://www.google.com/maps?q=${lat},${lng}`
             }
         },
 
