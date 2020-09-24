@@ -97,13 +97,13 @@
                     />
                     <q-card-section class="q-pb-none">
                         <div class="row">
+                            <div class="text-h6">{{ item.title }}</div>
                             <div
                                 class="text-subtitle2 poppins-bold text-red-8 full-width"
                                 v-if="item.subtitle != null"
                             >
                                 {{ item.subtitle }}
                             </div>
-                            <div class="text-h6">{{ item.title }}</div>
                         </div>
                     </q-card-section>
 
@@ -690,8 +690,10 @@ export default {
                 },
                 {
                     title: 'Cero Tranque Burger',
+                    subtitle:
+                        'Incluye papas fritas, yuca frita o papas wedgen.',
                     desc:
-                        'Pan fresco, carne de res 8 onzas, bacon, lechuga, queso cheddar y salsa de la casa. *Incluye papas fritas.',
+                        'Pan fresco, carne de res 8 onzas, bacon, lechuga, queso cheddar y salsa de la casa.',
                     type: 'burger',
                     pic: '',
                     price: 5.5,
@@ -700,13 +702,23 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
+                            title: 'Papas Fritas',
                             price: 0,
+                        },
+                        {
+                            title: 'Yuca Frita',
+                            price: 0.5,
+                        },
+                        {
+                            title: 'Papas Wedgen',
+                            price: 0.5,
                         },
                     ],
                 },
                 {
                     title: 'La Para-Trafico Burger',
+                    subtitle:
+                        'Incluye papas fritas, yuca frita o papas wedgen.',
                     desc:
                         'Pan fresco, carne de res 8 onzas, trocitos de cerdo frito, bacon, lechuga, queso cheddar y salsa de la casa. *Incluye papas fritas.',
                     type: 'burger',
@@ -717,13 +729,23 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
+                            title: 'Papas Fritas',
                             price: 0,
+                        },
+                        {
+                            title: 'Yuca Frita',
+                            price: 0.5,
+                        },
+                        {
+                            title: 'Papas Wedgen',
+                            price: 0.5,
                         },
                     ],
                 },
                 {
                     title: 'Colision y Fuga Burger',
+                    subtitle:
+                        'Incluye papas fritas, yuca frita o papas wedgen.',
                     desc:
                         'Pan fresco, carne de res 8 onzas, 1 chuleta, 2 tiras de pollo, lechuga, queso cheddar y salsa de la chasa. *Incluye papas fritas.',
                     type: 'burger',
@@ -734,13 +756,23 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
+                            title: 'Papas Fritas',
                             price: 0,
+                        },
+                        {
+                            title: 'Yuca Frita',
+                            price: 0.5,
+                        },
+                        {
+                            title: 'Papas Wedgen',
+                            price: 0.5,
                         },
                     ],
                 },
                 {
                     title: 'Doble Cheese Burger',
+                    subtitle:
+                        'Incluye papas fritas, yuca frita o papas wedgen.',
                     desc:
                         'Pan fresco, doble carne de 2 onzas, lechuga y doble queso. *Incluye papas fritas.',
                     type: 'burger',
@@ -751,13 +783,23 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
+                            title: 'Papas Fritas',
                             price: 0,
+                        },
+                        {
+                            title: 'Yuca Frita',
+                            price: 0.5,
+                        },
+                        {
+                            title: 'Papas Wedgen',
+                            price: 0.5,
                         },
                     ],
                 },
                 {
                     title: 'La Chicken Burger',
+                    subtitle:
+                        'Incluye papas fritas, yuca frita o papas wedgen.',
                     desc:
                         'Pan fresco, tiras de pollo apanado, pollo mechado, queso cheddar y salsa de la casa. *Incluye papas fritas.',
                     type: 'burger',
@@ -768,8 +810,16 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
+                            title: 'Papas Fritas',
                             price: 0,
+                        },
+                        {
+                            title: 'Yuca Frita',
+                            price: 0.5,
+                        },
+                        {
+                            title: 'Papas Wedgen',
+                            price: 0.5,
                         },
                     ],
                 },
