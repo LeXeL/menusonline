@@ -82,7 +82,7 @@
                     </q-card>
                 </div>
 
-                <div v-if="item.title == 'Hazlo combo'">
+                <div v-if="item.title == 'Adicionales'">
                     <div
                         class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
                     >
@@ -1048,32 +1048,6 @@ export default {
                         },
                     ],
                 },
-                {
-                    title: 'Hazlo combo',
-                    desc:
-                        'Convierte en combo tu orden con papas fritas, yuca frita o papas wedgen y soda.',
-                    type: 'extra',
-                    pic: '',
-                    price: 0,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Papas Fritas y soda',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Yuca Frita y soda',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Papas Wedgen y soda',
-                            price: 1.75,
-                        },
-                    ],
-                },
-
                 {
                     title: 'Adicionales',
                     desc:
