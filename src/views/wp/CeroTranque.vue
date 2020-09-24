@@ -407,6 +407,21 @@
                         </div>-->
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Local: *
+                            </div>
+                            <q-btn-toggle
+                                v-model="selectedPremises"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="red-8"
+                                color="white"
+                                text-color="black"
+                                :options="premises"
+                            />
+                        </div>
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
                                 Metodo de entrega: *
                             </div>
                             <q-btn-toggle
@@ -593,6 +608,11 @@ export default {
                 {label: 'Retirar en local', value: 'Retirar en local'},
             ],
             selectedPickupMethod: '',
+            premises: [
+                {label: 'Arraijan', value: 'Arraijan'},
+                {label: 'Chorrera', value: 'Chorrera'},
+            ],
+            selectedPremises: '',
             selectedPaymentMethod: null,
             address: '',
             total: 0,
@@ -1260,8 +1280,8 @@ export default {
             }
             message += `%0D%0AMetodo de entrega: ${
                 this.selectedPickupMethod
-            }%0D%0AMetodo de pago: ${
-                this.selectedPaymentMethod
+            }%0D%0AMetodo de pago: ${this.selectedPaymentMethod}%0D%0ALocal: ${
+                this.selectedPremises
             }%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
@@ -1362,6 +1382,10 @@ export default {
         async sendChat() {
             if (this.name == '') {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
+                return
+            }
+            if (this.selectedPremises == '') {
+                alert('Debes el local de servicio.')
                 return
             }
             if (this.selectedPickupMethod == '') {
