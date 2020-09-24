@@ -14,6 +14,7 @@ import Madamecoco from './views/wp/Madamecoco'
 import PanamaHotdog from './views/wp/PanamaHotdog'
 import Decoralid from './views/wp/Decoralid'
 import RicaSazon from './views/wp/RicaSazon'
+import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -107,6 +108,11 @@ export default new Router({
                     path: '/wp/ricasazon',
                     name: 'ricasazon',
                     component: RicaSazon,
+                },
+                {
+                    path: '/wp/deliciasbocatorenas',
+                    name: 'deliciasbocatorenas',
+                    component: DeliciasBocatorenas,
                 },
             ],
         },
