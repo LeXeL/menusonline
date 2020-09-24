@@ -518,17 +518,25 @@ export default {
             await xhr.send(encoded)
         },
         getLocationForMessage() {
-            if (this.location.length <= 0) {
-                let lat = parseFloat(this.center.lat)
-                let lng = parseFloat(this.center.lng)
-                if (lat < 0) lat = `+${lat}`
-                if (lng < 0) lng = `+${lng}`
-                return `https://www.google.com/maps?q=${lat},${lng}`
+            if (this.location.length === 0) {
+                if (
+                    parseFloat(this.center.lat) === parseFloat(9.068463) &&
+                    parseFloat(this.center.lng) === parseFloat(-79.452694)
+                ) {
+                    return `>> Pedir Ubicacion !!`
+                } else {
+                    return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
+                }
+                // let lat = parseFloat(this.center.lat)
+                // let lng = parseFloat(this.center.lng)
+                // if (lat < 0) lat = `+${lat}`
+                // if (lng < 0) lng = `+${lng}`
             } else {
                 let lat = parseFloat(this.location.lat)
                 let lng = parseFloat(this.location.lng)
-                if (lat < 0) lat = `+${lat}`
-                if (lng < 0) lng = `+${lng}`
+                if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
+                // if (lat < 0) lat = `+${lat}`
+                // if (lng < 0) lng = `+${lng}`
                 return `https://www.google.com/maps?q=${lat},${lng}`
             }
         },
