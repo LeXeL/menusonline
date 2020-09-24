@@ -145,7 +145,7 @@
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
                             :key="i"
-                            @click="addItemToCart('style', style)"
+                            @click="handleDialogs('style', style)"
                         >
                             {{ style.title }}
                             <br />
@@ -184,7 +184,7 @@
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="addItemToCart('option', option)"
+                            @click="handleDialogs('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -207,7 +207,7 @@
             <!-- END OPTIONS DIALOG -->
 
             <!-- SIDE DIALOG -->
-            <!-- <q-dialog v-model="sideDialog">
+            <q-dialog v-model="sideDialog">
                 <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
@@ -241,7 +241,7 @@
                         >
                     </q-card-section>
                 </q-card>
-            </q-dialog> -->
+            </q-dialog>
             <!-- END SIDE DIALOG -->
 
             <!-- SUCCESS DIALOG -->
@@ -594,6 +594,8 @@ export default {
             location: [],
             markers: [],
             center: {},
+            defaultLat: 8.92773,
+            defauktLng: -79.729467,
             optionsDialog: false,
             stylesDialog: false,
             sideDialog: false,
@@ -1136,6 +1138,56 @@ export default {
                 if (m.type === type) return m
             })
         },
+        addItemToCart() {
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            } else {
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title &&
+                        c.styles.title === this.selectedItem.styles.title &&
+                        c.sides.title === this.selectedItem.sides.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            }
+        },
+        handleDialogs(section, item) {
+            //option, style, side
+            if (section === 'option') {
+                this.selectedItem.options = item
+                this.optionsDialog = false
+                if (this.menu[this.selectedItemIndex].styles.length > 0) {
+                    this.stylesDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                if (this.menu[this.selectedItemIndex].sides.length > 0) {
+                    this.sideDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'side') {
+                this.sideDialog = false
+                this.selectedItem.sides = item
+                this.addItemToCart()
+            }
+        },
         selectItem(item) {
             let itemInMenu = this.menu.filter((m, index) => {
                 if (m.title === item.title) {
@@ -1146,10 +1198,6 @@ export default {
             this.selectedItem = JSON.parse(
                 JSON.stringify(this.menu[this.selectedItemIndex])
             )
-            if (this.selectedItem.styles.length > 0) {
-                this.stylesDialog = true
-                return
-            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -1170,35 +1218,6 @@ export default {
             })
 
             return isDuplicate
-        },
-        addItemToCart(section, item) {
-            if (section === 'style') {
-                this.selectedItem.styles = item
-                this.stylesDialog = false
-                this.optionsDialog = true
-            } else {
-                this.selectedItem.options = item
-                if (!this.checkIfDuplicate()) {
-                    this.selectedItem.amount = 1
-                    this.cart.push(this.selectedItem)
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                } else {
-                    this.cart.forEach(c => {
-                        if (
-                            c.type === this.selectedItem.type &&
-                            c.title === this.selectedItem.title &&
-                            c.options.title === this.selectedItem.options.title
-                        ) {
-                            c.amount++
-                        }
-                    })
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                }
-            }
         },
         removeItemFromCart(i) {
             this.cart.splice(i, 1)
@@ -1287,27 +1306,27 @@ export default {
         getLocationForMessage() {
             if (this.location.length === 0) {
                 if (
-                    parseFloat(this.center.lat) === parseFloat(9.068463) &&
-                    parseFloat(this.center.lng) === parseFloat(-79.452694)
+                    parseFloat(this.center.lat) ===
+                        parseFloat(this.defaultLat) &&
+                    parseFloat(this.center.lng) === parseFloat(this.defaultLng)
                 ) {
                     return `>> Pedir Ubicacion !!`
                 } else {
-                    return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
+                    if (lat < 0) lat = `+${lat}` //Google Maps
+                    if (lng < 0) lng = `+${lng}` //Google Maps
+                    return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
+                    // return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
                 }
-                // let lat = parseFloat(this.center.lat)
-                // let lng = parseFloat(this.center.lng)
-                // if (lat < 0) lat = `+${lat}`
-                // if (lng < 0) lng = `+${lng}`
             } else {
                 let lat = parseFloat(this.location.lat)
                 let lng = parseFloat(this.location.lng)
                 if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
-                // if (lat < 0) lat = `+${lat}`
-                // if (lng < 0) lng = `+${lng}`
-                return `https://waze.com/ul?ll=${lat},${lng}&z=10`
+                if (lat < 0) lat = `+${lat}` //Google Maps
+                if (lng < 0) lng = `+${lng}` //Google Maps
+                return `https://www.google.com/maps?q=${lat},${lng}`
+                // return `https://waze.com/ul?ll=${lat},${lng}&z=10`
             }
         },
-
         setMarkerPosition(event) {
             this.location = event
         },
@@ -1322,8 +1341,8 @@ export default {
                 },
                 error => {
                     this.center = {
-                        lat: parseFloat(8.92773),
-                        lng: parseFloat(-79.729467),
+                        lat: parseFloat(this.defaultLat),
+                        lng: parseFloat(this.defaultLng),
                     }
                     this.markers.push({position: this.center})
                 }
