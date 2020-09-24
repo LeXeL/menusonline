@@ -846,6 +846,18 @@ export default {
                             title: 'Regular',
                             price: 0,
                         },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
                     ],
                 },
                 {
@@ -863,6 +875,18 @@ export default {
                             title: 'Regular',
                             price: 0,
                         },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
                     ],
                 },
                 {
@@ -879,6 +903,18 @@ export default {
                             title: 'Regular',
                             price: 0,
                         },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
                     ],
                 },
                 {
@@ -889,7 +925,24 @@ export default {
                     pic: '',
                     price: 3.5,
                     count: 0,
-                    styles: [],
+                    styles: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
+                    ],
                     sides: [],
                     options: [
                         {
@@ -928,7 +981,24 @@ export default {
                             price: 0,
                         },
                     ],
-                    sides: [],
+                    sides: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
+                    ],
                     options: [
                         {
                             title: '6 unidades',
@@ -948,7 +1018,24 @@ export default {
                     pic: '',
                     price: 0,
                     count: 0,
-                    styles: [],
+                    styles: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
+                    ],
                     sides: [],
                     options: [
                         {
@@ -1291,7 +1378,7 @@ export default {
                 this.$analytics.logEvent('wp-cerotranque', {
                     content_action: 'Orden Completada',
                 })
-                await this.sendToGoogleDriveSheet()
+                // await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
