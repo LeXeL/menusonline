@@ -120,7 +120,7 @@
 
                     <q-card-actions>
                         <q-space />
-                        <q-btn flat color="red-8" @click="selectItem(i)"
+                        <q-btn flat color="red-8" @click="selectItem(item)"
                             >Agregar</q-btn
                         >
                     </q-card-actions>
@@ -1075,9 +1075,20 @@ export default {
                 if (m.type === type) return m
             })
         },
-        selectItem(index) {
-            this.selectedItemIndex = index
-            this.selectedItem = JSON.parse(JSON.stringify(this.menu[index]))
+        selectItem(item) {
+            let itemInMenu = this.menu.filter((m, index) => {
+                if (m.title === item.title) {
+                    this.selectedItemIndex = index
+                    return m
+                }
+            })
+            this.selectedItem = JSON.parse(
+                JSON.stringify(this.menu[this.selectedItemIndex])
+            )
+            if (this.selectedItem.styles.length > 0) {
+                this.stylesDialog = true
+                return
+            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
