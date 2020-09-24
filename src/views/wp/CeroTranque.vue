@@ -341,6 +341,11 @@
                                         >
                                             {{ ` - ${item.styles.title}` }}
                                         </span>
+                                        <span
+                                            v-if="item.sides.title != undefined"
+                                        >
+                                            {{ ` - ${item.sides.title}` }}
+                                        </span>
                                     </strong>
                                 </div>
                             </div>
@@ -1240,6 +1245,9 @@ export default {
                 if (item.styles.title != undefined) {
                     message += `- ${item.styles.title}`
                 }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
+                }
                 message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
@@ -1266,6 +1274,9 @@ export default {
                 message += `- (${item.amount}) ${item.title} - ${item.options.title}`
                 if (item.styles.title != undefined) {
                     message += `- ${item.styles.title}`
+                }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
                 }
                 message += `\n`
             }
