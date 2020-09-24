@@ -82,7 +82,7 @@
                     </q-card>
                 </div>
 
-                <div v-if="item.title == 'Hazlo combo'">
+                <div v-if="item.title == 'Adicionales'">
                     <div
                         class="text-h6 text-center q-my-lg text-red-8 poppins-bold"
                     >
@@ -145,7 +145,7 @@
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
                             :key="i"
-                            @click="addItemToCart('style', style)"
+                            @click="handleDialogs('style', style)"
                         >
                             {{ style.title }}
                             <br />
@@ -184,7 +184,7 @@
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="addItemToCart('option', option)"
+                            @click="handleDialogs('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -207,7 +207,7 @@
             <!-- END OPTIONS DIALOG -->
 
             <!-- SIDE DIALOG -->
-            <!-- <q-dialog v-model="sideDialog">
+            <q-dialog v-model="sideDialog">
                 <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
@@ -241,7 +241,7 @@
                         >
                     </q-card-section>
                 </q-card>
-            </q-dialog> -->
+            </q-dialog>
             <!-- END SIDE DIALOG -->
 
             <!-- SUCCESS DIALOG -->
@@ -341,6 +341,11 @@
                                         >
                                             {{ ` - ${item.styles.title}` }}
                                         </span>
+                                        <span
+                                            v-if="item.sides.title != undefined"
+                                        >
+                                            {{ ` - ${item.sides.title}` }}
+                                        </span>
                                     </strong>
                                 </div>
                             </div>
@@ -400,6 +405,21 @@
                                 data-hj-allow
                             />
                         </div>-->
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Local: *
+                            </div>
+                            <q-btn-toggle
+                                v-model="selectedPremises"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="red-8"
+                                color="white"
+                                text-color="black"
+                                :options="premises"
+                            />
+                        </div>
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
                                 Metodo de entrega: *
@@ -588,12 +608,19 @@ export default {
                 {label: 'Retirar en local', value: 'Retirar en local'},
             ],
             selectedPickupMethod: '',
+            premises: [
+                {label: 'Arraijan', value: 'Arraijan'},
+                {label: 'Chorrera', value: 'Chorrera'},
+            ],
+            selectedPremises: '',
             selectedPaymentMethod: null,
             address: '',
             total: 0,
             location: [],
             markers: [],
             center: {},
+            defaultLat: 8.92773,
+            defauktLng: -79.729467,
             optionsDialog: false,
             stylesDialog: false,
             sideDialog: false,
@@ -846,6 +873,18 @@ export default {
                             title: 'Regular',
                             price: 0,
                         },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
                     ],
                 },
                 {
@@ -863,6 +902,18 @@ export default {
                             title: 'Regular',
                             price: 0,
                         },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
                     ],
                 },
                 {
@@ -879,6 +930,18 @@ export default {
                             title: 'Regular',
                             price: 0,
                         },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
                     ],
                 },
                 {
@@ -889,7 +952,24 @@ export default {
                     pic: '',
                     price: 3.5,
                     count: 0,
-                    styles: [],
+                    styles: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
+                    ],
                     sides: [],
                     options: [
                         {
@@ -928,7 +1008,24 @@ export default {
                             price: 0,
                         },
                     ],
-                    sides: [],
+                    sides: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
+                    ],
                     options: [
                         {
                             title: '6 unidades',
@@ -948,7 +1045,24 @@ export default {
                     pic: '',
                     price: 0,
                     count: 0,
-                    styles: [],
+                    styles: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Combo - Papas Fritas y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Yuca Frita y soda',
+                            price: 1.5,
+                        },
+                        {
+                            title: 'Combo - Papas Wedgen y soda',
+                            price: 1.75,
+                        },
+                    ],
                     sides: [],
                     options: [
                         {
@@ -961,32 +1075,6 @@ export default {
                         },
                     ],
                 },
-                {
-                    title: 'Hazlo combo',
-                    desc:
-                        'Convierte en combo tu orden con papas fritas, yuca frita o papas wedgen y soda.',
-                    type: 'extra',
-                    pic: '',
-                    price: 0,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Papas Fritas y soda',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Yuca Frita y soda',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Papas Wedgen y soda',
-                            price: 1.75,
-                        },
-                    ],
-                },
-
                 {
                     title: 'Adicionales',
                     desc:
@@ -1075,6 +1163,56 @@ export default {
                 if (m.type === type) return m
             })
         },
+        addItemToCart() {
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            } else {
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title &&
+                        c.styles.title === this.selectedItem.styles.title &&
+                        c.sides.title === this.selectedItem.sides.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            }
+        },
+        handleDialogs(section, item) {
+            //option, style, side
+            if (section === 'option') {
+                this.selectedItem.options = item
+                this.optionsDialog = false
+                if (this.menu[this.selectedItemIndex].styles.length > 0) {
+                    this.stylesDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                if (this.menu[this.selectedItemIndex].sides.length > 0) {
+                    this.sideDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'side') {
+                this.sideDialog = false
+                this.selectedItem.sides = item
+                this.addItemToCart()
+            }
+        },
         selectItem(item) {
             let itemInMenu = this.menu.filter((m, index) => {
                 if (m.title === item.title) {
@@ -1085,10 +1223,6 @@ export default {
             this.selectedItem = JSON.parse(
                 JSON.stringify(this.menu[this.selectedItemIndex])
             )
-            if (this.selectedItem.styles.length > 0) {
-                this.stylesDialog = true
-                return
-            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -1109,35 +1243,6 @@ export default {
             })
 
             return isDuplicate
-        },
-        addItemToCart(section, item) {
-            if (section === 'style') {
-                this.selectedItem.styles = item
-                this.stylesDialog = false
-                this.optionsDialog = true
-            } else {
-                this.selectedItem.options = item
-                if (!this.checkIfDuplicate()) {
-                    this.selectedItem.amount = 1
-                    this.cart.push(this.selectedItem)
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                } else {
-                    this.cart.forEach(c => {
-                        if (
-                            c.type === this.selectedItem.type &&
-                            c.title === this.selectedItem.title &&
-                            c.options.title === this.selectedItem.options.title
-                        ) {
-                            c.amount++
-                        }
-                    })
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                }
-            }
         },
         removeItemFromCart(i) {
             this.cart.splice(i, 1)
@@ -1160,6 +1265,9 @@ export default {
                 if (item.styles.title != undefined) {
                     message += `- ${item.styles.title}`
                 }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
+                }
                 message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
@@ -1172,8 +1280,8 @@ export default {
             }
             message += `%0D%0AMetodo de entrega: ${
                 this.selectedPickupMethod
-            }%0D%0AMetodo de pago: ${
-                this.selectedPaymentMethod
+            }%0D%0AMetodo de pago: ${this.selectedPaymentMethod}%0D%0ALocal: ${
+                this.selectedPremises
             }%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
@@ -1186,6 +1294,9 @@ export default {
                 message += `- (${item.amount}) ${item.title} - ${item.options.title}`
                 if (item.styles.title != undefined) {
                     message += `- ${item.styles.title}`
+                }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
                 }
                 message += `\n`
             }
@@ -1226,27 +1337,27 @@ export default {
         getLocationForMessage() {
             if (this.location.length === 0) {
                 if (
-                    parseFloat(this.center.lat) === parseFloat(9.068463) &&
-                    parseFloat(this.center.lng) === parseFloat(-79.452694)
+                    parseFloat(this.center.lat) ===
+                        parseFloat(this.defaultLat) &&
+                    parseFloat(this.center.lng) === parseFloat(this.defaultLng)
                 ) {
                     return `>> Pedir Ubicacion !!`
                 } else {
-                    return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
+                    if (lat < 0) lat = `+${lat}` //Google Maps
+                    if (lng < 0) lng = `+${lng}` //Google Maps
+                    return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
+                    // return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
                 }
-                // let lat = parseFloat(this.center.lat)
-                // let lng = parseFloat(this.center.lng)
-                // if (lat < 0) lat = `+${lat}`
-                // if (lng < 0) lng = `+${lng}`
             } else {
                 let lat = parseFloat(this.location.lat)
                 let lng = parseFloat(this.location.lng)
                 if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
-                // if (lat < 0) lat = `+${lat}`
-                // if (lng < 0) lng = `+${lng}`
-                return `https://waze.com/ul?ll=${lat},${lng}&z=10`
+                if (lat < 0) lat = `+${lat}` //Google Maps
+                if (lng < 0) lng = `+${lng}` //Google Maps
+                return `https://www.google.com/maps?q=${lat},${lng}`
+                // return `https://waze.com/ul?ll=${lat},${lng}&z=10`
             }
         },
-
         setMarkerPosition(event) {
             this.location = event
         },
@@ -1261,8 +1372,8 @@ export default {
                 },
                 error => {
                     this.center = {
-                        lat: parseFloat(8.92773),
-                        lng: parseFloat(-79.729467),
+                        lat: parseFloat(this.defaultLat),
+                        lng: parseFloat(this.defaultLng),
                     }
                     this.markers.push({position: this.center})
                 }
@@ -1271,6 +1382,10 @@ export default {
         async sendChat() {
             if (this.name == '') {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
+                return
+            }
+            if (this.selectedPremises == '') {
+                alert('Debes el local de servicio.')
                 return
             }
             if (this.selectedPickupMethod == '') {
