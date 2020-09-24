@@ -8,49 +8,45 @@
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
                 REALIZA TU PEDIDO
             </div>
-
             <!-- MENU ITEMS -->
-            <q-card
-                class="full-width q-mb-lg"
-                v-for="(item, i) in menu"
-                :key="i"
-            >
-                <q-img
-                    v-if="item.pic"
-                    :src="require(`@/assets/wp/lavillafood/${item.pic}`)"
-                />
-                <q-card-section class="q-pb-none">
-                    <div class="row">
-                        <div
-                            class="text-subtitle2 poppins-bold text-red-8 full-width"
-                            v-if="item.subtitle != null"
-                        >
-                            {{ item.subtitle }}
+            <div v-for="(item, i) in filterMenu(menu)" :key="i">
+                <q-card class="full-width q-mb-lg">
+                    <q-img
+                        v-if="item.pic"
+                        :src="require(`@/assets/wp/lavillafood/${item.pic}`)"
+                    />
+                    <q-card-section class="q-pb-none">
+                        <div class="row">
+                            <div class="text-h6">{{ item.title }}</div>
+                            <div
+                                class="text-subtitle2 poppins-bold text-red-8 full-width"
+                                v-if="item.subtitle != null"
+                            >
+                                {{ item.subtitle }}
+                            </div>
                         </div>
-                        <div class="text-h6">{{ item.title }}</div>
-                    </div>
-                </q-card-section>
+                    </q-card-section>
 
-                <q-card-section class="q-pt-none">
-                    <div v-if="item.price" class="text-h6 poppins-bold">
-                        $ {{ item.price.toFixed(2) }}
-                    </div>
-                    <div class="text-caption text-grey">{{ item.desc }}</div>
-                </q-card-section>
+                    <q-card-section class="q-pt-none">
+                        <div v-if="item.price" class="text-h6 poppins-bold">
+                            $ {{ item.price.toFixed(2) }}
+                        </div>
+                        <div class="text-caption text-grey">
+                            {{ item.desc }}
+                        </div>
+                    </q-card-section>
 
-                <q-separator />
+                    <q-separator />
 
-                <q-card-actions>
-                    <q-space />
-                    <q-btn
-                        flat
-                        color="pink"
-                        @click="selectItem(i)"
-                        :disable="isWeekendItem(item)"
-                        >Agregar</q-btn
-                    >
-                </q-card-actions>
-            </q-card>
+                    <q-card-actions>
+                        <q-space />
+                        <q-btn flat color="pink" @click="selectItem(item)"
+                            >Agregar</q-btn
+                        >
+                    </q-card-actions>
+                </q-card>
+            </div>
+
             <!-- END MENU ITEMS -->
 
             <!-- STYLES DIALOG -->
@@ -58,18 +54,18 @@
                 <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
-                            ESTILO
+                            ELIJA
                         </div>
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
                         <q-btn
-                            text-color="black"
+                            text-color="pink"
                             outline
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
                             :key="i"
-                            @click="addItemToCart('style', style)"
+                            @click="handleDialogs('style', style)"
                         >
                             {{ style.title }}
                             <br />
@@ -80,7 +76,7 @@
                             }}
                         </q-btn>
                         <q-btn
-                            color="red-7"
+                            color="black"
                             flat
                             class="poppins-bold full-width q-mb-md"
                             @click="stylesDialog = false"
@@ -108,7 +104,7 @@
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="addItemToCart('option', option)"
+                            @click="handleDialogs('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -129,6 +125,44 @@
                 </q-card>
             </q-dialog>
             <!-- END OPTIONS DIALOG -->
+
+            <!-- SIDE DIALOG -->
+            <q-dialog v-model="sideDialog">
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">
+                            ELIJA
+                        </div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            text-color="pink"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(side, i) in menu[selectedItemIndex].sides"
+                            :key="i"
+                            @click="handleDialogs('side', side)"
+                        >
+                            {{ side.title }}
+                            <br />
+                            {{
+                                side.price > 0
+                                    ? '$' + side.price.toFixed(2)
+                                    : ''
+                            }}
+                        </q-btn>
+                        <q-btn
+                            color="black"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="sideDialog = false"
+                            >Cancelar</q-btn
+                        >
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END SIDE DIALOG -->
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
@@ -218,21 +252,21 @@
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
                                     <strong>
-                                        ({{ item.amount }}) {{ item.title }}
-                                        {{
-                                            item.styles.title
-                                                ? `- ${item.styles.title}`
-                                                : ''
-                                        }}
-                                        -
+                                        ({{ item.amount }}) {{ item.title }} -
                                         {{ item.options.title }}
+                                        <span
+                                            v-if="
+                                                item.styles.title != undefined
+                                            "
+                                        >
+                                            {{ ` - ${item.styles.title}` }}
+                                        </span>
+                                        <span
+                                            v-if="item.sides.title != undefined"
+                                        >
+                                            {{ ` - ${item.sides.title}` }}
+                                        </span>
                                     </strong>
-                                    <!-- <strong
-                                        v-if="item.type == 'extras'"
-                                    >({{ item.amount }}) Extra - {{item.options.title}}</strong>
-                                    <strong
-                                        v-if="item.type == 'drinks'"
-                                    >({{ item.amount }}) Bebida - {{item.options.title}}</strong>-->
                                 </div>
                             </div>
                         </div>
@@ -275,22 +309,37 @@
                                 data-hj-allow
                             />
                         </div>
-                        <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Comentarios especiales de tu pedido:
-                            </div>
+                        <!-- <div class="row q-mb-md">
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm"
+                            >Comentarios especiales de tu pedido:</div>
                             <q-input
                                 v-model="specialComments"
                                 filled
                                 dark
                                 type="textarea"
                                 class="full-width poppins-regular"
-                                placeholder="Algun comentario especial que desees agregar a tu pedido."
-                                color="pink"
+                                placeholder="Las hamburguesas sin ketchup porfavor."
+                                color="red-7"
                                 rows="4"
                                 data-hj-allow
                             />
-                        </div>
+                        </div>-->
+                        <!-- <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Local: *
+                            </div>
+                            <q-btn-toggle
+                                v-model="selectedPremises"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                toggle-color="red-8"
+                                color="white"
+                                text-color="black"
+                                :options="premises"
+                            />
+                        </div> -->
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
                                 Metodo de entrega: *
@@ -371,7 +420,7 @@
                                 v-if="selectedPaymentMethod == 'Yappy'"
                             >
                                 Recuerda enviar el comprobante de pago por
-                                WhatsApp al numero 6684-7121
+                                WhatsApp.
                             </div>
                         </div>
                     </q-card-section>
@@ -454,6 +503,15 @@ export default {
     },
     data() {
         return {
+            selectedCategory: null,
+            categories: [
+                'Todo',
+                'Picadas',
+                'Hamburguesas',
+                'Papas Chips',
+                'Antojos',
+                'Extras',
+            ],
             orderNo: '',
             name: '',
             specialComments: '',
@@ -470,14 +528,22 @@ export default {
                 {label: 'Retirar en local', value: 'Retirar en local'},
             ],
             selectedPickupMethod: '',
+            premises: [
+                {label: 'Arraijan', value: 'Arraijan'},
+                {label: 'Chorrera', value: 'Chorrera'},
+            ],
+            selectedPremises: '',
             selectedPaymentMethod: null,
             address: '',
             total: 0,
             location: [],
             markers: [],
             center: {},
+            defaultLat: 8.92773,
+            defauktLng: -79.729467,
             optionsDialog: false,
             stylesDialog: false,
+            sideDialog: false,
             successDialog: false,
             cartDialog: false,
             locationDialog: false,
@@ -573,27 +639,136 @@ export default {
                         },
                     ],
                 },
+                {
+                    title: 'Pasteles',
+                    desc:
+                        'Elige entre nuestros X diferentes sabores de deliciosos pasteles.',
+                    type: 'main',
+                    pic: 'pasteles.jpg',
+                    price: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Carne',
+                            price: 1,
+                        },
+                        {
+                            title: 'Pollo',
+                            price: 1,
+                        },
+                        {
+                            title: 'Pizza',
+                            price: 1,
+                        },
+                        {
+                            title: 'Queso',
+                            price: 1,
+                        },
+                        {
+                            title: 'Queso con jamon',
+                            price: 1,
+                        },
+                        {
+                            title: 'Queso con piña',
+                            price: 1,
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                            price: 1,
+                        },
+                        {
+                            title: 'Nutella',
+                            price: 1,
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
+                            price: 1.25,
+                        },
+                    ],
+                },
             ],
         }
     },
     methods: {
-        isWeekendItem(item) {
-            let today = new Date().getDay()
-            if (item.type == 'main') {
-                return false
-            } else if (item.days.includes(today)) {
-                return false
+        filterMenu(menu) {
+            let type = ''
+            if (this.selectedCategory === 'Todo') {
+                type = 'all'
+                return this.menu
+            }
+            if (this.selectedCategory === null) {
+                return this.menu
+            }
+            if (this.selectedCategory === 'Picadas') type = 'mix'
+            if (this.selectedCategory === 'Hamburguesas') type = 'burger'
+            if (this.selectedCategory === 'Papas Chips') type = 'chips'
+            if (this.selectedCategory === 'Antojos') type = 'whim'
+            if (this.selectedCategory === 'Extras') type = 'extra'
+            return menu.filter(m => {
+                if (m.type === type) return m
+            })
+        },
+        addItemToCart() {
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
             } else {
-                return true
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title &&
+                        c.styles.title === this.selectedItem.styles.title &&
+                        c.sides.title === this.selectedItem.sides.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
             }
         },
-        selectItem(index) {
-            this.selectedItemIndex = index
-            this.selectedItem = Object.assign({}, this.menu[index])
-            if (this.selectedItem.styles.length > 0) {
-                this.stylesDialog = true
-                return
+        handleDialogs(section, item) {
+            //option, style, side
+            if (section === 'option') {
+                this.selectedItem.options = item
+                this.optionsDialog = false
+                if (this.menu[this.selectedItemIndex].styles.length > 0) {
+                    this.stylesDialog = true
+                } else {
+                    this.addItemToCart()
+                }
             }
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                if (this.menu[this.selectedItemIndex].sides.length > 0) {
+                    this.sideDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'side') {
+                this.sideDialog = false
+                this.selectedItem.sides = item
+                this.addItemToCart()
+            }
+        },
+        selectItem(item) {
+            let itemInMenu = this.menu.filter((m, index) => {
+                if (m.title === item.title) {
+                    this.selectedItemIndex = index
+                    return m
+                }
+            })
+            this.selectedItem = JSON.parse(
+                JSON.stringify(this.menu[this.selectedItemIndex])
+            )
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -615,37 +790,6 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart(section, item) {
-            if (section === 'style') {
-                this.selectedItem.styles = item
-                this.stylesDialog = false
-                this.optionsDialog = true
-            } else {
-                this.selectedItem.options = item
-                if (!this.checkIfDuplicate()) {
-                    this.selectedItem.amount = 1
-                    this.cart.push(this.selectedItem)
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                } else {
-                    this.cart.forEach(c => {
-                        if (
-                            c.type === this.selectedItem.type &&
-                            c.title === this.selectedItem.title &&
-                            c.options.title ===
-                                this.selectedItem.options.title &&
-                            c.styles.title === this.selectedItem.styles.title
-                        ) {
-                            c.amount++
-                        }
-                    })
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                }
-            }
-        },
         removeItemFromCart(i) {
             this.cart.splice(i, 1)
         },
@@ -655,6 +799,7 @@ export default {
                 if (c.price) total += c.price * c.amount
                 if (c.options.price) total += c.options.price * c.amount
                 if (c.styles.price) total += c.styles.price * c.amount
+                if (c.sides.price) total += c.sides.price * c.amount
             })
             this.total = total
         },
@@ -662,7 +807,14 @@ export default {
             let message =
                 'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                if (item.styles.title != undefined) {
+                    message += `- ${item.styles.title}`
+                }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
+                }
+                message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
@@ -685,7 +837,14 @@ export default {
         async sendToGoogleDriveSheet() {
             let message = ''
             for (let item of this.cart) {
-                message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                if (item.styles.title != undefined) {
+                    message += `- ${item.styles.title}`
+                }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
+                }
+                message += `\n`
             }
             let data = {
                 id: this.orderNo,
@@ -693,6 +852,7 @@ export default {
                 nombre: this.name,
                 status: 'orden creada',
                 total: this.total,
+                local: this.selectedPremises,
                 metodo_de_pago: this.selectedPaymentMethod,
                 metodo_de_entrega: this.selectedPickupMethod,
             }
@@ -701,7 +861,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbyv7b98HyNaWq1Ip_5UeYhNpWupdyoK0i7B3pbu/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -724,27 +884,27 @@ export default {
         getLocationForMessage() {
             if (this.location.length === 0) {
                 if (
-                    parseFloat(this.center.lat) === parseFloat(9.068463) &&
-                    parseFloat(this.center.lng) === parseFloat(-79.452694)
+                    parseFloat(this.center.lat) ===
+                        parseFloat(this.defaultLat) &&
+                    parseFloat(this.center.lng) === parseFloat(this.defaultLng)
                 ) {
                     return `>> Pedir Ubicacion !!`
                 } else {
+                    if (lat < 0) lat = `+${lat}` //Google Maps
+                    if (lng < 0) lng = `+${lng}` //Google Maps
                     return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
+                    // return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
                 }
-                // let lat = parseFloat(this.center.lat)
-                // let lng = parseFloat(this.center.lng)
-                // if (lat < 0) lat = `+${lat}`
-                // if (lng < 0) lng = `+${lng}`
             } else {
                 let lat = parseFloat(this.location.lat)
                 let lng = parseFloat(this.location.lng)
                 if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
-                // if (lat < 0) lat = `+${lat}`
-                // if (lng < 0) lng = `+${lng}`
+                if (lat < 0) lat = `+${lat}` //Google Maps
+                if (lng < 0) lng = `+${lng}` //Google Maps
                 return `https://www.google.com/maps?q=${lat},${lng}`
+                // return `https://waze.com/ul?ll=${lat},${lng}&z=10`
             }
         },
-
         setMarkerPosition(event) {
             this.location = event
         },
@@ -759,8 +919,8 @@ export default {
                 },
                 error => {
                     this.center = {
-                        lat: parseFloat(9.068463),
-                        lng: parseFloat(-79.452694),
+                        lat: parseFloat(this.defaultLat),
+                        lng: parseFloat(this.defaultLng),
                     }
                     this.markers.push({position: this.center})
                 }
@@ -771,6 +931,10 @@ export default {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
                 return
             }
+            // if (this.selectedPremises == '') {
+            //     alert('Debes el local de servicio.')
+            //     return
+            // }
             if (this.selectedPickupMethod == '') {
                 alert('Debes seleccionar un metodo de entrega.')
                 return
@@ -786,10 +950,10 @@ export default {
                 return
             } else {
                 this.orderNo = Math.floor(100000 + Math.random() * 900000)
-                this.$analytics.logEvent('wp-lavillafood', {
+                this.$analytics.logEvent('wp-cerotranque', {
                     content_action: 'Orden Completada',
                 })
-                // await this.sendToGoogleDriveSheet()
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
@@ -821,7 +985,7 @@ export default {
         }
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
-        this.$analytics.logEvent('wp-lavillafood', {
+        this.$analytics.logEvent('wp-cerotranque', {
             path,
         })
         this.geolocate()
