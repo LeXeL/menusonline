@@ -13,6 +13,7 @@ import Enid from './views/wp/Enid'
 import Madamecoco from './views/wp/Madamecoco'
 import PanamaHotdog from './views/wp/PanamaHotdog'
 import Decoralid from './views/wp/Decoralid'
+import RicaSazon from './views/wp/RicaSazon'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -101,6 +102,11 @@ export default new Router({
                     path: '/wp/decoralid',
                     name: 'decoralid',
                     component: Decoralid,
+                },
+                {
+                    path: '/wp/ricasazon',
+                    name: 'ricasazon',
+                    component: RicaSazon,
                 },
             ],
         },
