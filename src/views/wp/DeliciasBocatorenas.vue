@@ -362,6 +362,7 @@ export default {
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
                 {label: 'Efectivo', value: 'Efectivo'},
+                {label: 'Tarjeta', value: 'Tarjeta'},
             ],
             pickupMethods: [
                 {label: 'Delivery', value: 'Delivery'},
@@ -505,7 +506,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbwQNIK0JDkUMcPL1IRGwi0qZAQF3UFeUX3AVIMj-J_W73J7Pf7h/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -604,7 +605,7 @@ export default {
                 this.$analytics.logEvent('wp-deliciasbocatorenas', {
                     content_action: 'Orden Completada',
                 })
-                // await this.sendToGoogleDriveSheet()
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
