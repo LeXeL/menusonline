@@ -1,29 +1,37 @@
 <template>
-    <div v-if="!loading">
-        <div
-            v-for="(image, index) in data[0].images"
-            :key="index"
-            class="q-pa-md"
-            :style="{backgroundColor: data[0].restaurante.menuBackgroundColor}"
-        >
-            <q-img :src="image.url" alt="menu" style="width:100%" class="shadow-5" />
-        </div>
-        <footer>
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col">
-                        <q-img
-                            :src="require('@/assets/landing/logo_grey.png')"
-                            style="width: 150px;"
-                            @click="$router.push('/')"
-                        />
+    <div>
+        <div v-if="!loading">
+            <div
+                v-for="(image, index) in data[0].images"
+                :key="index"
+                class="q-pa-md"
+                :style="`backgroundColor: ${decorations[restaurant].menuBackgroundColor}`"
+            >
+                <q-img
+                    :src="image.url"
+                    alt="menu"
+                    style="width: 100%"
+                    class="shadow-5"
+                />
+            </div>
+            <footer>
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col">
+                            <q-img
+                                :src="require('@/assets/landing/logo_grey.png')"
+                                style="width: 150px"
+                                @click="$router.push('/')"
+                            />
 
-                        <p>Powered By BlueBalloon Inc.</p>
+                            <p>Powered By BlueBalloon Inc.</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
         <q-dialog
+            v-if="render"
             v-model="splash"
             persistent
             :maximized="true"
@@ -32,26 +40,35 @@
         >
             <q-card
                 class="text-white"
-                :style="{
-                    backgroundColor: data[0].restaurante.splashColor
-                        ? data[0].restaurante.splashColor
-                        : '#e9e9e9',
-                }"
+                :style="`backgroundColor: ${decorations[restaurant].splashColor}`"
             >
                 <q-card-section class="absolute-center">
                     <div class="row justify-center">
-                        <div class="text-h5 q-mb-lg main-font">¡Bienvenido!</div>
-                        <q-img :src="data[0].restaurante.logo" class="q-mb-lg" />
+                        <div
+                            class="text-h5 q-mb-lg main-font"
+                            :style="`color: ${decorations[restaurant].textColor}`"
+                        >
+                            ¡Bienvenido!
+                        </div>
+                        <q-img
+                            :src="
+                                require(`@/assets/restaurant-logos/${
+                                    this.decorations[this.restaurant].logo
+                                }`)
+                            "
+                            class="q-mb-lg"
+                        />
                         <q-btn
                             label="Ver Menu"
                             class="main-font"
-                            :style="{
-                                backgroundColor: data[0].restaurante
-                                    .splashButtonColor
-                                    ? data[0].restaurante.splashButtonColor
-                                    : '#f56c12',
-                            }"
+                            :style="`backgroundColor: ${decorations[restaurant].splashButtonColor}`"
+                            v-if="!this.loading"
                             @click="closeSplash"
+                        />
+                        <q-spinner-facebook
+                            v-if="loading"
+                            :color="decorations[restaurant].spinerColor"
+                            size="2em"
                         />
                     </div>
                 </q-card-section>
@@ -71,6 +88,18 @@ export default {
             splash: true,
             data: '',
             loading: true,
+            render: false,
+            restaurant: '',
+            decorations: {
+                angel: {
+                    splashButtonColor: '#000000',
+                    splashColor: '#ffffff',
+                    logo: 'Angel.jpeg',
+                    menuBackgroundColor: '#f7f7f7',
+                    textColor: '#000000',
+                    spinerColor: 'black',
+                },
+            },
         }
     },
     methods: {
@@ -82,9 +111,12 @@ export default {
         },
     },
     async mounted() {
-        let path = this.$route.params.path
+        this.render = false
+        let path = await this.$route.params.path
+        this.restaurant = path
+        this.render = true
         this.$analytics.logEvent('Menu Enter', {
-            path,
+            path: `${this.$route.params.path}`,
         })
         this.loading = true
         api.returRestaurantActiveMenu({path: path})
