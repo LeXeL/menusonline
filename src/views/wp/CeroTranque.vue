@@ -145,7 +145,7 @@
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
                             :key="i"
-                            @click="handleDialogs('style', style)"
+                            @click="addItemToCart('style', style)"
                         >
                             {{ style.title }}
                             <br />
@@ -184,7 +184,7 @@
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="handleDialogs('option', option)"
+                            @click="addItemToCart('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -207,7 +207,7 @@
             <!-- END OPTIONS DIALOG -->
 
             <!-- SIDE DIALOG -->
-            <q-dialog v-model="sideDialog">
+            <!-- <q-dialog v-model="sideDialog">
                 <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
@@ -241,7 +241,7 @@
                         >
                     </q-card-section>
                 </q-card>
-            </q-dialog>
+            </q-dialog> -->
             <!-- END SIDE DIALOG -->
 
             <!-- SUCCESS DIALOG -->
@@ -1110,8 +1110,13 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart() {
-            if (this.menu[this.selectedItemIndex].count === 0) {
+        addItemToCart(section, item) {
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                this.optionsDialog = true
+            } else {
+                this.selectedItem.options = item
                 if (!this.checkIfDuplicate()) {
                     this.selectedItem.amount = 1
                     this.cart.push(this.selectedItem)
@@ -1123,10 +1128,7 @@ export default {
                         if (
                             c.type === this.selectedItem.type &&
                             c.title === this.selectedItem.title &&
-                            c.options.title ===
-                                this.selectedItem.options.title &&
-                            c.styles.title === this.selectedItem.styles.title &&
-                            c.sides.title === this.selectedItem.sides.title
+                            c.options.title === this.selectedItem.options.title
                         ) {
                             c.amount++
                         }
@@ -1134,79 +1136,6 @@ export default {
                     this.optionsDialog = false
                     this.successDialog = true
                     this.calculateTotal()
-                }
-            } else {
-                this.selectedItem.amount = 1
-                this.cart.push(this.selectedItem)
-                this.optionsDialog = false
-                this.successDialog = true
-                this.calculateTotal()
-            }
-        },
-
-        handleDialogs(section, item) {
-            //option, style, side
-            if (section === 'option') {
-                if (this.selectedItem.count > 0) {
-                    this.selectedItem.options = []
-                    this.selectedItem.options.push(item)
-                } else {
-                    if (this.menu[this.selectedItemIndex].count === 0) {
-                        this.selectedItem.options = item
-                    } else {
-                        this.selectedItem.options.push(item)
-                    }
-                }
-                this.optionsDialog = false
-                if (this.menu[this.selectedItemIndex].styles.length > 0) {
-                    this.stylesDialog = true
-                } else {
-                    this.addItemToCart()
-                }
-            }
-            if (section === 'style') {
-                if (this.selectedItem.count > 0) {
-                    this.selectedItem.styles = []
-                    this.selectedItem.styles.push(item)
-                } else {
-                    if (this.menu[this.selectedItemIndex].count === 0) {
-                        this.selectedItem.styles = item
-                    } else {
-                        this.selectedItem.styles.push(item)
-                    }
-                }
-                this.stylesDialog = false
-                if (this.menu[this.selectedItemIndex].sides.length > 0) {
-                    this.sideDialog = true
-                } else {
-                    if (this.menu[this.selectedItemIndex].count === 0) {
-                        this.addItemToCart()
-                    } else {
-                        if (this.selectedItem.count === 0) {
-                            this.addItemToCart()
-                        } else {
-                            this.selectedItem.count--
-                            this.optionsDialog = true
-                        }
-                    }
-                }
-            }
-            if (section === 'side') {
-                if (this.selectedItem.count > 0) {
-                    this.selectedItem.sides = []
-                    this.selectedItem.sides.push(item)
-                    this.selectedItem.count--
-                    this.sideDialog = false
-                    this.optionsDialog = true
-                } else {
-                    this.sideDialog = false
-                    if (this.menu[this.selectedItemIndex].count === 0) {
-                        this.selectedItem.sides = item
-                    } else {
-                        this.selectedItem.sides.push(item)
-                    }
-                    this.optionsDialog = false
-                    this.addItemToCart()
                 }
             }
         },
