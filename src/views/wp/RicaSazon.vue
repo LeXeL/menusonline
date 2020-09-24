@@ -497,7 +497,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbw3BCRUFfMlTaZhD6rgk2EvYrUXAMiomg715G2e75WV9oRP7tqA/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -596,7 +596,7 @@ export default {
                 this.$analytics.logEvent('wp-ricasazon', {
                     content_action: 'Orden Completada',
                 })
-                // await this.sendToGoogleDriveSheet()
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
