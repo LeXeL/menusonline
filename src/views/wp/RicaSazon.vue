@@ -547,8 +547,8 @@ export default {
                 },
                 error => {
                     this.center = {
-                        lat: parseFloat(9.068463),
-                        lng: parseFloat(-79.452694),
+                        lat: parseFloat(9.338153),
+                        lng: parseFloat(-79.885164),
                     }
                     this.markers.push({position: this.center})
                 }
