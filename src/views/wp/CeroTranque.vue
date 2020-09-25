@@ -625,7 +625,7 @@ export default {
             markers: [],
             center: {},
             defaultLat: 8.92773,
-            defauktLng: -79.729467,
+            defaultLng: -79.729467,
             optionsDialog: false,
             stylesDialog: false,
             sideDialog: false,
