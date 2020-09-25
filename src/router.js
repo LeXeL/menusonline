@@ -16,6 +16,7 @@ import Decoralid from './views/wp/Decoralid'
 import RicaSazon from './views/wp/RicaSazon'
 import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
 import CeroTranque from './views/wp/CeroTranque'
+import LaVillaFood from './views/wp/LaVillaFood'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -119,6 +120,11 @@ export default new Router({
                     path: '/wp/cerotranque',
                     name: 'cerotranque',
                     component: CeroTranque,
+                },
+                {
+                    path: '/wp/lavillafood',
+                    name: 'lavillafood',
+                    component: LaVillaFood,
                 },
             ],
         },
