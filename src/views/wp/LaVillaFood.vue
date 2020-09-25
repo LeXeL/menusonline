@@ -417,7 +417,7 @@
                             />
                             <div
                                 class="text-subtitle2 text-center q-mt-lg poppins-bold"
-                                v-if="selectedPaymentMethod == 'Yappy'"
+                                v-if="selectedPaymentMethod == 'Transferencia'"
                             >
                                 Recuerda enviar el comprobante de pago por
                                 WhatsApp.
@@ -520,7 +520,7 @@ export default {
             whatsappNumber: '64182043',
             selectedItem: {},
             paymentMethods: [
-                {label: 'Yappy', value: 'Yappy'},
+                {label: 'Transferencia', value: 'Transferencia'},
                 {label: 'Efectivo', value: 'Efectivo'},
             ],
             pickupMethods: [
