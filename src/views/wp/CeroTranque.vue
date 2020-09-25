@@ -495,12 +495,16 @@
                                 text-color="black"
                                 :options="paymentMethods"
                             />
-                            <div
-                                class="text-subtitle2 text-center q-mt-lg poppins-bold"
-                                v-if="selectedPaymentMethod == 'Yappy'"
-                            >
-                                Recuerda enviar el comprobante de pago por
-                                WhatsApp.
+                            <div class="row full-width">
+                                <div class="col text-center">
+                                    <div
+                                        class="text-subtitle2 q-mt-lg poppins-bold"
+                                        v-if="selectedPaymentMethod == 'Yappy'"
+                                    >
+                                        Realiza tus pagos Yappy al
+                                        <br />6076-4048.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </q-card-section>
@@ -602,6 +606,7 @@ export default {
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
                 {label: 'Efectivo', value: 'Efectivo'},
+                {label: 'Tarjeta', value: 'Tarjeta'},
             ],
             pickupMethods: [
                 {label: 'Delivery', value: 'Delivery'},
@@ -620,7 +625,7 @@ export default {
             markers: [],
             center: {},
             defaultLat: 8.92773,
-            defauktLng: -79.729467,
+            defaultLng: -79.729467,
             optionsDialog: false,
             stylesDialog: false,
             sideDialog: false,
