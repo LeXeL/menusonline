@@ -982,8 +982,10 @@ export default {
                 ) {
                     return `>> Pedir Ubicacion !!`
                 } else {
-                    if (lat < 0) lat = `+${lat}` //Google Maps
-                    if (lng < 0) lng = `+${lng}` //Google Maps
+                    if (this.center.lat < 0)
+                        this.center.lat = `+${this.center.lat}` //Google Maps
+                    if (this.center.lng < 0)
+                        this.center.lng = `+${this.center.lng}` //Google Maps
                     return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
                     // return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
                 }
