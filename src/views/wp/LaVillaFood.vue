@@ -559,8 +559,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
@@ -574,8 +597,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
@@ -589,8 +635,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
@@ -604,8 +673,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
