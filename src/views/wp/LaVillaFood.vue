@@ -417,7 +417,7 @@
                             />
                             <div
                                 class="text-subtitle2 text-center q-mt-lg poppins-bold"
-                                v-if="selectedPaymentMethod == 'Yappy'"
+                                v-if="selectedPaymentMethod == 'Transferencia'"
                             >
                                 Recuerda enviar el comprobante de pago por
                                 WhatsApp.
@@ -520,7 +520,7 @@ export default {
             whatsappNumber: '64182043',
             selectedItem: {},
             paymentMethods: [
-                {label: 'Yappy', value: 'Yappy'},
+                {label: 'Transferencia', value: 'Transferencia'},
                 {label: 'Efectivo', value: 'Efectivo'},
             ],
             pickupMethods: [
@@ -559,8 +559,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
@@ -574,8 +597,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
@@ -589,8 +635,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
@@ -604,8 +673,31 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: 'Carne',
+                        },
+                        {
+                            title: 'Pollo',
+                        },
+                        {
+                            title: 'Pizza',
+                        },
+                        {
+                            title: 'Queso',
+                        },
+                        {
+                            title: 'Queso con jamon',
+                        },
+                        {
+                            title: 'Queso con piña',
+                        },
+                        {
+                            title: 'Queso con guayaba',
+                        },
+                        {
+                            title: 'Nutella',
+                        },
+                        {
+                            title: 'Queso, maiz y tocineta',
                         },
                     ],
                 },
