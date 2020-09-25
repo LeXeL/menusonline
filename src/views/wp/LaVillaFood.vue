@@ -539,8 +539,8 @@ export default {
             location: [],
             markers: [],
             center: {},
-            defaultLat: 8.92773,
-            defaultLng: -79.729467,
+            defaultLat: 8.951375,
+            defaultLng: -79.527625,
             optionsDialog: false,
             stylesDialog: false,
             sideDialog: false,
@@ -1044,7 +1044,7 @@ export default {
                 return
             } else {
                 this.orderNo = Math.floor(100000 + Math.random() * 900000)
-                this.$analytics.logEvent('wp-cerotranque', {
+                this.$analytics.logEvent('wp-lavillafood', {
                     content_action: 'Orden Completada',
                 })
                 await this.sendToGoogleDriveSheet()
@@ -1079,7 +1079,7 @@ export default {
         }
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
-        this.$analytics.logEvent('wp-cerotranque', {
+        this.$analytics.logEvent('wp-lavillafood', {
             path,
         })
         this.geolocate()
