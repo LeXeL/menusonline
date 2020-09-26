@@ -99,6 +99,14 @@ export default {
                     textColor: '#000000',
                     spinerColor: 'black',
                 },
+                demo: {
+                    splashButtonColor: '#f56c12',
+                    splashColor: '#217b95',
+                    logo: 'demo.jpeg',
+                    menuBackgroundColor: '#c9c9c9',
+                    textColor: '#ffffff',
+                    spinerColor: 'white',
+                },
             },
         }
     },
