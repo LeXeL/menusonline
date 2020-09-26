@@ -96,7 +96,7 @@
                         </div>
                     </q-card-section>
                     <q-separator />
-                    <q-card-section>
+                    <q-card-section v-if="selectedItem.type == 'main'">
                         <q-btn
                             text-color="pink"
                             outline
@@ -121,6 +121,46 @@
                             @click="optionsDialog = false"
                             >Cancelar</q-btn
                         >
+                    </q-card-section>
+                    <q-card-section v-else>
+                        <div
+                            class="row q-mb-md"
+                            v-for="(li, i) of selectedItem.options"
+                            :key="i"
+                        >
+                            <div class="col-6">
+                                {{ li.title }}
+                            </div>
+                            <div class="col-6">
+                                <q-btn-group class="q-ml-lg">
+                                    <q-btn
+                                        color="pink"
+                                        label="-"
+                                        size="sm"
+                                        @click="handleListItemAmounts('-', i)"
+                                    />
+                                    <q-btn
+                                        color="pink"
+                                        :label="li.amount"
+                                        size="sm"
+                                        disabled
+                                    />
+                                    <q-btn
+                                        color="pink"
+                                        label="+"
+                                        size="sm"
+                                        @click="handleListItemAmounts('+', i)"
+                                    />
+                                </q-btn-group>
+                            </div>
+                        </div>
+
+                        <q-btn
+                            color="pink"
+                            label="agregar"
+                            outline
+                            class="full-width"
+                        />
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -504,6 +544,7 @@ export default {
     data() {
         return {
             selectedCategory: null,
+            myNameIs: 'Manuel',
             categories: [
                 'Todo',
                 'Picadas',
@@ -552,152 +593,192 @@ export default {
                 {
                     title: 'Promo 1',
                     desc: '5 Pasteles + 10 Tequeños y bebida gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo1.jpg',
                     price: 10,
+                    max: 5,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
                 {
                     title: 'Promo 2',
                     desc: '5 Pasteles + 20 Tequeños y bebida grande gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo2.jpg',
                     price: 15,
+                    max: 5,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
                 {
                     title: 'Promo 3',
                     desc: '10 Pasteles + 10 Tequeños y bebida grande gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo3.jpg',
+                    max: 10,
                     price: 15,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
                 {
                     title: 'Promo 4',
                     desc: '10 Pasteles + 20 Tequeños y bebida gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo4.jpg',
+                    max: 10,
                     price: 20,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
@@ -800,6 +881,26 @@ export default {
             return menu.filter(m => {
                 if (m.type === type) return m
             })
+        },
+        handleListItemAmounts(action, i) {
+            let totalAmount = 0
+            this.selectedItem.options.forEach(opt => {
+                totalAmount += opt.amount
+            })
+            if (action == '+') {
+                if (totalAmount < this.selectedItem.max) {
+                    this.selectedItem.options[i].amount++
+                } else {
+                    alert('llegaste al maximo')
+                }
+            }
+            if (action == '-') {
+                if (this.selectedItem.options[i].amount > 0) {
+                    this.selectedItem.options[i].amount--
+                } else {
+                    alert('llegaste al minimo')
+                }
+            }
         },
         addItemToCart() {
             if (!this.checkIfDuplicate()) {
