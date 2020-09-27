@@ -160,6 +160,7 @@
                             label="agregar"
                             outline
                             class="full-width"
+                            @click="addItemToCart()"
                         />
                     </q-card-section>
                 </q-card>
@@ -903,6 +904,14 @@ export default {
             }
         },
         addItemToCart() {
+            if (this.selectedItem.type === 'list') {
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+                return
+            }
             if (!this.checkIfDuplicate()) {
                 this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
