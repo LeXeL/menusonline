@@ -130,6 +130,10 @@
                         >
                             <div class="col-6">
                                 {{ li.title }}
+                                <br />
+                                <span v-if="li.price != null">{{
+                                    li.price.toFixed(2)
+                                }}</span>
                             </div>
                             <div class="col-6">
                                 <q-btn-group class="q-ml-lg">
@@ -837,46 +841,56 @@ export default {
                     title: 'Pasteles',
                     desc:
                         'Elige entre nuestros X diferentes sabores de deliciosos pasteles.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'pasteles.jpg',
                     price: 0,
+                    max: 1000000,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                             price: 1,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                             price: 1.25,
                         },
                     ],
@@ -929,13 +943,23 @@ export default {
                 this.selectedItem.options.forEach(i => {
                     totalItems += i.amount
                 })
-                if (totalItems != this.selectedItem.max) {
+                if (
+                    totalItems != this.selectedItem.max &&
+                    this.selectedItem.max < 1000000
+                ) {
                     alert(
                         `Debes seleccionar ${this.selectedItem.max} sabores de pasteles.`
                     )
                     return
                 }
-                console.log(totalItems)
+                if (
+                    this.selectedItem.price == 0 &&
+                    this.selectedItem.type == 'list'
+                ) {
+                    this.selectedItem.options.forEach(op => {
+                        this.selectedItem.price += op.amount * op.price
+                    })
+                }
                 this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
                 this.optionsDialog = false
