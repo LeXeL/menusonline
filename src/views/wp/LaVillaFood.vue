@@ -96,7 +96,7 @@
                         </div>
                     </q-card-section>
                     <q-separator />
-                    <q-card-section>
+                    <q-card-section v-if="selectedItem.type == 'main'">
                         <q-btn
                             text-color="pink"
                             outline
@@ -118,6 +118,54 @@
                             color="black"
                             flat
                             class="poppins-bold full-width q-mb-md"
+                            @click="optionsDialog = false"
+                            >Cancelar</q-btn
+                        >
+                    </q-card-section>
+                    <q-card-section v-else>
+                        <div
+                            class="row q-mb-md"
+                            v-for="(li, i) of selectedItem.options"
+                            :key="i"
+                        >
+                            <div class="col-6">
+                                {{ li.title }}
+                            </div>
+                            <div class="col-6">
+                                <q-btn-group class="q-ml-lg">
+                                    <q-btn
+                                        color="pink"
+                                        label="-"
+                                        size="sm"
+                                        @click="handleListItemAmounts('-', i)"
+                                    />
+                                    <q-btn
+                                        color="pink"
+                                        :label="li.amount"
+                                        size="sm"
+                                        disabled
+                                    />
+                                    <q-btn
+                                        color="pink"
+                                        label="+"
+                                        size="sm"
+                                        @click="handleListItemAmounts('+', i)"
+                                    />
+                                </q-btn-group>
+                            </div>
+                        </div>
+
+                        <q-btn
+                            color="pink"
+                            label="agregar"
+                            outline
+                            class="full-width poppins-bold q-my-md"
+                            @click="addItemToCart()"
+                        />
+                        <q-btn
+                            color="black"
+                            flat
+                            class="poppins-bold full-width q-mb-sm"
                             @click="optionsDialog = false"
                             >Cancelar</q-btn
                         >
@@ -251,7 +299,7 @@
 
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
-                                    <strong>
+                                    <strong v-if="item.type == 'main'">
                                         ({{ item.amount }}) {{ item.title }} -
                                         {{ item.options.title }}
                                         <span
@@ -265,6 +313,19 @@
                                             v-if="item.sides.title != undefined"
                                         >
                                             {{ ` - ${item.sides.title}` }}
+                                        </span>
+                                    </strong>
+                                    <strong v-if="item.type == 'list'">
+                                        ({{ item.amount }}) {{ item.title }}
+                                        <br />
+                                        <span
+                                            v-for="(op, i) of item.options"
+                                            :key="i"
+                                        >
+                                            <template v-if="op.amount > 0">
+                                                ({{ op.title }}:
+                                                {{ op.amount }})
+                                            </template>
                                         </span>
                                     </strong>
                                 </div>
@@ -504,6 +565,7 @@ export default {
     data() {
         return {
             selectedCategory: null,
+            myNameIs: 'Manuel',
             categories: [
                 'Todo',
                 'Picadas',
@@ -552,152 +614,192 @@ export default {
                 {
                     title: 'Promo 1',
                     desc: '5 Pasteles + 10 Tequeños y bebida gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo1.jpg',
                     price: 10,
+                    max: 5,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
                 {
                     title: 'Promo 2',
                     desc: '5 Pasteles + 20 Tequeños y bebida grande gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo2.jpg',
                     price: 15,
+                    max: 5,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
                 {
                     title: 'Promo 3',
                     desc: '10 Pasteles + 10 Tequeños y bebida grande gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo3.jpg',
+                    max: 10,
                     price: 15,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
                 {
                     title: 'Promo 4',
                     desc: '10 Pasteles + 20 Tequeños y bebida gratis.',
-                    type: 'main',
+                    type: 'list',
                     pic: 'combo4.jpg',
+                    max: 10,
                     price: 20,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Carne',
+                            amount: 0,
                         },
                         {
                             title: 'Pollo',
+                            amount: 0,
                         },
                         {
                             title: 'Pizza',
+                            amount: 0,
                         },
                         {
                             title: 'Queso',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con jamon',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con piña',
+                            amount: 0,
                         },
                         {
                             title: 'Queso con guayaba',
+                            amount: 0,
                         },
                         {
                             title: 'Nutella',
+                            amount: 0,
                         },
                         {
                             title: 'Queso, maiz y tocineta',
+                            amount: 0,
                         },
                     ],
                 },
@@ -801,7 +903,46 @@ export default {
                 if (m.type === type) return m
             })
         },
+        handleListItemAmounts(action, i) {
+            let totalAmount = 0
+            this.selectedItem.options.forEach(opt => {
+                totalAmount += opt.amount
+            })
+            if (action == '+') {
+                if (totalAmount < this.selectedItem.max) {
+                    this.selectedItem.options[i].amount++
+                } else {
+                    alert(
+                        'Has llegado al maximo de pasteles que puedes elegir.'
+                    )
+                }
+            }
+            if (action == '-') {
+                if (this.selectedItem.options[i].amount > 0) {
+                    this.selectedItem.options[i].amount--
+                }
+            }
+        },
         addItemToCart() {
+            if (this.selectedItem.type === 'list') {
+                let totalItems = 0
+                this.selectedItem.options.forEach(i => {
+                    totalItems += i.amount
+                })
+                if (totalItems != this.selectedItem.max) {
+                    alert(
+                        `Debes seleccionar ${this.selectedItem.max} sabores de pasteles.`
+                    )
+                    return
+                }
+                console.log(totalItems)
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+                return
+            }
             if (!this.checkIfDuplicate()) {
                 this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
@@ -899,14 +1040,25 @@ export default {
             let message =
                 'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
-                if (item.styles.title != undefined) {
-                    message += `- ${item.styles.title}`
+                if (item.type == 'main') {
+                    message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                    if (item.styles.title != undefined) {
+                        message += `- ${item.styles.title}`
+                    }
+                    if (item.sides.title != undefined) {
+                        message += `- ${item.sides.title}`
+                    }
+                    message += `%0D%0A`
                 }
-                if (item.sides.title != undefined) {
-                    message += `- ${item.sides.title}`
+                if (item.type == 'list') {
+                    message += `- (${item.amount}) ${item.title}%0D%0A`
+                    item.options.forEach(op => {
+                        if (op.amount > 0) {
+                            message += `(${op.title}: ${op.amount}) `
+                        }
+                    })
+                    message += `%0D%0A`
                 }
-                message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
@@ -929,14 +1081,25 @@ export default {
         async sendToGoogleDriveSheet() {
             let message = ''
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
-                if (item.styles.title != undefined) {
-                    message += `- ${item.styles.title}`
+                if (item.type == 'main') {
+                    message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                    if (item.styles.title != undefined) {
+                        message += `- ${item.styles.title}`
+                    }
+                    if (item.sides.title != undefined) {
+                        message += `- ${item.sides.title}`
+                    }
+                    message += `\n`
                 }
-                if (item.sides.title != undefined) {
-                    message += `- ${item.sides.title}`
+                if (item.type == 'list') {
+                    message += `- (${item.amount}) ${item.title}\n`
+                    item.options.forEach(op => {
+                        if (op.amount > 0) {
+                            message += `(${op.title}: ${op.amount}) `
+                        }
+                    })
+                    message += `\n`
                 }
-                message += `\n`
             }
             let data = {
                 id: this.orderNo,
