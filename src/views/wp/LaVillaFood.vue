@@ -159,9 +159,16 @@
                             color="pink"
                             label="agregar"
                             outline
-                            class="full-width"
+                            class="full-width poppins-bold q-my-md"
                             @click="addItemToCart()"
                         />
+                        <q-btn
+                            color="black"
+                            flat
+                            class="poppins-bold full-width q-mb-sm"
+                            @click="optionsDialog = false"
+                            >Cancelar</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </q-dialog>
@@ -292,7 +299,7 @@
 
                             <div class="col">
                                 <div class="text-body2 poppins-regular">
-                                    <strong>
+                                    <strong v-if="item.type == 'main'">
                                         ({{ item.amount }}) {{ item.title }} -
                                         {{ item.options.title }}
                                         <span
@@ -306,6 +313,19 @@
                                             v-if="item.sides.title != undefined"
                                         >
                                             {{ ` - ${item.sides.title}` }}
+                                        </span>
+                                    </strong>
+                                    <strong v-if="item.type == 'list'">
+                                        ({{ item.amount }}) {{ item.title }}
+                                        <br />
+                                        <span
+                                            v-for="(op, i) of item.options"
+                                            :key="i"
+                                        >
+                                            <template v-if="op.amount > 0">
+                                                ({{ op.title }}:
+                                                {{ op.amount }})
+                                            </template>
                                         </span>
                                     </strong>
                                 </div>
@@ -892,19 +912,30 @@ export default {
                 if (totalAmount < this.selectedItem.max) {
                     this.selectedItem.options[i].amount++
                 } else {
-                    alert('llegaste al maximo')
+                    alert(
+                        'Has llegado al maximo de pasteles que puedes elegir.'
+                    )
                 }
             }
             if (action == '-') {
                 if (this.selectedItem.options[i].amount > 0) {
                     this.selectedItem.options[i].amount--
-                } else {
-                    alert('llegaste al minimo')
                 }
             }
         },
         addItemToCart() {
             if (this.selectedItem.type === 'list') {
+                let totalItems = 0
+                this.selectedItem.options.forEach(i => {
+                    totalItems += i.amount
+                })
+                if (totalItems != this.selectedItem.max) {
+                    alert(
+                        `Debes seleccionar ${this.selectedItem.max} sabores de pasteles.`
+                    )
+                    return
+                }
+                console.log(totalItems)
                 this.selectedItem.amount = 1
                 this.cart.push(this.selectedItem)
                 this.optionsDialog = false
