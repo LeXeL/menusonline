@@ -1040,14 +1040,25 @@ export default {
             let message =
                 'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
-                if (item.styles.title != undefined) {
-                    message += `- ${item.styles.title}`
+                if (item.type == 'main') {
+                    message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                    if (item.styles.title != undefined) {
+                        message += `- ${item.styles.title}`
+                    }
+                    if (item.sides.title != undefined) {
+                        message += `- ${item.sides.title}`
+                    }
+                    message += `%0D%0A`
                 }
-                if (item.sides.title != undefined) {
-                    message += `- ${item.sides.title}`
+                if (item.type == 'list') {
+                    message += `- (${item.amount}) ${item.title}%0D%0A`
+                    item.options.forEach(op => {
+                        if (op.amount > 0) {
+                            message += `(${op.title}: ${op.amount}) `
+                        }
+                    })
+                    message += `%0D%0A`
                 }
-                message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.specialComments.length > 0)
@@ -1070,14 +1081,25 @@ export default {
         async sendToGoogleDriveSheet() {
             let message = ''
             for (let item of this.cart) {
-                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
-                if (item.styles.title != undefined) {
-                    message += `- ${item.styles.title}`
+                if (item.type == 'main') {
+                    message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                    if (item.styles.title != undefined) {
+                        message += `- ${item.styles.title}`
+                    }
+                    if (item.sides.title != undefined) {
+                        message += `- ${item.sides.title}`
+                    }
+                    message += `\n`
                 }
-                if (item.sides.title != undefined) {
-                    message += `- ${item.sides.title}`
+                if (item.type == 'list') {
+                    message += `- (${item.amount}) ${item.title}\n`
+                    item.options.forEach(op => {
+                        if (op.amount > 0) {
+                            message += `(${op.title}: ${op.amount}) `
+                        }
+                    })
+                    message += `\n`
                 }
-                message += `\n`
             }
             let data = {
                 id: this.orderNo,
