@@ -205,19 +205,21 @@
                                 data-hj-allow
                             />
                         </div>
-                        <!-- <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">Metodo de entrega:</div>
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Fecha de entrega:
+                            </div>
                             <q-btn-toggle
-                                v-model="selectedPickupMethod"
+                                v-model="selectedDate"
                                 spread
                                 all-caps
                                 class="poppins-bold full-width"
                                 toggle-color="red-7"
                                 color="white"
                                 text-color="black"
-                                :options="pickupMethods"
+                                :options="dateOptions"
                             />
-                        </div>-->
+                        </div>
                         <div class="row">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
                                 Area:
@@ -394,6 +396,12 @@ export default {
             ],
             selectedPickupMethod: 'Delivery',
             selectedPaymentMethod: null,
+            dateOptions: [
+                {label: '2 Oct.', value: '2 Oct.'},
+                {label: '3 Oct.', value: '3 Oct.'},
+                {label: '4 Oct.', value: '4 Oct.'},
+            ],
+            selectedDate: '',
             address: '',
             total: 0,
             location: [],
@@ -547,7 +555,9 @@ export default {
                     this.address
                 }`
             }
-            message += `%0D%0AMetodo de pago: ${
+            message += `%0D%0AFecha de entrega: ${
+                this.selectedDate
+            }%0D%0AMetodo de pago: ${
                 this.selectedPaymentMethod
             }%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
@@ -574,6 +584,7 @@ export default {
                 metodo_de_pago: this.selectedPaymentMethod,
                 metodo_de_entrega: this.selectedPickupMethod,
                 selectedArea: this.selectedArea,
+                selectedDate: this.selectedDate,
             }
             if (data.metodo_de_entrega === 'Delivery') {
                 data.direcion_1 = this.getLocationForMessage()
