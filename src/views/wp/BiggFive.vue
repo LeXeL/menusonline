@@ -653,6 +653,10 @@ export default {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
                 return
             }
+            if (this.selectedDate == '') {
+                alert('Debes elegir que fecha deseas recibir tu pedido.')
+                return
+            }
             if (this.selectedArea == '') {
                 alert('Debes seleccionar un area de entrega.')
                 return
