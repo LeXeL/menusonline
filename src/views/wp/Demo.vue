@@ -958,7 +958,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
+                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -1052,7 +1052,7 @@ export default {
                 this.$analytics.logEvent('wp-demo', {
                     content_action: 'Orden Completada',
                 })
-                // await this.sendToGoogleDriveSheet()
+                await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
