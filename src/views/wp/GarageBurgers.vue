@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div v-if="item.title == 'Hamburguesa sencilla'">
+                <div v-if="item.title == 'Hamburguesa clasica'">
                     <div
                         class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
                     >
@@ -694,7 +694,7 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa sencilla',
+                    title: 'Hamburguesa clasica',
                     desc:
                         'Papas fritas, salchicha jumbo, queso, salsa de la casa.',
                     type: 'burger',
@@ -719,7 +719,7 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa con bacon',
+                    title: 'Garage Burger',
                     desc:
                         'Papas fritas, salchicha jumbo, queso, bacon, maíz, salsas de la casa.',
                     type: 'burger',
@@ -744,7 +744,7 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa de chorizo',
+                    title: 'Starchicken',
                     desc:
                         'Papas fritas, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
                     type: 'burger',
@@ -769,7 +769,7 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa de pollo',
+                    title: 'Bacon Burger',
                     desc:
                         'Papas fritas, pollo, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
                     type: 'burger',
@@ -794,7 +794,7 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa de carne',
+                    title: 'Hamburguesa Especial',
                     desc:
                         'Papas fritas, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
                     type: 'burger',
@@ -819,7 +819,107 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa de combinacion',
+                    title: 'Hamburguesa Doble',
+                    desc:
+                        'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 6,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Triple',
+                    desc:
+                        'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 6,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Bacon Cheddar',
+                    desc:
+                        'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 6,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Especial Premium',
+                    desc:
+                        'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 6,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Bacon Premium',
                     desc:
                         'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
                     type: 'burger',
