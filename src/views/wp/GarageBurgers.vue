@@ -82,7 +82,7 @@
                 <q-card class="full-width q-mb-lg">
                     <q-img
                         v-if="item.pic"
-                        :src="require(`@/assets/wp/demo/${item.pic}`)"
+                        :src="require(`@/assets/wp/garageburgers/${item.pic}`)"
                     />
                     <q-card-section class="q-pb-none">
                         <div class="row">
@@ -631,7 +631,7 @@ export default {
                     desc:
                         '6 Unidades de alitas a la BBQ / Mostaza Miel, acompañadas con pasas fritas.',
                     type: 'starter',
-                    pic: '',
+                    pic: 'alitas_2.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
@@ -647,7 +647,7 @@ export default {
                     title: 'Bowl Western',
                     desc: 'Papas western, carne molida, queso cheddar, bacon.',
                     type: 'starter',
-                    pic: '',
+                    pic: 'bowl_western.jpeg',
                     price: 5.5,
                     count: 0,
                     styles: [],
@@ -664,7 +664,7 @@ export default {
                     desc:
                         'Tortillas de maiz, carne molida, pico de gallo, queso cheddar.',
                     type: 'starter',
-                    pic: '',
+                    pic: 'nachos_no_go.jpeg',
                     price: 3.5,
                     count: 0,
                     styles: [],
@@ -695,8 +695,7 @@ export default {
                 },
                 {
                     title: 'Hamburguesa clasica',
-                    desc:
-                        'Carne, queso cheddar, bacon, salsas de la casa.',
+                    desc: 'Carne, queso cheddar, bacon, salsas de la casa.',
                     type: 'burger',
                     pic: '',
                     price: 2,
@@ -723,7 +722,7 @@ export default {
                     desc:
                         'Carne, queso cheddar, bacon, lechuga, tomate, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'garage_burger.jpeg',
                     price: 3,
                     count: 0,
                     styles: [],
@@ -770,8 +769,7 @@ export default {
                 },
                 {
                     title: 'Bacon Burger',
-                    desc:
-                        'Carne, bacon, papitas fosforito, salsas de la casa.',
+                    desc: 'Carne, bacon, papitas fosforito, salsas de la casa.',
                     type: 'burger',
                     pic: '',
                     price: 3.5,
@@ -823,7 +821,7 @@ export default {
                     desc:
                         '2 Carnes, queso cheddar, bacon, tomate, lechuga, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'doble.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
@@ -873,7 +871,7 @@ export default {
                     desc:
                         '2 Carnes, queso cheddar, bacon, papitas fosforitos, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'bacon_cheddar.jpeg',
                     price: 4.25,
                     count: 0,
                     styles: [],
@@ -898,7 +896,7 @@ export default {
                     desc:
                         'Carne, queso cheddar, bacon, huevo, tajada, lechuga, tomate, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'especial_premium.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
@@ -923,7 +921,7 @@ export default {
                     desc:
                         'Carne, queso mozzarella bacon, cebollas, acaramelizadas, papitas fosforito, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'bacon_premium.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
@@ -948,7 +946,7 @@ export default {
                     desc:
                         'Papas fritas, salchicha jumbo, queso, salsas de la casa.',
                     type: 'salchipapas',
-                    pic: '',
+                    pic: 'salchipapas.jpeg',
                     price: 2.5,
                     count: 0,
                     styles: [],
@@ -1050,7 +1048,7 @@ export default {
                     desc:
                         'Arepa con chorizo, queso mozzarella, salsa de la casa.',
                     type: 'arepa',
-                    pic: '',
+                    pic: 'arepa.jpeg',
                     price: 3,
                     count: 0,
                     styles: [],
@@ -1174,7 +1172,7 @@ export default {
                     desc:
                         'Ensalada de repollo y zanahoria, papitas fosforito, queso, bacon, salsa de la casa.',
                     type: 'hotdog',
-                    pic: '',
+                    pic: 'hotdog_jumbo_especial.jpeg',
                     price: 2.5,
                     count: 0,
                     styles: [],
@@ -1436,7 +1434,7 @@ export default {
                     desc:
                         'Pico de gallo, maíz, queso mozzarella, salsa de la casa.',
                     type: 'burrito',
-                    pic: '',
+                    pic: 'burritos.jpeg',
                     price: 3,
                     count: 0,
                     styles: [],
