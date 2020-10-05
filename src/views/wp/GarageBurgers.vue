@@ -1246,7 +1246,7 @@ export default {
                     title: 'Hotdog con Chili',
                     desc: 'Carne molida, pico de gallo, bacon, queso cheddar.',
                     type: 'hotdog',
-                    pic: '',
+                    pic: 'hotdog_chili.jpeg',
                     price: 3.5,
                     count: 0,
                     styles: [],
