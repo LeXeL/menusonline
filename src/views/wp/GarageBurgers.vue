@@ -919,9 +919,9 @@ export default {
                     ],
                 },
                 {
-                    title: 'Carne, queso mozzarella, bacon, cebollas acaramelizadas, papitas fosforito, salsas de la casa.',
+                    title: 'Hamburguesa Bacon Premium',
                     desc:
-                        'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                        'Carne, queso mozzarella bacon, cebollas, acaramelizadas, papitas fosforito, salsas de la casa.',
                     type: 'burger',
                     pic: '',
                     price: 4.5,
