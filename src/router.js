@@ -17,6 +17,7 @@ import RicaSazon from './views/wp/RicaSazon'
 import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
 import CeroTranque from './views/wp/CeroTranque'
 import LaVillaFood from './views/wp/LaVillaFood'
+import GarageBurgers from './views/wp/GarageBurgers'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -125,6 +126,11 @@ export default new Router({
                     path: '/wp/lavillafood',
                     name: 'lavillafood',
                     component: LaVillaFood,
+                },
+                {
+                    path: '/wp/garageburgers',
+                    name: 'garageburgers',
+                    component: GarageBurgers,
                 },
             ],
         },
