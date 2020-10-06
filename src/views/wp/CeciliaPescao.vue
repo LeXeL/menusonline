@@ -548,7 +548,7 @@ export default {
             orderNo: '',
             seamless: false,
             displayLoading: false,
-            whatsappNumber: '62042578',
+            whatsappNumber: '64807710',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
