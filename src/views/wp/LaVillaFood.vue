@@ -136,7 +136,7 @@
                                 }}</span>
                             </div>
                             <div class="col-6">
-                                <!-- <q-btn-group class="q-ml-lg">
+                                <q-btn-group class="q-ml-lg">
                                     <q-btn
                                         color="pink"
                                         label="-"
@@ -155,8 +155,8 @@
                                         size="sm"
                                         @click="handleListItemAmounts('+', i)"
                                     />
-                                </q-btn-group> -->
-                                <div class="q-ml-lg">
+                                </q-btn-group>
+                                <!-- <div class="q-ml-lg">
                                     <q-btn
                                         color="pink"
                                         label="-"
@@ -175,7 +175,7 @@
                                         style="border-top-left-radius: 0; border-bottom-left-radius: 0;"
                                         @click="handleListItemAmounts('+', i)"
                                     />
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
