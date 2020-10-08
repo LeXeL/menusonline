@@ -166,7 +166,7 @@
                                     />
                                     <span
                                         style=" color: #fff; background-color: #ee749d; font-size: 10px; padding: 6.4px 13px;"
-                                        >{{ li.amount }}</span
+                                        >{{ makeJsonObject(li.amount) }}</span
                                     >
                                     <q-btn
                                         color="pink"
@@ -860,7 +860,7 @@ export default {
                 {
                     title: 'Pasteles',
                     desc:
-                        'Elige entre nuestros X diferentes sabores de deliciosos pasteles.',
+                        'Elige entre nuestros 9 diferentes sabores de deliciosos pasteles.',
                     type: 'list',
                     pic: 'pasteles.jpg',
                     price: 0,
@@ -919,6 +919,12 @@ export default {
         }
     },
     methods: {
+        makeJsonObject(data) {
+            if (typeof data == 'string') {
+                return JSON.parse(data)
+            }
+            return data
+        },
         filterMenu(menu) {
             let type = ''
             if (this.selectedCategory === 'Todo') {
