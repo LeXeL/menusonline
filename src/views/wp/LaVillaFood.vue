@@ -136,7 +136,7 @@
                                 }}</span>
                             </div>
                             <div class="col-6">
-                                <q-btn-group class="q-ml-lg">
+                                <!-- <q-btn-group class="q-ml-lg">
                                     <q-btn
                                         color="pink"
                                         label="-"
@@ -155,7 +155,27 @@
                                         size="sm"
                                         @click="handleListItemAmounts('+', i)"
                                     />
-                                </q-btn-group>
+                                </q-btn-group> -->
+                                <div class="q-ml-lg">
+                                    <q-btn
+                                        color="pink"
+                                        label="-"
+                                        size="sm"
+                                        style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                                        @click="handleListItemAmounts('-', i)"
+                                    />
+                                    <span
+                                        style=" color: #fff; background-color: #ee749d; font-size: 10px; padding: 6.4px 13px;"
+                                        >{{ li.amount }}</span
+                                    >
+                                    <q-btn
+                                        color="pink"
+                                        label="+"
+                                        size="sm"
+                                        style="border-top-left-radius: 0; border-bottom-left-radius: 0;"
+                                        @click="handleListItemAmounts('+', i)"
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -440,7 +460,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
+                                    this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             :editable="true"
@@ -1150,7 +1170,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function (k) {
+                .map(function(k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +
