@@ -18,6 +18,10 @@ import Hotjar from 'vue-hotjar'
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+
+//WP COMPONENTS
+import InputText from '@/components/wp/InputText'
+
 AOS.init()
 
 Vue.use(VueMeta, {
@@ -60,6 +64,9 @@ firebase.analytics()
 Vue.component('brewthers-alert', BrewthersAlert)
 Vue.component('loading-alert', LoadingAlert)
 Vue.component('confirm-dialog', Confirm)
+
+//WP COMPONENTS
+Vue.component('input-text', InputText)
 
 Vue.prototype.$analytics = firebase.analytics()
 
