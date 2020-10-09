@@ -327,36 +327,8 @@
                         </div>
                         <input-text :label="'Nombre'" :placeholder="'Nombre Apellido'" :isRequired="true" :accentColor="'orange-9'"/>
                         <text-area :label="'Comentarios especiales de tu pedido'" :placeholder="'La hamburguesa son mayonesa porfavor'" :isRequired="true" :accentColor="'orange-9'"/>
-                        <!-- <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Local: *
-                            </div>
-                            <q-btn-toggle
-                                v-model="selectedPremises"
-                                spread
-                                all-caps
-                                class="poppins-bold full-width"
-                                toggle-color="red-8"
-                                color="white"
-                                text-color="black"
-                                :options="premises"
-                            />
-                        </div> -->
-                        <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Metodo de entrega: *
-                            </div>
-                            <q-btn-toggle
-                                v-model="selectedPickupMethod"
-                                spread
-                                all-caps
-                                class="poppins-bold full-width"
-                                toggle-color="orange-9"
-                                color="white"
-                                text-color="black"
-                                :options="pickupMethods"
-                            />
-                        </div>
+                        <button-group :label="'Metodo de pago'" :isRequired="true" :accentColor="'orange-9'" :options="paymentMethods"/>
+                        
                         <div
                             class="row"
                             v-if="this.selectedPickupMethod == 'Delivery'"
@@ -402,32 +374,6 @@
                                 rows="4"
                                 data-hj-allow
                             />
-                        </div>
-                        <div class="row">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Metodo de pago: *
-                            </div>
-                            <q-btn-toggle
-                                v-model="selectedPaymentMethod"
-                                spread
-                                all-caps
-                                class="poppins-bold full-width"
-                                toggle-color="orange-9"
-                                color="white"
-                                text-color="black"
-                                :options="paymentMethods"
-                            />
-                            <div class="row full-width">
-                                <div class="col text-center">
-                                    <div
-                                        class="text-subtitle2 q-mt-lg poppins-bold"
-                                        v-if="selectedPaymentMethod == 'Yappy'"
-                                    >
-                                        Realiza tus pagos Yappy al
-                                        <br />6204-2578.
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </q-card-section>
                     <q-card-section v-if="cart.length > 0">
