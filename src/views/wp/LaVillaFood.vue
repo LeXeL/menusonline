@@ -156,6 +156,26 @@
                                         @click="handleListItemAmounts('+', i)"
                                     />
                                 </q-btn-group>
+                                <!-- <div class="q-ml-lg">
+                                    <q-btn
+                                        color="pink"
+                                        label="-"
+                                        size="sm"
+                                        style="border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                                        @click="handleListItemAmounts('-', i)"
+                                    />
+                                    <span
+                                        style=" color: #fff; background-color: #ee749d; font-size: 10px; padding: 6.4px 13px;"
+                                        >{{ makeJsonObject(li.amount) }}</span
+                                    >
+                                    <q-btn
+                                        color="pink"
+                                        label="+"
+                                        size="sm"
+                                        style="border-top-left-radius: 0; border-bottom-left-radius: 0;"
+                                        @click="handleListItemAmounts('+', i)"
+                                    />
+                                </div> -->
                             </div>
                         </div>
 
@@ -440,7 +460,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
+                                    this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             :editable="true"
@@ -840,7 +860,7 @@ export default {
                 {
                     title: 'Pasteles',
                     desc:
-                        'Elige entre nuestros X diferentes sabores de deliciosos pasteles.',
+                        'Elige entre nuestros 9 diferentes sabores de deliciosos pasteles.',
                     type: 'list',
                     pic: 'pasteles.jpg',
                     price: 0,
@@ -899,6 +919,12 @@ export default {
         }
     },
     methods: {
+        makeJsonObject(data) {
+            if (typeof data == 'string') {
+                return JSON.parse(data)
+            }
+            return data
+        },
         filterMenu(menu) {
             let type = ''
             if (this.selectedCategory === 'Todo') {
@@ -1150,7 +1176,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function (k) {
+                .map(function(k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +

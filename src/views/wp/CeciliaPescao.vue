@@ -52,13 +52,13 @@
                 <q-card class="full-width q-mb-lg">
                     <q-img
                         v-if="item.pic"
-                        :src="require(`@/assets/wp/demo/${item.pic}`)"
+                        :src="require(`@/assets/wp/ceciliapescao/${item.pic}`)"
                     />
                     <q-card-section class="q-pb-none">
                         <div class="row">
                             <div
                                 class="col text-h6"
-                                style="text-transform: uppercase;"
+                                style="text-transform: uppercase"
                             >
                                 {{ item.title }}
                             </div>
@@ -82,7 +82,7 @@
                             class="text-h6 poppins-bold"
                             v-if="item.price == 0"
                         >
-                            Desde $ {{ item.styles[0].price.toFixed(2) }}
+                            Desde $ {{ item.options[0].price.toFixed(2) }}
                         </div>
                         <div class="text-caption text-grey">
                             {{ item.desc }}
@@ -104,10 +104,7 @@
 
             <!-- STYLES DIALOG -->
             <q-dialog v-model="stylesDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ELIJA
@@ -143,12 +140,9 @@
             </q-dialog>
             <!-- END STYLES DIALOG -->
 
-            <!-- OPTIONS DIALOG -->
-            <q-dialog v-model="optionsDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+            <!-- STYLES DIALOG -->
+            <q-dialog v-model="stylesDialog">
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ELIJA
@@ -157,13 +151,51 @@
                     <q-separator />
                     <q-card-section>
                         <q-btn
-                            color="indigo-10"
-                            class="poppins-bold full-width q-mb-md"
+                            text-color="black"
                             outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(style, i) in menu[selectedItemIndex].styles"
+                            :key="i"
+                            @click="handleDialogs('style', style)"
+                        >
+                            {{ style.title }}
+                            <br />
+                            {{
+                                style.price > 0
+                                    ? '$' + style.price.toFixed(2)
+                                    : ''
+                            }}
+                        </q-btn>
+                        <q-btn
+                            color="red-7"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="stylesDialog = false"
+                            >Cancelar</q-btn
+                        >
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END STYLES DIALOG -->
+
+            <!-- OPTIONS DIALOG -->
+            <q-dialog v-model="optionsDialog">
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">
+                            ELIJA
+                        </div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            text-color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
                             :key="i"
-                            @click="addItemToCart('option', option)"
+                            @click="handleDialogs('option', option)"
                         >
                             {{ option.title }}
                             <br />
@@ -185,12 +217,47 @@
             </q-dialog>
             <!-- END OPTIONS DIALOG -->
 
+            <!-- SIDE DIALOG -->
+            <q-dialog v-model="sideDialog">
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                    <q-card-section class="q-py-sm">
+                        <div class="text-h6 text-center poppins-bold">
+                            ELIJA
+                        </div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <q-btn
+                            text-color="black"
+                            outline
+                            class="poppins-bold full-width q-mb-md"
+                            v-for="(side, i) in menu[selectedItemIndex].sides"
+                            :key="i"
+                            @click="handleDialogs('side', side)"
+                        >
+                            {{ side.title }}
+                            <br />
+                            {{
+                                side.price > 0
+                                    ? '$' + side.price.toFixed(2)
+                                    : ''
+                            }}
+                        </q-btn>
+                        <q-btn
+                            color="red-7"
+                            flat
+                            class="poppins-bold full-width q-mb-md"
+                            @click="sideDialog = false"
+                            >Cancelar</q-btn
+                        >
+                    </q-card-section>
+                </q-card>
+            </q-dialog>
+            <!-- END SIDE DIALOG -->
+
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section>
                         <div class="text-h6 text-center poppins-bold">
                             Agregado con exito
@@ -217,7 +284,7 @@
                 transition-hide="slide-down"
             >
                 <q-card class="bg-grey-9 text-white">
-                    <q-bar style="height: 45px;">
+                    <q-bar style="height: 45px">
                         <q-space />
                         <q-btn
                             dense
@@ -287,7 +354,7 @@
                             <div class="col text-grey-6 text-center">
                                 <i
                                     class="fas fa-utensils q-mt-lg q-mb-md"
-                                    style="font-size: 75px;"
+                                    style="font-size: 75px"
                                 ></i>
                                 <div class="text-h5 poppins-bold q-mb-lg">
                                     Tu carrito esta vacio
@@ -346,7 +413,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                    this.selectedPickupMethod == 'Delivery'
+                                this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             :editable="true"
@@ -418,7 +485,7 @@
             <!-- NEW DIALOG -->
             <q-dialog v-model="seamless" seamless position="bottom">
                 <q-card
-                    style="width: 350px; border-radius: 0;"
+                    style="width: 350px; border-radius: 0"
                     class="bg-indigo-10 text-white"
                 >
                     <q-card-section class="row items-center no-wrap">
@@ -481,7 +548,7 @@ export default {
             orderNo: '',
             seamless: false,
             displayLoading: false,
-            whatsappNumber: '62042578',
+            whatsappNumber: '64807710',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -501,6 +568,7 @@ export default {
             center: {},
             optionsDialog: false,
             stylesDialog: false,
+            sideDialog: false,
             successDialog: false,
             cartDialog: false,
             cart: [],
@@ -511,7 +579,9 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    sides: [],
+                    pic: 'almejas.jpg',
                     price: 6,
                     type: 'starter',
                 },
@@ -521,7 +591,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'deditos_de_pescao.jpg',
                     price: 6,
                     type: 'starter',
                 },
@@ -531,7 +602,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'alitas.jpeg',
                     price: 6,
                     type: 'starter',
                 },
@@ -541,7 +613,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'aranitas_2.jpeg',
                     price: 6,
                     type: 'starter',
                 },
@@ -551,7 +624,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'sopa_de_mariscos.jpeg',
                     price: 8,
                     type: 'starter',
                 },
@@ -561,13 +635,6 @@ export default {
                     desc:
                         'Pescado entero frito chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    styles: [
                         {
                             title: 'Chico',
                             price: 10,
@@ -581,7 +648,15 @@ export default {
                             price: 15,
                         },
                     ],
-                    pic: '',
+                    styles: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    sides: [],
+                    pic: 'pescao_frito.jpg',
                     price: 0,
                     type: 'main',
                 },
@@ -597,7 +672,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'filete_frito.jpg',
                     price: 8,
                     type: 'main',
                 },
@@ -613,7 +689,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'filete_al_ajillo.jpg',
                     price: 9,
                     type: 'main',
                 },
@@ -629,7 +706,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'filete_apanado.jpg',
                     price: 9,
                     type: 'main',
                 },
@@ -646,7 +724,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'especial_a_lo_macho.jpg',
                     price: 35,
                     type: 'main',
                 },
@@ -656,13 +735,6 @@ export default {
                     desc:
                         'Pescado frito con almejas chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    styles: [
                         {
                             title: 'Chico',
                             price: 14,
@@ -676,7 +748,15 @@ export default {
                             price: 19,
                         },
                     ],
-                    pic: '',
+                    styles: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    sides: [],
+                    pic: 'pescao_con_almeja.jpg',
                     price: 0,
                     type: 'main',
                 },
@@ -686,13 +766,6 @@ export default {
                     desc:
                         'Pescado frito con camarones chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    styles: [
                         {
                             title: 'Chico',
                             price: 14,
@@ -706,7 +779,15 @@ export default {
                             price: 19,
                         },
                     ],
-                    pic: '',
+                    styles: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    sides: [],
+                    pic: 'pescao_con_camarones.jpg',
                     price: 0,
                     type: 'main',
                 },
@@ -716,13 +797,6 @@ export default {
                     desc:
                         'Pescado frito con mixto de mariscos chico, mediano o grande, con ensalada y acompañamiento de su eleccion.',
                     options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    styles: [
                         {
                             title: 'Chico',
                             price: 14,
@@ -736,7 +810,15 @@ export default {
                             price: 19,
                         },
                     ],
-                    pic: '',
+                    styles: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    sides: [],
+                    pic: 'pescao_con_mixto_de_mariscos.jpg',
                     price: 0,
                     type: 'main',
                 },
@@ -752,7 +834,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'filete_con_almejas.jpg',
                     price: 12,
                     type: 'main',
                 },
@@ -768,7 +851,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'filete_con_camarones.jpg',
                     price: 12,
                     type: 'main',
                 },
@@ -784,7 +868,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'filete_con_mixto.jpg',
                     price: 12,
                     type: 'main',
                 },
@@ -794,13 +879,6 @@ export default {
                     desc:
                         'Picada mixta chicha o grande con ensalada y acompañamiento de su eleccion.',
                     options: [
-                        {title: 'Patacones', price: 0},
-                        {title: 'Yuca al mojo', price: 0},
-                        {title: 'Yuca frita', price: 0},
-                        {title: 'Papas fritas', price: 0},
-                        {title: 'Arroz', price: 0},
-                    ],
-                    styles: [
                         {
                             title: 'Chica',
                             price: 20,
@@ -810,7 +888,15 @@ export default {
                             price: 30,
                         },
                     ],
-                    pic: '',
+                    styles: [
+                        {title: 'Patacones', price: 0},
+                        {title: 'Yuca al mojo', price: 0},
+                        {title: 'Yuca frita', price: 0},
+                        {title: 'Papas fritas', price: 0},
+                        {title: 'Arroz', price: 0},
+                    ],
+                    sides: [],
+                    pic: 'picada_mixta.jpg',
                     price: 0,
                     type: 'main',
                 },
@@ -827,7 +913,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'langosta_al_ajillo.jpg',
                     price: 35,
                     type: 'main',
                 },
@@ -843,7 +930,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'langostinos_al_ajillo.jpg',
                     price: 12,
                     type: 'main',
                 },
@@ -859,7 +947,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'camarones_al_ajillo.jpg',
                     price: 10,
                     type: 'main',
                 },
@@ -875,7 +964,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'camarones_apanados.jpeg',
                     price: 10,
                     type: 'main',
                 },
@@ -891,7 +981,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'mixto_de_mariscos.jpg',
                     price: 10,
                     type: 'main',
                 },
@@ -907,7 +998,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'patacones_rellenos_de_mixtos.jpg',
                     price: 10,
                     type: 'main',
                 },
@@ -923,7 +1015,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'patacones_rellenos_de_camaraones.jpg',
                     price: 12,
                     type: 'main',
                 },
@@ -939,7 +1032,8 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'tender_de_pollo.jpg',
                     price: 8,
                     type: 'main',
                 },
@@ -949,7 +1043,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'ceviche_de_corvina.jpg',
                     price: 2,
                     type: 'ceviche',
                 },
@@ -959,7 +1054,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'coctail_de_camaron.jpg',
                     price: 3.5,
                     type: 'ceviche',
                 },
@@ -969,7 +1065,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'ceviche_de_pulpo.jpg',
                     price: 3,
                     type: 'ceviche',
                 },
@@ -979,7 +1076,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'ceviche_de_combinacion.jpg',
                     price: 4,
                     type: 'ceviche',
                 },
@@ -989,7 +1087,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'ceviche_de_concha_negra.jpg',
                     price: 4.5,
                     type: 'ceviche',
                 },
@@ -999,7 +1098,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'coctail_de_combinacion.jpg',
                     price: 4.25,
                     type: 'ceviche',
                 },
@@ -1009,7 +1109,8 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
-                    pic: '',
+                    sides: [],
+                    pic: 'coctail_de_camaron.jpg',
                     price: 4,
                     type: 'ceviche',
                 },
@@ -1024,6 +1125,7 @@ export default {
                         {title: 'Soberana', price: 0},
                     ],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 1.25,
                     type: 'drink',
@@ -1037,6 +1139,7 @@ export default {
                         {title: 'Coors Light', price: 0},
                     ],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -1047,6 +1150,7 @@ export default {
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2.5,
                     type: 'drink',
@@ -1057,6 +1161,7 @@ export default {
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2.5,
                     type: 'drink',
@@ -1067,6 +1172,7 @@ export default {
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -1081,6 +1187,7 @@ export default {
                         {title: 'Ginger Ale', price: 0},
                     ],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 1,
                     type: 'drink',
@@ -1091,6 +1198,7 @@ export default {
                     desc: '',
                     options: [{title: 'Botella', price: 0}],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 1,
                     type: 'drink',
@@ -1101,6 +1209,7 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -1111,6 +1220,7 @@ export default {
                     desc: '',
                     options: [{title: 'Regular', price: 0}],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2,
                     type: 'drink',
@@ -1127,6 +1237,7 @@ export default {
                         {title: 'Arroz', price: 0},
                     ],
                     styles: [],
+                    sides: [],
                     pic: '',
                     price: 2,
                     type: 'side',
@@ -1155,6 +1266,56 @@ export default {
                 if (m.type === type) return m
             })
         },
+        addItemToCart() {
+            if (!this.checkIfDuplicate()) {
+                this.selectedItem.amount = 1
+                this.cart.push(this.selectedItem)
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            } else {
+                this.cart.forEach(c => {
+                    if (
+                        c.type === this.selectedItem.type &&
+                        c.title === this.selectedItem.title &&
+                        c.options.title === this.selectedItem.options.title &&
+                        c.styles.title === this.selectedItem.styles.title &&
+                        c.sides.title === this.selectedItem.sides.title
+                    ) {
+                        c.amount++
+                    }
+                })
+                this.optionsDialog = false
+                this.successDialog = true
+                this.calculateTotal()
+            }
+        },
+        handleDialogs(section, item) {
+            //option, style, side
+            if (section === 'option') {
+                this.selectedItem.options = item
+                this.optionsDialog = false
+                if (this.menu[this.selectedItemIndex].styles.length > 0) {
+                    this.stylesDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'style') {
+                this.selectedItem.styles = item
+                this.stylesDialog = false
+                if (this.menu[this.selectedItemIndex].sides.length > 0) {
+                    this.sideDialog = true
+                } else {
+                    this.addItemToCart()
+                }
+            }
+            if (section === 'side') {
+                this.sideDialog = false
+                this.selectedItem.sides = item
+                this.addItemToCart()
+            }
+        },
         selectItem(item) {
             let itemInMenu = this.menu.filter((m, index) => {
                 if (m.title === item.title) {
@@ -1162,14 +1323,9 @@ export default {
                     return m
                 }
             })
-            this.selectedItem = Object.assign(
-                {},
-                this.menu[this.selectedItemIndex]
+            this.selectedItem = JSON.parse(
+                JSON.stringify(this.menu[this.selectedItemIndex])
             )
-            if (this.selectedItem.styles.length > 0) {
-                this.stylesDialog = true
-                return
-            }
             this.optionsDialog = true
         },
         checkIfDuplicate() {
@@ -1182,7 +1338,8 @@ export default {
                 if (
                     c.type === this.selectedItem.type &&
                     c.title === this.selectedItem.title &&
-                    c.options.title === this.selectedItem.options.title
+                    c.options.title === this.selectedItem.options.title &&
+                    c.styles.title === this.selectedItem.styles.title
                 ) {
                     isDuplicate = true
                 }
@@ -1190,73 +1347,8 @@ export default {
 
             return isDuplicate
         },
-        addItemToCart(section, item) {
-            if (section === 'style') {
-                this.selectedItem.styles = item
-                this.stylesDialog = false
-                this.optionsDialog = true
-            } else {
-                this.selectedItem.options = item
-                if (!this.checkIfDuplicate()) {
-                    this.selectedItem.amount = 1
-                    this.cart.push(this.selectedItem)
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                } else {
-                    this.cart.forEach(c => {
-                        if (
-                            c.type === this.selectedItem.type &&
-                            c.title === this.selectedItem.title &&
-                            c.options.title === this.selectedItem.options.title
-                        ) {
-                            c.amount++
-                        }
-                    })
-                    this.optionsDialog = false
-                    this.successDialog = true
-                    this.calculateTotal()
-                }
-            }
-        },
         removeItemFromCart(i) {
             this.cart.splice(i, 1)
-        },
-        getLocationForMessage() {
-            if (this.location.length <= 0) {
-                let lat = parseFloat(this.center.lat)
-                let lng = parseFloat(this.center.lng)
-                if (lat < 0) lat = `+${lat}`
-                if (lng < 0) lng = `+${lng}`
-                return `https://www.google.com/maps?q=${lat},${lng}`
-            } else {
-                let lat = parseFloat(this.location.lat)
-                let lng = parseFloat(this.location.lng)
-                if (lat < 0) lat = `+${lat}`
-                if (lng < 0) lng = `+${lng}`
-                return `https://www.google.com/maps?q=${lat},${lng}`
-            }
-        },
-        setMarkerPosition(event) {
-            this.location = event
-        },
-        geolocate() {
-            navigator.geolocation.getCurrentPosition(
-                position => {
-                    this.center = {
-                        lat: parseFloat(position.coords.latitude),
-                        lng: parseFloat(position.coords.longitude),
-                    }
-                    this.markers.push({position: this.center})
-                },
-                error => {
-                    this.center = {
-                        lat: parseFloat(9.068463),
-                        lng: parseFloat(-79.452694),
-                    }
-                    this.markers.push({position: this.center})
-                }
-            )
         },
         calculateTotal() {
             let total = 0
@@ -1264,25 +1356,22 @@ export default {
                 if (c.price) total += c.price * c.amount
                 if (c.options.price) total += c.options.price * c.amount
                 if (c.styles.price) total += c.styles.price * c.amount
+                if (c.sides.price) total += c.sides.price * c.amount
             })
             this.total = total
         },
         generateMessage() {
             let message =
-                'Buenas, me gustaria realizar un pedido de:%0D%0A%0D%0A'
+                'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             for (let item of this.cart) {
-                if (item.type == 'starter')
-                    message += `- (${item.amount}) ${item.title}%0D%0A`
-                if (item.type == 'main')
-                    message += `- (${item.amount}) ${item.title} ${
-                        item.styles.title ? '- ' + item.styles.title + ' ' : ''
-                    } - ${item.options.title}%0D%0A`
-                if (item.type == 'ceviche')
-                    message += `- (${item.amount}) ${item.title}%0D%0A`
-                if (item.type == 'side')
-                    message += `- (${item.amount}) Extra - ${item.title} - ${item.options.title}%0D%0A`
-                if (item.type == 'drink')
-                    message += `- (${item.amount}) ${item.title} - ${item.options.title}%0D%0A`
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                if (item.styles.title != undefined) {
+                    message += `- ${item.styles.title}`
+                }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
+                }
+                message += `%0D%0A`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
             if (this.selectedPickupMethod == 'Delivery') {
@@ -1292,8 +1381,8 @@ export default {
             }
             message += `%0D%0AMetodo de entrega: ${
                 this.selectedPickupMethod
-            }%0D%0AMetodo de pago: ${
-                this.selectedPaymentMethod
+            }%0D%0AMetodo de pago: ${this.selectedPaymentMethod}%0D%0ALocal: ${
+                this.selectedPremises
             }%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
@@ -1336,9 +1425,107 @@ export default {
                 'user_l9KYZVj8DNvwXi3kegar5'
             )
         },
+        async sendToGoogleDriveSheet() {
+            let message = ''
+            for (let item of this.cart) {
+                message += `- (${item.amount}) ${item.title} - ${item.options.title}`
+                if (item.styles.title != undefined) {
+                    message += `- ${item.styles.title}`
+                }
+                if (item.sides.title != undefined) {
+                    message += `- ${item.sides.title}`
+                }
+                message += `\n`
+            }
+            let data = {
+                id: this.orderNo,
+                pedido: message,
+                nombre: this.name,
+                status: 'orden creada',
+                total: this.total,
+                local: this.selectedPremises,
+                metodo_de_pago: this.selectedPaymentMethod,
+                metodo_de_entrega: this.selectedPickupMethod,
+            }
+            if (data.metodo_de_entrega === 'Delivery') {
+                data.direcion_1 = this.getLocationForMessage()
+                data.direcion_2 = this.address
+            }
+            var url =
+                'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
+            var xhr = new XMLHttpRequest()
+            xhr.open('POST', url)
+            // xhr.withCredentials = true;
+            xhr.setRequestHeader(
+                'Content-Type',
+                'application/x-www-form-urlencoded'
+            )
+            // url encode form data for sending as post data
+            var encoded = Object.keys(data)
+                .map(function (k) {
+                    return (
+                        encodeURIComponent(k) +
+                        '=' +
+                        encodeURIComponent(data[k])
+                    )
+                })
+                .join('&')
+            await xhr.send(encoded)
+        },
+        getLocationForMessage() {
+            if (this.location.length === 0) {
+                if (
+                    parseFloat(this.center.lat) ===
+                        parseFloat(this.defaultLat) &&
+                    parseFloat(this.center.lng) === parseFloat(this.defaultLng)
+                ) {
+                    return `>> Pedir Ubicacion !!`
+                } else {
+                    if (this.center.lat < 0)
+                        this.center.lng = `+${this.center.lng}` //Google Maps
+                    if (this.center.lng < 0)
+                        this.center.lng = `+${this.center.lng}` //Google Maps
+                    return `https://www.google.com/maps?q=${this.center.lat},${this.center.lng}`
+                    // return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
+                }
+            } else {
+                let lat = parseFloat(this.location.lat)
+                let lng = parseFloat(this.location.lng)
+                if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
+                if (lat < 0) lat = `+${lat}` //Google Maps
+                if (lng < 0) lng = `+${lng}` //Google Maps
+                return `https://www.google.com/maps?q=${lat},${lng}`
+                // return `https://waze.com/ul?ll=${lat},${lng}&z=10`
+            }
+        },
+        setMarkerPosition(event) {
+            this.location = event
+        },
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.center = {
+                        lat: parseFloat(position.coords.latitude),
+                        lng: parseFloat(position.coords.longitude),
+                    }
+                    this.markers.push({position: this.center})
+                },
+                error => {
+                    this.center = {
+                        lat: parseFloat(this.defaultLat),
+                        lng: parseFloat(this.defaultLng),
+                    }
+                    this.markers.push({position: this.center})
+                }
+            )
+        },
         async sendChat() {
             if (this.name == '') {
                 alert('Debes ingresar tu nombre para enviar el pedido.')
+                return
+            }
+            if (this.selectedPremises == '') {
+                alert('Debes el local de servicio.')
                 return
             }
             if (this.selectedPickupMethod == '') {
@@ -1369,19 +1556,7 @@ export default {
             }
         },
     },
-    mounted() {
-        this.$store.commit('SET_DISPLAYFOOTER', false)
-        let path = this.$route.params.path
-        this.$analytics.logEvent('wp-ceciliapescao', {
-            path,
-        })
-        this.geolocate()
-    },
     watch: {
-        selectedArea() {
-            this.cart = []
-            this.calculateTotal()
-        },
         cart() {
             this.calculateTotal()
             if (this.cart.length > 0) {
@@ -1392,6 +1567,24 @@ export default {
                 this.$store.commit('SET_DISPLAYFOOTER', false)
             }
         },
+        // selectedPickupMethod() {
+        //     if (this.selectedPickupMethod == 'Delivery')
+        //         this.locationDialog = true
+        // },
+    },
+    components: {
+        GoogleMaps,
+    },
+    mounted() {
+        if (this.$hj) {
+            this.$hj('vpv', 'funnel-step-one')
+        }
+        this.$store.commit('SET_DISPLAYFOOTER', false)
+        let path = this.$route.params.path
+        this.$analytics.logEvent('wp-cerotranque', {
+            path,
+        })
+        this.geolocate()
     },
     components: {
         GoogleMaps,

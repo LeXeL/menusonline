@@ -1,6 +1,9 @@
 <template>
     <q-page class="bg-grey-2">
-        <q-img :src="require('@/assets/wp/demo/logo.jpg')" class="shadow-7" />
+        <q-img
+            :src="require('@/assets/wp/garageburgers/logo.jpg')"
+            class="shadow-7"
+        />
         <div class="q-pa-md">
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
                 REALIZA TU PEDIDO
@@ -18,7 +21,15 @@
             />
             <!-- MENU ITEMS -->
             <div v-for="(item, i) in filterMenu(menu)" :key="i">
-                <div v-if="item.title == 'Hamburguesa Clasica'">
+                <div v-if="item.title == 'Alitas'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
+                    >
+                        ENTRADAS
+                    </div>
+                </div>
+
+                <div v-if="item.title == 'Hamburguesa clasica'">
                     <div
                         class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
                     >
@@ -26,25 +37,52 @@
                     </div>
                 </div>
 
-                <div v-if="item.title == 'HotDog Clasico'">
+                <div v-if="item.title == 'Salchipapas sencillas'">
                     <div
                         class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
                     >
-                        HOTDOGS
+                        SALCHIPAPAS
                     </div>
                 </div>
-
-                <div v-if="item.title == 'Picada de la Casa'">
+                <div v-if="item.title == 'Arepa con chorizo'">
                     <div
                         class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
                     >
-                        DE PICAR
+                        AREPAS
+                    </div>
+                </div>
+                <div v-if="item.title == 'Hotdog Sencillo'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
+                    >
+                        HOTDOG JUMBOS
+                    </div>
+                </div>
+                <div v-if="item.title == 'Pepito de Pollo'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
+                    >
+                        PEPITOS
+                    </div>
+                </div>
+                <div v-if="item.title == 'Burrito de Pollo'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
+                    >
+                        BURRITOS
+                    </div>
+                </div>
+                <div v-if="item.title == 'Combo 1'">
+                    <div
+                        class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
+                    >
+                        COMBOS
                     </div>
                 </div>
                 <q-card class="full-width q-mb-lg">
                     <q-img
                         v-if="item.pic"
-                        :src="require(`@/assets/wp/demo/${item.pic}`)"
+                        :src="require(`@/assets/wp/garageburgers/${item.pic}`)"
                     />
                     <q-card-section class="q-pb-none">
                         <div class="row">
@@ -406,7 +444,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
+                                    this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             :editable="true"
@@ -453,7 +491,7 @@
                                         v-if="selectedPaymentMethod == 'Yappy'"
                                     >
                                         Realiza tus pagos Yappy al
-                                        <br />6204-2578.
+                                        <br />6890-9064.
                                     </div>
                                 </div>
                             </div>
@@ -539,13 +577,23 @@ export default {
     data() {
         return {
             selectedCategory: null,
-            categories: ['Hamburguesas', 'Hotdogs', 'De Picar'],
+            categories: [
+                'Todo',
+                'Entradas',
+                'Hamburguesas',
+                'Salchipapas',
+                'Arepas',
+                'Hotdogs',
+                'Pepitos',
+                'Burritos',
+                'Combos',
+            ],
             orderNo: '',
             name: '',
             specialComments: '',
             selectedItemIndex: 0,
             seamless: false,
-            whatsappNumber: '66083084',
+            whatsappNumber: '68909064',
             selectedItem: {},
             paymentMethods: [
                 {label: 'Yappy', value: 'Yappy'},
@@ -568,8 +616,8 @@ export default {
             location: [],
             markers: [],
             center: {},
-            defaultLat: 8.92773,
-            defaultLng: -79.729467,
+            defaultLat: 8.92788,
+            defaultLng: -79.726955,
             optionsDialog: false,
             stylesDialog: false,
             sideDialog: false,
@@ -579,210 +627,964 @@ export default {
             cart: [],
             menu: [
                 {
-                    title: 'Hamburguesa Clasica',
-                    desc:
-                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
-                    type: 'burger',
-                    pic: 'hamburguesa.jpg',
-                    price: 6.5,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                        {
-                            title: 'Papas Fritas',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Aros de cebolla',
-                            price: 1.75,
-                        },
-                    ],
-                },
-                {
-                    title: 'Hamburguesa con Queso y Bacon',
-                    desc:
-                        'Deliciosa carne angus hecha a la parrilla, queso amarillo, lechuga, tomate y deliciosas tiras de bacon.',
-                    type: 'burger',
-                    pic: 'bacon.jpg',
-                    price: 7.5,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                        {
-                            title: 'Papas Fritas',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Aros de cebolla',
-                            price: 1.75,
-                        },
-                    ],
-                },
-                {
-                    title: 'HotDog Clasico',
-                    desc: 'Hotdog clasico con pico de gallo y queso fundido.',
-                    type: 'hotdog',
-                    pic: 'hotdog_clasico.jpg',
-                    price: 7.5,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                        {
-                            title: 'Papas Fritas',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Aros de cebolla',
-                            price: 1.75,
-                        },
-                    ],
-                },
-                {
-                    title: 'ChilliDog',
-                    desc:
-                        'Hotdog con chille, queso y cebolla picada en pan artesanal.',
-                    type: 'hotdog',
-                    pic: 'hotdog.jpg',
-                    price: 7.5,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                        {
-                            title: 'Papas Fritas',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Aros de cebolla',
-                            price: 1.75,
-                        },
-                    ],
-                },
-                {
-                    title: 'HotDog Hawaiano',
-                    desc:
-                        'Hotdog con mayonesa, queso blanco, papitas trituradas y mermelada de piña.',
-                    type: 'hotdog',
-                    pic: 'hawaiano.jpg',
-                    price: 6.75,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                        {
-                            title: 'Papas Fritas',
-                            price: 1.5,
-                        },
-                        {
-                            title: 'Aros de cebolla',
-                            price: 1.75,
-                        },
-                    ],
-                },
-                {
-                    title: 'Picada de la Casa',
-                    desc:
-                        'Picada mixta con trocitos de carne de res, puerco, pollo, papas fritas, platanitos, aros de cebolla, lechuga y tomate.',
-                    type: 'mix',
-                    pic: 'picada.jpg',
-                    price: 0,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: '2 Personas',
-                            price: 8.25,
-                        },
-                        {
-                            title: '4 Personas',
-                            price: 15.0,
-                        },
-                    ],
-                },
-                {
                     title: 'Alitas',
                     desc:
-                        'Elija entre 6 o 10 unidades de alitas + 2 salsas de su eleccion.',
-                    type: 'mix',
-                    pic: 'wings.jpg',
-                    price: 0,
+                        '6 Unidades de alitas a la BBQ / Mostaza Miel, acompañadas con pasas fritas.',
+                    type: 'starter',
+                    pic: 'alitas_2.jpeg',
+                    price: 4.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Bowl Western',
+                    desc: 'Papas western, carne molida, queso cheddar, bacon.',
+                    type: 'starter',
+                    pic: 'bowl_western.jpeg',
+                    price: 5.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Nachos',
+                    desc:
+                        'Tortillas de maiz, carne molida, pico de gallo, queso cheddar.',
+                    type: 'starter',
+                    pic: 'nachos_no_go.jpeg',
+                    price: 3.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchitortillas',
+                    desc:
+                        'Tortillas de maiz, salchichas jumbo, queso, salsa de la casa.',
+                    type: 'starter',
+                    pic: '',
+                    price: 2.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa clasica',
+                    desc: 'Carne, queso cheddar, bacon, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 2,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Garage Burger',
+                    desc:
+                        'Carne, queso cheddar, bacon, lechuga, tomate, cebolla, salsas de la casa.',
+                    type: 'burger',
+                    pic: 'garage_burger.jpeg',
+                    price: 3,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Starchicken',
+                    desc:
+                        'Milanesa de pollo, queso cheddar, bacon, lechuga, tomate, cebolla, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 3,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Bacon Burger',
+                    desc: 'Carne, bacon, papitas fosforito, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 3.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Especial',
+                    desc:
+                        'Carne, queso, cheddar, bacon, huevo frito, lechuga, tomate, cebolla , salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 4,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Doble',
+                    desc:
+                        '2 Carnes, queso cheddar, bacon, tomate, lechuga, cebolla, salsas de la casa.',
+                    type: 'burger',
+                    pic: 'doble.jpeg',
+                    price: 4.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Triple',
+                    desc:
+                        'Carne, pollo, chuleta, queso cheddar, lechuga, tomate, cebolla, salsas de la casa.',
+                    type: 'burger',
+                    pic: '',
+                    price: 6,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Bacon Cheddar',
+                    desc:
+                        '2 Carnes, queso cheddar, bacon, papitas fosforitos, salsas de la casa.',
+                    type: 'burger',
+                    pic: 'bacon_cheddar.jpeg',
+                    price: 4.25,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Especial Premium',
+                    desc:
+                        'Carne, queso cheddar, bacon, huevo, tajada, lechuga, tomate, cebolla, salsas de la casa.',
+                    type: 'burger',
+                    pic: 'especial_premium.jpeg',
+                    price: 4.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hamburguesa Bacon Premium',
+                    desc:
+                        'Carne, queso mozzarella bacon, cebollas, acaramelizadas, papitas fosforito, salsas de la casa.',
+                    type: 'burger',
+                    pic: 'bacon_premium.jpeg',
+                    price: 4.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas sencillas',
+                    desc:
+                        'Papas fritas, salchicha jumbo, queso, salsas de la casa.',
+                    type: 'salchipapas',
+                    pic: 'salchipapas.jpeg',
+                    price: 2.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas con bacon',
+                    desc:
+                        'Papas fritas, salchicha jumbo, queso, bacon, maíz, salsas de la casa.',
+                    type: 'salchipapas',
+                    pic: '',
+                    price: 3,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas con chorizo',
+                    desc:
+                        'Papas fritas, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'salchipapas',
+                    pic: '',
+                    price: 3.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas con pollo',
+                    desc:
+                        'Papas fritas, pollo, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'salchipapas',
+                    pic: '',
+                    price: 4.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas con carne',
+                    desc:
+                        'Papas fritas, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'salchipapas',
+                    pic: '',
+                    price: 5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas de combinacion',
+                    desc:
+                        'Papas fritas, pollo, carne, salchicha jumbo, chorizo, queso, maíz, salsas de la casa.',
+                    type: 'salchipapas',
+                    pic: '',
+                    price: 6,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Arepa con chorizo',
+                    desc:
+                        'Arepa con chorizo, queso mozzarella, salsa de la casa.',
+                    type: 'arepa',
+                    pic: 'arepa.jpeg',
+                    price: 3,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Arepa con pollo',
+                    desc:
+                        'Arepa con pollo, queso mozzarella, salsa de la casa.',
+                    type: 'arepa',
+                    pic: '',
+                    price: 3.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Arepa con copa vieja',
+                    desc:
+                        'Arepa con ropa vieja, queso mozzarella, salsa de la casa.',
+                    type: 'arepa',
+                    pic: '',
+                    price: 3.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Arepa de combinacion',
+                    desc:
+                        'Arepa combinación, ropa vieja, pollo, chorizo, queso mozzarella, salsa de la casa.',
+                    type: 'arepa',
+                    pic: '',
+                    price: 4,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hotdog Sencillo',
+                    desc: 'Ensalada de repollo y zanahoria, salsas de la casa.',
+                    type: 'hotdog',
+                    pic: '',
+                    price: 1.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hotdog Especial',
+                    desc:
+                        'Ensalada de repollo y zanahoria, papitas fosforito, queso, bacon, salsa de la casa.',
+                    type: 'hotdog',
+                    pic: 'hotdog_jumbo_especial.jpeg',
+                    price: 2.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hotdog Tropical',
+                    desc:
+                        'Ensalada de repollo y zanahoria, huevo sancochado, papitas fosforitos, bacon, salsas de la casa.',
+                    type: 'hotdog',
+                    pic: '',
+                    price: 3,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hotdog Premium',
+                    desc:
+                        'Bacon, queso mozzarella, papitas fosforito, salsas de la casa.',
+                    type: 'hotdog',
+                    pic: '',
+                    price: 3.25,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Hotdog con Chili',
+                    desc: 'Carne molida, pico de gallo, bacon, queso cheddar.',
+                    type: 'hotdog',
+                    pic: 'hotdog_chili.jpeg',
+                    price: 3.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Pepito de Pollo',
+                    desc:
+                        'Pan de 1’ pie, lechuga, tomate, papas fritas, bacon, queso, maiz, salsas de la casa.',
+                    type: 'pepito',
+                    pic: '',
+                    price: 5.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Pepito de Carne',
+                    desc:
+                        'Pan de 1’ pie, lechuga, tomate, papas fritas, bacon, queso, maíz, salsas de la casa.',
+                    type: 'pepito',
+                    pic: '',
+                    price: 5.75,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Pepito de Chuleta Ahumada',
+                    desc:
+                        'Pan de 1’ pie, lechuga, tomate, papas fritas, bacon, queso, maíz, salsas de la casa.',
+                    type: 'pepito',
+                    pic: '',
+                    price: 5.75,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Pepito de Combinacion',
+                    desc:
+                        'Pan de 1’ pie, lechuga, tomate, papas fritas, bacon, queso, maíz, salsas de la casa.',
+                    type: 'pepito',
+                    pic: '',
+                    price: 6.25,
                     count: 0,
                     styles: [
                         {
-                            title: 'BBQ',
+                            title: 'Regular',
                             price: 0,
                         },
                         {
-                            title: 'Honey Mustard',
-                            price: 0,
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
                         },
                         {
-                            title: 'Buffalo',
-                            price: 0,
-                        },
-                        {
-                            title: 'Honey BBQ',
-                            price: 0,
-                        },
-                        {
-                            title: 'Garlic',
-                            price: 0,
+                            title: 'Papas western y soda',
+                            price: 2,
                         },
                     ],
-                    sides: [
-                        {
-                            title: 'BBQ',
-                            price: 0,
-                        },
-                        {
-                            title: 'Honey Mustard',
-                            price: 0,
-                        },
-                        {
-                            title: 'Buffalo',
-                            price: 0,
-                        },
-                        {
-                            title: 'Honey BBQ',
-                            price: 0,
-                        },
-                        {
-                            title: 'Garlic',
-                            price: 0,
-                        },
-                    ],
+                    sides: [],
                     options: [
                         {
-                            title: '6 unidades',
-                            price: 4.25,
+                            title: 'Carne / Pollo',
+                            price: 0,
                         },
                         {
-                            title: '10 unidades',
-                            price: 5.75,
+                            title: 'Carne / Chuleta',
+                            price: 0,
+                        },
+                        {
+                            title: 'Pollo / Chuleta',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Pepito Triple',
+                    desc:
+                        'Pan de 1’ pie, Carne, pollo, chuleta, lechuga, tomate, papas fritas, bacon, queso, maíz, salsas de la casa.',
+                    type: 'pepito',
+                    pic: '',
+                    price: 7,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Pepito Ayala Vida',
+                    desc:
+                        'Pan de 2’ pie, Carne, pollo, chuleta, chorizo, lechuga, tomate, papas fritas, bacon, queso, maíz, salsas de la casa.',
+                    type: 'pepito',
+                    pic: '',
+                    price: 16,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Burrito de Pollo',
+                    desc:
+                        'Pico de gallo, maíz, queso mozzarella, salsa de la casa.',
+                    type: 'burrito',
+                    pic: 'burritos.jpeg',
+                    price: 3,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Burrito de Carne',
+                    desc: 'Pico de gallo, maíz, queso, salsa de la casa.',
+                    type: 'burrito',
+                    pic: '',
+                    price: 3.25,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Burrito de Combinacion',
+                    desc:
+                        'Pollo, carne, pico de gallo, maíz, queso mozzarella, salsa de la casa.',
+                    type: 'burrito',
+                    pic: '',
+                    price: 4,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                        {
+                            title: 'Papas fritas y soda',
+                            price: 1.75,
+                        },
+                        {
+                            title: 'Papas western y soda',
+                            price: 2,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo 1',
+                    desc:
+                        '1 salchipapas sencillas, 2 hotdog jumbos sencillos, 2 hotdogjumbo especial, 2 sodas de lata.',
+                    type: 'combo',
+                    pic: '',
+                    price: 12,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo 2',
+                    desc:
+                        '4 hamburguesas clásicas, 6 alitas a la BBQ / mostaza miel con papas, 1 Coca-Cola de 1.5 L',
+                    type: 'combo',
+                    pic: '',
+                    price: 14.5,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo 3',
+                    desc:
+                        '1 Salchitortillas, 2 hotdog jumbos premium, 1 nachos, 2 sodas de lata.',
+                    type: 'combo',
+                    pic: '',
+                    price: 14,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo 4',
+                    desc:
+                        '1 Salchitortillas, 2 hotdog jumbos premium, 1 nachos, 2 sodas de lata.',
+                    type: 'combo',
+                    pic: '',
+                    price: 14,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo 5',
+                    desc:
+                        '6 alitas a la BBQ / mostaza miel con papas, 1 nachos, 2 hamburguesas clásicas, 2 hamburguesas garage, 1 Coca-Cola de 1.5 L',
+                    type: 'combo',
+                    pic: '',
+                    price: 20,
+                    count: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
                         },
                     ],
                 },
@@ -799,9 +1601,14 @@ export default {
             if (this.selectedCategory === null) {
                 return this.menu
             }
+            if (this.selectedCategory === 'Entradas') type = 'starter'
             if (this.selectedCategory === 'Hamburguesas') type = 'burger'
+            if (this.selectedCategory === 'Salchipapas') type = 'salchipapas'
+            if (this.selectedCategory === 'Arepas') type = 'arepa'
             if (this.selectedCategory === 'Hotdogs') type = 'hotdog'
-            if (this.selectedCategory === 'De Picar') type = 'mix'
+            if (this.selectedCategory === 'Pepitos') type = 'pepito'
+            if (this.selectedCategory === 'Burritos') type = 'burrito'
+            if (this.selectedCategory === 'Combos') type = 'combo'
             return menu.filter(m => {
                 if (m.type === type) return m
             })
@@ -958,7 +1765,7 @@ export default {
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -968,7 +1775,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function (k) {
+                .map(function(k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +
@@ -1049,10 +1856,10 @@ export default {
                 return
             } else {
                 this.orderNo = Math.floor(100000 + Math.random() * 900000)
-                this.$analytics.logEvent('wp-demo', {
+                this.$analytics.logEvent('wp-garageburgers', {
                     content_action: 'Orden Completada',
                 })
-                await this.sendToGoogleDriveSheet()
+                // await this.sendToGoogleDriveSheet()
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
@@ -1084,7 +1891,7 @@ export default {
         }
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
-        this.$analytics.logEvent('wp-demo', {
+        this.$analytics.logEvent('wp-garageburgers', {
             path,
         })
         this.geolocate()
