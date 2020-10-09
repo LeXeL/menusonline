@@ -22,6 +22,7 @@ import 'aos/dist/aos.css'
 //WP COMPONENTS
 import InputText from '@/components/wp/InputText'
 import TextArea from '@/components/wp/TextArea'
+import ButtonGroup from '@/components/wp/ButtonGroup'
 
 AOS.init()
 
@@ -69,6 +70,7 @@ Vue.component('confirm-dialog', Confirm)
 //WP COMPONENTS
 Vue.component('input-text', InputText)
 Vue.component('text-area', TextArea)
+Vue.component('button-group', ButtonGroup)
 
 Vue.prototype.$analytics = firebase.analytics()
 
