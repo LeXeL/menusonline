@@ -101,11 +101,11 @@ export default new Router({
                     name: 'panamahotdog',
                     component: PanamaHotdog,
                 },
-                {
-                    path: '/wp/decoralid',
-                    name: 'decoralid',
-                    component: Decoralid,
-                },
+                // {
+                //     path: '/wp/decoralid',
+                //     name: 'decoralid',
+                //     component: Decoralid,
+                // },
                 {
                     path: '/wp/ricasazon',
                     name: 'ricasazon',
