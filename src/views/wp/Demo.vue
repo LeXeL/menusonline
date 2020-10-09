@@ -325,8 +325,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row q-mb-md">
-                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                        <input-text :label="'Nombre'" :placeholder="'Nombre Apellido'" :isRequired="true" :accentColor="'orange-9'"/>
+                            <!-- <div class="text-subtitle2 poppins-bold q-mb-sm">
                                 Nombre: *
                             </div>
                             <q-input
@@ -338,8 +338,7 @@
                                 placeholder="Nombre Apellido"
                                 color="orange-9"
                                 data-hj-allow
-                            />
-                        </div>
+                            /> -->
                         <!-- <div class="row q-mb-md">
                             <div
                                 class="text-subtitle2 poppins-bold q-mb-sm"
