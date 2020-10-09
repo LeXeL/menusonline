@@ -4,13 +4,14 @@
             {{ label }}: <span v-if="isRequired">*</span>
         </div>
         <q-btn-toggle
+            v-model="selectedOption"
             spread
             all-caps
             class="poppins-bold full-width"
             :toggle-color="accentColor"
             color="white"
             text-color="black"
-            :options="paymentMethods"
+            :options="options"
             
         />
     </div>
@@ -21,11 +22,7 @@ export default {
     props: ['label', 'options', 'isRequired', 'accentColor'],
     data() {
         return {
-            paymentMethods: [
-                {label: 'Yappy', value: 'Yappy'},
-                {label: 'Efectivo', value: 'Efectivo'},
-                {label: 'Tarjeta', value: 'Tarjeta'},
-            ]
+            selectedOption: ''
         }
         
     }
