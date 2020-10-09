@@ -1,0 +1,24 @@
+<template>
+    <div class="row q-mb-md">
+        <div
+            class="text-subtitle2 poppins-bold q-mb-sm">
+            {{ label }}: <span v-if="isRequired">*</span>
+        </div>
+        <q-input
+            filled
+            dark
+            type="textarea"
+            class="full-width poppins-regular"
+            :placeholder="placeholder"
+            :color="accentColor"
+            rows="4"
+            data-hj-allow
+        />
+    </div>
+</template>
+
+<script>
+export default {
+    props: ['label', 'placeholder', 'isRequired', 'accentColor'],
+}
+</script>

@@ -326,35 +326,7 @@
                             </div>
                         </div>
                         <input-text :label="'Nombre'" :placeholder="'Nombre Apellido'" :isRequired="true" :accentColor="'orange-9'"/>
-                            <!-- <div class="text-subtitle2 poppins-bold q-mb-sm">
-                                Nombre: *
-                            </div>
-                            <q-input
-                                v-model="name"
-                                filled
-                                dark
-                                type="text"
-                                class="full-width poppins-regular"
-                                placeholder="Nombre Apellido"
-                                color="orange-9"
-                                data-hj-allow
-                            /> -->
-                        <!-- <div class="row q-mb-md">
-                            <div
-                                class="text-subtitle2 poppins-bold q-mb-sm"
-                            >Comentarios especiales de tu pedido:</div>
-                            <q-input
-                                v-model="specialComments"
-                                filled
-                                dark
-                                type="textarea"
-                                class="full-width poppins-regular"
-                                placeholder="Las hamburguesas sin ketchup porfavor."
-                                color="red-7"
-                                rows="4"
-                                data-hj-allow
-                            />
-                        </div>-->
+                        <text-area :label="'Comentarios especiales de tu pedido'" :placeholder="'La hamburguesa son mayonesa porfavor'" :isRequired="true" :accentColor="'orange-9'"/>
                         <!-- <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
                                 Local: *
