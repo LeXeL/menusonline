@@ -325,8 +325,10 @@
                                 </div>
                             </div>
                         </div>
-                        <input-text :label="'Nombre'" :placeholder="'Nombre Apellido'" :isRequired="true" :accentColor="'orange-9'"/>
-                        <text-area :label="'Comentarios especiales de tu pedido'" :placeholder="'La hamburguesa son mayonesa porfavor'" :isRequired="true" :accentColor="'orange-9'"/>
+                        <div v-for="(input, i) in cartSettings.inputData" :key="i">
+                            <input-text v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor"/>
+                            <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor"/>
+                        </div>
                         <button-group :label="'Metodo de pago'" :isRequired="true" :accentColor="'orange-9'" :options="paymentMethods"/>
                         
                         <div
@@ -455,6 +457,24 @@ export default {
     },
     data() {
         return {
+            arr: [],
+            cartSettings: {
+                accentColor: 'orange-9',
+                inputData: [
+                    {
+                        type: 'text',
+                        label: 'Nombre',
+                        required: true,
+                        placeholder: 'Nombre Apellido'
+                    },
+                    {
+                        type: 'textarea',
+                        label: 'Comentarios especiales',
+                        required: false,
+                        placeholder: 'La hamburguesa son mayonesa porfavor'
+                    }
+                ]
+            },
             selectedCategory: null,
             categories: ['Hamburguesas', 'Hotdogs', 'De Picar'],
             orderNo: '',

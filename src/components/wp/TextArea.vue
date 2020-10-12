@@ -5,6 +5,7 @@
             {{ label }}: <span v-if="isRequired">*</span>
         </div>
         <q-input
+            v-model="value"
             filled
             dark
             type="textarea"
@@ -20,5 +21,10 @@
 <script>
 export default {
     props: ['label', 'placeholder', 'isRequired', 'accentColor'],
+    data() {
+        return {
+            value: ''
+        }
+    }
 }
 </script>
