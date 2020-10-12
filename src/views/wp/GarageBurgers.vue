@@ -664,7 +664,7 @@ export default {
                     desc:
                         'Tortillas de maiz, carne molida, pico de gallo, queso cheddar.',
                     type: 'starter',
-                    pic: 'nachos_no_go.jpeg',
+                    pic: 'nachos.jpeg',
                     price: 3.5,
                     count: 0,
                     styles: [],
@@ -697,7 +697,7 @@ export default {
                     title: 'Hamburguesa clasica',
                     desc: 'Carne, queso cheddar, bacon, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'hamburguesa_clasica.jpeg',
                     price: 2,
                     count: 0,
                     styles: [],
@@ -722,7 +722,7 @@ export default {
                     desc:
                         'Carne, queso cheddar, bacon, lechuga, tomate, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: 'garage_burger.jpeg',
+                    pic: 'hamburguesa_garage_burger.jpeg',
                     price: 3,
                     count: 0,
                     styles: [],
@@ -747,7 +747,7 @@ export default {
                     desc:
                         'Milanesa de pollo, queso cheddar, bacon, lechuga, tomate, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'hamburguesa_starchicken.jpeg',
                     price: 3,
                     count: 0,
                     styles: [],
@@ -821,7 +821,7 @@ export default {
                     desc:
                         '2 Carnes, queso cheddar, bacon, tomate, lechuga, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: 'doble.jpeg',
+                    pic: 'hamburguesa_doble.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
@@ -846,7 +846,7 @@ export default {
                     desc:
                         'Carne, pollo, chuleta, queso cheddar, lechuga, tomate, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: '',
+                    pic: 'hamburguesa_triple.jpeg',
                     price: 6,
                     count: 0,
                     styles: [],
@@ -871,7 +871,7 @@ export default {
                     desc:
                         '2 Carnes, queso cheddar, bacon, papitas fosforitos, salsas de la casa.',
                     type: 'burger',
-                    pic: 'bacon_cheddar.jpeg',
+                    pic: 'hamburguesa_bacon_cheddar.jpeg',
                     price: 4.25,
                     count: 0,
                     styles: [],
@@ -896,7 +896,7 @@ export default {
                     desc:
                         'Carne, queso cheddar, bacon, huevo, tajada, lechuga, tomate, cebolla, salsas de la casa.',
                     type: 'burger',
-                    pic: 'especial_premium.jpeg',
+                    pic: 'hamburguesa_especial_premium.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
@@ -921,7 +921,7 @@ export default {
                     desc:
                         'Carne, queso mozzarella bacon, cebollas, acaramelizadas, papitas fosforito, salsas de la casa.',
                     type: 'burger',
-                    pic: 'bacon_premium.jpeg',
+                    pic: 'hamburguesa_bacon_premium_2.jpeg',
                     price: 4.5,
                     count: 0,
                     styles: [],
