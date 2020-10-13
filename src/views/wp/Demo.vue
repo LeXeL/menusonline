@@ -327,8 +327,8 @@
                         </div>
                         <div v-for="(input, i) in cartSettings.inputData" :key="i">
                             <input-text v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
-                            <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i"/>
-                            <button-group  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options" :index="i"/>
+                            <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
+                            <button-group  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options" :index="i" @update-value="updateValue"/>
                         </div>
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
@@ -753,7 +753,6 @@ export default {
     methods: {
         updateValue(e) {
             this.cartSettings.inputData[e.index].value = e.value
-            console.log(this.cartSettings)
         },
         filterMenu(menu) {
             let type = ''
@@ -1056,7 +1055,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 .poppins-regular {
