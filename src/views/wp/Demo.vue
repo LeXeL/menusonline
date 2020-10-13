@@ -22,7 +22,7 @@
                     <div
                         class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
                     >
-                        HAMBURGUESASS
+                        HAMBURGUESASSS
                     </div>
                 </div>
 
