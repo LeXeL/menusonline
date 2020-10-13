@@ -18,10 +18,15 @@
 
 <script>
 export default {
-    props: ['label', 'placeholder', 'isRequired', 'accentColor'],
+    props: ['label', 'placeholder', 'isRequired', 'accentColor', 'index'],
     data() {
         return {
             value: ''
+        }
+    },
+    watch: {
+        value: function() {
+            this.$emit('update-value', {value: this.value, index: this.index})
         }
     }
 }

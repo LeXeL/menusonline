@@ -326,9 +326,9 @@
                             </div>
                         </div>
                         <div v-for="(input, i) in cartSettings.inputData" :key="i">
-                            <input-text v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor"/>
-                            <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor"/>
-                            <button-group  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options"/>
+                            <input-text v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
+                            <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i"/>
+                            <button-group  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options" :index="i"/>
                         </div>
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
@@ -471,6 +471,7 @@ export default {
     },
     data() {
         return {
+            test: 0,
             cartSettings: {
                 accentColor: 'orange-9',
                 inputData: [
@@ -750,6 +751,10 @@ export default {
         }
     },
     methods: {
+        updateValue(e) {
+            this.cartSettings.inputData[e.index].value = e.value
+            console.log(this.cartSettings)
+        },
         filterMenu(menu) {
             let type = ''
             if (this.selectedCategory === 'Todo') {
