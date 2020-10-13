@@ -203,3 +203,13 @@ footer a:hover {
         width: 100%;
     }
 }
+
+.poppins-regular {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 400 !important;
+}
+
+.poppins-bold {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+}

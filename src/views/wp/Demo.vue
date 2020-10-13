@@ -283,17 +283,3 @@ export default {
 }
 
 </script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
-
-.poppins-regular {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 400;
-}
-
-.poppins-bold {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
-}
-</style>
