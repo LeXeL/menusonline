@@ -4,7 +4,7 @@
             {{ label }}: <span v-if="isRequired">*</span>
         </div>
         <q-btn-toggle
-            v-model="selectedOption"
+            v-model="value"
             spread
             all-caps
             class="poppins-bold full-width"
@@ -19,12 +19,16 @@
 
 <script>
 export default {
-    props: ['label', 'options', 'isRequired', 'accentColor'],
+    props: ['label', 'options', 'isRequired', 'accentColor', 'index'],
     data() {
         return {
-            selectedOption: ''
+            value: ''
         }
-        
+    },
+    watch: {
+        value: function() {
+            this.$emit('update-value', {value: this.value, index: this.index})
+        }
     }
 }
 </script>
