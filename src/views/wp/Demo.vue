@@ -17,8 +17,8 @@ export default {
                     {label: 'Hotdogs', value: 'hotdogs'},
                     {label: 'De Picar', value: 'de_picar'}
                 ],
-                whatsappNumber: '62042578',
-                wazeIntegration: true,
+                whatsappNumber: '66083084',
+                wazeIntegration: false,
                 googleSheets: {
                     integration: false,
                     url: 'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
