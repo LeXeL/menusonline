@@ -328,9 +328,23 @@
                         <div v-for="(input, i) in cartSettings.inputData" :key="i">
                             <input-text v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor"/>
                             <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor"/>
+                            <button-group  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options"/>
                         </div>
-                        <button-group :label="'Metodo de pago'" :isRequired="true" :accentColor="'orange-9'" :options="paymentMethods"/>
-                        
+                        <div class="row q-mb-md">
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Metodo de entrega: *
+                            </div>
+                            <q-btn-toggle
+                                v-model="selectedPickupMethod"
+                                spread
+                                all-caps
+                                class="poppins-bold full-width"
+                                :toggle-color="cartSettings.accentColor"
+                                color="white"
+                                text-color="black"
+                                :options="pickupMethods"
+                            />
+                        </div>
                         <div
                             class="row"
                             v-if="this.selectedPickupMethod == 'Delivery'"
@@ -372,7 +386,7 @@
                                 type="textarea"
                                 class="full-width poppins-regular"
                                 placeholder="Barriada, No. Calle, No. Casa"
-                                color="orange-9"
+                                :color="cartSettings.accentColor"
                                 rows="4"
                                 data-hj-allow
                             />
@@ -457,7 +471,6 @@ export default {
     },
     data() {
         return {
-            arr: [],
             cartSettings: {
                 accentColor: 'orange-9',
                 inputData: [
@@ -472,6 +485,16 @@ export default {
                         label: 'Comentarios especiales',
                         required: false,
                         placeholder: 'La hamburguesa son mayonesa porfavor'
+                    },
+                    {
+                        type: 'radio',
+                        label: 'Metodo de pago',
+                        required: true,
+                        options: [
+                            {label: 'Yappy', value: 'Yappy'},
+                            {label: 'Efectivo', value: 'Efectivo'},
+                            {label: 'Tarjeta', value: 'Tarjeta'},
+                        ]
                     }
                 ]
             },
@@ -894,8 +917,7 @@ export default {
                 data.direcion_1 = this.getLocationForMessage()
                 data.direcion_2 = this.address
             }
-            var url =
-                'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
+            var url = 'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -1013,7 +1035,7 @@ export default {
         // },
     },
     components: {
-        GoogleMaps,
+        GoogleMaps
     },
     mounted() {
         if (this.$hj) {
