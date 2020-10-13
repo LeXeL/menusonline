@@ -302,9 +302,9 @@
                             </div>
                         </div>
                         <div v-for="(input, i) in cartSettings.inputData" :key="i">
-                            <input-text v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
-                            <text-area v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
-                            <button-group  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options" :index="i" @update-value="updateValue"/>
+                            <InputText v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
+                            <TextArea v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="cartSettings.accentColor" :index="i" @update-value="updateValue"/>
+                            <ButtonGroup  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="cartSettings.accentColor" :options="input.options" :index="i" @update-value="updateValue"/>
                         </div>
                         <div class="row q-mb-md">
                             <div class="text-subtitle2 poppins-bold q-mb-sm">
@@ -432,6 +432,9 @@
 </template>
 
 <script>
+import InputText from '@/components/wp/InputText'
+import TextArea from '@/components/wp/TextArea'
+import ButtonGroup from '@/components/wp/ButtonGroup'
 import GoogleMaps from '../../components/general/GoogleMaps'
 
 export default {
@@ -991,7 +994,10 @@ export default {
         // },
     },
     components: {
-        GoogleMaps
+        GoogleMaps,
+        InputText,
+        TextArea,
+        ButtonGroup
     },
     mounted() {
         if (this.$hj) {
