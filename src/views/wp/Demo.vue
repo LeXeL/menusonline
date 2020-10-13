@@ -216,30 +216,6 @@
             </q-dialog>
             <!-- END SUCCESS DIALOG -->
 
-            <!-- LOCATION DIALOG -->
-            <q-dialog v-model="locationDialog" persistent>
-                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
-                    <q-card-section>
-                        <div
-                            class="text-subtitle2 text-center poppins-bold text-red-7"
-                        >
-                            Arrastra el marcador del mapa a la ubicacion donde
-                            deseas recibir tu pedido.
-                        </div>
-                    </q-card-section>
-                    <q-card-section>
-                        <q-btn
-                            color="black"
-                            outline
-                            class="poppins-bold full-width q-mb-md"
-                            @click="locationDialog = false"
-                            >Aceptar</q-btn
-                        >
-                    </q-card-section>
-                </q-card>
-            </q-dialog>
-            <!-- END LOCATION DIALOG -->
-
             <!-- CART DIALOG -->
             <q-dialog
                 v-model="cartDialog"
@@ -471,7 +447,6 @@ export default {
     },
     data() {
         return {
-            test: 0,
             cartSettings: {
                 accentColor: 'orange-9',
                 inputData: [
@@ -500,30 +475,17 @@ export default {
                 ]
             },
             selectedCategory: null,
-            categories: ['Hamburguesas', 'Hotdogs', 'De Picar'],
+            categories: ['Hamburguesas', 'Hotdogs', 'De Picar', 'Todo'],
             orderNo: '',
-            name: '',
-            specialComments: '',
             selectedItemIndex: 0,
             seamless: false,
             whatsappNumber: '66083084',
             selectedItem: {},
-            paymentMethods: [
-                {label: 'Yappy', value: 'Yappy'},
-                {label: 'Efectivo', value: 'Efectivo'},
-                {label: 'Tarjeta', value: 'Tarjeta'},
-            ],
             pickupMethods: [
                 {label: 'Delivery', value: 'Delivery'},
                 {label: 'Retirar en local', value: 'Retirar en local'},
             ],
             selectedPickupMethod: '',
-            premises: [
-                {label: 'Arraijan', value: 'Arraijan'},
-                {label: 'Chorrera', value: 'Chorrera'},
-            ],
-            selectedPremises: '',
-            selectedPaymentMethod: null,
             address: '',
             total: 0,
             location: [],
@@ -536,7 +498,6 @@ export default {
             sideDialog: false,
             successDialog: false,
             cartDialog: false,
-            locationDialog: false,
             cart: [],
             menu: [
                 {
@@ -848,7 +809,6 @@ export default {
                     isDuplicate = true
                 }
             })
-
             return isDuplicate
         },
         removeItemFromCart(i) {
@@ -877,19 +837,18 @@ export default {
                 }
                 message += `%0D%0A`
             }
-            message += `%0D%0ANo. de pedido: ${this.orderNo}%0D%0ANombre: ${this.name}`
-            if (this.specialComments.length > 0)
-                message += `%0D%0AComentarios especiales: ${this.specialComments}`
+            this.cartSettings.inputData.forEach(input => {
+                if (input.value != undefined)
+                    message += `%0D%0A${input.label}: ${input.value}`
+            })
+            message += `%0D%0AMetodo de entrega: ${this.selectedPickupMethod}`
             if (this.selectedPickupMethod == 'Delivery') {
                 message += `%0D%0AUbicacion: ${this.getLocationForMessage()}%0D%0ADireccion: ${
                     this.address
                 }`
             }
-            message += `%0D%0AMetodo de entrega: ${
-                this.selectedPickupMethod
-            }%0D%0AMetodo de pago: ${
-                this.selectedPaymentMethod
-            }%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            message += `%0D%0ANo. de pedido: ${this.orderNo}`
+            message += `%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
@@ -989,28 +948,20 @@ export default {
             )
         },
         async sendChat() {
-            if (this.name == '') {
-                alert('Debes ingresar tu nombre para enviar el pedido.')
-                return
+            for (let input of this.cartSettings.inputData) {
+                if (input.required == true && (input.value == undefined || input.value == '')) {
+                    alert(`Debes ingresar la siguiente informacion:\n\n${input.label}`)
+                    return
+                }
             }
-            // if (this.selectedPremises == '') {
-            //     alert('Debes el local de servicio.')
-            //     return
-            // }
             if (this.selectedPickupMethod == '') {
                 alert('Debes seleccionar un metodo de entrega.')
                 return
-            }
-            if (this.address == '' && this.selectedPickupMethod == 'Delivery') {
-                alert(
-                    'Debes ingresar tu direccion completa para la entrega de tu pedido.'
-                )
+            } 
+            if (this.selectedPickupMethod == 'Delivery' && this.address == '') {
+                alert('Debes ingresar tu direccion completa para la entrega de tu pedido.')
                 return
-            }
-            if (this.selectedPaymentMethod == null) {
-                alert('Debes seleccionar un metodo de pago.')
-                return
-            } else {
+            }else {
                 this.orderNo = Math.floor(100000 + Math.random() * 900000)
                 this.$analytics.logEvent('wp-demo', {
                     content_action: 'Orden Completada',
@@ -1019,6 +970,7 @@ export default {
                 window.location.href = `https://wa.me/507${
                     this.whatsappNumber
                 }?text=${this.generateMessage()}`
+                // console.log(this.generateMessage())
             }
         },
     },
