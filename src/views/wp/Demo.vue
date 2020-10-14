@@ -32,14 +32,11 @@ export default {
                 {
                     title: 'Hamburguesa Clasica',
                     subtitle: '',
-                    desc:
-                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
+                    desc: 'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
                     type: 'hamburguesas',
                     pic: 'hamburguesa.jpg',
                     price: 6.5,
                     count: 0,
-                    styles: [],
-                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -54,18 +51,17 @@ export default {
                             price: 1.75,
                         },
                     ],
+                    styles: [],
+                    sides: [],
                 },
                 {
                     title: 'Hamburguesa con Queso y Bacon',
                     subtitle: '',
-                    desc:
-                        'Deliciosa carne angus hecha a la parrilla, queso amarillo, lechuga, tomate y deliciosas tiras de bacon.',
+                    desc: 'Deliciosa carne angus hecha a la parrilla, queso amarillo, lechuga, tomate y deliciosas tiras de bacon.',
                     type: 'hamburguesas',
                     pic: 'bacon.jpg',
                     price: 7.5,
                     count: 0,
-                    styles: [],
-                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -80,6 +76,8 @@ export default {
                             price: 1.75,
                         },
                     ],
+                    styles: [],
+                    sides: [],
                 },
                 {
                     title: 'HotDog Clasico',
@@ -89,8 +87,6 @@ export default {
                     pic: 'hotdog_clasico.jpg',
                     price: 7.5,
                     count: 0,
-                    styles: [],
-                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -105,18 +101,17 @@ export default {
                             price: 1.75,
                         },
                     ],
+                    styles: [],
+                    sides: [],
                 },
                 {
                     title: 'ChilliDog',
                     subtitle: '',
-                    desc:
-                        'Hotdog con chille, queso y cebolla picada en pan artesanal.',
+                    desc: 'Hotdog con chille, queso y cebolla picada en pan artesanal.',
                     type: 'hotdogs',
                     pic: 'hotdog.jpg',
                     price: 7.5,
                     count: 0,
-                    styles: [],
-                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -131,18 +126,17 @@ export default {
                             price: 1.75,
                         },
                     ],
+                    styles: [],
+                    sides: [],
                 },
                 {
                     title: 'HotDog Hawaiano',
                     subtitle: '',
-                    desc:
-                        'Hotdog con mayonesa, queso blanco, papitas trituradas y mermelada de piña.',
+                    desc: 'Hotdog con mayonesa, queso blanco, papitas trituradas y mermelada de piña.',
                     type: 'hotdogs',
                     pic: 'hawaiano.jpg',
                     price: 6.75,
                     count: 0,
-                    styles: [],
-                    sides: [],
                     options: [
                         {
                             title: 'Regular',
@@ -157,18 +151,17 @@ export default {
                             price: 1.75,
                         },
                     ],
+                    styles: [],
+                    sides: [],
                 },
                 {
                     title: 'Picada de la Casa',
                     subtitle: '',
-                    desc:
-                        'Picada mixta con trocitos de carne de res, puerco, pollo, papas fritas, platanitos, aros de cebolla, lechuga y tomate.',
+                    desc: 'Picada mixta con trocitos de carne de res, puerco, pollo, papas fritas, platanitos, aros de cebolla, lechuga y tomate.',
                     type: 'de_picar',
                     pic: 'picada.jpg',
                     price: 0,
                     count: 0,
-                    styles: [],
-                    sides: [],
                     options: [
                         {
                             title: '2 Personas',
@@ -179,16 +172,27 @@ export default {
                             price: 15.0,
                         },
                     ],
+                    styles: [],
+                    sides: [],
                 },
                 {
                     title: 'Alitas',
                     subtitle: '',
-                    desc:
-                        'Elija entre 6 o 10 unidades de alitas + 2 salsas de su eleccion.',
+                    desc: 'Elija entre 6 o 10 unidades de alitas + 2 salsas de su eleccion.',
                     type: 'de_picar',
                     pic: 'wings.jpg',
                     price: 0,
                     count: 0,
+                    options: [
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                        },
+                    ],
                     styles: [
                         {
                             title: 'BBQ',
@@ -231,16 +235,6 @@ export default {
                         {
                             title: 'Garlic',
                             price: 0,
-                        },
-                    ],
-                    options: [
-                        {
-                            title: '6 unidades',
-                            price: 4.25,
-                        },
-                        {
-                            title: '10 unidades',
-                            price: 5.75,
                         },
                     ],
                 },
