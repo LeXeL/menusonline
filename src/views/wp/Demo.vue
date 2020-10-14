@@ -37,19 +37,49 @@ export default {
                     pic: 'hamburguesa.jpg',
                     price: 6.5,
                     count: 0,
-                    active: false,
+                    active: true,
                     options: [
                         {
                             title: 'Regular',
                             price: 0,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Papas Fritas',
                             price: 1.5,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Aros de cebolla',
                             price: 1.75,
+                            active: true,
+                            available: false
+                        },
+                        {
+                            title: '2 Personas',
+                            price: 8.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '4 Personas',
+                            price: 15.0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                            active: false,
+                            available: true
                         },
                     ],
                     styles: [],
@@ -68,14 +98,44 @@ export default {
                         {
                             title: 'Regular',
                             price: 0,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Papas Fritas',
                             price: 1.5,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Aros de cebolla',
                             price: 1.75,
+                            active: true,
+                            available: false
+                        },
+                        {
+                            title: '2 Personas',
+                            price: 8.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '4 Personas',
+                            price: 15.0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                            active: false,
+                            available: true
                         },
                     ],
                     styles: [],
@@ -94,14 +154,44 @@ export default {
                         {
                             title: 'Regular',
                             price: 0,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Papas Fritas',
                             price: 1.5,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Aros de cebolla',
                             price: 1.75,
+                            active: true,
+                            available: false
+                        },
+                        {
+                            title: '2 Personas',
+                            price: 8.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '4 Personas',
+                            price: 15.0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                            active: false,
+                            available: true
                         },
                     ],
                     styles: [],
@@ -115,19 +205,49 @@ export default {
                     pic: 'hotdog.jpg',
                     price: 7.5,
                     count: 0,
-                    active: true,
+                    active: false,
                     options: [
                         {
                             title: 'Regular',
                             price: 0,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Papas Fritas',
                             price: 1.5,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Aros de cebolla',
                             price: 1.75,
+                            active: true,
+                            available: false
+                        },
+                        {
+                            title: '2 Personas',
+                            price: 8.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '4 Personas',
+                            price: 15.0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                            active: false,
+                            available: true
                         },
                     ],
                     styles: [],
@@ -146,14 +266,44 @@ export default {
                         {
                             title: 'Regular',
                             price: 0,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Papas Fritas',
                             price: 1.5,
+                            active: true,
+                            available: true
                         },
                         {
                             title: 'Aros de cebolla',
                             price: 1.75,
+                            active: true,
+                            available: false
+                        },
+                        {
+                            title: '2 Personas',
+                            price: 8.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '4 Personas',
+                            price: 15.0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                            active: false,
+                            available: true
                         },
                     ],
                     styles: [],
@@ -170,12 +320,46 @@ export default {
                     active: true,
                     options: [
                         {
+                            title: 'Regular',
+                            price: 0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: 'Papas Fritas',
+                            price: 1.5,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: 'Aros de cebolla',
+                            price: 1.75,
+                            active: false,
+                            available: false
+                        },
+                        {
                             title: '2 Personas',
                             price: 8.25,
+                            active: true,
+                            available: true
                         },
                         {
                             title: '4 Personas',
                             price: 15.0,
+                            active: true,
+                            available: true
+                        },
+                        {
+                            title: '6 unidades',
+                            price: 4.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 5.75,
+                            active: false,
+                            available: true
                         },
                     ],
                     styles: [],
@@ -192,12 +376,46 @@ export default {
                     active: true,
                     options: [
                         {
+                            title: 'Regular',
+                            price: 0,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: 'Papas Fritas',
+                            price: 1.5,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: 'Aros de cebolla',
+                            price: 1.75,
+                            active: false,
+                            available: false
+                        },
+                        {
+                            title: '2 Personas',
+                            price: 8.25,
+                            active: false,
+                            available: true
+                        },
+                        {
+                            title: '4 Personas',
+                            price: 15.0,
+                            active: false,
+                            available: true
+                        },
+                        {
                             title: '6 unidades',
                             price: 4.25,
+                            active: true,
+                            available: true
                         },
                         {
                             title: '10 unidades',
                             price: 5.75,
+                            active: true,
+                            available: true
                         },
                     ],
                     styles: [

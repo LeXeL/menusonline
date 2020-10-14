@@ -68,23 +68,27 @@
                     </q-card-section>
                     <q-separator />
                     <q-card-section>
-                        <q-btn
-                            text-color="black"
-                            outline
-                            class="poppins-bold full-width q-mb-md"
-                            v-for="(option, i) in menu[selectedItemIndex]
-                                .options"
-                            :key="i"
-                            @click="handleDialogs('option', option)"
-                        >
-                            {{ option.title }}
-                            <br />
-                            {{
-                                option.price > 0
-                                    ? '$' + option.price.toFixed(2)
-                                    : ''
-                            }}
-                        </q-btn>
+                        <div v-for="(option, i) in menu[selectedItemIndex].options" :key="i">
+                            <q-btn
+                                text-color="black"
+                                outline
+                                class="poppins-bold full-width q-mb-md"
+                                v-if="option.active == true"
+                                @click="handleDialogs('option', option)"
+                                :disable="!option.available"
+                            >
+                                {{ option.title }}
+                                <br />
+                                {{
+                                    option.price > 0 && option.available
+                                        ? '$' + option.price.toFixed(2)
+                                        : ''
+                                }}
+                                {{
+                                    option.available ? '' : '- No Disponible -'
+                                }}
+                            </q-btn>
+                        </div>
                         <q-btn
                             color="red-7"
                             flat
