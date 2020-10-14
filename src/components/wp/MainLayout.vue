@@ -50,9 +50,9 @@
 
                     <q-card-actions>
                         <q-space />
-                        <q-btn flat :color="generalData.accentColor" @click="selectItem(item)"
-                            >Agregar</q-btn
-                        >
+                        <q-btn flat :color="generalData.accentColor" @click="selectItem(item)" :disable="!item.active">
+                            {{ !item.active ? 'No Disponible' : 'Agregar' }}
+                        </q-btn>
                     </q-card-actions>
                 </q-card>
             </div>

@@ -37,6 +37,7 @@ export default {
                     pic: 'hamburguesa.jpg',
                     price: 6.5,
                     count: 0,
+                    active: false,
                     options: [
                         {
                             title: 'Regular',
@@ -62,6 +63,7 @@ export default {
                     pic: 'bacon.jpg',
                     price: 7.5,
                     count: 0,
+                    active: true,
                     options: [
                         {
                             title: 'Regular',
@@ -87,6 +89,7 @@ export default {
                     pic: 'hotdog_clasico.jpg',
                     price: 7.5,
                     count: 0,
+                    active: true,
                     options: [
                         {
                             title: 'Regular',
@@ -112,6 +115,7 @@ export default {
                     pic: 'hotdog.jpg',
                     price: 7.5,
                     count: 0,
+                    active: true,
                     options: [
                         {
                             title: 'Regular',
@@ -137,6 +141,7 @@ export default {
                     pic: 'hawaiano.jpg',
                     price: 6.75,
                     count: 0,
+                    active: true,
                     options: [
                         {
                             title: 'Regular',
@@ -162,6 +167,7 @@ export default {
                     pic: 'picada.jpg',
                     price: 0,
                     count: 0,
+                    active: true,
                     options: [
                         {
                             title: '2 Personas',
@@ -183,6 +189,7 @@ export default {
                     pic: 'wings.jpg',
                     price: 0,
                     count: 0,
+                    active: true,
                     options: [
                         {
                             title: '6 unidades',
