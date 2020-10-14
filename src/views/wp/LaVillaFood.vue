@@ -519,7 +519,7 @@
                                     class="text-subtitle2 poppins-bold text-red-8"
                                     v-if="selectedPickupMethod == 'Delivery'"
                                 >
-                                    Sin costos por delivery.
+                                    No incluye el costo del delivery.
                                 </div>
                             </div>
                         </div>
