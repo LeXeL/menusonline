@@ -18,6 +18,7 @@ import Hotjar from 'vue-hotjar'
 
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+
 AOS.init()
 
 Vue.use(VueMeta, {
