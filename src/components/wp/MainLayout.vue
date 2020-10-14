@@ -592,16 +592,22 @@ export default {
             let data = {
                 id: this.orderNo,
                 pedido: message,
-                nombre: this.name,
                 status: 'orden creada',
                 total: this.total,
-                metodo_de_pago: this.selectedPaymentMethod,
                 metodo_de_entrega: this.selectedPickupMethod,
             }
             if (data.metodo_de_entrega === 'Delivery') {
                 data.direcion_1 = this.getLocationForMessage()
                 data.direcion_2 = this.address
             }
+            this.cartSettings.inputData.forEach(input => {
+                let key = input.label.toLowerCase()
+                key = key.replace(/\s/g, '_')
+                if (input.value != undefined)
+                    data[key] = input.value
+                else
+                    data[key] = ''
+            })
             var url = this.generalData.googleSheets.url
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
