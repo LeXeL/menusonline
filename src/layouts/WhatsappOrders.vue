@@ -3,7 +3,7 @@
         <q-page-container class="bg-grey-4">
             <div class="row">
                 <div class="col"></div>
-                <div class="col-lg-2 col-md-3 col-sm-4 shadow-10">
+                <div class="col-lg-3 col-md-3 col-sm-4 shadow-10">
                     <router-view />
                             <footer :style="displayFooter ? 'margin-bottom:67px':''">
                         <div class="container">
