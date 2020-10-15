@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div v-if="item.title == 'Langostinos al ajillo'">
+                <div v-if="item.title == 'Langostinos al Ajillo'">
                     <div
                         class="text-h6 text-center q-my-lg text-orange-9 poppins-bold"
                     >
