@@ -1532,7 +1532,11 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Regular',
+                            title: 'Salsa BBQ',
+                            price: 0,
+                        },
+                        {
+                            title: 'Mostaza miel',
                             price: 0,
                         },
                     ],
