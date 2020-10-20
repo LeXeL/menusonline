@@ -41,6 +41,10 @@
                         <div v-if="item.price" class="text-h6 poppins-bold">
                             $ {{ item.price.toFixed(2) }}
                         </div>
+                        <div v-else class="text-h6 poppins-bold">
+                            <!-- <span style="font-size: 13px;">Desde</span> $ {{ item.options[0].price.toFixed(2) }} -->
+                            <span style="font-size: 13px;">Desde</span> $ {{ returnMinVal(item.options) }}
+                        </div>
                         <div class="text-caption text-grey">
                             {{ item.desc }}
                         </div>
@@ -453,6 +457,14 @@ export default {
     methods: {
         updateValue(e) {
             this.cartSettings.inputData[e.index].value = e.value
+        },
+        returnMinVal(options){
+            let min = options[0].price
+            options.forEach(op => {
+                if (op.price < min)
+                    min = op.price
+            })
+            return min.toFixed(2)
         },
         addItemToCart() {
             if (!this.checkIfDuplicate()) {
