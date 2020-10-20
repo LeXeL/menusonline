@@ -123,11 +123,11 @@ export default new Router({
                     name: 'cerotranque',
                     component: CeroTranque,
                 },
-                {
-                    path: '/wp/lavillafood',
-                    name: 'lavillafood',
-                    component: LaVillaFood,
-                },
+                // {
+                //     path: '/wp/lavillafood',
+                //     name: 'lavillafood',
+                //     component: LaVillaFood,
+                // },
                 {
                     path: '/wp/garageburgers',
                     name: 'garageburgers',
