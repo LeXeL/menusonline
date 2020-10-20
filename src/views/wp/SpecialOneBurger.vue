@@ -16,7 +16,7 @@ export default {
                     {label: 'Hamburguesas', value: 'hamburguesas'},
                     {label: 'Bebidas', value: 'bebidas'},
                 ],
-                whatsappNumber: '66083084',
+                whatsappNumber: '62044616',
                 wazeIntegration: false,
                 googleSheets: {
                     integration: false,
@@ -32,103 +32,76 @@ export default {
                     title: 'La Fanatica Burger',
                     subtitle: '',
                     desc:
-                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
+                        'Deliciosa hamburguesa de 200g de carne jugosa, lechuga fresca, tomate, queso amarilo, exquisito queso blanco Oxaca, cebollas caramelizadas, bacon, pepinillos y salsa de la casa. En combo acompañado de papas wester y soda.',
                     type: 'hamburguesas',
-                    pic: '',
+                    pic: 'fanatica.jpeg',
                     price: 0,
                     count: 0,
                     options: [
                         {
                             title: 'Sola',
-                            price: 0,
+                            price: 4.25,
                         },
                         {
                             title: 'Combo',
                             price: 6.75,
                         },
                     ],
-                    styles: [
-                        {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'Ginger Ale',
-                            price: 0,
-                        },
-                    ],
+                    styles: [],
                     sides: [],
                 },
                 {
                     title: 'La 2 Toques Burger',
                     subtitle: '',
                     desc:
-                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
+                        'Deliciosa hamburguesa doble carne de 200g, lechuga fresca, 2 tomates, 2 quesos amarillos, exquisito queso blanco Oxaca, cebollas caramelizadas, bacon, huevo frito, pepinillos y salsa de la casa. En combo acompañado de papas wester y soda.',
                     type: 'hamburguesas',
-                    pic: '',
+                    pic: '2_toques.jpeg',
                     price: 0,
                     count: 0,
                     options: [
                         {
                             title: 'Sola',
-                            price: 0,
+                            price: 5.25,
                         },
                         {
                             title: 'Combo',
                             price: 7.75,
                         },
                     ],
-                    styles: [
-                        {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'Ginger Ale',
-                            price: 0,
-                        },
-                    ],
+                    styles: [],
                     sides: [],
                 },
                 {
                     title: 'World Cup Burger',
                     subtitle: '',
                     desc:
-                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
+                        'Deliciosa hamburguesa doble carne de 200g, lechuga, 2 tomates, 2 quesos amarillos, exquisito queso blanco Oxaca, cebolla caramelizada, bacon, una rebanada de piña, pepinillos y salsa de la casa. En combo acompañado de papas wester y soda.',
                     type: 'hamburguesas',
-                    pic: '',
+                    pic: 'world_cup.jpeg',
                     price: 0,
                     count: 0,
                     options: [
                         {
                             title: 'Sola',
-                            price: 0,
+                            price: 6.25,
                         },
                         {
                             title: 'Combo',
                             price: 8.75,
                         },
                     ],
-                    styles: [
-                        {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'Ginger Ale',
-                            price: 0,
-                        },
-                    ],
+                    styles: [],
                     sides: [],
                 },
                 {
                     title: 'Soda',
                     subtitle: '',
                     desc:
-                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
+                        'Coca Cola, Ginger Ale.',
                     type: 'bebidas',
-                    pic: '',
-                    price: 1,
+                    pic: 'soda.jpg',
+                    price: 1.5,
                     count: 0,
                     options: [
                         {
