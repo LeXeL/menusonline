@@ -502,7 +502,7 @@ export default {
                     ],
                 },
                 {
-                    title: 'Arepa con copa vieja',
+                    title: 'Arepa con ropa vieja',
                     desc:
                         'Arepa con ropa vieja, queso mozzarella, salsa de la casa.',
                     type: 'arepas',
