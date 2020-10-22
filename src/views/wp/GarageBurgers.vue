@@ -969,23 +969,6 @@ export default {
                 {
                     title: 'Combo 4',
                     desc:
-                        '1 Salchitortillas, 2 hotdog jumbos premium, 1 nachos, 2 sodas de lata.',
-                    type: 'combos',
-                    pic: '',
-                    price: 14,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Combo 5',
-                    desc:
                         '6 alitas a la BBQ / mostaza miel con papas, 1 nachos, 2 hamburguesas clásicas, 2 hamburguesas garage, 1 Coca-Cola de 1.5 L',
                     type: 'combos',
                     pic: '',
