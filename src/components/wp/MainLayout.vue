@@ -365,7 +365,7 @@
                                     </div>
                                 </div>
                                 <div v-else>
-                                    <div class="text-h5">
+                                    <div class="text-h5 poppins-bold">
                                         Total: $ {{ total.toFixed(2) }}
                                     </div>
                                 </div>
