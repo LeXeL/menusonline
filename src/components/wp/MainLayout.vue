@@ -353,8 +353,21 @@
                     <q-card-section v-if="cart.length > 0">
                         <div class="row">
                             <div class="col text-center">
-                                <div class="text-h5 poppins-bold">
-                                    Total: $ {{ total.toFixed(2) }}
+                                <div v-if="generalData.taxes">
+                                    <div class="text-body2 poppins-bold">
+                                        SubTotal: $ {{ total.toFixed(2) }}
+                                    </div>
+                                    <div class="text-body2 poppins-bold">
+                                        + ITBMS: $ {{ (total * 0.07).toFixed(2)}}
+                                    </div>
+                                    <div class="text-h5 poppins-bold poppins-bold q-mt-md">
+                                        Total: {{ (total + (total * 0.07)).toFixed(2) }}
+                                    </div>
+                                </div>
+                                <div v-else>
+                                    <div class="text-h5">
+                                        Total: $ {{ total.toFixed(2) }}
+                                    </div>
                                 </div>
                                 <div
                                     class="text-subtitle2 poppins-bold text-red-8"
@@ -583,7 +596,13 @@ export default {
                 }`
             }
             message += `%0D%0ANo. de pedido: ${this.orderNo}`
-            message += `%0D%0ATotal: $ ${this.total.toFixed(2)}`
+            if (this.generalData.taxes) {
+                message += `%0D%0ASubTotal: $ ${this.total.toFixed(2)}`
+                message += `%0D%0AITBMS: $ ${(this.total * 0.07).toFixed(2)}`
+                message += `%0D%0ATotal: $ ${(this.total + (this.total * 0.07)).toFixed(2)}`
+            }
+            else
+                message += `%0D%0ATotal: $ ${this.total.toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
