@@ -12,9 +12,9 @@ import CeciliaPescao from './views/wp/CeciliaPescao'
 import Enid from './views/wp/Enid'
 import Madamecoco from './views/wp/Madamecoco'
 import PanamaHotdog from './views/wp/PanamaHotdog'
-import Decoralid from './views/wp/Decoralid'
-import RicaSazon from './views/wp/RicaSazon'
-import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
+// import Decoralid from './views/wp/Decoralid'
+// import RicaSazon from './views/wp/RicaSazon'
+// import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
 import CeroTranque from './views/wp/CeroTranque'
 import LaVillaFood from './views/wp/LaVillaFood'
 import GarageBurgers from './views/wp/GarageBurgers'
@@ -108,16 +108,16 @@ export default new Router({
                 //     name: 'decoralid',
                 //     component: Decoralid,
                 // },
-                {
-                    path: '/wp/ricasazon',
-                    name: 'ricasazon',
-                    component: RicaSazon,
-                },
-                {
-                    path: '/wp/deliciasbocatorenas',
-                    name: 'deliciasbocatorenas',
-                    component: DeliciasBocatorenas,
-                },
+                // {
+                //     path: '/wp/ricasazon',
+                //     name: 'ricasazon',
+                //     component: RicaSazon,
+                // },
+                // {
+                //     path: '/wp/deliciasbocatorenas',
+                //     name: 'deliciasbocatorenas',
+                //     component: DeliciasBocatorenas,
+                // },
                 {
                     path: '/wp/cerotranque',
                     name: 'cerotranque',
