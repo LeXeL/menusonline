@@ -3,8 +3,9 @@ import Router from 'vue-router'
 import store from '@/store/store'
 
 //DASHBOARD VIEWS
-import Restaurants from '@/views/dashboard/Restaurants'
 import Home from '@/views/dashboard/Home'
+import Restaurants from '@/views/dashboard/Restaurants'
+import RestaurantManager from '@/views/dashboard/RestaurantManager'
 
 import Menu from './views/Menu.vue'
 import Menus from './views/Menus'
@@ -44,14 +45,19 @@ export default new Router({
             beforeEnter: ifAuthenticated,
             children: [
                 {
+                    path: '/admin/home',
+                    name: 'home',
+                    component: Home,
+                },
+                {
                     path: '/admin/restaurants',
                     name: 'restaurants',
                     component: Restaurants,
                 },
                 {
-                    path: '/admin/home',
-                    name: 'home',
-                    component: Home,
+                    path: '/admin/restaurants/rest-uid',
+                    name: 'restaurant-amanger',
+                    component: RestaurantManager,
                 },
                 {
                     path: '/menus/:id',

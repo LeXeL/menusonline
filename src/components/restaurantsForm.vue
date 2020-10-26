@@ -29,8 +29,15 @@
                 label="Numero"
                 v-model="form.phone"
             />
+            <q-select
+                filled
+                class="q-mb-md"
+                label="Tipo"
+                :options="['Whatsapp Pedidos', 'Carta Digital']"
+                v-model="form.type"
+            />
             <q-input filled class="q-mb-md" label="/Path" v-model="form.url" />
-            <q-file filled class="q-mb-md" label="Logo" v-model="logoFile">
+            <q-file filled label="Logo" v-model="logoFile">
                 <template v-slot:prepend>
                     <i class="fas fa-paperclip"></i>
                 </template>
@@ -72,8 +79,11 @@
                     </i>
                 </template>
             </q-input> -->
-            <q-btn color="accent" class="q-mt-sm">Crear</q-btn>
         </q-card-section>
+        <q-card-actions class="q-px-md">
+            <q-space />
+            <q-btn color="accent" flat>Crear</q-btn>
+        </q-card-actions>
     </q-card>
 </template>
 
@@ -90,6 +100,7 @@ export default {
                 name: '',
                 email: '',
                 phone: '',
+                type: '',
                 url: '',
                 logo: '',
                 splashColor: '',

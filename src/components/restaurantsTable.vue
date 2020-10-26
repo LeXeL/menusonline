@@ -18,7 +18,13 @@
                 <q-td key="url" :props="props">/{{ props.row.url }}</q-td>
                 <q-td>
                     <q-btn-group>
-                        <q-btn color="accent" icon="edit" size="sm" flat />
+                        <q-btn
+                            color="accent"
+                            icon="edit"
+                            size="sm"
+                            flat
+                            :to="`/admin/restaurants/${props.row.uid}`"
+                        />
                         <q-btn
                             :color="props.row.active ? 'red-7' : 'green-8'"
                             :icon="props.row.active ? 'pause' : 'play_arrow'"
@@ -128,6 +134,7 @@ export default {
             ],
             tableData: [
                 {
+                    uid: 'rest-uid',
                     restaurantName: 'Panama Hotdog',
                     email: 'panamahotdogoficial@gmail.com',
                     phone: '65656565',
@@ -137,6 +144,7 @@ export default {
                     active: true,
                 },
                 {
+                    uid: 'rest-uid',
                     restaurantName: 'Angel',
                     email: 'rest_angel@gmail.com',
                     phone: '65656565',
@@ -146,6 +154,7 @@ export default {
                     active: true,
                 },
                 {
+                    uid: 'rest-uid',
                     restaurantName: 'Bigg Five Foods',
                     email: 'biggfive@gmail.com',
                     phone: '65656565',
