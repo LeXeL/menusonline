@@ -11,16 +11,31 @@
             <div class="text-h6">Crear nuevo restaurante</div>
         </q-card-section>
         <q-card-section>
-            <q-input filled class="q-mb-md" label="Nombre" v-model="form.name" />
-            <q-input filled class="q-mb-md" label="Correo" v-model="form.email" />
-            <q-input filled class="q-mb-md" label="Numero" v-model="form.phone" />
+            <q-input
+                filled
+                class="q-mb-md"
+                label="Nombre"
+                v-model="form.name"
+            />
+            <q-input
+                filled
+                class="q-mb-md"
+                label="Correo"
+                v-model="form.email"
+            />
+            <q-input
+                filled
+                class="q-mb-md"
+                label="Numero"
+                v-model="form.phone"
+            />
             <q-input filled class="q-mb-md" label="/Path" v-model="form.url" />
             <q-file filled class="q-mb-md" label="Logo" v-model="logoFile">
                 <template v-slot:prepend>
                     <i class="fas fa-paperclip"></i>
                 </template>
             </q-file>
-            <q-input filled class="q-mb-md" label="Splash color" v-model="form.splashColor">
+            <!-- <q-input filled class="q-mb-md" label="Splash color" v-model="form.splashColor">
                 <template v-slot:append>
                     <i class="fas fa-eye-dropper" style="cursor: pointer">
                         <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -28,8 +43,8 @@
                         </q-popup-proxy>
                     </i>
                 </template>
-            </q-input>
-            <q-input
+            </q-input> -->
+            <!-- <q-input
                 filled
                 class="q-mb-md"
                 label="Splash button color"
@@ -42,8 +57,8 @@
                         </q-popup-proxy>
                     </i>
                 </template>
-            </q-input>
-            <q-input
+            </q-input> -->
+            <!-- <q-input
                 filled
                 class="q-mb-md"
                 label="Menu Background color"
@@ -56,8 +71,8 @@
                         </q-popup-proxy>
                     </i>
                 </template>
-            </q-input>
-            <q-btn color="secondary" class="q-mt-sm" @click="Generate">Crear</q-btn>
+            </q-input> -->
+            <q-btn color="accent" class="q-mt-sm">Crear</q-btn>
         </q-card-section>
     </q-card>
 </template>
@@ -177,5 +192,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -43,7 +43,12 @@
                     />-->
                 </q-card-section>
                 <q-card-actions align="right">
-                    <q-btn flat label="Descargar" color="primary" v-close-popup />
+                    <q-btn
+                        flat
+                        label="Descargar"
+                        color="primary"
+                        v-close-popup
+                    />
                     <q-btn flat label="Cerrar" color="primary" v-close-popup />
                 </q-card-actions>
             </q-card>
