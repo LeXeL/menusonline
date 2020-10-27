@@ -172,6 +172,7 @@
                     label="Editar Menu"
                     color="accent"
                     class="full-width shadow-8"
+                    @click="menuDialog = true"
                 />
             </div>
         </div>
@@ -282,9 +283,39 @@
                 <q-separator/>
                 <q-card-actions>
                     <q-space/>
-                    <q-btn label="Cancelar" color="red-7" flat v-close-popup />
+                    <q-btn label="Cancelar" color="red-7" flat @click="cleanInputDialog()" />
                     <q-btn label="Crear" color="accent" flat />
                 </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <q-dialog
+            v-model="menuDialog"
+            persistent
+            maximized
+            transition-show="slide-up"
+            transition-hide="slide-down"
+        >
+            <q-card class="bg-accent text-white">
+                <q-bar>
+                    <q-space />
+                    <q-btn dense flat icon="close" v-close-popup>
+                        <q-tooltip content-class="bg-white text-primary">Cerrar</q-tooltip>
+                    </q-btn>
+                </q-bar>
+
+                <q-card-section>
+                    <div class="text-h6 q-px-md">Gestionar Menu</div>
+                </q-card-section>
+
+                <q-card-section class="q-pt-none">
+                    <div class="row">
+                        <div class="col q-px-md">Categorias</div>
+                        <div class="col q-px-md">Items</div>
+                        <div class="col q-px-md">Opciones Nivel 1</div>
+                        <div class="col q-px-md">Opciones Nivel 2</div>
+                        <div class="col q-px-md">Opciones Nivel 3</div>
+                    </div>
+                </q-card-section>
             </q-card>
         </q-dialog>
     </q-page>
@@ -305,13 +336,14 @@ export default {
             newInputFieldRequired: '',
             newInputFieldRadioOptions: [],
             newInputRadioOptionsTest: null,
+            menuDialog: false,
             newInputFieldTypeOptions: [
                 {
                     label: 'Texto',
                     value: 'text',
                 },
                 {
-                    label: 'Area de texto',
+                    label: 'Texto multilinea',
                     value: 'textarea',
                 },
                 {
@@ -453,6 +485,10 @@ export default {
                 )
             })
             return options
+        },
+        cleanInputDialog() {
+            this.newInputFieldType = null,
+            this.inputFieldsDialog = false
         }
     },
     watch: {
