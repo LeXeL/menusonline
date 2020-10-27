@@ -167,7 +167,6 @@
                 <iframe
                     class="shadow-8 q-mb-md"
                     src="/wp/panamahotdog"
-                    style="overflow-y: hidden;"
                 />
                 <q-btn
                     label="Editar Menu"
@@ -176,7 +175,7 @@
                 />
             </div>
         </div>
-        <q-dialog v-model="inputFieldsDialog">
+        <q-dialog v-model="inputFieldsDialog" persistent>
             <q-card style="width: 900px; max-width: 80vw;">
                 <q-card-section>
                     <div class="text-h6">Agregar campo:</div>
@@ -184,24 +183,20 @@
                 <q-card-section>
                     <div class="row">
                         <div class="col-lg-6 q-px-md">
-                            <q-input
-                                label="Nombre"
-                                filled
-                                class="q-mb-md"
-                                v-model="newInputFieldName"
-                            />
                             <q-select
                                 label="Tipo"
                                 filled
                                 class="q-mb-md"
                                 v-model="newInputFieldType"
-                                :options="[
-                                    {label: 'Texto', value: 'text'},
-                                    {label: 'Area de texto', value: 'textarea'},
-                                    {label: 'Opcion multiple', value: 'radio'},
-                                ]"
+                                :options="newInputFieldTypeOptions"
                                 emit-value
                                 map-options
+                            />
+                            <q-input
+                                label="Nombre"
+                                filled
+                                class="q-mb-md"
+                                v-model="newInputFieldName"
                             />
                             <q-input
                                 label="Ejemplo"
@@ -214,7 +209,7 @@
                                 "
                             />
                             <q-select
-                                v-if="newInputFieldType == 'radio'"
+                                v-if="newInputFieldType == 'btngroup'"
                                 class="q-mb-md"
                                 label="Opciones"
                                 filled
@@ -223,8 +218,14 @@
                                 multiple
                                 hide-dropdown-icon
                                 input-debounce="0"
+                                v-model="newInputFieldRadioOptions"
                                 new-value-mode="add-unique"
-                            />
+                                bottom-slots
+                            >
+                                <template v-slot:hint>
+                                    <span class="text-primary">Presiona enter para agregar.</span>
+                                </template>
+                            </q-select>
                             <q-select
                                 label="Requerido"
                                 filled
@@ -233,19 +234,20 @@
                                     {label: 'Obligatorio', value: true},
                                     {label: 'Opcional', value: false},
                                 ]"
-                                v-model="newImputfieldRequired"
                                 emit-value
                                 map-options
+                                v-model="newInputFieldRequired"
                             />
                         </div>
-                        <div class="col-lg-6 q-pa-md bg-grey-9">
+                        <div class="col-lg-6 q-pa-md bg-grey-9 rounded-borders">
+                            <div class="text-h6 q-mb-xl text-white">
+                                Visualizacion previa:
+                            </div>
+                            <div class="text-subtitle2 poppins-bold q-mb-sm text-white">
+                                {{ newInputFieldName }}:
+                                <span v-if="newInputFieldRequired">*</span>
+                            </div>
                             <div v-if="newInputFieldType == 'text'">
-                                <div
-                                    class="text-subtitle2 poppins-bold q-mb-sm text-white"
-                                >
-                                    {{ newInputFieldName }}:
-                                    <span v-if="newImputfieldRequired">*</span>
-                                </div>
                                 <q-input
                                     :placeholder="newInputFieldPlaceholder"
                                     filled
@@ -254,12 +256,6 @@
                                 />
                             </div>
                             <div v-if="newInputFieldType == 'textarea'">
-                                <div
-                                    class="text-subtitle2 poppins-bold q-mb-sm text-white"
-                                >
-                                    {{ newInputFieldName }}:
-                                    <span v-if="newImputfieldRequired">*</span>
-                                </div>
                                 <q-input
                                     :placeholder="newInputFieldPlaceholder"
                                     filled
@@ -269,35 +265,32 @@
                                     class="full-width poppins-regular"
                                 />
                             </div>
-                            <div v-if="newInputFieldType == 'radio'">
-                                <div
-                                    class="text-subtitle2 poppins-bold q-mb-sm text-white"
-                                >
-                                    {{ newInputFieldName }}:
-                                    <span v-if="newImputfieldRequired">*</span>
-                                </div>
+                            <div v-if="newInputFieldType == 'btngroup'">
                                 <q-btn-toggle
                                     spread
                                     all-caps
                                     class="poppins-bold full-width"
                                     color="white"
                                     text-color="black"
-                                    :options="newInputFieldRadioOpcions"
+                                    :options="returnRadioOptions()"
+                                    v-model="newInputRadioOptionsTest"
                                 />
                             </div>
                         </div>
                     </div>
                 </q-card-section>
+                <q-separator/>
+                <q-card-actions>
+                    <q-space/>
+                    <q-btn label="Cancelar" color="red-7" flat v-close-popup />
+                    <q-btn label="Crear" color="accent" flat />
+                </q-card-actions>
             </q-card>
         </q-dialog>
     </q-page>
 </template>
 
 <script>
-import InputText from '@/components/wp/InputText'
-import TextArea from '@/components/wp/TextArea'
-import ButtonGroup from '@/components/wp/ButtonGroup'
-
 export default {
     data() {
         return {
@@ -309,8 +302,23 @@ export default {
             newInputFieldName: '',
             newInputFieldType: null,
             newInputFieldPlaceholder: '',
-            newImputfieldRequired: '',
-            newInputFieldRadioOpcions: ['test 1', 'test 2'],
+            newInputFieldRequired: '',
+            newInputFieldRadioOptions: [],
+            newInputRadioOptionsTest: null,
+            newInputFieldTypeOptions: [
+                {
+                    label: 'Texto',
+                    value: 'text',
+                },
+                {
+                    label: 'Area de texto',
+                    value: 'textarea',
+                },
+                {
+                    label: 'Opcion multiple',
+                    value: 'btngroup',
+                },
+            ],
             options: [
                 {
                     label: 'Rojo',
@@ -433,10 +441,27 @@ export default {
             ],
         }
     },
-    components: {
-        InputText,
-        TextArea,
-        ButtonGroup,
+    methods: {
+        returnRadioOptions() {
+            let options = []
+            this.newInputFieldRadioOptions.forEach(op => {
+                options.push(
+                    {
+                        label: op,
+                        value: op,
+                    }
+                )
+            })
+            return options
+        }
+    },
+    watch: {
+        newInputFieldType: function() {
+            this.newInputFieldName = ''
+            this.newInputFieldPlaceholder = ''
+            this.newInputFieldRadioOptions = []
+            this.newInputFieldRequired = null
+        }
     },
 }
 </script>
