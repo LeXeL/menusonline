@@ -1,5 +1,9 @@
 <template>
-    <MainLayout :generalData="generalData" :cartSettings="cartSettings" :menu="menu"/>
+    <MainLayout
+        :generalData="generalData"
+        :cartSettings="cartSettings"
+        :menu="menu"
+    />
 </template>
 
 <script>
@@ -19,13 +23,14 @@ export default {
                 whatsappNumber: '62044616',
                 wazeIntegration: false,
                 googleSheets: {
-                    integration: false,
-                    url: 'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
+                    integration: true,
+                    url:
+                        'https://script.google.com/macros/s/AKfycbwpIvowUD3xaT-f0MevQw9mQ4f_wsRNUcUAILK-dA/exec',
                 },
                 emailsJs: {
                     integration: false,
-                    emails: ['email@email.com']
-                }
+                    emails: ['email@email.com'],
+                },
             },
             menu: [
                 {
@@ -97,8 +102,7 @@ export default {
                 {
                     title: 'Soda',
                     subtitle: '',
-                    desc:
-                        'Coca Cola, Ginger Ale.',
+                    desc: 'Coca Cola, Ginger Ale.',
                     type: 'bebidas',
                     pic: 'soda.jpg',
                     price: 1.5,
@@ -116,9 +120,6 @@ export default {
                     styles: [],
                     sides: [],
                 },
-
-
-                
             ],
             cartSettings: {
                 locationDefaults: {
@@ -130,13 +131,13 @@ export default {
                         type: 'text',
                         label: 'Nombre',
                         required: true,
-                        placeholder: 'Nombre Apellido'
+                        placeholder: 'Nombre Apellido',
                     },
                     {
                         type: 'textarea',
                         label: 'Comentarios especiales',
                         required: false,
-                        placeholder: 'La hamburguesa sin mayonesa porfavor'
+                        placeholder: 'La hamburguesa sin mayonesa porfavor',
                     },
                     {
                         type: 'radio',
@@ -145,15 +146,14 @@ export default {
                         options: [
                             {label: 'Yappy', value: 'Yappy'},
                             {label: 'Efectivo', value: 'Efectivo'},
-                        ]
-                    }
-                ]
+                        ],
+                    },
+                ],
             },
         }
     },
     components: {
-        MainLayout
-    }
+        MainLayout,
+    },
 }
-
 </script>
