@@ -40,7 +40,7 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/restaurants/restaurants',
+            path: '/admin/restaurants',
             component: DefaultLayout,
             beforeEnter: ifAuthenticated,
             children: [

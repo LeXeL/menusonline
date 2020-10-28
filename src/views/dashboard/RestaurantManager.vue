@@ -85,6 +85,7 @@
                             bottom-slots
                             :options="paymentOptions"
                             label="Metodos de pago"
+                            class="q-mb-md"
                         >
                             <template v-slot:hint>
                                 <span class="text-primary"
@@ -92,6 +93,19 @@
                                 >
                             </template>
                         </q-select>
+                        <q-file
+                            filled
+                            label="Logo"
+                            bottom-slots
+                            v-model="logoUpload"
+                        >
+                            <template v-slot:prepend>
+                                <q-icon name="attach_file" />
+                            </template>
+                            <template v-slot:hint>
+                                <span class="text-primary">1280px x 450px</span>
+                            </template>
+                        </q-file>
                     </q-card-section>
                     <q-card-actions>
                         <q-space />
@@ -164,10 +178,7 @@
                 </q-card>
             </div>
             <div class="col-lg-3 q-pa-md">
-                <iframe
-                    class="shadow-8 q-mb-md"
-                    src="/wp/panamahotdog"
-                />
+                <iframe class="shadow-8 q-mb-md" src="/wp/panamahotdog" />
                 <q-btn
                     label="Editar Menu"
                     color="accent"
@@ -224,7 +235,9 @@
                                 bottom-slots
                             >
                                 <template v-slot:hint>
-                                    <span class="text-primary">Presiona enter para agregar.</span>
+                                    <span class="text-primary"
+                                        >Presiona enter para agregar.</span
+                                    >
                                 </template>
                             </q-select>
                             <q-select
@@ -244,7 +257,9 @@
                             <div class="text-h6 q-mb-xl text-white">
                                 Visualizacion previa:
                             </div>
-                            <div class="text-subtitle2 poppins-bold q-mb-sm text-white">
+                            <div
+                                class="text-subtitle2 poppins-bold q-mb-sm text-white"
+                            >
                                 {{ newInputFieldName }}:
                                 <span v-if="newInputFieldRequired">*</span>
                             </div>
@@ -280,10 +295,15 @@
                         </div>
                     </div>
                 </q-card-section>
-                <q-separator/>
+                <q-separator />
                 <q-card-actions>
-                    <q-space/>
-                    <q-btn label="Cancelar" color="red-7" flat @click="cleanInputDialog()" />
+                    <q-space />
+                    <q-btn
+                        label="Cancelar"
+                        color="red-7"
+                        flat
+                        @click="cleanInputDialog()"
+                    />
                     <q-btn label="Crear" color="accent" flat />
                 </q-card-actions>
             </q-card>
@@ -299,17 +319,87 @@
                 <q-bar>
                     <q-space />
                     <q-btn dense flat icon="close" v-close-popup>
-                        <q-tooltip content-class="bg-white text-primary">Cerrar</q-tooltip>
+                        <q-tooltip content-class="bg-white text-primary"
+                            >Cerrar</q-tooltip
+                        >
                     </q-btn>
                 </q-bar>
 
                 <q-card-section>
-                    <div class="text-h6 q-px-md">Gestionar Menu</div>
+                    <div class="text-h4 q-px-md">Gestionar Menu</div>
                 </q-card-section>
 
-                <q-card-section class="q-pt-none">
+                <q-card-section>
                     <div class="row">
-                        <div class="col q-px-md">Categorias</div>
+                        <div class="col q-px-md">
+                            <div class="text-h6 q-mb-md">Categorias</div>
+                            <div class="row q-mb-md">
+                                <q-input
+                                    label="Nueva categoria"
+                                    class="full-width"
+                                    filled
+                                    dark
+                                >
+                                    <template v-slot:after>
+                                        <q-btn round flat icon="send" />
+                                    </template>
+                                </q-input>
+                            </div>
+                            <div class="row">
+                                <q-list
+                                    bordered
+                                    padding
+                                    dark
+                                    class="full-width"
+                                >
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label
+                                                >Entradas</q-item-label
+                                            >
+                                        </q-item-section>
+                                        <q-item-section side>
+                                            <q-btn
+                                                flat
+                                                dense
+                                                round
+                                                icon="close"
+                                            />
+                                        </q-item-section>
+                                    </q-item>
+                                    <q-separator dark />
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label
+                                                >Hamburguesas</q-item-label
+                                            >
+                                        </q-item-section>
+                                        <q-item-section side>
+                                            <q-btn
+                                                flat
+                                                dense
+                                                round
+                                                icon="close"
+                                            />
+                                        </q-item-section>
+                                    </q-item>
+                                    <q-separator dark />
+                                    <q-item>
+                                        <q-item-section>
+                                            <q-item-label>Bebidas</q-item-label>
+                                        </q-item-section>
+                                        <q-item-section side>
+                                            <q-btn
+                                                flat
+                                                dense
+                                                round
+                                                icon="close"
+                                            />
+                                        </q-item-section>
+                                    </q-item>
+                                </q-list>
+                            </div>
+                        </div>
                         <div class="col q-px-md">Items</div>
                         <div class="col q-px-md">Opciones Nivel 1</div>
                         <div class="col q-px-md">Opciones Nivel 2</div>
@@ -329,6 +419,7 @@ export default {
             primaryColor: null,
             secondaryColor: null,
             paymentMethods: null,
+            logoUpload: null,
             inputFieldsDialog: false,
             newInputFieldName: '',
             newInputFieldType: null,
@@ -336,7 +427,7 @@ export default {
             newInputFieldRequired: '',
             newInputFieldRadioOptions: [],
             newInputRadioOptionsTest: null,
-            menuDialog: false,
+            menuDialog: true,
             newInputFieldTypeOptions: [
                 {
                     label: 'Texto',
@@ -477,19 +568,16 @@ export default {
         returnRadioOptions() {
             let options = []
             this.newInputFieldRadioOptions.forEach(op => {
-                options.push(
-                    {
-                        label: op,
-                        value: op,
-                    }
-                )
+                options.push({
+                    label: op,
+                    value: op,
+                })
             })
             return options
         },
         cleanInputDialog() {
-            this.newInputFieldType = null,
-            this.inputFieldsDialog = false
-        }
+            ;(this.newInputFieldType = null), (this.inputFieldsDialog = false)
+        },
     },
     watch: {
         newInputFieldType: function() {
@@ -497,7 +585,7 @@ export default {
             this.newInputFieldPlaceholder = ''
             this.newInputFieldRadioOptions = []
             this.newInputFieldRequired = null
-        }
+        },
     },
 }
 </script>
