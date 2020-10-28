@@ -1,5 +1,9 @@
 <template>
-    <MainLayout :generalData="generalData" :cartSettings="cartSettings" :menu="menu"/>
+    <MainLayout
+        :generalData="generalData"
+        :cartSettings="cartSettings"
+        :menu="menu"
+    />
 </template>
 
 <script>
@@ -15,18 +19,19 @@ export default {
                 categories: [
                     {label: 'Hamburguesas', value: 'hamburguesas'},
                     {label: 'Hotdogs', value: 'hotdogs'},
-                    {label: 'De Picar', value: 'de_picar'}
+                    {label: 'De Picar', value: 'de_picar'},
                 ],
                 whatsappNumber: '66083084',
                 wazeIntegration: false,
                 googleSheets: {
-                    integration: false,
-                    url: 'https://script.google.com/macros/s/AKfycbzPCB7GpZlqm0iKBy8mDPpa12_QFmcTukrsPlaINRFSYjWGvfD9/exec'
+                    integration: true,
+                    url:
+                        'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec',
                 },
                 emailsJs: {
                     integration: false,
-                    emails: ['email@email.com']
-                }
+                    emails: ['email@email.com'],
+                },
             },
             menu: [
                 {
@@ -255,13 +260,13 @@ export default {
                         type: 'text',
                         label: 'Nombre',
                         required: true,
-                        placeholder: 'Nombre Apellido'
+                        placeholder: 'Nombre Apellido',
                     },
                     {
                         type: 'textarea',
                         label: 'Comentarios especiales',
                         required: false,
-                        placeholder: 'La hamburguesa son mayonesa porfavor'
+                        placeholder: 'La hamburguesa son mayonesa porfavor',
                     },
                     {
                         type: 'radio',
@@ -271,15 +276,14 @@ export default {
                             {label: 'Yappy', value: 'Yappy'},
                             {label: 'Efectivo', value: 'Efectivo'},
                             {label: 'Tarjeta', value: 'Tarjeta'},
-                        ]
-                    }
-                ]
+                        ],
+                    },
+                ],
             },
         }
     },
     components: {
-        MainLayout
-    }
+        MainLayout,
+    },
 }
-
 </script>
