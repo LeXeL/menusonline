@@ -21,100 +21,80 @@
             </q-card-section>
 
             <q-card-section>
-                <div class="row">
-                    <div class="col q-px-md">
-                        <q-expansion-item
-                            class="shadow-1 overflow-hidden"
-                            expand-separator
-                            icon="category"
-                            label="Categorias y Opciones"
-                            header-class="bg-secondary"
-                            style="border-radius: 10px"
-                            dark
-                        >
-                            <q-card class="text-black">
-                                <q-card-section>
-                                    <div class="row">
-                                        <div class="col-lg-3">
-                                            <div class="text-h6 q-mb-md">
-                                                Categorias
-                                            </div>
-                                            <div class="row q-mb-md">
-                                                <q-input
-                                                    label="Nueva categoria"
-                                                    class="full-width q-mb-md"
-                                                    filled
-                                                >
-                                                    <template v-slot:after>
-                                                        <q-btn
-                                                            round
-                                                            flat
-                                                            icon="send"
-                                                            color="accent"
-                                                        />
-                                                    </template>
-                                                </q-input>
-                                                <q-list
-                                                    bordered
-                                                    padding
-                                                    class="full-width"
-                                                >
-                                                    <div
-                                                        v-for="(category,
-                                                        i) in categories"
-                                                        :key="i"
-                                                    >
-                                                        <q-item>
-                                                            <q-item-section>
-                                                                <q-item-label>{{
-                                                                    category
-                                                                }}</q-item-label>
-                                                            </q-item-section>
-                                                            <q-item-section
-                                                                side
-                                                            >
-                                                                <q-btn
-                                                                    flat
-                                                                    dense
-                                                                    round
-                                                                    icon="close"
-                                                                    color="red-7"
-                                                                />
-                                                            </q-item-section>
-                                                        </q-item>
-                                                        <q-separator
-                                                            v-if="
-                                                                i + 1 <
-                                                                    categories.length
-                                                            "
-                                                        />
-                                                    </div>
-                                                </q-list>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </q-card-section>
-                            </q-card>
-                        </q-expansion-item>
-                    </div>
-                </div>
+                <q-expansion-item
+                    class="shadow-1 overflow-hidden q-mb-md"
+                    expand-separator
+                    icon="category"
+                    label="Categorias y Opciones"
+                    header-class="bg-secondary"
+                    style="border-radius: 10px"
+                    dark
+                >
+                    <q-card class="text-black">
+                        <q-card-section>
+                            <div class="row">
+                                <div class="col-lg-4 q-px-md">
+                                    <MenuManagerCategories />
+                                </div>
+                                <div class="col-lg-4 q-px-md">
+                                    <MenuManagerOptions />
+                                </div>
+                            </div>
+                        </q-card-section>
+                    </q-card>
+                </q-expansion-item>
+                <q-expansion-item
+                    class="shadow-1 overflow-hidden q-mb-md"
+                    expand-separator
+                    icon="menu_book"
+                    label="Items de Menu"
+                    header-class="bg-secondary"
+                    style="border-radius: 10px"
+                    dark
+                >
+                    <q-card class="text-black">
+                        <q-card-section>
+                            <div class="row">
+                                <div class="col q-px-md">
+                                    <MenuManagerItems />
+                                </div>
+                                <div class="col q-px-md">
+                                    info general del item
+                                </div>
+                                <div class="col q-px-md">
+                                    nivel 1 de opciones
+                                </div>
+                                <div class="col q-px-md">
+                                    nivel 2 de opciones
+                                </div>
+                                <div class="col q-px-md">
+                                    nivel 3 de opciones
+                                </div>
+                            </div>
+                        </q-card-section>
+                    </q-card>
+                </q-expansion-item>
             </q-card-section>
         </q-card>
     </q-dialog>
 </template>
 
 <script>
+import MenuManagerCategories from '@/components/dashboard/MenuManagerCategories'
+import MenuManagerOptions from '@/components/dashboard/MenuManagerOptions'
+import MenuManagerItems from '@/components/dashboard/MenuManagerItems'
+
 export default {
     props: ['display'],
-    data() {
-        return {
-            categories: ['Entradas', 'Hamburguesas', 'Bebidas'],
-        }
-    },
     methods: {
         closeDialog() {
             this.$emit('close-dialog')
         },
+    },
+    components: {
+        MenuManagerCategories,
+        MenuManagerOptions,
+        MenuManagerItems,
     },
 }
 </script>
