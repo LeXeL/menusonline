@@ -9,10 +9,10 @@
             </template>
         </q-input>
         <q-list bordered padding class="full-width q-mb-md">
-            <div v-for="(option, i) in options" :key="i">
+            <div v-for="(item, i) in items" :key="i">
                 <q-item>
                     <q-item-section>
-                        <q-item-label>{{ option.title }}</q-item-label>
+                        <q-item-label>{{ item.title }}</q-item-label>
                     </q-item-section>
                     <q-item-section side>
                         <q-btn-group rounded flat>
@@ -20,8 +20,8 @@
                                 flat
                                 dense
                                 round
-                                :icon="option.active ? 'pause' : 'play_arrow'"
-                                :color="option.active ? 'primary' : 'accent'"
+                                :icon="item.active ? 'pause' : 'play_arrow'"
+                                :color="item.active ? 'primary' : 'accent'"
                             />
                             <q-btn
                                 flat
@@ -40,7 +40,7 @@
                         </q-btn-group>
                     </q-item-section>
                 </q-item>
-                <q-separator v-if="i + 1 < options.length" />
+                <q-separator v-if="i + 1 < items.length" />
             </div>
         </q-list>
     </div>
@@ -50,9 +50,16 @@
 export default {
     data() {
         return {
-            options: [
+            items: [
                 {
                     title: 'Hamburguesa clasica',
+                    subtitle: 'Especial de la casa',
+                    description:
+                        'Deliciosa carne angus hecha a la parrilla, con cebolla, tomate, lechuga, salsa de la casa y pan artesanal.',
+                    category: 'Hamburguesas',
+                    pic: null,
+                    availableDays: [5, 6],
+                    price: 6.75,
                     active: true,
                 },
                 {
