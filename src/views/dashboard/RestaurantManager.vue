@@ -331,79 +331,107 @@
 
                 <q-card-section>
                     <div class="row">
-                        <div class="col q-px-md">
-                            <div class="text-h6 q-mb-md">Categorias</div>
-                            <div class="row q-mb-md">
-                                <q-input
-                                    label="Nueva categoria"
-                                    class="full-width"
-                                    filled
-                                    dark
-                                >
-                                    <template v-slot:after>
-                                        <q-btn round flat icon="send" />
-                                    </template>
-                                </q-input>
-                            </div>
-                            <div class="row">
-                                <q-list
-                                    bordered
-                                    padding
-                                    dark
-                                    class="full-width"
-                                >
-                                    <q-item>
-                                        <q-item-section>
-                                            <q-item-label
-                                                >Entradas</q-item-label
-                                            >
-                                        </q-item-section>
-                                        <q-item-section side>
-                                            <q-btn
-                                                flat
-                                                dense
-                                                round
-                                                icon="close"
-                                            />
-                                        </q-item-section>
-                                    </q-item>
-                                    <q-separator dark />
-                                    <q-item>
-                                        <q-item-section>
-                                            <q-item-label
-                                                >Hamburguesas</q-item-label
-                                            >
-                                        </q-item-section>
-                                        <q-item-section side>
-                                            <q-btn
-                                                flat
-                                                dense
-                                                round
-                                                icon="close"
-                                            />
-                                        </q-item-section>
-                                    </q-item>
-                                    <q-separator dark />
-                                    <q-item>
-                                        <q-item-section>
-                                            <q-item-label>Bebidas</q-item-label>
-                                        </q-item-section>
-                                        <q-item-section side>
-                                            <q-btn
-                                                flat
-                                                dense
-                                                round
-                                                icon="close"
-                                            />
-                                        </q-item-section>
-                                    </q-item>
-                                </q-list>
-                            </div>
+                        <div class="col  q-px-md">
+                            <q-expansion-item
+                                class="shadow-1 overflow-hidden"
+                                expand-separator
+                                icon="category"
+                                label="Categorias y Opciones"
+                                header-class="bg-secondary"
+                                style="border-radius: 10px"
+                                dark
+                            >
+                                <q-card class="text-black">
+                                    <q-card-section>
+                                        <div class="row">
+                                            <div class="col-lg-3">
+                                                <div class="text-h6 q-mb-md">
+                                                    Categorias
+                                                </div>
+                                                <div class="row q-mb-md">
+                                                    <q-input
+                                                        label="Nueva categoria"
+                                                        class="full-width q-mb-md"
+                                                        filled
+                                                    >
+                                                        <template v-slot:after>
+                                                            <q-btn
+                                                                round
+                                                                flat
+                                                                icon="send"
+                                                                color="accent"
+                                                            />
+                                                        </template>
+                                                    </q-input>
+                                                    <q-list
+                                                        bordered
+                                                        padding
+                                                        class="full-width"
+                                                    >
+                                                        <q-item>
+                                                            <q-item-section>
+                                                                <q-item-label
+                                                                    >Entradas</q-item-label
+                                                                >
+                                                            </q-item-section>
+                                                            <q-item-section
+                                                                side
+                                                            >
+                                                                <q-btn
+                                                                    flat
+                                                                    dense
+                                                                    round
+                                                                    icon="close"
+                                                                    color="red-7"
+                                                                />
+                                                            </q-item-section>
+                                                        </q-item>
+                                                        <q-separator />
+                                                        <q-item>
+                                                            <q-item-section>
+                                                                <q-item-label
+                                                                    >Hamburguesas</q-item-label
+                                                                >
+                                                            </q-item-section>
+                                                            <q-item-section
+                                                                side
+                                                            >
+                                                                <q-btn
+                                                                    flat
+                                                                    dense
+                                                                    round
+                                                                    icon="close"
+                                                                    color="red-7"
+                                                                />
+                                                            </q-item-section>
+                                                        </q-item>
+                                                        <q-separator />
+                                                        <q-item>
+                                                            <q-item-section>
+                                                                <q-item-label
+                                                                    >Bebidas</q-item-label
+                                                                >
+                                                            </q-item-section>
+                                                            <q-item-section
+                                                                side
+                                                            >
+                                                                <q-btn
+                                                                    flat
+                                                                    dense
+                                                                    round
+                                                                    icon="close"
+                                                                    color="red-7"
+                                                                />
+                                                            </q-item-section>
+                                                        </q-item>
+                                                    </q-list>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </q-card-section>
+                                </q-card>
+                            </q-expansion-item>
                         </div>
-                        <div class="col q-px-md">Items</div>
-                        <div class="col q-px-md">Opciones Nivel 1</div>
-                        <div class="col q-px-md">Opciones Nivel 2</div>
-                        <div class="col q-px-md">Opciones Nivel 3</div>
                     </div>
                 </q-card-section>
             </q-card>

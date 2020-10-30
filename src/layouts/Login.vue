@@ -1,5 +1,10 @@
 <template>
-    <q-card flat bordered class="bg-grey-1 absolute-center" style="width: 400px;">
+    <q-card
+        flat
+        bordered
+        class="bg-grey-1 absolute-center"
+        style="width: 400px;"
+    >
         <q-card-section>
             <div class="row">
                 <div class="col">
@@ -10,7 +15,12 @@
 
         <q-card-section>
             <q-input filled v-model="email" label="Email" class="q-mb-md" />
-            <q-input filled v-model="password" label="Password" type="password" />
+            <q-input
+                filled
+                v-model="password"
+                label="Password"
+                type="password"
+            />
         </q-card-section>
 
         <q-card-actions>
@@ -62,7 +72,7 @@ export default {
                 .then(async () => {
                     let user = await firebase.auth().currentUser
                     await this.$store.dispatch('setCurrentUser', user)
-                    this.$router.push('/restaurants/restaurants')
+                    this.$router.push('/admin/home')
                 })
                 .catch(error => {
                     this.dismissCountDown = this.dismissSecs
@@ -91,10 +101,9 @@ export default {
         },
     },
     mounted() {
-        if (this.uid) this.$router.push('/restaurants/restaurants')
+        if (this.uid) this.$router.push('/admin/home')
     },
 }
 </script>
 
-<style>
-</style>    
+<style></style>
