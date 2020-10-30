@@ -59,7 +59,7 @@
                                     <MenuManagerItems />
                                 </div>
                                 <div class="col q-px-md">
-                                    info general del item
+                                    <MenuManagerItemGeneralInfo />
                                 </div>
                                 <div class="col q-px-md">
                                     nivel 1 de opciones
@@ -83,6 +83,7 @@
 import MenuManagerCategories from '@/components/dashboard/MenuManagerCategories'
 import MenuManagerOptions from '@/components/dashboard/MenuManagerOptions'
 import MenuManagerItems from '@/components/dashboard/MenuManagerItems'
+import MenuManagerItemGeneralInfo from '@/components/dashboard/MenuManagerItemGeneralInfo'
 
 export default {
     props: ['display'],
@@ -95,6 +96,7 @@ export default {
         MenuManagerCategories,
         MenuManagerOptions,
         MenuManagerItems,
+        MenuManagerItemGeneralInfo,
     },
 }
 </script>
