@@ -16,7 +16,7 @@ import PanamaHotdog from './views/wp/PanamaHotdog'
 // import RicaSazon from './views/wp/RicaSazon'
 // import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
 import CeroTranque from './views/wp/CeroTranque'
-import LaVillaFood from './views/wp/LaVillaFood'
+// import LaVillaFood from './views/wp/LaVillaFood'
 import GarageBurgers from './views/wp/GarageBurgers'
 import SpecialOneBurger from './views/wp/SpecialOneBurger'
 
@@ -123,11 +123,11 @@ export default new Router({
                     name: 'cerotranque',
                     component: CeroTranque,
                 },
-                {
-                    path: '/wp/lavillafood',
-                    name: 'lavillafood',
-                    component: LaVillaFood,
-                },
+                // {
+                //     path: '/wp/lavillafood',
+                //     name: 'lavillafood',
+                //     component: LaVillaFood,
+                // },
                 {
                     path: '/wp/garageburgers',
                     name: 'garageburgers',
