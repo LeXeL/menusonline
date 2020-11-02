@@ -30,6 +30,15 @@
                 <q-icon name="attach_file" />
             </template>
         </q-file>
+        <div class="text-body2">
+            Dias disponibles
+        </div>
+        <q-option-group
+            :options="weekDays"
+            type="checkbox"
+            class="q-mb-md"
+            v-model="selectedDays"
+        />
     </div>
 </template>
 
@@ -39,6 +48,37 @@ export default {
         return {
             selectedCategory: null,
             uploadItemPic: null,
+            weekDays: [
+                {
+                    label: 'Lunes',
+                    value: 0,
+                },
+                {
+                    label: 'Martes',
+                    value: 1,
+                },
+                {
+                    label: 'Miercoles',
+                    value: 2,
+                },
+                {
+                    label: 'Jueves',
+                    value: 3,
+                },
+                {
+                    label: 'Viernes',
+                    value: 4,
+                },
+                {
+                    label: 'Sabado',
+                    value: 5,
+                },
+                {
+                    label: 'Domingo',
+                    value: 6,
+                },
+            ],
+            selectedDays: [0, 1, 2, 3, 4, 5, 6],
         }
     },
 }

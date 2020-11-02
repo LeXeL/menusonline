@@ -3,7 +3,11 @@
         <div class="text-h6 q-mb-md">
             Categorias
         </div>
-        <q-input label="Nueva categoria" class="full-width q-mb-md" filled>
+        <q-input
+            label="Nueva categoria (ej. Entradas, Platos fuertes, Bebidas, etc.)"
+            class="full-width q-mb-md"
+            filled
+        >
             <template v-slot:after>
                 <q-btn round flat icon="send" color="accent" />
             </template>

@@ -3,7 +3,11 @@
         <div class="text-h6 q-mb-md">
             Opciones
         </div>
-        <q-input label="Nueva opcion" class="full-width q-mb-md" filled>
+        <q-input
+            label="Nueva opcion (ej. Papas fritas, Aros de cebolla, etc.)"
+            class="full-width q-mb-md"
+            filled
+        >
             <template v-slot:after>
                 <q-btn round flat icon="send" color="accent" />
             </template>

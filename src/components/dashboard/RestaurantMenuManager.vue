@@ -24,6 +24,7 @@
                 <q-expansion-item
                     class="shadow-1 overflow-hidden q-mb-md"
                     expand-separator
+                    default-opened
                     icon="category"
                     label="Categorias y Opciones"
                     header-class="bg-secondary"
@@ -46,6 +47,7 @@
                 <q-expansion-item
                     class="shadow-1 overflow-hidden q-mb-md"
                     expand-separator
+                    default-opened
                     icon="menu_book"
                     label="Items de Menu"
                     header-class="bg-secondary"
@@ -62,13 +64,22 @@
                                     <MenuManagerItemGeneralInfo />
                                 </div>
                                 <div class="col q-px-md">
-                                    nivel 1 de opciones
+                                    <div class="text-h6 q-mb-md">
+                                        Opciones - Nivel 1
+                                    </div>
+                                    <MenuManagerItemOptionsLvs />
                                 </div>
                                 <div class="col q-px-md">
-                                    nivel 2 de opciones
+                                    <div class="text-h6 q-mb-md">
+                                        Opciones - Nivel 2
+                                    </div>
+                                    <MenuManagerItemOptionsLvs />
                                 </div>
                                 <div class="col q-px-md">
-                                    nivel 3 de opciones
+                                    <div class="text-h6 q-mb-md">
+                                        Opciones - Nivel 3
+                                    </div>
+                                    <MenuManagerItemOptionsLvs />
                                 </div>
                             </div>
                         </q-card-section>
@@ -84,6 +95,7 @@ import MenuManagerCategories from '@/components/dashboard/MenuManagerCategories'
 import MenuManagerOptions from '@/components/dashboard/MenuManagerOptions'
 import MenuManagerItems from '@/components/dashboard/MenuManagerItems'
 import MenuManagerItemGeneralInfo from '@/components/dashboard/MenuManagerItemGeneralInfo'
+import MenuManagerItemOptionsLvs from '@/components/dashboard/MenuManagerItemOptionsLvs'
 
 export default {
     props: ['display'],
@@ -97,6 +109,7 @@ export default {
         MenuManagerOptions,
         MenuManagerItems,
         MenuManagerItemGeneralInfo,
+        MenuManagerItemOptionsLvs,
     },
 }
 </script>
