@@ -70,6 +70,12 @@ export default {
                     link: '/admin/restaurants',
                     icon: 'store',
                 },
+                {
+                    text: 'Facturacion',
+                    caption: '',
+                    link: '/admin/invoicing',
+                    icon: 'receipt_long',
+                },
             ],
         }
     },

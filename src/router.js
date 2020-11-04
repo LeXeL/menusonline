@@ -6,6 +6,7 @@ import store from '@/store/store'
 import Home from '@/views/dashboard/Home'
 import Restaurants from '@/views/dashboard/Restaurants'
 import RestaurantManager from '@/views/dashboard/RestaurantManager'
+import InvoiceManager from '@/views/dashboard/Invoicing'
 
 import Menu from './views/Menu.vue'
 import Menus from './views/Menus'
@@ -58,6 +59,11 @@ export default new Router({
                     path: '/admin/restaurants/rest-uid',
                     name: 'restaurant-amanger',
                     component: RestaurantManager,
+                },
+                {
+                    path: '/admin/invoicing',
+                    name: 'invoice-manager',
+                    component: InvoiceManager,
                 },
                 {
                     path: '/menus/:id',
