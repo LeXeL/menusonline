@@ -2,8 +2,13 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/store'
 
+//DASHBOARD VIEWS
+import Home from '@/views/dashboard/Home'
+import Restaurants from '@/views/dashboard/Restaurants'
+import RestaurantManager from '@/views/dashboard/RestaurantManager'
+import InvoiceManager from '@/views/dashboard/Invoicing'
+
 import Menu from './views/Menu.vue'
-import Restaurants from './views/Restaurants'
 import Menus from './views/Menus'
 import MenuDetails from './views/MenuDetails'
 import Demo from './views/wp/Demo'
@@ -36,14 +41,29 @@ export default new Router({
     mode: 'history',
     routes: [
         {
-            path: '/restaurants/restaurants',
+            path: '/admin/restaurants',
             component: DefaultLayout,
             beforeEnter: ifAuthenticated,
             children: [
                 {
-                    path: '/restaurants/restaurants',
+                    path: '/admin/home',
+                    name: 'home',
+                    component: Home,
+                },
+                {
+                    path: '/admin/restaurants',
                     name: 'restaurants',
                     component: Restaurants,
+                },
+                {
+                    path: '/admin/restaurants/rest-uid',
+                    name: 'restaurant-amanger',
+                    component: RestaurantManager,
+                },
+                {
+                    path: '/admin/invoicing',
+                    name: 'invoice-manager',
+                    component: InvoiceManager,
                 },
                 {
                     path: '/menus/:id',

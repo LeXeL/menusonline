@@ -1,23 +1,46 @@
 <template>
     <q-layout view="hHh lpR lFr">
-        <q-header>
-            <q-toolbar class="bg-white text-black">
-                <q-toolbar-title>Menus Online</q-toolbar-title>
+        <q-header elevated>
+            <q-toolbar class="bg-secondary text-white">
+                <q-btn
+                    flat
+                    dense
+                    round
+                    @click="leftDrawerOpen = !leftDrawerOpen"
+                    aria-label="Menu"
+                    icon="menu"
+                />
+                <q-toolbar-title>MiMenuDigital</q-toolbar-title>
                 <q-btn flat round dense icon="logout" @click="logout()" />
             </q-toolbar>
         </q-header>
-        <!-- <q-drawer show-if-above :width="300" :breakpoint="400" class="mo-grey">
-            <q-scroll-area style="height: calc(100% - 150px); ">
-                <q-list padding>
-                    <q-item clickable v-ripple to="/restaurants">
-                        <q-item-section avatar>
-                            <i class="fas fa-utensils"></i>
-                        </q-item-section>
-                        <q-item-section>Restaurantes</q-item-section>
-                    </q-item>
-                </q-list>
-            </q-scroll-area>
-        </q-drawer>-->
+        <q-drawer
+            v-model="leftDrawerOpen"
+            show-if-above
+            bordered
+            content-class="bg-primary text-white"
+            elevated
+        >
+            <q-list>
+                <q-item-label header class="text-white">Menu</q-item-label>
+                <q-item
+                    clickable
+                    tag="a"
+                    :to="link.link"
+                    class="text-white"
+                    v-for="(link, i) in drawerLinks"
+                    :key="i"
+                >
+                    <q-item-section avatar>
+                        <q-icon :name="link.icon" />
+                    </q-item-section>
+                    <q-item-section>
+                        <q-item-label>{{ link.text }}</q-item-label>
+                        <q-item-label caption>{{ link.caption }}</q-item-label>
+                    </q-item-section>
+                </q-item>
+            </q-list>
+        </q-drawer>
 
         <q-page-container class="bg-grey-11">
             <router-view />
@@ -34,6 +57,26 @@ export default {
     data() {
         return {
             leftDrawerOpen: false,
+            drawerLinks: [
+                {
+                    text: 'Inicio',
+                    caption: '',
+                    link: '/admin/home',
+                    icon: 'home',
+                },
+                {
+                    text: 'Restaurantes',
+                    caption: '',
+                    link: '/admin/restaurants',
+                    icon: 'store',
+                },
+                {
+                    text: 'Facturacion',
+                    caption: '',
+                    link: '/admin/invoicing',
+                    icon: 'receipt_long',
+                },
+            ],
         }
     },
     methods: {
