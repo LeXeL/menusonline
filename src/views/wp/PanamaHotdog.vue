@@ -182,7 +182,8 @@
                         <div
                             class="text-subtitle2 text-center poppins-bold text-red-7"
                         >
-                            El costo del delivery sera enviado aparte
+                            El costo del delivery sera calculado y enviado
+                            aparte.
                         </div>
                     </q-card-section>
                     <q-card-section>
@@ -408,7 +409,8 @@
                                     class="text-subtitle2 poppins-bold text-red-8"
                                     v-if="selectedPickupMethod == 'Delivery'"
                                 >
-                                    El costo del delivery sera enviado aparte.
+                                    El costo del delivery sera calculado y
+                                    enviado aparte.
                                 </div>
                             </div>
                         </div>
