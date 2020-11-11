@@ -172,8 +172,8 @@
             </q-dialog>
             <!-- END SUCCESS DIALOG -->
 
-            <!-- LOCATION DIALOG -->
-            <q-dialog v-model="locationDialog" persistent>
+            <!-- DELIVERY COST DIALOG -->
+            <q-dialog v-model="deliveryCostDialog">
                 <q-card
                     style="width: 700px; max-width: 80vw;"
                     class="bg-grey-2"
@@ -182,8 +182,8 @@
                         <div
                             class="text-subtitle2 text-center poppins-bold text-red-7"
                         >
-                            Arrastra el marcador del mapa a la ubicacion donde
-                            deseas recibir tu pedido.
+                            El costo del delivery sera calculado y enviado
+                            aparte.
                         </div>
                     </q-card-section>
                     <q-card-section>
@@ -191,13 +191,13 @@
                             color="black"
                             outline
                             class="poppins-bold full-width q-mb-md"
-                            @click="locationDialog = false"
-                            >Aceptar</q-btn
+                            @click="confirmChat()"
+                            >Confirmar</q-btn
                         >
                     </q-card-section>
                 </q-card>
             </q-dialog>
-            <!-- END LOCATION DIALOG -->
+            <!-- END DELIVERY DIALOG -->
 
             <!-- CART DIALOG -->
             <q-dialog
@@ -409,7 +409,8 @@
                                     class="text-subtitle2 poppins-bold text-red-8"
                                     v-if="selectedPickupMethod == 'Delivery'"
                                 >
-                                    Sin costos por delivery.
+                                    El costo del delivery sera calculado y
+                                    enviado aparte.
                                 </div>
                             </div>
                         </div>
@@ -418,7 +419,7 @@
                         <q-btn
                             color="green-7"
                             class="full-width q-mb-md poppins-bold"
-                            @click="sendChat"
+                            @click="sendChat()"
                             :disable="cart.length <= 0"
                             >Enviar</q-btn
                         >
@@ -504,7 +505,7 @@ export default {
             stylesDialog: false,
             successDialog: false,
             cartDialog: false,
-            locationDialog: false,
+            deliveryCostDialog: false,
             cart: [],
             menu: [
                 {
@@ -1319,15 +1320,22 @@ export default {
                 alert('Debes seleccionar un metodo de pago.')
                 return
             } else {
-                this.orderNo = Math.floor(100000 + Math.random() * 900000)
-                this.$analytics.logEvent('wp-panamahotdog', {
-                    content_action: 'Orden Completada',
-                })
-                // await this.sendToGoogleDriveSheet()
-                window.location.href = `https://wa.me/507${
-                    this.whatsappNumber
-                }?text=${this.generateMessage()}`
+                if (this.selectedPickupMethod == 'Delivery')
+                    this.deliveryCostDialog = true
+                else {
+                    this.confirmChat()
+                }
             }
+        },
+        confirmChat() {
+            this.orderNo = Math.floor(100000 + Math.random() * 900000)
+            this.$analytics.logEvent('wp-panamahotdog', {
+                content_action: 'Orden Completada',
+            })
+            // await this.sendToGoogleDriveSheet()
+            window.location.href = `https://wa.me/507${
+                this.whatsappNumber
+            }?text=${this.generateMessage()}`
         },
     },
     watch: {
