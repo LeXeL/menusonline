@@ -173,7 +173,7 @@ export default {
                         type: 'textarea',
                         label: 'Comentarios especiales',
                         required: false,
-                        placeholder: 'La hamburguesa son mayonesa porfavor',
+                        placeholder: 'El picante mas picante porfavor.',
                     },
                     {
                         type: 'radio',
@@ -183,6 +183,11 @@ export default {
                             {label: 'Yappy', value: 'Yappy'},
                             {label: 'Efectivo', value: 'Efectivo'},
                         ],
+                    },
+                    {
+                        type: 'date',
+                        label: 'Fecha de entrega (Solo fines de semana)',
+                        required: true,
                     },
                 ],
             },

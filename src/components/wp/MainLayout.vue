@@ -290,7 +290,9 @@
                                     <InputText v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="generalData.accentColor" :index="i" @update-value="updateValue"/>
                                     <TextArea v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="generalData.accentColor" :index="i" @update-value="updateValue"/>
                                     <ButtonGroup  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="generalData.accentColor" :options="input.options" :index="i" @update-value="updateValue"/>
+                                    <DateSelect v-if="input.type == 'date'" :label="input.label" :isRequired="input.required" :accentColor="generalData.accentColor" :index="i" @update-value="updateValue"/>
                                 </div>
+                                
                                 <div class="row q-mb-md">
                                     <div class="text-subtitle2 poppins-bold q-mb-sm">
                                         Metodo de entrega: *
@@ -421,6 +423,7 @@
 import InputText from '@/components/wp/InputText'
 import TextArea from '@/components/wp/TextArea'
 import ButtonGroup from '@/components/wp/ButtonGroup'
+import DateSelect from '@/components/wp/DateSelect'
 import GoogleMaps from '../../components/general/GoogleMaps'
 
 export default {
@@ -757,7 +760,8 @@ export default {
         GoogleMaps,
         InputText,
         TextArea,
-        ButtonGroup
+        ButtonGroup,
+        DateSelect
     },
     mounted() {
         this.generalData.categories.push('Todo')
