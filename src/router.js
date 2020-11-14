@@ -24,6 +24,7 @@ import CeroTranque from './views/wp/CeroTranque'
 // import LaVillaFood from './views/wp/LaVillaFood'
 import GarageBurgers from './views/wp/GarageBurgers'
 import SpecialOneBurger from './views/wp/SpecialOneBurger'
+import Tacobox from './views/wp/Tacobox'
 
 import DefaultLayout from './layouts/Default.vue'
 import Login from './layouts/Login'
@@ -157,6 +158,11 @@ export default new Router({
                     path: '/wp/specialoneburger',
                     name: 'specialoneburger',
                     component: SpecialOneBurger,
+                },
+                {
+                    path: '/wp/tacobox',
+                    name: 'tacobox',
+                    component: Tacobox,
                 },
             ],
         },
