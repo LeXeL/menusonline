@@ -23,7 +23,7 @@ export default {
                     {label: 'Dulces', value: 'dulces'},
                     {label: 'Bebidas', value: 'bebidas'},
                 ],
-                whatsappNumber: '62042578',
+                whatsappNumber: '65121562',
                 wazeIntegration: false,
                 googleSheets: {
                     integration: false,
@@ -68,7 +68,12 @@ export default {
                     count: 0,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Wings 65`',
@@ -80,7 +85,12 @@ export default {
                     count: 0,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Samosas',
@@ -92,7 +102,12 @@ export default {
                     count: 0,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Hamburguesa Clasica',

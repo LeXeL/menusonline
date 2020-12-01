@@ -429,7 +429,8 @@
                                                     'Delivery'
                                             "
                                         >
-                                            Sin costos por delivery.
+                                            El costo por delivery sera calculado
+                                            y enviado aparte.
                                         </div>
                                     </div>
                                 </div>
