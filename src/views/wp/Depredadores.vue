@@ -21,6 +21,14 @@
                 BIENVENIDOS
             </div>
 
+            <!-- VIDEO -->
+            <!-- <q-card class="full-width q-mb-lg">
+                <q-card-section>
+                    video
+                </q-card-section>
+            </q-card> -->
+            <!-- END VIDEO -->
+
             <!-- MENU ITEMS -->
             <q-card
                 class="full-width q-mb-lg"
@@ -617,14 +625,14 @@ export default {
                 status: 'orden creada',
                 total: this.total,
                 metodo_de_pago: this.selectedPaymentMethod,
-                metodo_de_entrega: this.selectedPickupMethod,
+                participantes: this.specialComments,
             }
             if (data.metodo_de_entrega === 'Delivery') {
                 data.direcion_1 = this.getLocationForMessage()
                 data.direcion_2 = this.address
             }
             var url =
-                'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec'
+                'https://script.google.com/macros/s/AKfycbyrnIPKKgUKjsX4TgxoSclSLPUw2gk-U9YxxC7l/exec'
             var xhr = new XMLHttpRequest()
             xhr.open('POST', url)
             // xhr.withCredentials = true;
@@ -705,12 +713,12 @@ export default {
                 this.confirmChat()
             }
         },
-        confirmChat() {
+        async confirmChat() {
             this.orderNo = Math.floor(100000 + Math.random() * 900000)
             this.$analytics.logEvent('wp-depredadores', {
                 content_action: 'Orden Completada',
             })
-            // await this.sendToGoogleDriveSheet()
+            await this.sendToGoogleDriveSheet()
             window.location.href = `https://wa.me/507${
                 this.whatsappNumber
             }?text=${this.generateMessage()}`
