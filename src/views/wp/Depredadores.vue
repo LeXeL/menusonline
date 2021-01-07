@@ -28,6 +28,11 @@
                         :ratio="16 / 9"
                         src="https://www.youtube.com/embed/MPvGJg2Mf08"
                     />
+                    <div
+                        class="text-body2 q-pa-sm text-bold text-center text-orange-8"
+                    >
+                        Video informativo de la dinamica
+                    </div>
                 </q-card-section>
             </q-card>
             <!-- END VIDEO -->
