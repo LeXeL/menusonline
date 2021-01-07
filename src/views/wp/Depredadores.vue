@@ -620,7 +620,7 @@ export default {
             let message = ''
             for (let item of this.cart) {
                 if (item.type == 'main')
-                    message += `(${item.amount}) ${item.title} con ${item.options.title}\n`
+                    message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
                 if (item.type == 'extras')
                     message += `(${item.amount}) ${item.title} - ${item.options.title}\n`
                 if (item.type == 'drinks')
