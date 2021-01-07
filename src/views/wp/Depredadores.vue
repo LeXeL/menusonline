@@ -31,7 +31,7 @@
                     <div
                         class="text-body2 q-pa-sm text-bold text-center text-orange-8"
                     >
-                        Video informativo de la dinamica
+                        Video informativo de la dinámica
                     </div>
                 </q-card-section>
             </q-card>
