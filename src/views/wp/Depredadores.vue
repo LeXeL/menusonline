@@ -22,11 +22,14 @@
             </div>
 
             <!-- VIDEO -->
-            <!-- <q-card class="full-width q-mb-lg">
-                <q-card-section>
-                    video
+            <q-card class="full-width q-mb-lg">
+                <q-card-section class="q-pa-none">
+                    <q-video
+                        :ratio="16 / 9"
+                        src="https://www.youtube.com/embed/MPvGJg2Mf08"
+                    />
                 </q-card-section>
-            </q-card> -->
+            </q-card>
             <!-- END VIDEO -->
 
             <!-- MENU ITEMS -->
