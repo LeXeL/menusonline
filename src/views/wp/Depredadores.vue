@@ -1,7 +1,7 @@
 <template>
     <q-page class="bg-grey-2">
         <q-img
-            :src="require('@/assets/wp/depredadores/logo.webp')"
+            :src="require('@/assets/wp/depredadores/logo.jpeg')"
             class="shadow-7"
         />
         <div class="q-pa-md">
