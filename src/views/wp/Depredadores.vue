@@ -462,7 +462,7 @@ export default {
                     desc:
                         ' Acceso únicamente para un niño o niña. Si es menor de 7 años, necesita monitoreo de algún tutor.',
                     type: 'main',
-                    pic: 'individual.webp',
+                    pic: 'individual.jpeg',
                     price: 6,
                     styles: [],
                     sides: [],
@@ -489,7 +489,7 @@ export default {
                     title: 'Burbuja Familiar',
                     desc: 'Acceso para toda la familia o varios hermanos.',
                     type: 'main',
-                    pic: 'burbuja.webp',
+                    pic: 'burbuja_2.jpeg',
                     price: 10,
                     styles: [],
                     sides: [],
