@@ -348,8 +348,8 @@
                             <div
                                 class="text-subtitle2 text-center q-mt-lg poppins-bold"
                             >
-                                Recuerda enviar el comprobante de pago por
-                                WhatsApp al numero 6389-3438
+                                Dale clic en enviar para finalizar reserva y
+                                recibir número de cuenta.
                             </div>
                         </div>
                     </q-card-section>
@@ -468,19 +468,19 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Martes - 4 P.M.',
+                            title: 'Martes - 5:30 P.M.',
                             price: 0,
                         },
                         {
-                            title: 'Viernes - 4 P.M.',
+                            title: 'Viernes - 5:30 P.M.',
                             price: 0,
                         },
                         {
-                            title: 'Sabado - 4 P.M.',
+                            title: 'Sabado - 5:30 P.M.',
                             price: 0,
                         },
                         {
-                            title: 'Domingo - 4 P.M.',
+                            title: 'Domingo - 5:30 P.M.',
                             price: 0,
                         },
                     ],
@@ -495,19 +495,19 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Martes - 4 P.M.',
+                            title: 'Martes - 5:30 P.M.',
                             price: 0,
                         },
                         {
-                            title: 'Viernes - 4 P.M.',
+                            title: 'Viernes - 5:30 P.M.',
                             price: 0,
                         },
                         {
-                            title: 'Sabado - 4 P.M.',
+                            title: 'Sabado - 5:30 P.M.',
                             price: 0,
                         },
                         {
-                            title: 'Domingo - 4 P.M.',
+                            title: 'Domingo - 5:30 P.M.',
                             price: 0,
                         },
                     ],
