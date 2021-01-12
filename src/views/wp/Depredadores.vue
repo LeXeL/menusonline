@@ -757,7 +757,7 @@ export default {
         }
         this.$store.commit('SET_DISPLAYFOOTER', false)
         let path = this.$route.params.path
-        this.$analytics.logEvent('wp-panamahotdog', {
+        this.$analytics.logEvent('wp-depredadores', {
             path,
         })
         this.geolocate()
