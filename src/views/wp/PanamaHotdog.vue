@@ -9,7 +9,7 @@
                 <i class="fab fa-instagram text-red-8"></i>
                 <a
                     href="http://www.instagram.com/panamahotdogoficial"
-                    style="text-decoration: none; color: black;"
+                    style="text-decoration: none; color: black"
                     >&nbsp;PanamaHotdogOficial</a
                 >
             </div>
@@ -67,10 +67,7 @@
 
             <!-- STYLES DIALOG -->
             <q-dialog v-model="stylesDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ESTILO
@@ -108,10 +105,7 @@
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ELIJA
@@ -150,10 +144,7 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section>
                         <div class="text-h6 text-center poppins-bold">
                             Agregado con exito
@@ -174,10 +165,7 @@
 
             <!-- DELIVERY COST DIALOG -->
             <q-dialog v-model="deliveryCostDialog">
-                <q-card
-                    style="width: 700px; max-width: 80vw;"
-                    class="bg-grey-2"
-                >
+                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
                     <q-card-section>
                         <div
                             class="text-subtitle2 text-center poppins-bold text-red-7"
@@ -207,7 +195,7 @@
                 transition-hide="slide-down"
             >
                 <q-card class="bg-grey-9 text-white">
-                    <q-bar style="height: 45px;">
+                    <q-bar style="height: 45px">
                         <q-space />
                         <q-btn
                             dense
@@ -266,7 +254,7 @@
                             <div class="col text-grey-6 text-center">
                                 <i
                                     class="fas fa-utensils q-mt-lg q-mb-md"
-                                    style="font-size: 75px;"
+                                    style="font-size: 75px"
                                 ></i>
                                 <div class="text-h5 poppins-bold q-mb-lg">
                                     Tu carrito esta vacio
@@ -339,20 +327,15 @@
                             >
                                 Ubicacion de entrega: *
                             </div>
-                            <div
-                                class="text-subtitle2 poppins-bold q-mb-md text-red-7"
-                            >
-                                Para mover el marcador debes arrastrarlo a la
-                                ubicacion que deseas recibir tu pedido.
-                            </div>
                         </div>
                         <GoogleMaps
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                    this.selectedPickupMethod == 'Delivery'
+                                this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
+                            @newMarkerPosition="setNewMarkerPosition"
                             :editable="true"
                             :markers="markers"
                             :mapCenter="center"
@@ -431,7 +414,7 @@
             <!-- NEW DIALOG -->
             <q-dialog v-model="seamless" seamless position="bottom">
                 <q-card
-                    style="width: 350px; border-radius: 0;"
+                    style="width: 350px; border-radius: 0"
                     class="bg-red-7 text-white"
                 >
                     <q-card-section class="row items-center no-wrap">
@@ -1246,7 +1229,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function(k) {
+                .map(function (k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +
@@ -1281,6 +1264,10 @@ export default {
         },
 
         setMarkerPosition(event) {
+            this.location = event
+        },
+        setNewMarkerPosition(event) {
+            this.markers = [{position: event}]
             this.location = event
         },
         geolocate() {
