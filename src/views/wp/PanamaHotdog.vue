@@ -327,12 +327,6 @@
                             >
                                 Ubicacion de entrega: *
                             </div>
-                            <div
-                                class="text-subtitle2 poppins-bold q-mb-md text-red-7"
-                            >
-                                Para mover el marcador debes arrastrarlo a la
-                                ubicacion que deseas recibir tu pedido.
-                            </div>
                         </div>
                         <GoogleMaps
                             class="q-mb-md"
