@@ -13,6 +13,8 @@ const cors = require('cors')({
 
 const Restaurantes = require('./lib/Restaurantes')
 const Menus = require('./lib/Menus')
+// Admin Management
+const Restaurants = require('./lib/Restaurants')
 
 //Handle Restaurantes
 exports.createRestaurantesOnDatabase = functions.https.onRequest(
@@ -168,6 +170,55 @@ exports.returnAllMenusByRestaurantId = functions.https.onRequest(
             try {
                 let response = await Menus.returnAllMenusByRestaurantId(
                     req.body.restaurantId
+                )
+                res.status(200).send({data: response})
+            } catch (err) {
+                console.log(err)
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+
+// handle Restaurants
+// New Restaurant
+exports.createNewAdminRestaurant = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                await Restaurants.createRestaurant(req.body.Restaurant)
+                res.status(200).send({status: 'Created New Restaurant'})
+            } catch (err) {
+                console.log(err)
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+// Update Restaurant
+exports.updateAdminRestaurantInfo = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await Restaurants.updateRestaurant(
+                    req.body.id, // confirmar
+                    req.body.Restaurant // confirmar
+                )
+                res.status(200).send({data: response})
+            } catch (err) {
+                console.log(err)
+                res.status(400).send({err: err})
+            }
+        })
+    }
+)
+// Delete Restaurant
+exports.deleteAdminRestaurant = functions.https.onRequest(
+    async (req, res) => {
+        cors(req, res, async () => {
+            try {
+                let response = await Restaurants.deleteRestaurant(
+                    req.body.id
                 )
                 res.status(200).send({data: response})
             } catch (err) {
