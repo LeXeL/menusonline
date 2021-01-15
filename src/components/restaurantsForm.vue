@@ -1,90 +1,111 @@
 <template>
-    <q-card class="q-mb-lg no-shadow mo-grey">
-        <loading-alert :display="displayLoading"></loading-alert>
-        <brewthers-alert
-            :display="displayAlert"
-            :title="alertTitle"
-            :message="alertMessage"
-            :type="alertType"
-        ></brewthers-alert>
-        <q-card-section>
-            <div class="text-h6">Crear nuevo restaurante</div>
-        </q-card-section>
-        <q-card-section>
-            <q-input
-                filled
-                class="q-mb-md"
-                label="Nombre"
-                v-model="form.name"
-            />
-            <q-input
-                filled
-                class="q-mb-md"
-                label="Correo"
-                v-model="form.email"
-            />
-            <q-input
-                filled
-                class="q-mb-md"
-                label="Numero"
-                v-model="form.phone"
-            />
-            <q-select
-                filled
-                class="q-mb-md"
-                label="Tipo"
-                :options="['Whatsapp Pedidos', 'Carta Digital']"
-                v-model="form.type"
-            />
-            <q-input filled class="q-mb-md" label="/Path" v-model="form.url" />
-            <q-file filled label="Logo" v-model="logoFile">
-                <template v-slot:prepend>
-                    <i class="fas fa-paperclip"></i>
-                </template>
-            </q-file>
-            <!-- <q-input filled class="q-mb-md" label="Splash color" v-model="form.splashColor">
-                <template v-slot:append>
-                    <i class="fas fa-eye-dropper" style="cursor: pointer">
-                        <q-popup-proxy transition-show="scale" transition-hide="scale">
-                            <q-color v-model="form.splashColor" />
-                        </q-popup-proxy>
-                    </i>
-                </template>
-            </q-input> -->
-            <!-- <q-input
-                filled
-                class="q-mb-md"
-                label="Splash button color"
-                v-model="form.splashButtonColor"
-            >
-                <template v-slot:append>
-                    <i class="fas fa-eye-dropper" style="cursor: pointer">
-                        <q-popup-proxy transition-show="scale" transition-hide="scale">
-                            <q-color v-model="form.splashButtonColor" />
-                        </q-popup-proxy>
-                    </i>
-                </template>
-            </q-input> -->
-            <!-- <q-input
-                filled
-                class="q-mb-md"
-                label="Menu Background color"
-                v-model="form.menuBackgroundColor"
-            >
-                <template v-slot:append>
-                    <i class="fas fa-eye-dropper" style="cursor: pointer">
-                        <q-popup-proxy transition-show="scale" transition-hide="scale">
-                            <q-color v-model="form.menuBackgroundColor" />
-                        </q-popup-proxy>
-                    </i>
-                </template>
-            </q-input> -->
-        </q-card-section>
-        <q-card-actions class="q-px-md">
-            <q-space />
-            <q-btn color="accent" flat>Crear</q-btn>
-        </q-card-actions>
-    </q-card>
+    <q-form @submit="createNewRestaurant">
+        <q-card class="q-mb-lg no-shadow mo-grey">
+            <loading-alert :display="displayLoading"></loading-alert>
+            <brewthers-alert
+                :display="displayAlert"
+                :title="alertTitle"
+                :message="alertMessage"
+                :type="alertType"
+            ></brewthers-alert>
+            <q-card-section>
+                <div class="text-h6">Crear nuevo restaurante</div>
+            </q-card-section>
+            <q-card-section>
+                <q-input
+                    filled
+                    class="q-mb-md"
+                    label="Nombre"
+                    v-model="form.name"
+                    :rules="[val => val.length > 0 || 'Información Requerida']"
+                />
+                <q-input
+                    filled
+                    class="q-mb-md"
+                    label="Correo"
+                    v-model="form.email"
+                    :rules="[
+                        val => val.length > 0 || 'Información Requerida',
+                        val => validEmail.test(val) || 'Formato incorrecto',
+                    ]"
+                />
+                <q-input
+                    filled
+                    class="q-mb-md"
+                    label="Numero"
+                    v-model="form.phone"
+                    mask="########"
+                    :rules="[val => val.length > 0 || 'Información Requerida']"
+                />
+                <q-select
+                    filled
+                    class="q-mb-md"
+                    label="Tipo"
+                    :options="['Whatsapp Pedidos', 'Carta Digital']"
+                    v-model="form.type"
+                    :rules="[val => val.length > 0 || 'Información Requerida']"
+                />
+                <q-input
+                    filled
+                    class="q-mb-md"
+                    label="/Path"
+                    v-model="form.url"
+                    :rules="[val => val.length > 0 || 'Información Requerida']"
+                />
+                <q-file
+                    filled
+                    label="Logo"
+                    v-model="logoFile"
+                    :rules="[val => !!val || 'Información Requerida']"
+                >
+                    <template v-slot:prepend>
+                        <i class="fas fa-paperclip"></i>
+                    </template>
+                </q-file>
+                <!-- <q-input filled class="q-mb-md" label="Splash color" v-model="form.splashColor">
+                    <template v-slot:append>
+                        <i class="fas fa-eye-dropper" style="cursor: pointer">
+                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                <q-color v-model="form.splashColor" />
+                            </q-popup-proxy>
+                        </i>
+                    </template>
+                </q-input> -->
+                <!-- <q-input
+                    filled
+                    class="q-mb-md"
+                    label="Splash button color"
+                    v-model="form.splashButtonColor"
+                >
+                    <template v-slot:append>
+                        <i class="fas fa-eye-dropper" style="cursor: pointer">
+                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                <q-color v-model="form.splashButtonColor" />
+                            </q-popup-proxy>
+                        </i>
+                    </template>
+                </q-input> -->
+                <!-- <q-input
+                    filled
+                    class="q-mb-md"
+                    label="Menu Background color"
+                    v-model="form.menuBackgroundColor"
+                >
+                    <template v-slot:append>
+                        <i class="fas fa-eye-dropper" style="cursor: pointer">
+                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                                <q-color v-model="form.menuBackgroundColor" />
+                            </q-popup-proxy>
+                        </i>
+                    </template>
+                </q-input> -->
+            </q-card-section>
+            <q-card-actions class="q-px-md">
+                <q-space />
+                <q-btn type="submit" color="accent" flat>Crear</q-btn>
+            </q-card-actions>
+        </q-card>
+    </q-form>
 </template>
 
 <script>
@@ -103,15 +124,16 @@ export default {
                 type: '',
                 url: '',
                 logo: '',
-                splashColor: '',
-                splashButtonColor: '',
-                menuBackgroundColor: '',
+                // splashColor: '',
+                // splashButtonColor: '',
+                // menuBackgroundColor: '',
             },
             displayLoading: false,
             displayAlert: false,
             alertTitle: '',
             alertMessage: '',
             alertType: '',
+            validEmail: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         }
     },
     methods: {
@@ -122,23 +144,24 @@ export default {
                 phone: '',
                 url: '',
                 logo: '',
-                splashColor: '',
-                splashButtonColor: '',
-                menuBackgroundColor: '',
+                // splashColor: '',
+                // splashButtonColor: '',
+                // menuBackgroundColor: '',
             }
 
             this.logoFile = null
         },
-        async Generate() {
+        async createNewRestaurant() {
             this.displayLoading = true
             let db = firebase.firestore()
+
             await this.uploadToFirebase(
                 this.logoFile,
-                `menus/${this.form.name}`,
+                `restaurants/${this.form.name}`,
                 this.form.name
             ).then(async filename => {
                 this.form.logo = filename
-                api.createRestaurantesOnDatabase({Restaurantes: this.form})
+                api.createNewAdminRestaurant({Restaurant: this.form})
                     .then(response => {
                         this.displayLoading = false
                         this.alertTitle = 'Exito!'

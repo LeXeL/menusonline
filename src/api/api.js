@@ -79,3 +79,17 @@ export const returnAllMenusByRestaurantId = data =>
     Request.post('/returnAllMenusByRestaurantId', data, {
         'Content-Type': 'application/json',
     })
+
+// Restaurants
+export const createNewAdminRestaurant = data =>
+    Request.post('/createNewAdminRestaurant', data, {
+        'Content-Type': 'application/json',
+    })
+export const updateAdminRestaurantInfo = data =>
+    Request.post('/updateAdminRestaurantInfo', data, {
+        'Content-Type': 'application/json',
+    })
+export const deleteAdminRestaurant = data =>
+    Request.post('/deleteAdminRestaurant', data, {
+        'Content-Type': 'application/json',
+    })
