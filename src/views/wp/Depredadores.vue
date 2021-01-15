@@ -760,7 +760,7 @@ export default {
         this.$analytics.logEvent('wp-depredadores', {
             path,
         })
-        this.geolocate()
+        // this.geolocate()
     },
 }
 </script>
