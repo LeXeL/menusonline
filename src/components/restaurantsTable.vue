@@ -73,6 +73,9 @@
 </template>
 
 <script>
+import firebase from 'firebase/app'
+import 'firebase/firestore'
+
 export default {
     props: {
         data: {
@@ -132,39 +135,46 @@ export default {
                     label: 'Acciones',
                 },
             ],
-            tableData: [
-                {
-                    uid: 'rest-uid',
-                    restaurantName: 'Panama Hotdog',
-                    email: 'panamahotdogoficial@gmail.com',
-                    phone: '65656565',
-                    type: 'Whatsapp Pedidos',
-                    plan: 'Avanzado',
-                    url: 'panamahotdog',
-                    active: true,
-                },
-                {
-                    uid: 'rest-uid',
-                    restaurantName: 'Angel',
-                    email: 'rest_angel@gmail.com',
-                    phone: '65656565',
-                    type: 'Carta Digital',
-                    plan: 'Carta Digital',
-                    url: 'angel',
-                    active: true,
-                },
-                {
-                    uid: 'rest-uid',
-                    restaurantName: 'Bigg Five Foods',
-                    email: 'biggfive@gmail.com',
-                    phone: '65656565',
-                    type: 'Whatsapp Pedidos',
-                    plan: 'Basico',
-                    url: 'biggfive',
-                    active: false,
-                },
-            ],
+            tableData: [],
         }
+    },
+    mounted() {
+        let db = firebase.firestore()
+        db.collection('Restaurants').onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if (change.type === 'added') {
+                    this.addToData(change.doc.id, change.doc.data())
+                }
+                if (change.type === 'modified') {
+                    this.editData(change.doc.id, change.doc.data())
+                }
+                if (change.type === 'removed') {
+                    this.removeData(change.doc.id)
+                }
+            })
+        })
+    },
+    methods: {
+        addToData(id, data) {
+            data.id = id
+            this.tableData.push(data)
+        },
+        editData(id, data) {
+            data.id = id
+            this.tableData.forEach((d, index) => {
+                if (d.id === id) {
+                    this.data.splice(index, 1, data)
+                }
+            })
+        },
+        // For potential future use
+        // removeData(id) {
+        //     this.data.forEach((d, index) => {
+        //         if (d.id === id) {
+        //             this.data.splice(index, 1)
+        //         }
+        //     })
+        // },
     },
 }
 </script>

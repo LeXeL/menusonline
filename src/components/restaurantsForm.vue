@@ -144,6 +144,7 @@ export default {
                 phone: '',
                 url: '',
                 logo: '',
+                type: '',
                 // splashColor: '',
                 // splashButtonColor: '',
                 // menuBackgroundColor: '',
