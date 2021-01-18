@@ -30,6 +30,9 @@
                             :icon="props.row.active ? 'pause' : 'play_arrow'"
                             size="sm"
                             flat
+                            @click="
+                                toggleActive(props.row.id, props.row.active)
+                            "
                         />
                         <q-btn
                             color="yellow-8"
@@ -73,6 +76,8 @@
 </template>
 
 <script>
+import * as api from '@/api/api'
+
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 
@@ -135,46 +140,23 @@ export default {
                     label: 'Acciones',
                 },
             ],
-            tableData: [],
+            tableData: this.data,
         }
     },
-    mounted() {
-        let db = firebase.firestore()
-        db.collection('Restaurants').onSnapshot(snapshot => {
-            snapshot.docChanges().forEach(change => {
-                if (change.type === 'added') {
-                    this.addToData(change.doc.id, change.doc.data())
-                }
-                if (change.type === 'modified') {
-                    this.editData(change.doc.id, change.doc.data())
-                }
-                if (change.type === 'removed') {
-                    this.removeData(change.doc.id)
-                }
-            })
-        })
-    },
     methods: {
-        addToData(id, data) {
-            data.id = id
-            this.tableData.push(data)
-        },
-        editData(id, data) {
-            data.id = id
-            this.tableData.forEach((d, index) => {
-                if (d.id === id) {
-                    this.data.splice(index, 1, data)
+        toggleActive(id, active) {
+            let db = firebase.firestore()
+            let bool = false
+            if (active == undefined || active == false) {
+                bool = true
+            }
+            let obj = {active: bool}
+            api.updateAdminRestaurantInfo({Restaurant: obj, id}).catch(
+                error => {
+                    console.log(error)
                 }
-            })
+            )
         },
-        // For potential future use
-        // removeData(id) {
-        //     this.data.forEach((d, index) => {
-        //         if (d.id === id) {
-        //             this.data.splice(index, 1)
-        //         }
-        //     })
-        // },
     },
 }
 </script>
