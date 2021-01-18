@@ -12,7 +12,7 @@ async function createRestaurant(restaurant) {
             type: restaurant.type,
             url: restaurant.url,
             logo: restaurant.logo,
-            active: restaurant.active
+            active: true,
             // splashColor: restaurantes.splashColor,
             // splashButtonColor: restaurantes.splashButtonColor,
             // menuBackgroundColor: restaurantes.menuBackgroundColor,

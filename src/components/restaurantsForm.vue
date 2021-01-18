@@ -125,7 +125,6 @@ export default {
                 type: '',
                 url: '',
                 logo: '',
-                active: true,
                 // splashColor: '',
                 // splashButtonColor: '',
                 // menuBackgroundColor: '',
@@ -147,7 +146,6 @@ export default {
                 url: '',
                 logo: '',
                 type: '',
-                active: true,
                 // splashColor: '',
                 // splashButtonColor: '',
                 // menuBackgroundColor: '',
@@ -165,7 +163,6 @@ export default {
                 this.form.name
             ).then(async filename => {
                 this.form.logo = filename
-                this.form.active = true
                 api.createNewAdminRestaurant({Restaurant: this.form})
                     .then(response => {
                         this.displayLoading = false

@@ -76,11 +76,6 @@
 </template>
 
 <script>
-import * as api from '@/api/api'
-
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-
 export default {
     props: {
         data: {
@@ -145,17 +140,7 @@ export default {
     },
     methods: {
         toggleActive(id, active) {
-            let db = firebase.firestore()
-            let bool = false
-            if (active == undefined || active == false) {
-                bool = true
-            }
-            let obj = {active: bool}
-            api.updateAdminRestaurantInfo({Restaurant: obj, id}).catch(
-                error => {
-                    console.log(error)
-                }
-            )
+            this.$emit('activeToggle', {id, active: !active})
         },
     },
 }

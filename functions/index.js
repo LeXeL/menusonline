@@ -201,8 +201,8 @@ exports.updateAdminRestaurantInfo = functions.https.onRequest(
         cors(req, res, async () => {
             try {
                 let response = await Restaurants.updateRestaurant(
-                    req.body.id, // confirmar
-                    req.body.Restaurant // confirmar
+                    req.body.id,
+                    req.body.Restaurant
                 )
                 res.status(200).send({data: response})
             } catch (err) {

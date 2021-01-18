@@ -26,6 +26,7 @@
                         :data="data"
                         @delete="askForDeleteBrewery"
                         @showQrCode="CreateQrCode"
+                        @activeToggle="toggleActiveStatus"
                     ></restaurantsTable>
                 </q-card>
             </div>
@@ -102,6 +103,15 @@ export default {
         })
     },
     methods: {
+        toggleActiveStatus(event) {
+            let obj = {active: event.active}
+            let id = event.id
+            api.updateAdminRestaurantInfo({Restaurant: obj, id}).catch(
+                error => {
+                    console.log(error)
+                }
+            )
+        },
         CreateQrCode(rest) {
             let options = {
                 text: `https://mimenudigital.app/${rest.url}`,
