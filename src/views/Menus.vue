@@ -1,12 +1,12 @@
 <template>
     <q-page class="q-pa-md">
         <loading-alert :display="displayLoading"></loading-alert>
-        <brewthers-alert
+        <menudigital-alert
             :display="displayAlert"
             :title="alertTitle"
             :message="alertMessage"
             :type="alertType"
-        ></brewthers-alert>
+        ></menudigital-alert>
         <confirm-dialog
             :display="displayConfirm"
             :title="alertTitle"

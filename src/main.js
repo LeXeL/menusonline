@@ -9,7 +9,7 @@ import firebase from 'firebase/app'
 import 'firebase/analytics'
 
 import LoadingAlert from '@/components/general/LoadingAlert'
-import BrewthersAlert from '@/components/general/Alert'
+import ManuDigitalAlert from '@/components/general/Alert'
 import Confirm from '@/components/general/Confirm'
 import VueSmoothScroll from 'vue2-smooth-scroll'
 import * as VueGoogleMaps from 'vue2-google-maps'
@@ -58,7 +58,7 @@ firebase.initializeApp(firebaseConfig)
 
 firebase.analytics()
 
-Vue.component('brewthers-alert', BrewthersAlert)
+Vue.component('menudigital-alert', ManuDigitalAlert)
 Vue.component('loading-alert', LoadingAlert)
 Vue.component('confirm-dialog', Confirm)
 

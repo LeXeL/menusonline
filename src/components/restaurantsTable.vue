@@ -1,6 +1,6 @@
 <template>
     <q-table
-        :data="tableData"
+        :data="data"
         :columns="columns"
         row-key="name"
         binary-state-sort
@@ -44,32 +44,6 @@
                         />
                     </q-btn-group>
                 </q-td>
-                <!-- <q-td key="qr" :props="props">
-                    <q-btn
-                        size="sm"
-                        color="warning"
-                        @click="$emit('showQrCode', props.row)"
-                    >
-                        <i class="fas fa-qrcode"></i>
-                    </q-btn>
-                </q-td> -->
-                <!-- <q-td key="details" :props="props">
-                    <q-btn
-                        size="sm"
-                        color="info"
-                        :to="`/menus/${props.row.id}`"
-                    >
-                        <i class="fas fa-info"></i>
-                    </q-btn>
-                </q-td> -->
-                <!-- <q-td key="delete" :props="props">
-                    <q-btn
-                        color="red-7"
-                        size="xs"
-                        label="Eliminar"
-                        @click="$emit('delete', {id: props.row.id})"
-                    />
-                </q-td> -->
             </q-tr>
         </template>
     </q-table>
@@ -135,7 +109,6 @@ export default {
                     label: 'Acciones',
                 },
             ],
-            tableData: this.data,
         }
     },
     methods: {

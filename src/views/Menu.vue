@@ -1,4 +1,5 @@
 <template>
+    <!-- CARTA DIGITAL!! -->
     <div>
         <div v-if="!loading">
             <div
