@@ -20,7 +20,7 @@
                     <q-btn-group>
                         <q-btn
                             color="accent"
-                            icon="edit"
+                            icon="menu_book"
                             size="sm"
                             flat
                             :to="
@@ -46,6 +46,7 @@
                             @click="$emit('showQrCode', props.row)"
                             :disable="props.row.type == 'Whatsapp Pedidos'"
                         />
+                        <q-btn color="info" icon="edit" size="sm" flat />
                     </q-btn-group>
                 </q-td>
             </q-tr>
