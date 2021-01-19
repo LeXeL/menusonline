@@ -40,6 +40,19 @@ const ifAuthenticated = (to, from, next) => {
 export default new Router({
     mode: 'history',
     routes: [
+        //LANDING
+        {
+            path: '/',
+            component: Landing,
+        },
+
+        //LOGIN
+        {
+            path: '/login',
+            component: Login,
+        },
+
+        //ADMIN PANEL
         {
             path: '/admin/restaurants',
             component: DefaultLayout,
@@ -77,18 +90,18 @@ export default new Router({
                 },
             ],
         },
+
+        //CARTA DIGITAL
         {
-            path: '/:path',
+            path: '/angel',
             component: Menu,
         },
         {
-            path: '/login/login',
-            component: Login,
+            path: '/demo',
+            component: Menu,
         },
-        {
-            path: '/',
-            component: Landing,
-        },
+
+        //Whatsapp Pedidos
         {
             path: '/wp',
             component: WhatsappOrders,
