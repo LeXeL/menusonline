@@ -2,34 +2,33 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/store'
 
+import DefaultLayout from './layouts/Default.vue'
+import Login from './layouts/Login'
+import Landing from './layouts/Landing'
+import WhatsappOrders from './layouts/WhatsappOrders'
+
 //DASHBOARD VIEWS
 import Home from '@/views/dashboard/Home'
 import Restaurants from '@/views/dashboard/Restaurants'
-import RestaurantManager from '@/views/dashboard/RestaurantManager'
+import WPManager from '@/views/dashboard/WPManager'
 import InvoiceManager from '@/views/dashboard/Invoicing'
 
-import Menu from './views/Menu.vue'
-import Menus from './views/Menus'
-import MenuDetails from './views/MenuDetails'
+//Carta Digital
+import Menu from './views/cartadigital/Menu.vue'
+import Menus from './views/cartadigital/Menus'
+import MenuDetails from './views/cartadigital/MenuDetails'
+
+//Whatsapp Pedidos
 import Demo from './views/wp/Demo'
 import BiggFive from './views/wp/BiggFive'
 import CeciliaPescao from './views/wp/CeciliaPescao'
 import Enid from './views/wp/Enid'
 import Madamecoco from './views/wp/Madamecoco'
 import PanamaHotdog from './views/wp/PanamaHotdog'
-// import Decoralid from './views/wp/Decoralid'
-// import RicaSazon from './views/wp/RicaSazon'
-// import DeliciasBocatorenas from './views/wp/DeliciasBocatorenas'
 import CeroTranque from './views/wp/CeroTranque'
-// import LaVillaFood from './views/wp/LaVillaFood'
 import GarageBurgers from './views/wp/GarageBurgers'
 import SpecialOneBurger from './views/wp/SpecialOneBurger'
 import Depredadores from '@/views/wp/Depredadores'
-
-import DefaultLayout from './layouts/Default.vue'
-import Login from './layouts/Login'
-import Landing from './layouts/Landing'
-import WhatsappOrders from './layouts/WhatsappOrders'
 
 Vue.use(Router)
 
@@ -57,9 +56,9 @@ export default new Router({
                     component: Restaurants,
                 },
                 {
-                    path: '/admin/restaurants/rest-uid',
+                    path: '/admin/restaurants/:restaurantId',
                     name: 'restaurant-amanger',
-                    component: RestaurantManager,
+                    component: WPManager,
                 },
                 {
                     path: '/admin/invoicing',
@@ -124,31 +123,11 @@ export default new Router({
                     name: 'panamahotdog',
                     component: PanamaHotdog,
                 },
-                // {
-                //     path: '/wp/decoralid',
-                //     name: 'decoralid',
-                //     component: Decoralid,
-                // },
-                // {
-                //     path: '/wp/ricasazon',
-                //     name: 'ricasazon',
-                //     component: RicaSazon,
-                // },
-                // {
-                //     path: '/wp/deliciasbocatorenas',
-                //     name: 'deliciasbocatorenas',
-                //     component: DeliciasBocatorenas,
-                // },
                 {
                     path: '/wp/cerotranque',
                     name: 'cerotranque',
                     component: CeroTranque,
                 },
-                // {
-                //     path: '/wp/lavillafood',
-                //     name: 'lavillafood',
-                //     component: LaVillaFood,
-                // },
                 {
                     path: '/wp/garageburgers',
                     name: 'garageburgers',

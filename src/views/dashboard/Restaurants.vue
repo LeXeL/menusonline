@@ -56,8 +56,8 @@ import * as QRCode from 'easyqrcodejs'
 
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import restaurantsTable from '@/components/restaurantsTable'
-import restaurantsForm from '@/components/restaurantsForm'
+import restaurantsTable from '@/components/dashboard/admin-dashboard/restaurantsTable'
+import restaurantsForm from '@/components/dashboard/admin-dashboard/restaurantsForm'
 
 export default {
     computed: {

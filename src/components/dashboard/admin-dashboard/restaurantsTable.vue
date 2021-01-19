@@ -23,7 +23,11 @@
                             icon="edit"
                             size="sm"
                             flat
-                            :to="`/admin/restaurants/${props.row.uid}`"
+                            :to="
+                                props.row.type === 'Whatsapp Pedidos'
+                                    ? `/admin/restaurants/${props.row.id}`
+                                    : `/menus/${props.row.id}`
+                            "
                         />
                         <q-btn
                             :color="props.row.active ? 'red-7' : 'green-8'"

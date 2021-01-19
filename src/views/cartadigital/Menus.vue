@@ -46,7 +46,12 @@
                                     'Porfavor ingresa un nombre.',
                             ]"
                         />
-                        <q-btn color="secondary" class="q-mt-sm" @click="createMenu">Crear</q-btn>
+                        <q-btn
+                            color="secondary"
+                            class="q-mt-sm"
+                            @click="createMenu"
+                            >Crear</q-btn
+                        >
                     </q-card-section>
                 </q-card>
                 <q-card class="no-shadow mo-grey">
@@ -54,7 +59,9 @@
                         <div class="text-h6">Ver mi codigo QR</div>
                     </q-card-section>
                     <q-card-section>
-                        <q-btn color="warning" @click="CreateQrCode()">Ver QR</q-btn>
+                        <q-btn color="warning" @click="CreateQrCode()"
+                            >Ver QR</q-btn
+                        >
                     </q-card-section>
                 </q-card>
             </div>
@@ -70,7 +77,12 @@
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn flat label="Descargar" color="primary" v-close-popup />
+                    <q-btn
+                        flat
+                        label="Descargar"
+                        color="primary"
+                        v-close-popup
+                    />
                     <q-btn flat label="Cerrar" color="primary" v-close-popup />
                 </q-card-actions>
             </q-card>
@@ -83,7 +95,7 @@ import * as api from '@/api/api'
 import * as QRCode from 'easyqrcodejs'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import menusTable from '@/components/menusTable'
+import menusTable from '@/components/cartadigital/menusTable'
 
 export default {
     data() {
