@@ -11,6 +11,22 @@
             <div class="text-h5 mo-grey">Administrador de restaurantes</div>
         </div>
         <div class="row">
+            <div class="col-lg-2 q-pa-md">
+                <q-input filled label="Nombre" v-model="filterName" />
+            </div>
+            <div class="col-lg-2 q-pa-md">
+                <q-input filled label="Email" v-model="filterEmail" />
+            </div>
+            <div class="col-lg-2 q-pa-md">
+                <q-select
+                    label="Tipo"
+                    filled
+                    :options="['Whatsapp Pedidos', 'Carta Digital']"
+                    v-model="filterType"
+                />
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-8 q-pa-md">
                 <q-card class="no-shadow">
                     <q-card-section>
@@ -75,6 +91,9 @@ export default {
             alertTitle: '',
             alertMessage: '',
             alertType: '',
+            filterName: '',
+            filterEmail: '',
+            filterType: '',
         }
     },
     methods: {
