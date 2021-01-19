@@ -26,6 +26,7 @@
                         :data="data"
                         @delete="askForDeleteBrewery"
                         @showQrCode="CreateQrCode"
+                        @activeToggle="toggleActiveStatus"
                     ></restaurantsTable>
                 </q-card>
             </div>
@@ -87,7 +88,7 @@ export default {
     },
     mounted() {
         let db = firebase.firestore()
-        db.collection('Restaurantes').onSnapshot(snapshot => {
+        db.collection('Restaurants').onSnapshot(snapshot => {
             snapshot.docChanges().forEach(change => {
                 if (change.type === 'added') {
                     this.addToData(change.doc.id, change.doc.data())
@@ -102,6 +103,15 @@ export default {
         })
     },
     methods: {
+        toggleActiveStatus(event) {
+            let obj = {active: event.active}
+            let id = event.id
+            api.updateAdminRestaurantInfo({Restaurant: obj, id}).catch(
+                error => {
+                    console.log(error)
+                }
+            )
+        },
         CreateQrCode(rest) {
             let options = {
                 text: `https://mimenudigital.app/${rest.url}`,
@@ -129,13 +139,14 @@ export default {
                 }
             })
         },
-        removeData(id) {
-            this.data.forEach((d, index) => {
-                if (d.id === id) {
-                    this.data.splice(index, 1)
-                }
-            })
-        },
+        // For potential future use
+        // removeData(id) {
+        //     this.data.forEach((d, index) => {
+        //         if (d.id === id) {
+        //             this.data.splice(index, 1)
+        //         }
+        //     })
+        // },
         askForDeleteBrewery(event) {
             this.displayConfirm = true
             this.alertTitle = 'Esta seguro?'
