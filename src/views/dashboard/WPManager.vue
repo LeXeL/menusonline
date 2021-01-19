@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import RestaurantGeneralInfo from '@/components/dashboard/RestaurantGeneralInfo'
-import RestaurantInputFields from '@/components/dashboard/RestaurantInputFields'
-import RestaurantMenuManager from '@/components/dashboard/RestaurantMenuManager'
+import RestaurantGeneralInfo from '@/components/dashboard/wp-dashboard/RestaurantGeneralInfo'
+import RestaurantInputFields from '@/components/dashboard/wp-dashboard/RestaurantInputFields'
+import RestaurantMenuManager from '@/components/dashboard/wp-dashboard/RestaurantMenuManager'
 
 export default {
     data() {

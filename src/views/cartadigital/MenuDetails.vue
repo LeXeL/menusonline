@@ -1,12 +1,12 @@
 <template>
     <q-page class="q-pa-md">
         <loading-alert :display="displayLoading"></loading-alert>
-        <brewthers-alert
+        <menudigital-alert
             :display="displayAlert"
             :title="alertTitle"
             :message="alertMessage"
             :type="alertType"
-        ></brewthers-alert>
+        ></menudigital-alert>
         <div class="row">
             <div class="text-h5">{{menuInfo ? menuInfo.menuName : ''}}</div>
         </div>

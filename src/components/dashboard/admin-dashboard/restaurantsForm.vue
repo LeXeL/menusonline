@@ -2,12 +2,12 @@
     <q-form @submit="createNewRestaurant">
         <q-card class="q-mb-lg no-shadow mo-grey">
             <loading-alert :display="displayLoading"></loading-alert>
-            <brewthers-alert
+            <menudigital-alert
                 :display="displayAlert"
                 :title="alertTitle"
                 :message="alertMessage"
                 :type="alertType"
-            ></brewthers-alert>
+            ></menudigital-alert>
             <q-card-section>
                 <div class="text-h6">Crear nuevo restaurante</div>
             </q-card-section>
@@ -184,7 +184,7 @@ export default {
             })
         },
         uploadToFirebase(imageFile, fullDirectory, filename) {
-            return new Promise(function(resolve, reject) {
+            return new Promise(function (resolve, reject) {
                 var storageRef = firebase
                     .storage()
                     .ref(fullDirectory + '/' + filename)
@@ -193,7 +193,7 @@ export default {
                 //Update progress bar
                 task.on(
                     'state_changed',
-                    function(snapshot) {
+                    function (snapshot) {
                         // Observe state change events such as progress, pause, and resume
                         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
                         var progress =
@@ -206,17 +206,17 @@ export default {
                                 break
                         }
                     },
-                    function(error) {
+                    function (error) {
                         // Handle unsuccessful uploads
                         console.log(`Error in uploadToFirebase: ${error}`)
                         reject(error)
                     },
-                    function() {
+                    function () {
                         // Handle successful uploads on complete
                         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
                         task.snapshot.ref
                             .getDownloadURL()
-                            .then(function(downloadURL) {
+                            .then(function (downloadURL) {
                                 console.log('File available at', downloadURL)
                                 resolve(downloadURL)
                             })

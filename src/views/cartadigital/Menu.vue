@@ -1,4 +1,5 @@
 <template>
+    <!-- CARTA DIGITAL!! -->
     <div>
         <div v-if="!loading">
             <div
@@ -120,7 +121,7 @@ export default {
     },
     async mounted() {
         this.render = false
-        let path = await this.$route.params.path
+        let path = await this.$route.path.replace('/', '')
         this.restaurant = path
         this.render = true
         this.$analytics.logEvent('Menu Enter', {

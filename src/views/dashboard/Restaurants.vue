@@ -1,18 +1,12 @@
 <template>
     <q-page class="q-pa-md">
         <loading-alert :display="displayLoading"></loading-alert>
-        <brewthers-alert
+        <menudigital-alert
             :display="displayAlert"
             :title="alertTitle"
             :message="alertMessage"
             :type="alertType"
-        ></brewthers-alert>
-        <confirm-dialog
-            :display="displayConfirm"
-            :title="alertTitle"
-            :message="alertMessage"
-            @accept="deleteBrewery"
-        ></confirm-dialog>
+        ></menudigital-alert>
         <div class="row q-px-md">
             <div class="text-h5 mo-grey">Administrador de restaurantes</div>
         </div>
@@ -24,7 +18,6 @@
                     </q-card-section>
                     <restaurantsTable
                         :data="data"
-                        @delete="askForDeleteBrewery"
                         @showQrCode="CreateQrCode"
                         @activeToggle="toggleActiveStatus"
                     ></restaurantsTable>
@@ -63,8 +56,8 @@ import * as QRCode from 'easyqrcodejs'
 
 import firebase from 'firebase/app'
 import 'firebase/firestore'
-import restaurantsTable from '@/components/restaurantsTable'
-import restaurantsForm from '@/components/restaurantsForm'
+import restaurantsTable from '@/components/dashboard/admin-dashboard/restaurantsTable'
+import restaurantsForm from '@/components/dashboard/admin-dashboard/restaurantsForm'
 
 export default {
     computed: {
@@ -79,38 +72,29 @@ export default {
             data: [],
             displayLoading: false,
             displayAlert: false,
-            displayConfirm: false,
             alertTitle: '',
             alertMessage: '',
             alertType: '',
-            workingDeletedId: '',
         }
-    },
-    mounted() {
-        let db = firebase.firestore()
-        db.collection('Restaurants').onSnapshot(snapshot => {
-            snapshot.docChanges().forEach(change => {
-                if (change.type === 'added') {
-                    this.addToData(change.doc.id, change.doc.data())
-                }
-                if (change.type === 'modified') {
-                    this.editData(change.doc.id, change.doc.data())
-                }
-                if (change.type === 'removed') {
-                    this.removeData(change.doc.id)
-                }
-            })
-        })
     },
     methods: {
         toggleActiveStatus(event) {
-            let obj = {active: event.active}
-            let id = event.id
-            api.updateAdminRestaurantInfo({Restaurant: obj, id}).catch(
-                error => {
+            this.displayLoading = true
+            api.updateAdminRestaurantInfo({
+                Restaurant: {active: event.active},
+                id: event.id,
+            })
+                .then(response => {
+                    this.displayLoading = false
+                    this.alertType = 'success'
+                    this.alertTitle = 'Éxito!'
+                    this.alertMessage = 'Se ha actualizado el estado con éxito'
+                    this.displayAlert = true
+                })
+                .catch(error => {
+                    this.displayLoading = false
                     console.log(error)
-                }
-            )
+                })
         },
         CreateQrCode(rest) {
             let options = {
@@ -147,36 +131,22 @@ export default {
         //         }
         //     })
         // },
-        askForDeleteBrewery(event) {
-            this.displayConfirm = true
-            this.alertTitle = 'Esta seguro?'
-            this.alertMessage =
-                'Se va a proceder a eliminar esta casa cervecera'
-            this.workingDeletedId = event.id
-        },
-        deleteBrewery() {
-            this.displayLoading = true
-            this.displayAlert = false
-            this.displayConfirm = false
-            api.deleteRestaurantesInformation({
-                id: this.workingDeletedId,
+    },
+    mounted() {
+        let db = firebase.firestore()
+        db.collection('Restaurants').onSnapshot(snapshot => {
+            snapshot.docChanges().forEach(change => {
+                if (change.type === 'added') {
+                    this.addToData(change.doc.id, change.doc.data())
+                }
+                if (change.type === 'modified') {
+                    this.editData(change.doc.id, change.doc.data())
+                }
+                if (change.type === 'removed') {
+                    this.removeData(change.doc.id)
+                }
             })
-                .then(() => {
-                    this.displayLoading = false
-                    this.alertTitle = 'Exito!'
-                    this.alertMessage = 'Se ha cambiado el estado con exito'
-                    this.alertType = 'success'
-                    this.displayAlert = true
-                })
-                .catch(error => {
-                    console.log(error)
-                    this.displayLoading = false
-                    this.alertTitle = 'Error'
-                    this.alertMessage = error
-                    this.alertType = 'error'
-                    this.displayAlert = true
-                })
-        },
+        })
     },
     components: {
         restaurantsTable,

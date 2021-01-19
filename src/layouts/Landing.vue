@@ -1,12 +1,12 @@
 <template>
     <div class="landing-body">
         <loading-alert :display="displayLoading"></loading-alert>
-        <brewthers-alert
+        <menudigital-alert
             :display="displayAlert"
             :title="alertTitle"
             :message="alertMessage"
             :type="alertType"
-        ></brewthers-alert>
+        ></menudigital-alert>
         <!-- HERO SECTION -->
         <section class="hero">
             <nav>

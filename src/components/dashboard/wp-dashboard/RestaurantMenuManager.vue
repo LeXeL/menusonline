@@ -35,10 +35,10 @@
                         <q-card-section>
                             <div class="row">
                                 <div class="col-lg-4 q-px-md">
-                                    <MenuManagerCategories />
+                                    <Categories />
                                 </div>
                                 <div class="col-lg-4 q-px-md">
-                                    <MenuManagerOptions />
+                                    <Options />
                                 </div>
                             </div>
                         </q-card-section>
@@ -58,28 +58,28 @@
                         <q-card-section>
                             <div class="row">
                                 <div class="col q-px-md">
-                                    <MenuManagerItems />
+                                    <Items />
                                 </div>
                                 <div class="col q-px-md">
-                                    <MenuManagerItemGeneralInfo />
+                                    <ItemGeneralInfo />
                                 </div>
                                 <div class="col q-px-md">
                                     <div class="text-h6 q-mb-md">
                                         Opciones - Nivel 1
                                     </div>
-                                    <MenuManagerItemOptionsLvs />
+                                    <ItemOptionsLvs />
                                 </div>
                                 <div class="col q-px-md">
                                     <div class="text-h6 q-mb-md">
                                         Opciones - Nivel 2
                                     </div>
-                                    <MenuManagerItemOptionsLvs />
+                                    <ItemOptionsLvs />
                                 </div>
                                 <div class="col q-px-md">
                                     <div class="text-h6 q-mb-md">
                                         Opciones - Nivel 3
                                     </div>
-                                    <MenuManagerItemOptionsLvs />
+                                    <ItemOptionsLvs />
                                 </div>
                             </div>
                         </q-card-section>
@@ -91,11 +91,11 @@
 </template>
 
 <script>
-import MenuManagerCategories from '@/components/dashboard/MenuManagerCategories'
-import MenuManagerOptions from '@/components/dashboard/MenuManagerOptions'
-import MenuManagerItems from '@/components/dashboard/MenuManagerItems'
-import MenuManagerItemGeneralInfo from '@/components/dashboard/MenuManagerItemGeneralInfo'
-import MenuManagerItemOptionsLvs from '@/components/dashboard/MenuManagerItemOptionsLvs'
+import Categories from '@/components/dashboard/wp-dashboard/menu-manager/Categories'
+import Options from '@/components/dashboard/wp-dashboard/menu-manager/Options'
+import Items from '@/components/dashboard/wp-dashboard/menu-manager/Items'
+import ItemGeneralInfo from '@/components/dashboard/wp-dashboard/menu-manager/ItemGeneralInfo'
+import ItemOptionsLvs from '@/components/dashboard/wp-dashboard/menu-manager/ItemOptionsLvs'
 
 export default {
     props: ['display'],
@@ -105,11 +105,11 @@ export default {
         },
     },
     components: {
-        MenuManagerCategories,
-        MenuManagerOptions,
-        MenuManagerItems,
-        MenuManagerItemGeneralInfo,
-        MenuManagerItemOptionsLvs,
+        Categories,
+        Options,
+        Items,
+        ItemGeneralInfo,
+        ItemOptionsLvs,
     },
 }
 </script>
