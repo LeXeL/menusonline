@@ -12,28 +12,17 @@
         </div>
         <div class="row">
             <div class="col-lg-2 q-pa-md">
-                <q-input
-                    filled
-                    label="Nombre"
-                    v-model="filterName"
-                    @input="filterTable()"
-                />
+                <q-input filled label="Nombre" v-model="filterName" />
             </div>
             <div class="col-lg-2 q-pa-md">
-                <q-input
-                    filled
-                    label="Email"
-                    v-model="filterEmail"
-                    @input="filterTable()"
-                />
+                <q-input filled label="Email" v-model="filterEmail" />
             </div>
             <div class="col-lg-2 q-pa-md">
                 <q-select
                     label="Tipo"
                     filled
-                    :options="['Todos', 'Whatsapp Pedidos', 'Carta Digital']"
+                    :options="['Todas', 'Whatsapp Pedidos', 'Carta Digital']"
                     v-model="filterType"
-                    @input="filterTable()"
                 />
             </div>
         </div>
@@ -45,9 +34,6 @@
                     </q-card-section>
                     <restaurantsTable
                         :data="filteredData"
-                        :filterName="filterName"
-                        :filterEmail="filterEmail"
-                        :filterType="filterType"
                         @showQrCode="CreateQrCode"
                         @activeToggle="toggleActiveStatus"
                     ></restaurantsTable>
@@ -100,7 +86,7 @@ export default {
             left: false,
             alert: false,
             data: [],
-            filteredData: [],
+
             displayLoading: false,
             displayAlert: false,
             alertTitle: '',
@@ -108,7 +94,7 @@ export default {
             alertType: '',
             filterName: '',
             filterEmail: '',
-            filterType: '',
+            filterType: 'Todas',
         }
     },
     methods: {
@@ -148,7 +134,6 @@ export default {
         addToData(id, data) {
             data.id = id
             this.data.push(data)
-            this.filteredData = this.data
         },
         editData(id, data) {
             data.id = id
@@ -157,7 +142,6 @@ export default {
                     this.data.splice(index, 1, data)
                 }
             })
-            this.filteredData = this.data
         },
         // For potential future use
         // removeData(id) {
@@ -167,43 +151,24 @@ export default {
         //         }
         //     })
         // },
-        filterByName() {
-            this.filteredData = this.filteredData.filter(rest =>
-                rest.restaurantName
-                    .toLowerCase()
-                    .includes(this.filterName.toLowerCase())
+    },
+    computed: {
+        filteredData() {
+            if (this.filterType === 'Todas') {
+                return this.data
+            }
+            return this.data.filter(
+                rest =>
+                    rest.restaurantName
+                        .toLowerCase()
+                        .includes(this.filterName.toLowerCase()) &&
+                    rest.email
+                        .toLowerCase()
+                        .includes(this.filterEmail.toLowerCase()) &&
+                    rest.type.includes(this.filterType)
             )
-        },
-        filterByEmail() {
-            this.filteredData = this.filteredData.filter(rest =>
-                rest.email
-                    .toLowerCase()
-                    .includes(this.filterEmail.toLowerCase())
-            )
-        },
-        filterByType() {
-            this.filteredData = this.filteredData.filter(rest =>
-                rest.type.toLowerCase().includes(this.filterType.toLowerCase())
-            )
-        },
-        filterTable() {
-            this.filteredData = this.data
-            this.filterByName()
-            this.filterByEmail()
-            this.filterByType()
         },
     },
-    // computed: {
-    //     filterByName: function() {
-    //         console.log(this.filterName)
-    //     },
-    //     filterByEmail: function() {
-    //         console.log(this.filterEmail)
-    //     },
-    //     filterByType: function() {
-    //         console.log(this.filterType)
-    //     },
-    // },
     mounted() {
         let db = firebase.firestore()
         db.collection('Restaurants').onSnapshot(snapshot => {
