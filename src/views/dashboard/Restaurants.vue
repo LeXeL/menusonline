@@ -21,7 +21,9 @@
                 <q-select
                     label="Tipo"
                     filled
-                    :options="['Todas', 'Whatsapp Pedidos', 'Carta Digital']"
+                    :options="filterOptions"
+                    emit-value
+                    map-options
                     v-model="filterType"
                 />
             </div>
@@ -76,17 +78,16 @@ import restaurantsTable from '@/components/dashboard/admin-dashboard/restaurants
 import restaurantsForm from '@/components/dashboard/admin-dashboard/restaurantsForm'
 
 export default {
-    computed: {
-        user() {
-            return this.$store.getters.user
-        },
-    },
     data() {
         return {
             left: false,
             alert: false,
             data: [],
-
+            filterOptions: [
+                {label: 'Todos', value: ''},
+                {label: 'Whatsapp Pedidos', value: 'Whatsapp Pedidos'},
+                {label: 'Carta Digital', value: 'Carta Digital'},
+            ],
             displayLoading: false,
             displayAlert: false,
             alertTitle: '',
@@ -94,8 +95,25 @@ export default {
             alertType: '',
             filterName: '',
             filterEmail: '',
-            filterType: 'Todas',
+            filterType: '',
         }
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+        filteredData() {
+            return this.data.filter(
+                rest =>
+                    rest.restaurantName
+                        .toLowerCase()
+                        .includes(this.filterName.toLowerCase()) &&
+                    rest.email
+                        .toLowerCase()
+                        .includes(this.filterEmail.toLowerCase()) &&
+                    rest.type.includes(this.filterType)
+            )
+        },
     },
     methods: {
         toggleActiveStatus(event) {
@@ -151,23 +169,6 @@ export default {
         //         }
         //     })
         // },
-    },
-    computed: {
-        filteredData() {
-            if (this.filterType === 'Todas') {
-                return this.data
-            }
-            return this.data.filter(
-                rest =>
-                    rest.restaurantName
-                        .toLowerCase()
-                        .includes(this.filterName.toLowerCase()) &&
-                    rest.email
-                        .toLowerCase()
-                        .includes(this.filterEmail.toLowerCase()) &&
-                    rest.type.includes(this.filterType)
-            )
-        },
     },
     mounted() {
         let db = firebase.firestore()
