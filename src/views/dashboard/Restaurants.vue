@@ -38,11 +38,14 @@
                         :data="filteredData"
                         @showQrCode="CreateQrCode"
                         @activeToggle="toggleActiveStatus"
+                        @editRestaurant="sendRestaurantToForm"
                     ></restaurantsTable>
                 </q-card>
             </div>
             <div class="col-lg-4 q-pa-md">
-                <restaurantsForm></restaurantsForm>
+                <restaurantsForm
+                    :restaurantToForm="restaurantToForm"
+                </restaurantsForm>
             </div>
         </div>
         <q-dialog v-model="alert">
@@ -96,6 +99,7 @@ export default {
             filterName: '',
             filterEmail: '',
             filterType: '',
+            restaurantToForm: [],
         }
     },
     computed: {
@@ -133,6 +137,9 @@ export default {
                     this.displayLoading = false
                     console.log(error)
                 })
+        },
+        sendRestaurantToForm(event) {
+            this.restaurantToForm.push(this.data.filter(rest => rest.id == event.id ))
         },
         CreateQrCode(rest) {
             let options = {

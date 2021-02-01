@@ -115,6 +115,12 @@ import firebase from 'firebase/app'
 import 'firebase/storage'
 
 export default {
+    props: {
+        restaurantToForm: {
+            type: Array,
+            default: () => [],
+        },
+    },
     data() {
         return {
             logoFile: null,
@@ -224,6 +230,11 @@ export default {
                 )
             })
         },
+    },
+    watch: {
+        restaurantToForm(newValue, oldValue) {
+            console.log(newValue[0][0].restaurantName)
+        }
     },
 }
 </script>

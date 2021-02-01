@@ -46,7 +46,7 @@
                             @click="$emit('showQrCode', props.row)"
                             :disable="props.row.type == 'Whatsapp Pedidos'"
                         />
-                        <q-btn color="info" icon="edit" size="sm" flat />
+                        <q-btn color="info" icon="edit" size="sm" flat @click="editRestaurant(props.row.id)"/>
                     </q-btn-group>
                 </q-td>
             </q-tr>
@@ -119,6 +119,9 @@ export default {
     methods: {
         toggleActive(id, active) {
             this.$emit('activeToggle', {id, active: !active})
+        },
+        editRestaurant(id) {
+            this.$emit('editRestaurant', {id})
         },
     },
 }
