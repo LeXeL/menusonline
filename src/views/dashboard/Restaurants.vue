@@ -43,9 +43,10 @@
                 </q-card>
             </div>
             <div class="col-lg-4 q-pa-md">
-                <restaurantsForm
+                <restaurantsForm 
                     :restaurantToForm="restaurantToForm"
-                </restaurantsForm>
+                    @restaurantUpdated="cleanRestaurantToForm"
+                ></restaurantsForm>
             </div>
         </div>
         <q-dialog v-model="alert">
@@ -99,7 +100,7 @@ export default {
             filterName: '',
             filterEmail: '',
             filterType: '',
-            restaurantToForm: [],
+            restaurantToForm: {},
         }
     },
     computed: {
@@ -139,7 +140,7 @@ export default {
                 })
         },
         sendRestaurantToForm(event) {
-            this.restaurantToForm.push(this.data.filter(rest => rest.id == event.id ))
+            this.restaurantToForm = this.data.find(rest => rest.id == event.id )
         },
         CreateQrCode(rest) {
             let options = {
@@ -176,6 +177,9 @@ export default {
         //         }
         //     })
         // },
+        cleanRestaurantToForm() {
+            this.restaurantToForm = {}
+        },
     },
     mounted() {
         let db = firebase.firestore()

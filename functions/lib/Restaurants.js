@@ -6,7 +6,7 @@ async function createRestaurant(restaurant) {
         .collection('Restaurants')
         .doc()
         .set({
-            restaurantName: restaurant.name,
+            restaurantName: restaurant.restaurantName,
             email: restaurant.email,
             phone: restaurant.phone,
             type: restaurant.type,
@@ -28,6 +28,7 @@ async function createRestaurant(restaurant) {
         })
 }
 async function updateRestaurant(id, Obj) {
+    console.log(Obj)
     return db
         .collection('Restaurants')
         .doc(id)
