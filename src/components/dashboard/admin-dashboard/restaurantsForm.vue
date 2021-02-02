@@ -53,6 +53,17 @@
                     :rules="[val => val.length > 0 || 'Información Requerida']"
                 />
                 <q-file
+                    v-if="formStatusEdit"
+                    filled
+                    label="Actualizar Logo"
+                    v-model="logoFile"
+                >
+                    <template v-slot:prepend>
+                        <i class="fas fa-paperclip"></i>
+                    </template>
+                </q-file>
+                <q-file
+                    v-if="!formStatusEdit"
                     filled
                     label="Logo"
                     v-model="logoFile"
@@ -204,32 +215,35 @@ export default {
             this.displayLoading = true
             let db = firebase.firestore()
 
-            await this.uploadToFirebase(
-                this.logoFile,
-                `restaurants/${this.form.restaurantName}`,
-                this.form.restaurantName
-            ).then(async filename => {
-                this.form.logo = filename
-                api.updateAdminRestaurantInfo({id: this.restID, Restaurant: this.form})
-                    .then(response => {
-                            this.displayLoading = false
-                            this.alertTitle = 'Exito!'
-                            this.alertMessage =
-                                'Se ha actualizado el restaurante con exito'
-                            this.alertType = 'success'
-                            this.displayAlert = true
-                            this.clear()
-                            this.$emit('restaurantUpdated')
-                        })
-                        .catch(error => {
-                            console.log(error)
-                            this.displayLoading = false
-                            this.alertTitle = 'Error'
-                            this.alertMessage = error
-                            this.alertType = 'error'
-                            this.displayAlert = true
-                        })
-            })
+            if (this.logoFile != null) {
+                await this.uploadToFirebase(
+                    this.logoFile,
+                    `restaurants/${this.form.restaurantName}`,
+                    this.form.restaurantName
+                ).then(async filename => {
+                    this.form.logo = filename
+                })
+            }
+
+            api.updateAdminRestaurantInfo({id: this.restID, Restaurant: this.form})
+                .then(response => {
+                        this.displayLoading = false
+                        this.alertTitle = 'Exito!'
+                        this.alertMessage =
+                            'Se ha actualizado el restaurante con exito'
+                        this.alertType = 'success'
+                        this.displayAlert = true
+                        this.clear()
+                        this.$emit('restaurantUpdated')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.displayLoading = false
+                        this.alertTitle = 'Error'
+                        this.alertMessage = error
+                        this.alertType = 'error'
+                        this.displayAlert = true
+                    })
         },
         uploadToFirebase(imageFile, fullDirectory, filename) {
             return new Promise(function (resolve, reject) {
@@ -283,7 +297,7 @@ export default {
                 this.form.phone = newValue.phone || "12345678" // Pepe: some test restaurants do not have phone number
                 this.form.type = newValue.type
                 this.form.url = newValue.url
-                // this.form.logo = newValue.logo // Pending: get logo file from firebase storage
+                this.form.logo = newValue.logo // Pending: get logo file from firebase storage
             }
         }
     },
