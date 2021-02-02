@@ -21,7 +21,9 @@
                 <q-select
                     label="Tipo"
                     filled
-                    :options="['Whatsapp Pedidos', 'Carta Digital']"
+                    :options="filterOptions"
+                    emit-value
+                    map-options
                     v-model="filterType"
                 />
             </div>
@@ -33,14 +35,18 @@
                         <div class="text-h6 mo-grey">Mis Menus</div>
                     </q-card-section>
                     <restaurantsTable
-                        :data="data"
+                        :data="filteredData"
                         @showQrCode="CreateQrCode"
                         @activeToggle="toggleActiveStatus"
+                        @editRestaurant="sendRestaurantToForm"
                     ></restaurantsTable>
                 </q-card>
             </div>
             <div class="col-lg-4 q-pa-md">
-                <restaurantsForm></restaurantsForm>
+                <restaurantsForm 
+                    :restaurantToForm="restaurantToForm"
+                    @restaurantUpdated="cleanRestaurantToForm"
+                ></restaurantsForm>
             </div>
         </div>
         <q-dialog v-model="alert">
@@ -76,16 +82,16 @@ import restaurantsTable from '@/components/dashboard/admin-dashboard/restaurants
 import restaurantsForm from '@/components/dashboard/admin-dashboard/restaurantsForm'
 
 export default {
-    computed: {
-        user() {
-            return this.$store.getters.user
-        },
-    },
     data() {
         return {
             left: false,
             alert: false,
             data: [],
+            filterOptions: [
+                {label: 'Todos', value: ''},
+                {label: 'Whatsapp Pedidos', value: 'Whatsapp Pedidos'},
+                {label: 'Carta Digital', value: 'Carta Digital'},
+            ],
             displayLoading: false,
             displayAlert: false,
             alertTitle: '',
@@ -94,7 +100,25 @@ export default {
             filterName: '',
             filterEmail: '',
             filterType: '',
+            restaurantToForm: {},
         }
+    },
+    computed: {
+        user() {
+            return this.$store.getters.user
+        },
+        filteredData() {
+            return this.data.filter(
+                rest =>
+                    rest.restaurantName
+                        .toLowerCase()
+                        .includes(this.filterName.toLowerCase()) &&
+                    rest.email
+                        .toLowerCase()
+                        .includes(this.filterEmail.toLowerCase()) &&
+                    rest.type.includes(this.filterType)
+            )
+        },
     },
     methods: {
         toggleActiveStatus(event) {
@@ -114,6 +138,9 @@ export default {
                     this.displayLoading = false
                     console.log(error)
                 })
+        },
+        sendRestaurantToForm(event) {
+            this.restaurantToForm = this.data.find(rest => rest.id == event.id )
         },
         CreateQrCode(rest) {
             let options = {
@@ -150,6 +177,9 @@ export default {
         //         }
         //     })
         // },
+        cleanRestaurantToForm() {
+            this.restaurantToForm = {}
+        },
     },
     mounted() {
         let db = firebase.firestore()

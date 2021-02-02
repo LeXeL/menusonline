@@ -1,5 +1,5 @@
 <template>
-    <q-form @submit="createNewRestaurant">
+    <q-form @submit="submitForm">
         <q-card class="q-mb-lg no-shadow mo-grey">
             <loading-alert :display="displayLoading"></loading-alert>
             <menudigital-alert
@@ -16,7 +16,7 @@
                     filled
                     class="q-mb-md"
                     label="Nombre"
-                    v-model="form.name"
+                    v-model="form.restaurantName"
                     :rules="[val => val.length > 0 || 'Información Requerida']"
                 />
                 <q-input
@@ -53,6 +53,17 @@
                     :rules="[val => val.length > 0 || 'Información Requerida']"
                 />
                 <q-file
+                    v-if="formStatusEdit"
+                    filled
+                    label="Actualizar Logo"
+                    v-model="logoFile"
+                >
+                    <template v-slot:prepend>
+                        <i class="fas fa-paperclip"></i>
+                    </template>
+                </q-file>
+                <q-file
+                    v-if="!formStatusEdit"
                     filled
                     label="Logo"
                     v-model="logoFile"
@@ -102,7 +113,7 @@
             </q-card-section>
             <q-card-actions class="q-px-md">
                 <q-space />
-                <q-btn type="submit" color="accent" flat>Crear</q-btn>
+                <q-btn type="submit" color="accent" flat :label="formStatusEdit ? 'Actualizar' : 'Crear'" />
             </q-card-actions>
         </q-card>
     </q-form>
@@ -115,11 +126,17 @@ import firebase from 'firebase/app'
 import 'firebase/storage'
 
 export default {
+    props: {
+        restaurantToForm: {
+            type: Object,
+            default: () => {},
+        },
+    },
     data() {
         return {
             logoFile: null,
             form: {
-                name: '',
+                restaurantName: '',
                 email: '',
                 phone: '',
                 type: '',
@@ -135,12 +152,14 @@ export default {
             alertMessage: '',
             alertType: '',
             validEmail: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            formStatusEdit: false,
+            restID: '',
         }
     },
     methods: {
         clear() {
             this.form = {
-                name: '',
+                restaurantName: '',
                 email: '',
                 phone: '',
                 url: '',
@@ -152,6 +171,15 @@ export default {
             }
 
             this.logoFile = null
+            this.formStatusEdit = false
+            this.restID = ''
+        },
+        submitForm() {
+            if (this.formStatusEdit) {
+                this.updateRestaurant()
+            } else {
+                this.createNewRestaurant()
+            }
         },
         async createNewRestaurant() {
             this.displayLoading = true
@@ -159,8 +187,8 @@ export default {
 
             await this.uploadToFirebase(
                 this.logoFile,
-                `restaurants/${this.form.name}`,
-                this.form.name
+                `restaurants/${this.form.restaurantName}`,
+                this.form.restaurantName
             ).then(async filename => {
                 this.form.logo = filename
                 api.createNewAdminRestaurant({Restaurant: this.form})
@@ -182,6 +210,40 @@ export default {
                         this.displayAlert = true
                     })
             })
+        },
+        async updateRestaurant() {
+            this.displayLoading = true
+            let db = firebase.firestore()
+
+            if (this.logoFile != null) {
+                await this.uploadToFirebase(
+                    this.logoFile,
+                    `restaurants/${this.form.restaurantName}`,
+                    this.form.restaurantName
+                ).then(async filename => {
+                    this.form.logo = filename
+                })
+            }
+
+            api.updateAdminRestaurantInfo({id: this.restID, Restaurant: this.form})
+                .then(response => {
+                        this.displayLoading = false
+                        this.alertTitle = 'Exito!'
+                        this.alertMessage =
+                            'Se ha actualizado el restaurante con exito'
+                        this.alertType = 'success'
+                        this.displayAlert = true
+                        this.clear()
+                        this.$emit('restaurantUpdated')
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.displayLoading = false
+                        this.alertTitle = 'Error'
+                        this.alertMessage = error
+                        this.alertType = 'error'
+                        this.displayAlert = true
+                    })
         },
         uploadToFirebase(imageFile, fullDirectory, filename) {
             return new Promise(function (resolve, reject) {
@@ -224,6 +286,20 @@ export default {
                 )
             })
         },
+    },
+    watch: {
+        restaurantToForm(newValue, oldValue) {
+            if (Object.keys(newValue).length > 0) {
+                this.formStatusEdit = true
+                this.restID = newValue.id
+                this.form.restaurantName = newValue.restaurantName
+                this.form.email = newValue.email
+                this.form.phone = newValue.phone || "12345678" // Pepe: some test restaurants do not have phone number
+                this.form.type = newValue.type
+                this.form.url = newValue.url
+                this.form.logo = newValue.logo // Pending: get logo file from firebase storage
+            }
+        }
     },
 }
 </script>
