@@ -153,7 +153,7 @@
                         <img
                             :src="require('@/assets/landing/qr.png')"
                             class="img-fluid"
-                            style="padding: 15px; background-color: #fff"
+                            style="background-color: #fff"
                         />
                     </div>
                 </div>
