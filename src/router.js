@@ -28,6 +28,7 @@ import PanamaHotdog from './views/wp/PanamaHotdog'
 import CeroTranque from './views/wp/CeroTranque'
 import GarageBurgers from './views/wp/GarageBurgers'
 import SpecialOneBurger from './views/wp/SpecialOneBurger'
+import PanamaHotdog2 from './views/wp/PanamaHotdog2'
 
 Vue.use(Router)
 
@@ -149,6 +150,11 @@ export default new Router({
                     path: '/wp/specialoneburger',
                     name: 'specialoneburger',
                     component: SpecialOneBurger,
+                },
+                {
+                    path: '/wp/panamahotdog2',
+                    name: 'panamahotdog2',
+                    component: PanamaHotdog2,
                 },
             ],
         },
