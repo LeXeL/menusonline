@@ -5,6 +5,7 @@
         </div>
         <q-btn-toggle
             v-model="value"
+            rounded
             spread
             all-caps
             class="poppins-bold full-width"
@@ -12,7 +13,6 @@
             color="white"
             text-color="black"
             :options="options"
-            
         />
     </div>
 </template>
@@ -22,13 +22,13 @@ export default {
     props: ['label', 'options', 'isRequired', 'accentColor', 'index'],
     data() {
         return {
-            value: ''
+            value: '',
         }
     },
     watch: {
-        value: function() {
+        value: function () {
             this.$emit('update-value', {value: this.value, index: this.index})
-        }
-    }
+        },
+    },
 }
 </script>

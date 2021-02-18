@@ -1,15 +1,21 @@
 <template>
-    <q-page class="bg-grey-2">
-        <q-img :src="require(`@/assets/wp/${generalData.folder}/logo.jpg`)" class="shadow-7" />
+    <q-page class="bg-grey-3">
+        <q-img
+            :src="require(`@/assets/wp/${generalData.folder}/logo.jpg`)"
+            class="shadow-7 menu-banner"
+        />
         <div class="q-pa-md">
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
                 REALIZA TU PEDIDO
             </div>
-            <div :class="`text-subtitle2 q-mb-sm q-mt-md text-${generalData.accentColor}`">
+            <div
+                :class="`text-subtitle2 q-mb-sm q-mt-md text-${generalData.accentColor}`"
+            >
                 Categorias
             </div>
             <q-select
-                filled
+                rounded
+                outlined
                 v-model="selectedCategory"
                 :options="generalData.categories"
                 class="q-mb-lg"
@@ -20,10 +26,12 @@
             />
             <!-- MENU ITEMS -->
             <div v-for="(item, i) in filterMenuItems" :key="i">
-                <q-card class="full-width q-mb-lg">
+                <q-card class="full-width q-mb-lg menu-card" flat>
                     <q-img
                         v-if="item.pic"
-                        :src="require(`@/assets/wp/${generalData.folder}/${item.pic}`)"
+                        :src="
+                            require(`@/assets/wp/${generalData.folder}/${item.pic}`)
+                        "
                     />
                     <q-card-section class="q-pb-none">
                         <div class="row">
@@ -43,7 +51,8 @@
                         </div>
                         <div v-else class="text-h6 poppins-bold">
                             <!-- <span style="font-size: 13px;">Desde</span> $ {{ item.options[0].price.toFixed(2) }} -->
-                            <span style="font-size: 13px;">Desde</span> $ {{ returnMinVal(item.options) }}
+                            <span style="font-size: 13px">Desde</span> $
+                            {{ returnMinVal(item.options) }}
                         </div>
                         <div class="text-caption text-grey">
                             {{ item.desc }}
@@ -54,7 +63,12 @@
 
                     <q-card-actions>
                         <q-space />
-                        <q-btn flat :color="generalData.accentColor" @click="selectItem(item)"
+                        <q-btn
+                            flat
+                            rounded
+                            class="on-left"
+                            :color="generalData.accentColor"
+                            @click="selectItem(item)"
                             >Agregar</q-btn
                         >
                     </q-card-actions>
@@ -64,7 +78,10 @@
 
             <!-- OPTIONS DIALOG -->
             <q-dialog v-model="optionsDialog">
-                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                <q-card
+                    style="width: 700px; max-width: 80vw"
+                    class="bg-grey-2 menu-card"
+                >
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ELIJA
@@ -75,6 +92,7 @@
                         <q-btn
                             text-color="black"
                             outline
+                            rounded
                             class="poppins-bold full-width q-mb-md"
                             v-for="(option, i) in menu[selectedItemIndex]
                                 .options"
@@ -92,6 +110,7 @@
                         <q-btn
                             color="red-7"
                             flat
+                            rounded
                             class="poppins-bold full-width q-mb-md"
                             @click="optionsDialog = false"
                             >Cancelar</q-btn
@@ -103,7 +122,10 @@
 
             <!-- STYLES DIALOG -->
             <q-dialog v-model="stylesDialog">
-                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                <q-card
+                    style="width: 700px; max-width: 80vw"
+                    class="bg-grey-2 menu-card"
+                >
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ELIJA
@@ -114,6 +136,7 @@
                         <q-btn
                             text-color="black"
                             outline
+                            rounded
                             class="poppins-bold full-width q-mb-md"
                             v-for="(style, i) in menu[selectedItemIndex].styles"
                             :key="i"
@@ -130,6 +153,7 @@
                         <q-btn
                             color="red-7"
                             flat
+                            rounded
                             class="poppins-bold full-width q-mb-md"
                             @click="stylesDialog = false"
                             >Cancelar</q-btn
@@ -141,7 +165,10 @@
 
             <!-- SIDES DIALOG -->
             <q-dialog v-model="sideDialog">
-                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                <q-card
+                    style="width: 700px; max-width: 80vw"
+                    class="bg-grey-2 menu-card"
+                >
                     <q-card-section class="q-py-sm">
                         <div class="text-h6 text-center poppins-bold">
                             ELIJA
@@ -152,6 +179,7 @@
                         <q-btn
                             text-color="black"
                             outline
+                            rounded
                             class="poppins-bold full-width q-mb-md"
                             v-for="(side, i) in menu[selectedItemIndex].sides"
                             :key="i"
@@ -179,7 +207,10 @@
 
             <!-- SUCCESS DIALOG -->
             <q-dialog v-model="successDialog">
-                <q-card style="width: 700px; max-width: 80vw" class="bg-grey-2">
+                <q-card
+                    style="width: 700px; max-width: 80vw"
+                    class="bg-grey-2 menu-card"
+                >
                     <q-card-section>
                         <div class="text-h6 text-center poppins-bold">
                             Agregado con exito
@@ -189,6 +220,7 @@
                         <q-btn
                             color="black"
                             outline
+                            rounded
                             class="poppins-bold full-width q-mb-md"
                             @click="successDialog = false"
                             >Aceptar</q-btn
@@ -234,6 +266,7 @@
                                     <div class="col-2">
                                         <q-btn
                                             color="red-7"
+                                            round
                                             size="sm"
                                             @click="removeItemFromCart(i)"
                                         >
@@ -244,19 +277,28 @@
                                     <div class="col">
                                         <div class="text-body2 poppins-regular">
                                             <strong>
-                                                ({{ item.amount }}) {{ item.title }} -
+                                                ({{ item.amount }})
+                                                {{ item.title }} -
                                                 {{ item.options.title }}
                                                 <span
                                                     v-if="
-                                                        item.styles.title != undefined
+                                                        item.styles.title !=
+                                                        undefined
                                                     "
                                                 >
-                                                    {{ ` - ${item.styles.title}` }}
+                                                    {{
+                                                        ` - ${item.styles.title}`
+                                                    }}
                                                 </span>
                                                 <span
-                                                    v-if="item.sides.title != undefined"
+                                                    v-if="
+                                                        item.sides.title !=
+                                                        undefined
+                                                    "
                                                 >
-                                                    {{ ` - ${item.sides.title}` }}
+                                                    {{
+                                                        ` - ${item.sides.title}`
+                                                    }}
                                                 </span>
                                             </strong>
                                         </div>
@@ -270,7 +312,9 @@
                                             class="fas fa-utensils q-mt-lg q-mb-md"
                                             style="font-size: 75px"
                                         ></i>
-                                        <div class="text-h5 poppins-bold q-mb-lg">
+                                        <div
+                                            class="text-h5 poppins-bold q-mb-lg"
+                                        >
                                             Tu carrito esta vacio
                                         </div>
                                     </div>
@@ -281,23 +325,55 @@
                             <q-card-section>
                                 <div class="row text-center">
                                     <div class="col">
-                                        <div class="text-h6 poppins-bold q-mb-md">
+                                        <div
+                                            class="text-h6 poppins-bold q-mb-md"
+                                        >
                                             Datos de orden
                                         </div>
                                     </div>
                                 </div>
-                                <div v-for="(input, i) in cartSettings.inputData" :key="i">
-                                    <InputText v-if="input.type == 'text'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="generalData.accentColor" :index="i" @update-value="updateValue"/>
-                                    <TextArea v-if="input.type == 'textarea'" :label="input.label" :placeholder="input.placeholder" :isRequired="input.required" :accentColor="generalData.accentColor" :index="i" @update-value="updateValue"/>
-                                    <ButtonGroup  v-if="input.type == 'radio'" :label="input.label" :isRequired="input.required" :accentColor="generalData.accentColor" :options="input.options" :index="i" @update-value="updateValue"/>
+                                <div
+                                    v-for="(input, i) in cartSettings.inputData"
+                                    :key="i"
+                                >
+                                    <InputText
+                                        v-if="input.type == 'text'"
+                                        :label="input.label"
+                                        :placeholder="input.placeholder"
+                                        :isRequired="input.required"
+                                        :accentColor="generalData.accentColor"
+                                        :index="i"
+                                        @update-value="updateValue"
+                                    />
+                                    <TextArea
+                                        v-if="input.type == 'textarea'"
+                                        :label="input.label"
+                                        :placeholder="input.placeholder"
+                                        :isRequired="input.required"
+                                        :accentColor="generalData.accentColor"
+                                        :index="i"
+                                        @update-value="updateValue"
+                                    />
+                                    <ButtonGroup
+                                        v-if="input.type == 'radio'"
+                                        :label="input.label"
+                                        :isRequired="input.required"
+                                        :accentColor="generalData.accentColor"
+                                        :options="input.options"
+                                        :index="i"
+                                        @update-value="updateValue"
+                                    />
                                 </div>
                                 <div class="row q-mb-md">
-                                    <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                    <div
+                                        class="text-subtitle2 poppins-bold q-mb-sm"
+                                    >
                                         Metodo de entrega: *
                                     </div>
                                     <q-btn-toggle
                                         v-model="selectedPickupMethod"
                                         spread
+                                        rounded
                                         all-caps
                                         class="poppins-bold full-width"
                                         :toggle-color="generalData.accentColor"
@@ -308,7 +384,9 @@
                                 </div>
                                 <div
                                     class="row"
-                                    v-if="this.selectedPickupMethod == 'Delivery'"
+                                    v-if="
+                                        this.selectedPickupMethod == 'Delivery'
+                                    "
                                 >
                                     <div
                                         class="text-subtitle2 poppins-bold q-mb-sm full-width"
@@ -318,8 +396,9 @@
                                     <div
                                         class="text-subtitle2 poppins-bold q-mb-md text-red-7"
                                     >
-                                        Para mover el marcador debes arrastrarlo a la
-                                        ubicacion que deseas recibir tu pedido.
+                                        Para mover el marcador debes arrastrarlo
+                                        a la ubicacion que deseas recibir tu
+                                        pedido.
                                     </div>
                                 </div>
                                 <GoogleMaps
@@ -337,12 +416,15 @@
                                     class="row q-mb-md"
                                     v-if="selectedPickupMethod == 'Delivery'"
                                 >
-                                    <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                    <div
+                                        class="text-subtitle2 poppins-bold q-mb-sm"
+                                    >
                                         Direccion de entrega (completa): *
                                     </div>
                                     <q-input
                                         v-model="address"
-                                        filled
+                                        rounded
+                                        outlined
                                         dark
                                         type="textarea"
                                         class="full-width poppins-regular"
@@ -361,7 +443,10 @@
                                         </div>
                                         <div
                                             class="text-subtitle2 poppins-bold text-red-8"
-                                            v-if="selectedPickupMethod == 'Delivery'"
+                                            v-if="
+                                                selectedPickupMethod ==
+                                                'Delivery'
+                                            "
                                         >
                                             Sin costos por delivery.
                                         </div>
@@ -371,6 +456,8 @@
                             <q-card-section>
                                 <q-btn
                                     color="green-7"
+                                    rounded
+                                    push
                                     class="full-width q-mb-md poppins-bold"
                                     @click="sendChat"
                                     :disable="cart.length <= 0"
@@ -464,11 +551,10 @@ export default {
         updateValue(e) {
             this.cartSettings.inputData[e.index].value = e.value
         },
-        returnMinVal(options){
+        returnMinVal(options) {
             let min = options[0].price
             options.forEach(op => {
-                if (op.price < min)
-                    min = op.price
+                if (op.price < min) min = op.price
             })
             return min.toFixed(2)
         },
@@ -621,10 +707,8 @@ export default {
             this.cartSettings.inputData.forEach(input => {
                 let key = input.label.toLowerCase()
                 key = key.replace(/\s/g, '_')
-                if (input.value != undefined)
-                    data[key] = input.value
-                else
-                    data[key] = ''
+                if (input.value != undefined) data[key] = input.value
+                else data[key] = ''
             })
             var url = this.generalData.googleSheets.url
             var xhr = new XMLHttpRequest()
@@ -650,8 +734,11 @@ export default {
             if (this.location.length === 0) {
                 if (
                     parseFloat(this.center.lat) ===
-                        parseFloat(this.cartSettings.locationDefaults.defaultLat) &&
-                    parseFloat(this.center.lng) === parseFloat(this.cartSettings.locationDefaultsdefaultLng)
+                        parseFloat(
+                            this.cartSettings.locationDefaults.defaultLat
+                        ) &&
+                    parseFloat(this.center.lng) ===
+                        parseFloat(this.cartSettings.locationDefaultsdefaultLng)
                 ) {
                     return `>> Pedir Ubicacion !!`
                 } else {
@@ -664,8 +751,6 @@ export default {
                     } else {
                         return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
                     }
-                    
-                    
                 }
             } else {
                 let lat = parseFloat(this.location.lat)
@@ -694,8 +779,12 @@ export default {
                 },
                 error => {
                     this.center = {
-                        lat: parseFloat(this.cartSettings.locationDefaults.defaultLat),
-                        lng: parseFloat(this.cartSettings.locationDefaults.defaultLng),
+                        lat: parseFloat(
+                            this.cartSettings.locationDefaults.defaultLat
+                        ),
+                        lng: parseFloat(
+                            this.cartSettings.locationDefaults.defaultLng
+                        ),
                     }
                     this.markers.push({position: this.center})
                 }
@@ -703,19 +792,26 @@ export default {
         },
         async sendChat() {
             for (let input of this.cartSettings.inputData) {
-                if (input.required == true && (input.value == undefined || input.value == '')) {
-                    alert(`Debes ingresar la siguiente informacion:\n\n${input.label}`)
+                if (
+                    input.required == true &&
+                    (input.value == undefined || input.value == '')
+                ) {
+                    alert(
+                        `Debes ingresar la siguiente informacion:\n\n${input.label}`
+                    )
                     return
                 }
             }
             if (this.selectedPickupMethod == '') {
                 alert('Debes seleccionar un metodo de entrega.')
                 return
-            } 
+            }
             if (this.selectedPickupMethod == 'Delivery' && this.address == '') {
-                alert('Debes ingresar tu direccion completa para la entrega de tu pedido.')
+                alert(
+                    'Debes ingresar tu direccion completa para la entrega de tu pedido.'
+                )
                 return
-            }else {
+            } else {
                 this.orderNo = Math.floor(100000 + Math.random() * 900000)
                 this.$analytics.logEvent(`wp-${this.generalData.folder}`, {
                     content_action: 'Orden Completada',
@@ -731,7 +827,10 @@ export default {
     computed: {
         filterMenuItems() {
             let items = []
-            if (this.selectedCategory == null || this.selectedCategory == 'Todo')
+            if (
+                this.selectedCategory == null ||
+                this.selectedCategory == 'Todo'
+            )
                 return this.menu
             this.menu.forEach(item => {
                 if (item.type == this.selectedCategory) {
@@ -739,7 +838,7 @@ export default {
                 }
             })
             return items
-        }
+        },
     },
     watch: {
         cart() {
@@ -757,7 +856,7 @@ export default {
         GoogleMaps,
         InputText,
         TextArea,
-        ButtonGroup
+        ButtonGroup,
     },
     mounted() {
         this.generalData.categories.push('Todo')
@@ -773,3 +872,13 @@ export default {
     },
 }
 </script>
+
+<style>
+.menu-banner {
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+.menu-card {
+    border-radius: 25px !important;
+}
+</style>

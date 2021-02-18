@@ -5,7 +5,8 @@
         </div>
         <q-input
             v-model="value"
-            filled
+            outlined
+            rounded
             dark
             type="text"
             class="full-width poppins-regular"
@@ -21,13 +22,13 @@ export default {
     props: ['label', 'placeholder', 'isRequired', 'accentColor', 'index'],
     data() {
         return {
-            value: ''
+            value: '',
         }
     },
     watch: {
-        value: function() {
+        value: function () {
             this.$emit('update-value', {value: this.value, index: this.index})
-        }
-    }
+        },
+    },
 }
 </script>

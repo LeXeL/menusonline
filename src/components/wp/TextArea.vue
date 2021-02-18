@@ -1,12 +1,12 @@
 <template>
     <div class="row q-mb-md">
-        <div
-            class="text-subtitle2 poppins-bold q-mb-sm">
+        <div class="text-subtitle2 poppins-bold q-mb-sm">
             {{ label }}: <span v-if="isRequired">*</span>
         </div>
         <q-input
             v-model="value"
-            filled
+            outlined
+            rounded
             dark
             type="textarea"
             class="full-width poppins-regular"
@@ -23,13 +23,13 @@ export default {
     props: ['label', 'placeholder', 'isRequired', 'accentColor', 'index'],
     data() {
         return {
-            value: ''
+            value: '',
         }
     },
     watch: {
-        value: function() {
+        value: function () {
             this.$emit('update-value', {value: this.value, index: this.index})
-        }
-    }
+        },
+    },
 }
 </script>
