@@ -101,9 +101,81 @@
                             label="Emails for EmailJS"
                             filled
                             class="q-mb-md"
-                            v-model="inputEmails"
+                            v-model="generalData.emailJs.emails"
                         />
                     </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <div class="text-h6">Default Location</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-input
+                            filled
+                            class="q-mb-md"
+                            label="Default Lat"
+                            v-model="cartSettings.locationDefaults.defaultLat"
+                        />
+                        <q-input
+                            filled
+                            label="Default Lng"
+                            v-model="cartSettings.locationDefaults.defaultLng"
+                        />
+                    </q-card-section>
+                </q-card>
+            </div>
+            <div class="col-lg-4 q-pa-md">
+                <q-card>
+                    <q-separator />
+                    <q-card-section>
+                        <div class="text-h6">Cart inputs</div>
+                    </q-card-section>
+                    <q-card-section
+                        v-for="(input, i) in cartSettings.inputData"
+                        :key="i"
+                        :class="i % 2 != 0 ? 'bg-grey-3' : 'bg-white'"
+                    >
+                        <q-input
+                            label="Label"
+                            filled
+                            class="q-mb-md"
+                            v-model="cartSettings.inputData[i].label"
+                        />
+                        <q-input
+                            label="Placeholder"
+                            filled
+                            class="q-mb-md"
+                            v-model="cartSettings.inputData[i].placeholder"
+                        />
+                        <q-select
+                            label="Required"
+                            :options="[
+                                {label: 'True', value: true},
+                                {label: 'False', value: false},
+                            ]"
+                            emit-value
+                            map-options
+                            filled
+                            class="q-mb-md"
+                            v-model="cartSettings.inputData[i].required"
+                        />
+                        <q-select
+                            label="Tipo"
+                            :options="['text', 'textarea', 'radio']"
+                            filled
+                            class="q-mb-md"
+                            v-model="cartSettings.inputData[i].type"
+                        />
+                        <q-input
+                            label="Opciones"
+                            filled
+                            v-if="input.type == 'radio'"
+                            v-model="cartSettings.inputData[i].options"
+                        />
+                    </q-card-section>
+                    <q-card-actions>
+                        <q-space />
+                        <q-btn flat round icon="add" @click="addCartInput()" />
+                    </q-card-actions>
                 </q-card>
             </div>
         </div>
@@ -122,14 +194,47 @@
                         export default { data() { return { generalData: {
                         folder: '{{ generalData.folder }}', accentColor: '{{
                             generalData.accentColor
-                        }}' }, subtitleColor: '{{ generalData.subtitleColor }}',
+                        }}', subtitleColor: '{{ generalData.subtitleColor }}',
                         categories: [], whatsappNumber: '{{
                             generalData.whatsappNumber
                         }}', wazeIntegration: {{ returnSelectedMapValue }},
                         googleSheets: { integration:
                         {{ generalData.googleSheets.url ? true : false }}, url:
-                        '{{ generalData.googleSheets.url }}'} } }, components: {
-                        MainLayout } } &lt;/script&gt;
+                        '{{ generalData.googleSheets.url }}'}, emailJs: {
+                        integration:
+                        {{
+                            generalData.emailJs.emails.length > 0
+                                ? true
+                                : false
+                        }}, emails: {{ returnEmailsinArray }} } }, cartSettings:
+                        { locationDefaults: { defaultLat:
+                        {{
+                            parseFloat(
+                                cartSettings.locationDefaults.defaultLat
+                            )
+                        }}, defaultLng:
+                        {{
+                            parseFloat(cartSettings.locationDefaults.defaultLng)
+                        }}
+                        }, inputData: [
+                        <span
+                            v-for="(input, i) in cartSettings.inputData"
+                            :key="i"
+                        >
+                            {type: '{{ input.type }}', label: '{{
+                                input.label
+                            }}', required: {{ input.required }}, placeholder:
+                            '{{ input.placeholder }}',
+                            <span v-if="input.options.length > 0">
+                                <span
+                                    >options:
+                                    {{
+                                        returnFormatedOptions(input.options)
+                                    }}</span
+                                > </span
+                            >},
+                        </span>
+                        ] } } }, components: { MainLayout } } &lt;/script&gt;
                     </q-card-section>
                 </q-card>
             </div>
@@ -142,7 +247,6 @@ export default {
     data() {
         return {
             selectedMap: '',
-            inputEmails: '',
             //
             generalData: {
                 folder: '',
@@ -157,8 +261,23 @@ export default {
                 },
                 emailJs: {
                     integration: false,
-                    emails: [],
+                    emails: '',
                 },
+            },
+            cartSettings: {
+                locationDefaults: {
+                    defaultLat: '',
+                    defaultLng: '',
+                },
+                inputData: [
+                    {
+                        type: '',
+                        label: '',
+                        required: '',
+                        placeholder: '',
+                        options: '',
+                    },
+                ],
             },
             //
             colorOptions: [
@@ -241,10 +360,39 @@ export default {
             ],
         }
     },
+    methods: {
+        addCartInput() {
+            this.cartSettings.inputData.push({
+                type: '',
+                label: '',
+                required: '',
+                placeholder: '',
+                options: '',
+            })
+        },
+        returnFormatedOptions(s) {
+            let optionsArray = s.split(',')
+            let formatedOptions = []
+            optionsArray.forEach(option => {
+                if (option[0] == ' ') {
+                    option = option.substring(1)
+                }
+
+                let o = {}
+                o.label = option
+                o.value = option.replace(/\s/g, '_').toLowerCase()
+                formatedOptions.push(o)
+            })
+            return formatedOptions
+        },
+    },
     computed: {
         returnSelectedMapValue() {
             if (this.selectedMap == 'waze') return true
             else return false
+        },
+        returnEmailsinArray() {
+            return this.generalData.emailJs.emails.replace(/\s/g, '').split(',')
         },
     },
 }
