@@ -76,6 +76,12 @@ export default {
                     link: '/admin/invoicing',
                     icon: 'receipt_long',
                 },
+                {
+                    text: 'Menu Builder',
+                    caption: '',
+                    link: '/menu-builder',
+                    icon: 'handyman',
+                },
             ],
         }
     },

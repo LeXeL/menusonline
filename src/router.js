@@ -12,6 +12,7 @@ import Home from '@/views/dashboard/Home'
 import Restaurants from '@/views/dashboard/Restaurants'
 import WPManager from '@/views/dashboard/WPManager'
 import InvoiceManager from '@/views/dashboard/Invoicing'
+import MenuBuilder from '@/views/dashboard/MenuBuilder'
 
 //Carta Digital
 import Menu from './views/cartadigital/Menu.vue'
@@ -87,6 +88,11 @@ export default new Router({
                     name: 'menu-details',
                     component: MenuDetails,
                 },
+                {
+                    path: '/menu-builder',
+                    name: 'menu-builder',
+                    component: MenuBuilder
+                }
             ],
         },
 
