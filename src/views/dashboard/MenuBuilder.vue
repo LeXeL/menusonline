@@ -1,7 +1,15 @@
 <template>
     <q-page class="q-pa-md">
         <div class="row q-px-md q-mb-md">
-            <div class="text-h5 mo-grey">Menu Builder</div>
+            <div class="text-h5 mo-grey q-mr-lg">Menu Builder</div>
+            <q-btn
+                label="Copiar"
+                icon="content_copy"
+                rounded
+                flat
+                color="accent"
+                @click="copyToClipboard"
+            />
         </div>
         <div class="row">
             <div class="col-lg-4 q-pa-md">
@@ -366,12 +374,11 @@
                     <q-card-section>
                         <div class="text-h6">JSON EXPORT</div>
                     </q-card-section>
-                    <q-card-section>
+                    <q-card-section id="menuJSON">
                         &lt;template&gt; &lt;MainLayout
                         :generalData="generalData" :cartSettings="carSettings"
                         :menu="menu" /&gt; &lt;/template&gt; &lt;script&gt;
-                        import MainLayout from '@/components/wp/MainLayout'
-                        <br /><br />
+                        import MainLayout from '@/components/wp/MainLayout';
                         export default { data() { return { generalData: {
                         folder: '{{ generalData.folder }}', accentColor: '{{
                             generalData.accentColor
@@ -612,6 +619,22 @@ export default {
                     },
                 ],
             })
+        },
+        copyToClipboard() {
+            let jsonContent = document.getElementById('menuJSON').innerHTML
+            jsonContent = jsonContent.replace(/&lt;/g, '<')
+            jsonContent = jsonContent.replace(/&gt;/g, '>')
+            jsonContent = jsonContent.replace(/<!---->/g, '')
+            jsonContent = jsonContent.replace(/<span>/g, '')
+            jsonContent = jsonContent.replace(/<\/span>/g, '')
+            navigator.clipboard.writeText(jsonContent).then(
+                () => {
+                    alert('copiado con exito')
+                },
+                function(err) {
+                    console.error('Async: Could not copy text: ', err)
+                }
+            )
         },
     },
     computed: {

@@ -7,7 +7,6 @@
 </template>
 <script>
 import MainLayout from '@/components/wp/MainLayout'
-
 export default {
     data() {
         return {
@@ -15,7 +14,12 @@ export default {
                 folder: '',
                 accentColor: '',
                 subtitleColor: '',
-                categories: [{label: '', value: ''}],
+                categories: [
+                    {
+                        label: '',
+                        value: '',
+                    },
+                ],
                 whatsappNumber: '',
                 wazeIntegration: false,
                 googleSheets: {integration: false, url: ''},
@@ -24,12 +28,12 @@ export default {
             cartSettings: {
                 locationDefaults: {defaultLat: NaN, defaultLng: NaN},
                 inputData: [
-                    {type: '', label: '', required: false, placeholder: ''},
+                    {type: '', label: '', required: true, placeholder: ''},
                 ],
             },
             menu: [
                 {
-                    title: '',
+                    title: 'copy test',
                     subtitle: '',
                     desc: '',
                     type: '',
@@ -37,18 +41,12 @@ export default {
                     price: 0,
                     styles: [],
                     sides: [],
-                    options: [{title: '', price: 0}],
-                },
-                {
-                    title: '',
-                    subtitle: '',
-                    desc: '',
-                    type: '',
-                    pic: '',
-                    price: 0,
-                    styles: [],
-                    sides: [],
-                    options: [{title: '', price: 0}],
+                    options: [
+                        {
+                            title: '',
+                            price: 0,
+                        },
+                    ],
                 },
             ],
         }
