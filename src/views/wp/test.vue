@@ -15,7 +15,7 @@ export default {
                 folder: '',
                 accentColor: '',
                 subtitleColor: '',
-                categories: [],
+                categories: [{label: '', value: ''}],
                 whatsappNumber: '',
                 wazeIntegration: false,
                 googleSheets: {integration: false, url: ''},
@@ -24,31 +24,33 @@ export default {
             cartSettings: {
                 locationDefaults: {defaultLat: NaN, defaultLng: NaN},
                 inputData: [
-                    {
-                        type: 'radio',
-                        label: '',
-                        required: true,
-                        placeholder: '',
-                        options: [
-                            {label: 'yappy', value: 'yappy'},
-                            {
-                                label: 'tarjeta de credito',
-                                value: 'tarjeta_de_credito',
-                            },
-                        ],
-                    },
-                    {
-                        type: 'radio',
-                        label: '',
-                        required: false,
-                        placeholder: '',
-                        options: [
-                            {label: 'en efectivo', value: 'en_efectivo'},
-                            {label: 'con dinero', value: 'con_dinero'},
-                        ],
-                    },
+                    {type: '', label: '', required: false, placeholder: ''},
                 ],
             },
+            menu: [
+                {
+                    title: '',
+                    subtitle: '',
+                    desc: '',
+                    type: '',
+                    pic: '',
+                    price: 0,
+                    styles: [],
+                    sides: [],
+                    options: [{title: '', price: 0}],
+                },
+                {
+                    title: '',
+                    subtitle: '',
+                    desc: '',
+                    type: '',
+                    pic: '',
+                    price: 0,
+                    styles: [],
+                    sides: [],
+                    options: [{title: '', price: 0}],
+                },
+            ],
         }
     },
     components: {MainLayout},

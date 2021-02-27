@@ -178,6 +178,187 @@
                     </q-card-actions>
                 </q-card>
             </div>
+            <div class="col-lg-4 q-pa-md">
+                <q-card>
+                    <q-card-section>
+                        <div class="text-h6">Categorias</div>
+                    </q-card-section>
+                    <q-card-section>
+                        <q-input
+                            label="Categorias"
+                            filled
+                            v-model="categories"
+                        />
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-section>
+                        <div class="text-h6">Menu items</div>
+                    </q-card-section>
+                    <q-card-section
+                        v-for="(item, i) in menu"
+                        :key="i"
+                        :class="i % 2 != 0 ? 'bg-grey-3' : 'bg-white'"
+                    >
+                        <q-input
+                            label="Nombre"
+                            filled
+                            v-model="menu[i].title"
+                            class="q-mb-md"
+                        />
+                        <q-input
+                            label="Subtitulo"
+                            filled
+                            v-model="menu[i].subtitle"
+                            class="q-mb-md"
+                        />
+                        <q-input
+                            label="Descripcion"
+                            filled
+                            v-model="menu[i].desc"
+                            class="q-mb-md"
+                        />
+                        <q-input
+                            label="Foto"
+                            filled
+                            v-model="menu[i].pic"
+                            class="q-mb-md"
+                        />
+                        <q-input
+                            label="Precio"
+                            type="number"
+                            filled
+                            v-model="menu[i].price"
+                            class="q-mb-md"
+                        />
+                        <q-select
+                            label="Categoria"
+                            filled
+                            :options="returnFormatedOptions(categories)"
+                            v-model="menu[i].type"
+                            class="q-mb-md"
+                        />
+
+                        <div
+                            class="row q-mb-sm"
+                            v-for="(option, j) in item.options"
+                            :key="j"
+                        >
+                            <div class="col-lg-2 flex flex-center">
+                                <div class="text-body2 full-width text-left">
+                                    Option
+                                </div>
+                            </div>
+                            <div class="col-lg-4 q-mr-sm">
+                                <q-input
+                                    label="Title"
+                                    filled
+                                    v-model="menu[i].options[j].title"
+                                />
+                            </div>
+                            <div class="col-lg-4 q-ml-sm">
+                                <q-input
+                                    label="Price"
+                                    filled
+                                    v-model="menu[i].options[j].price"
+                                    type="number"
+                                />
+                            </div>
+                        </div>
+                        <div class="row q-mb-md">
+                            <q-btn
+                                label="Add option"
+                                flat
+                                rounded
+                                color="primary"
+                                size="sm"
+                                @click="addOptionToMenuItem(i, 'options')"
+                            />
+                        </div>
+                        <template v-if="item.styles.length > 0">
+                            <div
+                                class="row q-mb-sm"
+                                v-for="(style, j) in item.styles"
+                                :key="j"
+                            >
+                                <div class="col-lg-2 flex flex-center">
+                                    <div
+                                        class="text-body2 full-width text-left"
+                                    >
+                                        Style
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 q-mr-sm">
+                                    <q-input
+                                        label="Title"
+                                        filled
+                                        v-model="menu[i].styles[j].title"
+                                    />
+                                </div>
+                                <div class="col-lg-4 q-ml-sm">
+                                    <q-input
+                                        label="Title"
+                                        filled
+                                        v-model="menu[i].styles[j].price"
+                                    />
+                                </div>
+                            </div>
+                        </template>
+                        <div class="row q-mb-md">
+                            <q-btn
+                                label="Add style"
+                                flat
+                                rounded
+                                color="primary"
+                                size="sm"
+                                @click="addOptionToMenuItem(i, 'styles')"
+                            />
+                        </div>
+                        <template v-if="item.sides.length > 0">
+                            <div
+                                class="row q-mb-sm"
+                                v-for="(side, j) in item.sides"
+                                :key="j"
+                            >
+                                <div class="col-lg-2 flex flex-center">
+                                    <div
+                                        class="text-body2 full-width text-left"
+                                    >
+                                        Side
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 q-mr-sm">
+                                    <q-input
+                                        label="Title"
+                                        filled
+                                        v-model="menu[i].sides[j].title"
+                                    />
+                                </div>
+                                <div class="col-lg-4 q-ml-sm">
+                                    <q-input
+                                        label="Title"
+                                        filled
+                                        v-model="menu[i].sides[j].price"
+                                    />
+                                </div>
+                            </div>
+                        </template>
+                        <div class="row q-mb-md">
+                            <q-btn
+                                label="Add side"
+                                flat
+                                rounded
+                                color="primary"
+                                size="sm"
+                                @click="addOptionToMenuItem(i, 'sides')"
+                            />
+                        </div>
+                    </q-card-section>
+                    <q-card-actions>
+                        <q-space />
+                        <q-btn icon="add" flat round @click="addMenuItem()" />
+                    </q-card-actions>
+                </q-card>
+            </div>
         </div>
         <div class="row">
             <div class="col q-pa-md">
@@ -195,9 +376,9 @@
                         folder: '{{ generalData.folder }}', accentColor: '{{
                             generalData.accentColor
                         }}', subtitleColor: '{{ generalData.subtitleColor }}',
-                        categories: [], whatsappNumber: '{{
-                            generalData.whatsappNumber
-                        }}', wazeIntegration: {{ returnSelectedMapValue }},
+                        categories: {{ returnFormatedOptions(categories) }},
+                        whatsappNumber: '{{ generalData.whatsappNumber }}',
+                        wazeIntegration: {{ returnSelectedMapValue }},
                         googleSheets: { integration:
                         {{ generalData.googleSheets.url ? true : false }}, url:
                         '{{ generalData.googleSheets.url }}'}, emailJs: {
@@ -234,7 +415,8 @@
                                 > </span
                             >},
                         </span>
-                        ] } } }, components: { MainLayout } } &lt;/script&gt;
+                        ] }, menu: {{ menu }} } }, components: { MainLayout } }
+                        &lt;/script&gt;
                     </q-card-section>
                 </q-card>
             </div>
@@ -247,6 +429,7 @@ export default {
     data() {
         return {
             selectedMap: '',
+            categories: '',
             //
             generalData: {
                 folder: '',
@@ -279,6 +462,24 @@ export default {
                     },
                 ],
             },
+            menu: [
+                {
+                    title: '',
+                    subtitle: '',
+                    desc: '',
+                    type: '',
+                    pic: '',
+                    price: 0,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: '',
+                            price: 0,
+                        },
+                    ],
+                },
+            ],
             //
             colorOptions: [
                 {
@@ -384,6 +585,33 @@ export default {
                 formatedOptions.push(o)
             })
             return formatedOptions
+        },
+        addOptionToMenuItem(i, arr) {
+            let obj = {
+                title: '',
+                price: 0,
+            }
+            if (arr == 'options') this.menu[i].options.push(obj)
+            if (arr == 'styles') this.menu[i].styles.push(obj)
+            if (arr == 'sides') this.menu[i].sides.push(obj)
+        },
+        addMenuItem() {
+            this.menu.push({
+                title: '',
+                subtitle: '',
+                desc: '',
+                type: '',
+                pic: '',
+                price: 0,
+                styles: [],
+                sides: [],
+                options: [
+                    {
+                        title: '',
+                        price: 0,
+                    },
+                ],
+            })
         },
     },
     computed: {
