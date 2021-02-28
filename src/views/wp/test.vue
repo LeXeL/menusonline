@@ -1,7 +1,7 @@
 <template>
     <MainLayout
         :generalData="generalData"
-        :cartSettings="carSettings"
+        :cartSettings="cartSettings"
         :menu="menu"
     />
 </template>
@@ -11,7 +11,7 @@ export default {
     data() {
         return {
             generalData: {
-                folder: '',
+                folder: 'demo',
                 accentColor: '',
                 subtitleColor: '',
                 categories: [
@@ -33,7 +33,7 @@ export default {
             },
             menu: [
                 {
-                    title: 'copy test',
+                    title: 'final test',
                     subtitle: '',
                     desc: '',
                     type: '',

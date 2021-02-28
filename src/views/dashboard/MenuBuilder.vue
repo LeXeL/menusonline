@@ -244,6 +244,8 @@
                             :options="returnFormatedOptions(categories)"
                             v-model="menu[i].type"
                             class="q-mb-md"
+                            emit-value
+                            map-options
                         />
 
                         <div
@@ -376,7 +378,7 @@
                     </q-card-section>
                     <q-card-section id="menuJSON">
                         &lt;template&gt; &lt;MainLayout
-                        :generalData="generalData" :cartSettings="carSettings"
+                        :generalData="generalData" :cartSettings="cartSettings"
                         :menu="menu" /&gt; &lt;/template&gt; &lt;script&gt;
                         import MainLayout from '@/components/wp/MainLayout';
                         export default { data() { return { generalData: {
@@ -621,20 +623,35 @@ export default {
             })
         },
         copyToClipboard() {
-            let jsonContent = document.getElementById('menuJSON').innerHTML
-            jsonContent = jsonContent.replace(/&lt;/g, '<')
-            jsonContent = jsonContent.replace(/&gt;/g, '>')
-            jsonContent = jsonContent.replace(/<!---->/g, '')
-            jsonContent = jsonContent.replace(/<span>/g, '')
-            jsonContent = jsonContent.replace(/<\/span>/g, '')
-            navigator.clipboard.writeText(jsonContent).then(
-                () => {
-                    alert('copiado con exito')
-                },
-                function(err) {
-                    console.error('Async: Could not copy text: ', err)
-                }
-            )
+            this.menu.forEach(item => {
+                item.price = parseFloat(item.price)
+                item.options.forEach(option => {
+                    option.price = parseFloat(option.price)
+                })
+                item.styles.forEach(style => {
+                    style.price = parseFloat(style.price)
+                })
+                item.sides.forEach(side => {
+                    side.price = parseFloat(side.price)
+                })
+            })
+
+            setTimeout(() => {
+                let jsonContent = document.getElementById('menuJSON').innerHTML
+                jsonContent = jsonContent.replace(/&lt;/g, '<')
+                jsonContent = jsonContent.replace(/&gt;/g, '>')
+                jsonContent = jsonContent.replace(/<!---->/g, '')
+                jsonContent = jsonContent.replace(/<span>/g, '')
+                jsonContent = jsonContent.replace(/<\/span>/g, '')
+                navigator.clipboard.writeText(jsonContent).then(
+                    () => {
+                        alert('copiado con exito')
+                    },
+                    function(err) {
+                        console.error('Async: Could not copy text: ', err)
+                    }
+                )
+            }, 500)
         },
     },
     computed: {
