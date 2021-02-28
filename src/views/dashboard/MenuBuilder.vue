@@ -370,7 +370,7 @@
                 </q-card>
             </div>
         </div>
-        <div class="row">
+        <div class="row" v-show="false">
             <div class="col q-pa-md">
                 <q-card>
                     <q-card-section>

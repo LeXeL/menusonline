@@ -33,7 +33,7 @@ export default {
             },
             menu: [
                 {
-                    title: 'final test',
+                    title: 'hide test',
                     subtitle: '',
                     desc: '',
                     type: '',
