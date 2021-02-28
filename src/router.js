@@ -29,7 +29,6 @@ import PanamaHotdog from './views/wp/PanamaHotdog'
 import CeroTranque from './views/wp/CeroTranque'
 import GarageBurgers from './views/wp/GarageBurgers'
 import SpecialOneBurger from './views/wp/SpecialOneBurger'
-import Test from '@/views/wp/Test'
 
 Vue.use(Router)
 
@@ -156,11 +155,6 @@ export default new Router({
                     path: '/wp/specialoneburger',
                     name: 'specialoneburger',
                     component: SpecialOneBurger,
-                },
-                {
-                    path: '/wp/test',
-                    name: 'test',
-                    component: Test,
                 },
             ],
         },
