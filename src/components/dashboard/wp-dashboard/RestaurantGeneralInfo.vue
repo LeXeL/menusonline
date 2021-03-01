@@ -227,13 +227,9 @@ export default {
     },
     mounted() {
         let db = firebase.firestore()
-        const rest = db.collection('Restaurants').doc(this.$route.params.restaurantId).get().then(
+        db.collection('Restaurants').doc(this.$route.params.restaurantId).get().then(
            snapshot => {
-               this.form.whatsappNumber = snapshot.data().whatsappNumber
-               this.form.selectedMap = snapshot.data().selectedMap
-               this.form.primaryColor = snapshot.data().primaryColor
-               this.form.secondaryColor = snapshot.data().secondaryColor
-               this.form.paymentMethods = snapshot.data().paymentMethods
+               this.form = snapshot.data()
            } 
         )
     },
