@@ -1,5 +1,12 @@
 <template>
     <q-card>
+        <loading-alert :display="displayLoading"></loading-alert>
+        <menudigital-alert
+            :display="displayAlert"
+            :title="alertTitle"
+            :message="alertMessage"
+            :type="alertType"
+        ></menudigital-alert>
         <q-card-section>
             <div class="text-subtitle1">
                 Informacion General
@@ -12,20 +19,24 @@
                 filled
                 placeholder="65657898"
                 class="q-mb-md"
+                v-model="form.whatsappNumber"
+                :rules="[val => val.length > 0 || 'Información Requerida']"
             />
             <q-select
                 label="Mapa de preferencia"
                 filled
                 :options="['Google Maps', 'Waze']"
                 class="q-mb-md"
-                v-model="selectedMap"
+                v-model="form.selectedMap"
+                :rules="[val => val.length > 0 || 'Información Requerida']"
             />
             <q-select
                 filled
-                v-model="primaryColor"
+                v-model="form.primaryColor"
                 :options="options"
                 label="Color primario"
                 class="q-mb-md"
+                :rules="[val => val != null || 'Información Requerida']"
             >
                 <template v-slot:option="scope">
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
@@ -40,10 +51,11 @@
             </q-select>
             <q-select
                 filled
-                v-model="secondaryColor"
+                v-model="form.secondaryColor"
                 :options="options"
                 label="Color secundario"
                 class="q-mb-md"
+                :rules="[val => val != null || 'Información Requerida']"
             >
                 <template v-slot:option="scope">
                     <q-item v-bind="scope.itemProps" v-on="scope.itemEvents">
@@ -58,42 +70,52 @@
             </q-select>
             <q-select
                 filled
-                v-model="paymentMethods"
+                v-model="form.paymentMethods"
                 multiple
                 bottom-slots
                 :options="paymentOptions"
                 label="Metodos de pago"
                 class="q-mb-md"
+                :rules="[val => val.length > 0 || 'Información Requerida']"
             >
                 <template v-slot:hint>
                     <span class="text-primary">Seleccion multiple</span>
                 </template>
             </q-select>
-            <q-file filled label="Logo" bottom-slots v-model="logoUpload">
+            <!-- Por ahora se utilizará el logo original cuando se crea el restaurant -->
+            <!-- <q-file filled label="Logo" bottom-slots v-model="logoUpload">
                 <template v-slot:prepend>
                     <q-icon name="attach_file" />
                 </template>
                 <template v-slot:hint>
                     <span class="text-primary">1280px x 450px</span>
                 </template>
-            </q-file>
+            </q-file> -->
         </q-card-section>
         <q-card-actions>
             <q-space />
-            <q-btn flat label="Editar" color="accent" />
+            <q-btn @click="updateRestaurantGeneralInfo" flat label="Editar" color="accent" />
         </q-card-actions>
     </q-card>
 </template>
 
 <script>
+import * as api from '@/api/api'
+
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
 export default {
     data() {
         return {
-            selectedMap: null,
-            primaryColor: null,
-            secondaryColor: null,
-            paymentMethods: null,
-            logoUpload: null,
+            // logoUpload: null,
+            form: {
+                whatsappNumber: '',
+                selectedMap: '',
+                primaryColor: '',
+                secondaryColor: '',
+                paymentMethods: '',
+            },
             options: [
                 {
                     label: 'Rojo',
@@ -173,7 +195,52 @@ export default {
                 },
             ],
             paymentOptions: ['Efectivo', 'Transferencia', 'Tarjeta'],
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
         }
+    },
+    methods: {
+        async updateRestaurantGeneralInfo() {
+            this.displayLoading = true
+
+            api.updateAdminRestaurantInfo({id: this.$route.params.restaurantId, Restaurant: this.form})
+                .then(response => {
+                        this.displayLoading = false
+                        this.alertTitle = 'Exito!'
+                        this.alertMessage =
+                            'Se ha actualizado el restaurante con exito'
+                        this.alertType = 'success'
+                        this.displayAlert = true
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.displayLoading = false
+                        this.alertTitle = 'Error'
+                        this.alertMessage = error
+                        this.alertType = 'error'
+                        this.displayAlert = true
+                    })
+        }
+    },
+    mounted() {
+        let db = firebase.firestore()
+        db.collection('Restaurants').doc(this.$route.params.restaurantId).get().then(
+           snapshot => {
+               const data = snapshot.data()
+               this.form = {
+                   whatsappNumber: data.whatsappNumber,
+                   selectedMap: data.selectedMap,
+                   primaryColor: data.primaryColor,
+                   secondaryColor: data.secondaryColor,
+                   paymentMethods: data.paymentMethods,
+                }
+           } 
+        )
     },
 }
 </script>
+
+
