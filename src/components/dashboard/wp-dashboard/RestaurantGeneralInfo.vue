@@ -229,7 +229,13 @@ export default {
         let db = firebase.firestore()
         db.collection('Restaurants').doc(this.$route.params.restaurantId).get().then(
            snapshot => {
-               this.form = snapshot.data()
+               this.form = {
+                   whatsappNumber: snapshot.data().whatsappNumber,
+                   selectedMap: snapshot.data().selectedMap,
+                   primaryColor: snapshot.data().primaryColor,
+                   secondaryColor: snapshot.data().secondaryColor,
+                   paymentMethods: snapshot.data().paymentMethods,
+                }
            } 
         )
     },
