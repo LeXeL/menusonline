@@ -204,9 +204,6 @@ import 'firebase/storage'
 export default {
     data() {
         return {
-            form: {
-                inputFields: []
-            },
             newInputFieldName: '',
             newInputFieldType: null,
             newInputFieldPlaceholder: '',
@@ -292,18 +289,20 @@ export default {
         },
         async addInputField() {
             this.displayLoading = true
-            this.form.inputFields.push(
-                {
+            let db = firebase.firestore()
+            let field = {
                     newInputFieldType: this.newInputFieldType,
                     newInputFieldName: this.newInputFieldName,
                     newInputFieldRadioOptions: this.newInputFieldRadioOptions,
                     newInputFieldRequired: this.newInputFieldRequired,
                     newInputFieldPlaceholder: this.newInputFieldPlaceholder,
                 }
-            )
-
-            api.updateAdminRestaurantInfo({id: this.$route.params.restaurantId, Restaurant: this.form})
-                .then(response => {
+            let id = this.$route.params.restaurantId
+            
+            return db.collection('Restaurants').doc(id).update({
+                inputFields: firebase.firestore.FieldValue.arrayUnion(field)
+                })
+                .then(() => {
                     this.displayLoading = false
                         this.alertTitle = 'Exito!'
                         this.alertMessage =
@@ -312,15 +311,15 @@ export default {
                         this.displayAlert = true
                         this.cleanInputDialog()
                     })
-                    .catch(error => {
-                        console.log(error)
-                        this.displayLoading = false
-                        this.alertTitle = 'Error'
-                        this.alertMessage = error
-                        this.alertType = 'error'
-                        this.displayAlert = true
-                        this.cleanInputDialog()
-                    })
+                .catch(error => {
+                    console.log(error)
+                    this.displayLoading = false
+                    this.alertTitle = 'Error'
+                    this.alertMessage = error
+                    this.alertType = 'error'
+                    this.displayAlert = true
+                    this.cleanInputDialog()
+                })
         },
     },
     watch: {
