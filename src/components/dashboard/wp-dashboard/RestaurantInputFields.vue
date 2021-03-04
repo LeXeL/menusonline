@@ -1,6 +1,13 @@
 <template>
     <div>
         <q-card>
+            <loading-alert :display="displayLoading"></loading-alert>
+            <menudigital-alert
+                :display="displayAlert"
+                :title="alertTitle"
+                :message="alertMessage"
+                :type="alertType"
+            ></menudigital-alert>
             <q-card-section>
                 <div class="text-subtitle1">
                     Campos de pedidos
@@ -162,7 +169,7 @@
                                     color="white"
                                     text-color="black"
                                     :options="returnRadioOptions()"
-                                    v-model="newInputRadioOptionsTest"
+                                    v-model="newInputRadioOptions"
                                 />
                             </div>
                         </div>
@@ -177,7 +184,11 @@
                         flat
                         @click="cleanInputDialog()"
                     />
-                    <q-btn label="Crear" color="accent" flat />
+                    <q-btn 
+                        label="Crear" 
+                        color="accent" 
+                        flat
+                        @click="addInputField()" />
                 </q-card-actions>
             </q-card>
         </q-dialog>
@@ -185,16 +196,24 @@
 </template>
 
 <script>
+import * as api from '@/api/api'
+
+import firebase from 'firebase/app'
+import 'firebase/storage'
+
 export default {
     data() {
         return {
-            inputFieldsDialog: false,
+            form: {
+                inputFields: []
+            },
             newInputFieldName: '',
             newInputFieldType: null,
             newInputFieldPlaceholder: '',
             newInputFieldRequired: '',
             newInputFieldRadioOptions: [],
-            newInputRadioOptionsTest: null,
+            inputFieldsDialog: false,
+            newInputRadioOptions: [],
             newInputFieldTypeOptions: [
                 {
                     label: 'Texto',
@@ -250,6 +269,11 @@ export default {
                     required: true,
                 },
             ],
+            displayLoading: false,
+            displayAlert: false,
+            alertTitle: '',
+            alertMessage: '',
+            alertType: '',
         }
     },
     methods: {
@@ -265,6 +289,38 @@ export default {
         },
         cleanInputDialog() {
             ;(this.newInputFieldType = null), (this.inputFieldsDialog = false)
+        },
+        async addInputField() {
+            this.displayLoading = true
+            this.form.inputFields.push(
+                {
+                    newInputFieldType: this.newInputFieldType,
+                    newInputFieldName: this.newInputFieldName,
+                    newInputFieldRadioOptions: this.newInputFieldRadioOptions,
+                    newInputFieldRequired: this.newInputFieldRequired,
+                    newInputFieldPlaceholder: this.newInputFieldPlaceholder,
+                }
+            )
+
+            api.updateAdminRestaurantInfo({id: this.$route.params.restaurantId, Restaurant: this.form})
+                .then(response => {
+                    this.displayLoading = false
+                        this.alertTitle = 'Exito!'
+                        this.alertMessage =
+                            'Se ha actualizado el restaurante con exito'
+                        this.alertType = 'success'
+                        this.displayAlert = true
+                        this.cleanInputDialog()
+                    })
+                    .catch(error => {
+                        console.log(error)
+                        this.displayLoading = false
+                        this.alertTitle = 'Error'
+                        this.alertMessage = error
+                        this.alertType = 'error'
+                        this.displayAlert = true
+                        this.cleanInputDialog()
+                    })
         },
     },
     watch: {
