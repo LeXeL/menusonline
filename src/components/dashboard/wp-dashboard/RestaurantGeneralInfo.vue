@@ -108,7 +108,6 @@ import 'firebase/storage'
 export default {
     data() {
         return {
-            // logoUpload: null,
             form: {
                 whatsappNumber: '',
                 selectedMap: '',
@@ -237,7 +236,7 @@ export default {
                    secondaryColor: data.secondaryColor,
                    paymentMethods: data.paymentMethods,
                 }
-           } 
+           }
         )
     },
 }
