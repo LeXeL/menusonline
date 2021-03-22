@@ -13,11 +13,11 @@
                 <div class="container">
                     <img
                         :src="require('@/assets/landing/logo.png')"
-                        width="200px;"
+                        width="150px;"
                     />
                     <a
                         href="#subscribe"
-                        class="float-right"
+                        class="float-right q-pt-md"
                         v-smooth-scroll
                         @click="logEntry('navbar', 'subscribe')"
                         >Suscríbete</a
