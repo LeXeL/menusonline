@@ -24,7 +24,7 @@ export default {
                     },
                     {label: 'Extras', value: 'extras'},
                 ],
-                whatsappNumber: '66083084',
+                whatsappNumber: '62462111',
                 wazeIntegration: false,
                 googleSheets: {
                     integration: false,
