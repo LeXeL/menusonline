@@ -813,7 +813,7 @@ export default {
                 },
                 {
                     title: 'Alitas con papas',
-                    desc: '',
+                    desc: '6 unidades.',
                     type: 'main',
                     pic: 'alitas.jpeg',
                     price: 6,
