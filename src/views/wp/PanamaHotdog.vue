@@ -332,7 +332,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
+                                    this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             @newMarkerPosition="setNewMarkerPosition"
@@ -683,10 +683,6 @@ export default {
                             price: 4,
                         },
                         {
-                            title: 'Carne desmechada',
-                            price: 4,
-                        },
-                        {
                             title: 'Mixta',
                             price: 4,
                         },
@@ -711,22 +707,7 @@ export default {
                         },
                         {
                             title: 'Mixto',
-                            price: 4,
-                        },
-                    ],
-                },
-                {
-                    title: 'Club sandwich con papas',
-                    desc: '',
-                    type: 'main',
-                    pic: 'club_sandwich.jpeg',
-                    price: 6,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
+                            price: 5,
                         },
                     ],
                 },
@@ -752,7 +733,7 @@ export default {
                 },
                 {
                     title: 'Combito de hamburguesa',
-                    desc: '4 alas, papas, hamburguesa y soda',
+                    desc: '3 alas, papas, hamburguesa y soda',
                     type: 'main',
                     pic: 'combito_hamburguesa.jpeg',
                     price: 8,
@@ -788,7 +769,7 @@ export default {
                 {
                     title: 'Combito de Hotdog',
                     desc:
-                        'Elije entre Hotdog Panameño o Hotdog Hawaiiano, acompañado de 4 alas, papas y soda.',
+                        'Elije entre Hotdog Panameño o Hotdog Hawaiiano, acompañado de 3 alas, papas y soda.',
                     type: 'main',
                     pic: 'combito_hawaiiano.jpg',
                     price: 6,
@@ -856,10 +837,6 @@ export default {
                     options: [
                         {
                             title: 'Carne molida',
-                            price: 0,
-                        },
-                        {
-                            title: 'Carne desmechada',
                             price: 0,
                         },
                         {
@@ -984,6 +961,18 @@ export default {
                         },
                         {
                             title: 'Guanabana',
+                            price: 2.5,
+                        },
+                        {
+                            title: 'Melon',
+                            price: 2.5,
+                        },
+                        {
+                            title: 'Piña',
+                            price: 2.5,
+                        },
+                        {
+                            title: 'Guineo',
                             price: 2.5,
                         },
                         {
@@ -1229,7 +1218,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function (k) {
+                .map(function(k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +
