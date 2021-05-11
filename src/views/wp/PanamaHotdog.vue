@@ -812,6 +812,76 @@ export default {
                     ],
                 },
                 {
+                    title: 'Combo chillidog',
+                    desc: '3 alas, papas, chillidog y soda',
+                    type: 'main',
+                    pic: '',
+                    price: 6.5,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo choridog',
+                    desc: '3 alas, papas, choridog y soda',
+                    type: 'main',
+                    pic: '',
+                    price: 6.5,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
                     title: 'Alitas con papas',
                     desc: '6 unidades.',
                     type: 'main',
@@ -1000,6 +1070,21 @@ export default {
                     ],
                 },
                 {
+                    title: 'Limonada de coco',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    styles: [],
+                    sides: [],
+                    price: 2,
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
                     title: 'Pescado con patacones',
                     subtitle: 'Solo viernes y sabados',
                     desc: '',
@@ -1039,9 +1124,9 @@ export default {
                 {
                     title: 'Saus',
                     subtitle: 'Solo viernes',
-                    desc: '',
+                    desc: '2 unidades.',
                     type: 'extra',
-                    price: 2,
+                    price: 4,
                     styles: [],
                     sides: [],
                     pic: 'saus.jpeg',
