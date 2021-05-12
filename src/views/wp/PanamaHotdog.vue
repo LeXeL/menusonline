@@ -764,6 +764,10 @@ export default {
                             title: 'Root Beer',
                             price: 0,
                         },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
                     ],
                 },
                 {
@@ -809,6 +813,10 @@ export default {
                             title: 'Root Beer',
                             price: 0,
                         },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
                     ],
                 },
                 {
@@ -844,6 +852,10 @@ export default {
                             title: 'Root Beer',
                             price: 0,
                         },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
                     ],
                 },
                 {
@@ -878,6 +890,10 @@ export default {
                         {
                             title: 'Root Beer',
                             price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
                         },
                     ],
                 },
