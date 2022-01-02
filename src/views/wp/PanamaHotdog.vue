@@ -1113,7 +1113,7 @@ export default {
                     options: [],
                 },
                 {
-                    title: 'Salchica picada',
+                    title: 'Salchicha picada',
                     desc: '',
                     type: 'main',
                     pic: '',
