@@ -497,7 +497,7 @@ export default {
                         'Ketchup, mayonesa, queso blanco rayado, papitas trituradas y jalea de piña.',
                     type: 'main',
                     pic: 'hotdog_hawaiiano.jpg',
-                    price: 2,
+                    price: 2.5,
                     styles: [],
                     sides: [],
                     options: [
@@ -517,7 +517,7 @@ export default {
                         'Ketchup, mayonesa, pico de gallo y queso amarillo fundido.',
                     type: 'main',
                     pic: 'hotdog_panameno.jpeg',
-                    price: 2,
+                    price: 2.5,
                     styles: [],
                     sides: [],
                     options: [
@@ -537,7 +537,7 @@ export default {
                         'Ketchup, mayonesa, carne molida, y queso amarillo fundido.',
                     type: 'main',
                     pic: 'chillidog.jpeg',
-                    price: 2.5,
+                    price: 3,
                     styles: [],
                     sides: [],
                     options: [
@@ -552,56 +552,17 @@ export default {
                     ],
                 },
                 {
-                    title: 'Salchipapas Sencillas',
-                    desc:
-                        'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
+                    title: 'Chorichilli',
+                    desc: '',
                     type: 'main',
-                    pic: 'salchipapas.jpeg',
+                    pic: '',
+                    price: 3.5,
                     styles: [],
                     sides: [],
                     options: [
                         {
-                            title: 'Pequeño',
-                            price: 3,
-                        },
-                        {
-                            title: 'Grande',
-                            price: 5,
-                        },
-                    ],
-                },
-                {
-                    title: 'Salchipapas Revoltosa',
-                    desc:
-                        'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
-                    type: 'main',
-                    pic: 'salchipapas_revoltosa.jpeg',
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Carne molida - Pequeño',
-                            price: 4,
-                        },
-                        {
-                            title: 'Carne molida - Grande',
-                            price: 6.5,
-                        },
-                        {
-                            title: 'Pollo - Pequeño',
-                            price: 4,
-                        },
-                        {
-                            title: 'Pollo - Grande',
-                            price: 6.5,
-                        },
-                        {
-                            title: 'Mixta - Pequeña',
-                            price: 4.5,
-                        },
-                        {
-                            title: 'Mixta - Grande',
-                            price: 7,
+                            title: 'Regular',
+                            price: 0,
                         },
                     ],
                 },
@@ -611,7 +572,7 @@ export default {
                         'Ketchup, mayonesa, lechuga, tomate, queso amarillo fundido, carne de res 8oz.',
                     type: 'main',
                     pic: 'hamburguesa_carne.jpeg',
-                    price: 4,
+                    price: 4.5,
                     styles: [],
                     sides: [],
                     options: [
@@ -633,7 +594,7 @@ export default {
                     pic: 'hamburguesa_pollo.jpeg',
                     styles: [],
                     sides: [],
-                    price: 4,
+                    price: 4.5,
                     options: [
                         {
                             title: 'Regular con queso blanco',
@@ -654,14 +615,13 @@ export default {
                     ],
                 },
                 {
-                    title: 'Hamburguesa Bulldog',
-                    desc:
-                        'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
+                    title: 'Hamburguesa con tocino',
+                    desc: '',
                     type: 'main',
-                    pic: 'hamburguesa_bulldog.jpeg',
+                    pic: '',
+                    price: 5.5,
                     styles: [],
                     sides: [],
-                    price: 6,
                     options: [
                         {
                             title: 'Regular',
@@ -670,21 +630,18 @@ export default {
                     ],
                 },
                 {
-                    title: 'Arepas',
+                    title: 'Hamburguesa Bulldog',
                     desc:
-                        'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
+                        'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
                     type: 'main',
-                    pic: 'arepa_mixta.jpeg',
+                    pic: 'hamburguesa_bulldog.jpeg',
                     styles: [],
                     sides: [],
+                    price: 6.5,
                     options: [
                         {
-                            title: 'Pollo',
-                            price: 4,
-                        },
-                        {
-                            title: 'Mixta',
-                            price: 4,
+                            title: 'Regular',
+                            price: 0,
                         },
                     ],
                 },
@@ -699,15 +656,421 @@ export default {
                     options: [
                         {
                             title: 'Carne',
-                            price: 4,
+                            price: 4.5,
                         },
                         {
                             title: 'Pollo',
-                            price: 4,
+                            price: 4.5,
                         },
                         {
                             title: 'Mixto',
+                            price: 5.5,
+                        },
+                        {
+                            title: 'Vegetariano',
+                            price: 4.5,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas Sencillas',
+                    desc:
+                        'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
+                    type: 'main',
+                    pic: 'salchipapas.jpeg',
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Personal',
+                            price: 3.5,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 5.5,
+                        },
+                    ],
+                },
+                {
+                    title: 'Salchipapas Revoltosa',
+                    desc:
+                        'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
+                    type: 'main',
+                    pic: 'salchipapas_revoltosa.jpeg',
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Carne - Personal',
+                            price: 4.5,
+                        },
+                        {
+                            title: 'Pollo - Personal',
+                            price: 4.5,
+                        },
+                        {
+                            title: 'Mixta - Personal',
                             price: 5,
+                        },
+                        {
+                            title: 'Carne - Grande',
+                            price: 7,
+                        },
+                        {
+                            title: 'Pollo - Grande',
+                            price: 7,
+                        },
+                        {
+                            title: 'Mixta - Grande',
+                            price: 7.5,
+                        },
+                    ],
+                },
+                {
+                    title: 'Choripapas Sencillas',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Personal',
+                            price: 4,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 6,
+                        },
+                    ],
+                },
+                {
+                    title: 'ChoriRevoltosa',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Personal',
+                            price: 5,
+                        },
+                        {
+                            title: 'Grande',
+                            price: 7.5,
+                        },
+                    ],
+                },
+                {
+                    title: 'MegaRevoltosa',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 8,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Combo Hotdog',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 6.5,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Combo Chillidog',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 7,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Combo Choridog',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 7,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Combo Arepa',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 8.5,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Combo Burrito',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 8.5,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Combo Hamburguesa',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 8.5,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Combo Bulldog',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 10.5,
+                    styles: [
+                        {
+                            title: 'Coca Cola',
+                            price: 0,
+                        },
+                        {
+                            title: 'GingerAle',
+                            price: 0,
+                        },
+                        {
+                            title: 'Dr. Pepper',
+                            price: 0,
+                        },
+                        {
+                            title: 'Kist Fresa',
+                            price: 0,
+                        },
+                        {
+                            title: 'Maltin Polar',
+                            price: 0,
+                        },
+                        {
+                            title: 'Root Beer',
+                            price: 0,
+                        },
+                        {
+                            title: 'Malta',
+                            price: 1.5,
+                        },
+                    ],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Arepas',
+                    desc:
+                        'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
+                    type: 'main',
+                    pic: 'arepa_mixta.jpeg',
+                    styles: [],
+                    sides: [],
+                    price: 4.5,
+                    options: [
+                        {
+                            title: 'Pollo',
+                            price: 0,
+                        },
+                        {
+                            title: 'Chorizo',
+                            price: 0,
+                        },
+                        {
+                            title: 'Mixta',
+                            price: 0,
                         },
                     ],
                 },
@@ -722,227 +1085,89 @@ export default {
                     sides: [],
                     options: [
                         {
-                            title: 'Chicos',
-                            price: 3.5,
+                            title: 'Personal',
+                            price: 4,
                         },
                         {
-                            title: 'Grandes',
+                            title: 'Personal Mixto',
+                            price: 4.5,
+                        },
+                        {
+                            title: 'Grande',
                             price: 6,
                         },
-                    ],
-                },
-                {
-                    title: 'Combito de hamburguesa',
-                    desc: '3 alas, papas, hamburguesa y soda',
-                    type: 'main',
-                    pic: 'combito_hamburguesa.jpeg',
-                    price: 8,
-                    styles: [],
-                    sides: [],
-                    options: [
                         {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'GingerAle',
-                            price: 0,
-                        },
-                        {
-                            title: 'Dr. Pepper',
-                            price: 0,
-                        },
-                        {
-                            title: 'Kist Fresa',
-                            price: 0,
-                        },
-                        {
-                            title: 'Maltin Polar',
-                            price: 0,
-                        },
-                        {
-                            title: 'Root Beer',
-                            price: 0,
-                        },
-                        {
-                            title: 'Malta',
-                            price: 1.5,
+                            title: 'Grande Mixto',
+                            price: 7,
                         },
                     ],
                 },
                 {
-                    title: 'Combito de Hotdog',
-                    desc:
-                        'Elije entre Hotdog Panameño o Hotdog Hawaiiano, acompañado de 3 alas, papas y soda.',
-                    type: 'main',
-                    pic: 'combito_hawaiiano.jpg',
-                    price: 6,
-                    styles: [
-                        {
-                            title: 'Hotdog Hawaiiano',
-                            price: 0,
-                        },
-                        {
-                            title: 'Hotdog Panameño',
-                            price: 0,
-                        },
-                    ],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'GingerAle',
-                            price: 0,
-                        },
-                        {
-                            title: 'Dr. Pepper',
-                            price: 0,
-                        },
-                        {
-                            title: 'Kist Fresa',
-                            price: 0,
-                        },
-                        {
-                            title: 'Maltin Polar',
-                            price: 0,
-                        },
-                        {
-                            title: 'Root Beer',
-                            price: 0,
-                        },
-                        {
-                            title: 'Malta',
-                            price: 1.5,
-                        },
-                    ],
-                },
-                {
-                    title: 'Combo chillidog',
-                    desc: '3 alas, papas, chillidog y soda',
+                    title: 'Papas con tender',
+                    desc: '',
                     type: 'main',
                     pic: '',
-                    price: 6.5,
+                    price: 4,
                     styles: [],
                     sides: [],
-                    options: [
-                        {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'GingerAle',
-                            price: 0,
-                        },
-                        {
-                            title: 'Dr. Pepper',
-                            price: 0,
-                        },
-                        {
-                            title: 'Kist Fresa',
-                            price: 0,
-                        },
-                        {
-                            title: 'Maltin Polar',
-                            price: 0,
-                        },
-                        {
-                            title: 'Root Beer',
-                            price: 0,
-                        },
-                        {
-                            title: 'Malta',
-                            price: 1.5,
-                        },
-                    ],
+                    options: [],
                 },
                 {
-                    title: 'Combo choridog',
-                    desc: '3 alas, papas, choridog y soda',
+                    title: 'Salchicha picada',
+                    desc: '',
                     type: 'main',
                     pic: '',
-                    price: 6.5,
+                    price: 1,
                     styles: [],
                     sides: [],
-                    options: [
-                        {
-                            title: 'Coca Cola',
-                            price: 0,
-                        },
-                        {
-                            title: 'GingerAle',
-                            price: 0,
-                        },
-                        {
-                            title: 'Dr. Pepper',
-                            price: 0,
-                        },
-                        {
-                            title: 'Kist Fresa',
-                            price: 0,
-                        },
-                        {
-                            title: 'Maltin Polar',
-                            price: 0,
-                        },
-                        {
-                            title: 'Root Beer',
-                            price: 0,
-                        },
-                        {
-                            title: 'Malta',
-                            price: 1.5,
-                        },
-                    ],
+                    options: [],
                 },
                 {
-                    title: 'Alitas con papas',
-                    desc: '6 unidades.',
+                    title: 'Chorizo picado',
+                    desc: '',
                     type: 'main',
-                    pic: 'alitas.jpeg',
-                    price: 6,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Empanadas',
-                    desc: 'Carne molida, carne desmechada, queso blanco.',
-                    type: 'main',
-                    pic: 'empanadas.jpeg',
-                    price: 2,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Carne molida',
-                            price: 0,
-                        },
-                        {
-                            title: 'Queso blanco',
-                            price: 0,
-                        },
-                    ],
-                },
-                {
-                    title: 'Papas fritas',
-                    desc: 'Orden extra de papas fritas.',
-                    type: 'main',
-                    pic: 'orden_papas.jpeg',
+                    pic: '',
                     price: 1.5,
                     styles: [],
                     sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Papa con chilli',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 4,
+                    styles: [],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Orden de papas',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 1.5,
+                    styles: [],
+                    sides: [],
+                    options: [],
+                },
+                {
+                    title: 'Alitas de pollo',
+                    desc: '6 o 10 unidades.',
+                    type: 'main',
+                    pic: 'alitas.jpeg',
+                    price: 0,
+                    styles: [],
+                    sides: [],
                     options: [
                         {
-                            title: 'Regular',
-                            price: 0,
+                            title: '6 unidades con papas',
+                            price: 6.5,
+                        },
+                        {
+                            title: '10 unidades',
+                            price: 8,
                         },
                     ],
                 },
@@ -983,7 +1208,22 @@ export default {
                     ],
                 },
                 {
-                    title: 'Jugo',
+                    title: 'Gatorade',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 1.5,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
+                },
+                {
+                    title: 'Jugos de lata',
                     desc: 'Melocoton, Pera, Manzana.',
                     type: 'main',
                     pic: 'jugos.jpg',
@@ -1007,15 +1247,34 @@ export default {
                 },
                 {
                     title: 'Agua',
-                    desc: 'Botella de agua de 600ml.',
+                    desc: 'Botella de agua de 600ml o 1lt',
                     type: 'main',
                     pic: 'agua.jpg',
-                    price: 1,
+                    price: 0,
                     styles: [],
                     sides: [],
                     options: [
                         {
                             title: 'Botella 600ml',
+                            price: 1,
+                        },
+                        {
+                            title: 'Botella 1lt',
+                            price: 1.5,
+                        },
+                    ],
+                },
+                {
+                    title: 'Maltas',
+                    desc: '',
+                    type: 'main',
+                    pic: '',
+                    price: 1.5,
+                    styles: [],
+                    sides: [],
+                    options: [
+                        {
+                            title: 'Regular',
                             price: 0,
                         },
                     ],
@@ -1086,56 +1345,42 @@ export default {
                     ],
                 },
                 {
-                    title: 'Limonada de coco',
+                    title: 'Corvina entera',
+                    subtitle: 'Solo viernes.',
                     desc: '',
-                    type: 'main',
+                    type: 'extra',
                     pic: '',
                     styles: [],
                     sides: [],
-                    price: 2,
+                    price: 10,
                     options: [
                         {
                             title: 'Regular',
                             price: 0,
                         },
                     ],
+                    days: [5],
                 },
                 {
-                    title: 'Pescado con patacones',
-                    subtitle: 'Solo viernes y sabados',
-                    desc: '',
+                    title: 'Filete de pescado',
+                    subtitle: 'Solo viernes.',
+                    desc: 'Acompañado de patacones o papas.',
                     type: 'extra',
                     pic: 'filete_de_pescado.jpeg',
                     styles: [],
                     sides: [],
+                    price: 8,
                     options: [
                         {
-                            title: 'Filete',
-                            price: 8,
+                            title: 'Patacones',
+                            price: 0,
                         },
                         {
-                            title: 'Entero',
-                            price: 10,
-                        },
-                    ],
-                    days: [5, 6],
-                },
-                {
-                    title: 'Patacones',
-                    subtitle: 'Solo viernes y sabados',
-                    desc: 'Orden extra de patacones fritos.',
-                    type: 'extra',
-                    pic: 'patacones.jpg',
-                    price: 1.5,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
+                            title: 'Papas',
                             price: 0,
                         },
                     ],
-                    days: [5, 6],
+                    days: [5],
                 },
                 {
                     title: 'Saus',
@@ -1156,7 +1401,7 @@ export default {
                 },
                 {
                     title: 'Ceviche',
-                    subtitle: 'Solo viernes y sabados',
+                    subtitle: 'Solo viernes',
                     desc: '',
                     type: 'extra',
                     pic: 'ceviche.jpeg',
@@ -1172,7 +1417,7 @@ export default {
                             price: 6,
                         },
                     ],
-                    days: [5, 6],
+                    days: [5],
                 },
             ],
         }
