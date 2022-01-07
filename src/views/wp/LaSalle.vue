@@ -1,87 +1,272 @@
 <template>
-    <MainLayout
-        :generalData="generalData"
-        :cartSettings="cartSettings"
-        :menu="menu"
-    />
+    <q-page class="bg-grey-2">
+        <!-- HEADER -->
+        <q-img
+            :src="require('@/assets/wp/lasalle/logo.jpg')"
+            class="shadow-7"
+        />
+        <!-- /HEADER -->
+
+        <!-- MENU -->
+        <div class="q-pa-md">
+            <div v-for="(item, i) in menu" :key="i">
+                <q-card class="q-mb-lg" v-if="returnTodayDay == item.day">
+                    <q-card-section class="q-pa-none">
+                        <img src="@/assets/wp/lasalle/logo.jpg" width="100%" />
+                    </q-card-section>
+                    <q-card-section>
+                        <div class="text-h6 text-bold">
+                            {{ item.name }}
+                        </div>
+                        <div class="text-h6 poppins-bold">
+                            $ {{ item.price.toFixed(2) }}
+                        </div>
+                        <div class="text-caption text-grey">
+                            {{ item.description }}
+                        </div>
+                    </q-card-section>
+                    <q-separator />
+                    <q-card-actions align="right">
+                        <q-btn
+                            label="Agregar"
+                            flat
+                            class="text-bold"
+                            @click="addToCart(item)"
+                        />
+                    </q-card-actions>
+                </q-card>
+            </div>
+        </div>
+        <!-- /MENU -->
+
+        <!-- SEAMLESS -->
+        <q-dialog v-model="showSeamless" seamless position="bottom">
+            <q-card
+                style="width: 350px; border-radius: 0"
+                class="bg-red-7 text-white"
+            >
+                <q-card-section class="row items-center no-wrap">
+                    <div>
+                        <div class="text-h6 poppins-bold">
+                            <span class="text-subtitle2 poppins-bold"
+                                >Total:</span
+                            >
+                            $
+                            {{ total.toFixed(2) }}
+                        </div>
+                    </div>
+
+                    <q-space />
+
+                    <q-btn
+                        flat
+                        icon="shopping_cart"
+                        label="Ver carrito"
+                        @click="cartDialog = true"
+                    />
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+        <!-- /SEAMLESS -->
+
+        <!-- CART DIALOG -->
+        <q-dialog
+            v-model="cartDialog"
+            maximized
+            transition-show="slide-up"
+            transition-hide="slide-down"
+        >
+            <q-card class="bg-grey-9 text-white">
+                <q-card-actions class="bg-grey-10" align="right">
+                    <q-btn
+                        icon="close"
+                        flat
+                        round
+                        @click="cartDialog = false"
+                        color="white"
+                    />
+                </q-card-actions>
+                <q-card-section>
+                    <div class="text-h6 text-center poppins-bold q-mb-md">
+                        Detalle de pedido
+                    </div>
+                    <div
+                        class="row items-center"
+                        v-for="(item, i) in cart"
+                        :key="item.id"
+                    >
+                        <q-btn
+                            icon="close"
+                            round
+                            color="red-7"
+                            flat
+                            @click="removeFromCart(i)"
+                        />
+                        <div class="text-subtitle2 poppins-bold q-ml-sm">
+                            ({{ item.amount }}) - {{ item.name }}
+                        </div>
+                    </div>
+                </q-card-section>
+                <q-separator color="grey-6" />
+                <q-card-section>
+                    <div class="text-h6 text-center poppins-bold q-mb-lg">
+                        Datos de orden
+                    </div>
+                    <div class="text-caption poppins-bold q-mb-xs">
+                        Nombre del estudiante: *
+                    </div>
+                    <q-input
+                        label="Nombre apellido"
+                        filled
+                        dark
+                        class="q-mb-lg"
+                        v-model="studentName"
+                    />
+                    <div class="text-caption poppins-bold q-mb-xs">
+                        Comentarios especiales de tu pedido:
+                    </div>
+                    <q-input
+                        label="La salsa aparte por favor."
+                        filled
+                        dark
+                        type="textarea"
+                        rows="3"
+                        class="q-mb-lg"
+                        v-model="comments"
+                    />
+                    <div class="text-caption poppins-bold q-mb-xs">
+                        Entrega: *
+                    </div>
+                    <q-btn-toggle
+                        v-model="selectedPickupMethod"
+                        spread
+                        all-caps
+                        class="poppins-bold full-width q-mb-lg"
+                        toggle-color="red-7"
+                        color="white"
+                        text-color="black"
+                        :options="pickupMethods"
+                    />
+                    <div class="text-caption poppins-bold q-mb-xs">
+                        Metodo de pago: *
+                    </div>
+                    <q-btn-toggle
+                        v-model="selectedPaymentMethod"
+                        spread
+                        all-caps
+                        class="poppins-bold full-width"
+                        toggle-color="red-7"
+                        color="white"
+                        text-color="black"
+                        :options="paymentMethods"
+                    />
+                </q-card-section>
+                <q-card-section>
+                    <div class="text-h5 poppins-bold text-center">
+                        Total: $ {{ total.toFixed(2) }}
+                    </div>
+                </q-card-section>
+                <q-card-actions>
+                    <q-btn
+                        label="Enviar"
+                        color="green-7"
+                        class="poppins-bold full-width"
+                        push
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <!-- /CART DIALOG -->
+    </q-page>
 </template>
 
 <script>
-import MainLayout from '@/components/wp/MainLayout'
-
 export default {
     data() {
         return {
-            generalData: {
-                folder: 'lasalle',
-                accentColor: 'red-8',
-                subtitleColor: 'red-8',
-                categories: [{label: 'Almuerzos', value: 'almuerzo'}],
-                whatsappNumber: '66083084',
-                wazeIntegration: false,
-                googleSheets: {
-                    integration: true,
-                    url:
-                        'https://script.google.com/macros/s/AKfycbybmCSxZchLRwk4V4B3ev_D0mIyXPiDtXTEA0lrBmgcGAetIJo/exec',
+            cart: [],
+            total: 0,
+            seamless: true,
+            cartDialog: false,
+            studentName: '',
+            comments: '',
+            selectedPickupMethod: '',
+            selectedPaymentMethod: '',
+            pickupMethods: [
+                {label: 'Segundo recreo', value: 'Segundo recreo'},
+                {label: 'Salida', value: 'Salida'},
+            ],
+            paymentMethods: [
+                {
+                    label: 'Yappy',
+                    value: 'Yappy',
                 },
-                emailsJs: {
-                    integration: false,
-                    emails: ['email@email.com'],
-                },
-            },
+                {label: 'ACH', value: 'ACH'},
+                {label: 'Efectivo', value: 'Efectivo'},
+            ],
             menu: [
                 {
-                    title: 'Pollo guisado, arroz con guandu y ensalada de papa',
-                    subtitle: '',
-                    desc: '',
-                    type: 'almuerzo',
-                    pic: 'almuerzo_1.jpeg',
-                    price: 4,
-                    count: 0,
-                    styles: [],
-                    sides: [],
-                    options: [
-                        {
-                            title: 'Regular',
-                            price: 0,
-                        },
-                    ],
+                    name: 'Item name monday',
+                    img: 'logo.jpg',
+                    description: 'Lorem ipsum dolor sit amet',
+                    price: 4.5,
+                    day: 1,
+                },
+                {
+                    name: 'Item name thursday',
+                    img: 'logo.jpg',
+                    description: 'Lorem ipsum dolor sit amet',
+                    price: 4.5,
+                    day: 4,
+                },
+                {
+                    name: 'Item name thursday 2',
+                    img: 'logo.jpg',
+                    description: 'Lorem ipsum dolor sit amet',
+                    price: 4.5,
+                    day: 4,
                 },
             ],
-            cartSettings: {
-                locationDefaults: {
-                    defaultLat: 8.986059,
-                    defaultLng: -79.511038,
-                },
-                inputData: [
-                    {
-                        type: 'text',
-                        label: 'Nombre',
-                        required: true,
-                        placeholder: 'Nombre Apellido',
-                    },
-                    {
-                        type: 'textarea',
-                        label: 'Comentarios especiales',
-                        required: false,
-                        placeholder: 'La hamburguesa son mayonesa porfavor',
-                    },
-                    {
-                        type: 'radio',
-                        label: 'Metodo de pago',
-                        required: true,
-                        options: [
-                            {label: 'Yappy', value: 'Yappy'},
-                            {label: 'Efectivo', value: 'Efectivo'},
-                            {label: 'Tarjeta', value: 'Tarjeta'},
-                        ],
-                    },
-                ],
-            },
         }
     },
-    components: {
-        MainLayout,
+    methods: {
+        addToCart(item) {
+            if (this.cart.find(el => el.id == item.id)) {
+                this.cart.find(el => {
+                    if (el.id == item.id) item.amount++
+                })
+            } else {
+                item.amount = 1
+                this.cart.push(item)
+            }
+            this.calculateTotal()
+        },
+        removeFromCart(index) {
+            this.cart.splice(index, 1)
+            if (!this.cart.length) this.cartDialog = false
+        },
+        calculateTotal() {
+            this.total = 0
+            this.cart.forEach(item => {
+                this.total += item.amount * item.price
+            })
+        },
+    },
+    computed: {
+        returnTodayDay() {
+            return new Date().getDay()
+        },
+        showSeamless() {
+            if (this.cart.length) return true
+            else return false
+        },
+    },
+    mounted() {
+        let id = 0
+        this.menu.forEach(item => {
+            item.id = id
+            id++
+        })
     },
 }
 </script>
