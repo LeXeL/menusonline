@@ -10,7 +10,7 @@
         <!-- MENU -->
         <div class="q-pa-md">
             <div v-for="(item, i) in menu" :key="i">
-                <q-card class="q-mb-lg" v-if="returnTodayDay == item.day">
+                <q-card class="q-mb-lg" v-if="showToday(item.day)">
                     <q-card-section class="q-pa-none">
                         <img src="@/assets/wp/lasalle/logo.jpg" width="100%" />
                     </q-card-section>
@@ -213,6 +213,20 @@ export default {
                     day: 1,
                 },
                 {
+                    name: 'Item name tuesday',
+                    img: 'logo.jpg',
+                    description: 'Lorem ipsum dolor sit amet',
+                    price: 4.5,
+                    day: 2,
+                },
+                {
+                    name: 'Item name wednesday',
+                    img: 'logo.jpg',
+                    description: 'Lorem ipsum dolor sit amet',
+                    price: 4.5,
+                    day: 3,
+                },
+                {
                     name: 'Item name thursday',
                     img: 'logo.jpg',
                     description: 'Lorem ipsum dolor sit amet',
@@ -220,11 +234,11 @@ export default {
                     day: 4,
                 },
                 {
-                    name: 'Item name thursday 2',
+                    name: 'Item name friday',
                     img: 'logo.jpg',
                     description: 'Lorem ipsum dolor sit amet',
                     price: 4.5,
-                    day: 4,
+                    day: 5,
                 },
             ],
         }
@@ -251,11 +265,17 @@ export default {
                 this.total += item.amount * item.price
             })
         },
+        showToday(itemDay) {
+            let today = new Date()
+            let todayDay = today.getDay()
+            let todayHour = today.getHours()
+            if (todayDay == 5 && todayHour >= 15 && itemDay == 1) return true
+            if (itemDay == todayDay && todayHour < 15) return true
+            if (itemDay < todayDay) return false
+            if (itemDay == todayDay + 1 && todayHour >= 15) return true
+        },
     },
     computed: {
-        returnTodayDay() {
-            return new Date().getDay()
-        },
         showSeamless() {
             if (this.cart.length) return true
             else return false
