@@ -1322,7 +1322,7 @@ export default {
                         },
                         {
                             title: 'Cornflakes',
-                            price: 2,
+                            price: 2.5,
                         },
                     ],
                 },
@@ -1336,7 +1336,7 @@ export default {
                     options: [
                         {
                             title: 'Regular',
-                            price: 2,
+                            price: 2.5,
                         },
                         {
                             title: 'Con fresa',
