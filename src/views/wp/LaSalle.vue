@@ -287,7 +287,7 @@ export default {
             let message =
                 'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             this.cart.forEach(item => {
-                message += `${item.amount} - ${item.name}%0D%0A`
+                message += `(${item.amount}) - ${item.name}%0D%0A`
             })
             message += `%0D%0AEstudiante: ${this.studentName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
@@ -300,6 +300,23 @@ export default {
             return message
         },
         sendOrder() {
+            if (
+                !this.studentName ||
+                !this.selectedPickupMethod ||
+                !this.selectedPaymentMethod
+            ) {
+                this.$q.notify({
+                    message:
+                        'Debes ingresar el nombre, entrega y metodo de pago.',
+                    color: 'red-7',
+                    icon: 'error',
+                    position: 'top',
+                    progress: true,
+                    classes: 'text-bold',
+                    timeout: 3000,
+                })
+                return
+            }
             window.location.href = `https://wa.me/507${
                 this.whatsappNo
             }?text=${this.generateWhatsappMessage()}`
