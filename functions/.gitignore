@@ -1,2 +1,7 @@
 node_modules/
 *.log
+credentials.json
+output.json
+/emulators.backup
+.runtimeconfig.json
+/firebase-export-*/
