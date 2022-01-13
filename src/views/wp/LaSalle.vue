@@ -171,7 +171,7 @@
                     <q-btn
                         label="Enviar"
                         color="green-7"
-                        class="poppins-bold full-width"
+                        class="poppins-bold full-width q-mb-xl"
                         push
                         @click="sendOrder()"
                     />
@@ -267,6 +267,7 @@ export default {
         },
         removeFromCart(index) {
             this.cart.splice(index, 1)
+            this.calculateTotal()
             if (!this.cart.length) this.cartDialog = false
         },
         calculateTotal() {
@@ -293,6 +294,7 @@ export default {
             message += `%0D%0AEstudiante: ${this.studentName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
+            message += `%0D%0ATotal: $${this.total.toFixed(2)}`
             if (this.comments)
                 message += `%0D%0A%0D%0AComentarios: ${this.comments}`
             message = message.replace(/\+/g, '%2B')
