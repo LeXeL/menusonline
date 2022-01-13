@@ -116,7 +116,7 @@
                         Nombre del estudiante: *
                     </div>
                     <q-input
-                        label="Nombre apellido"
+                        label="Nombre y apellido"
                         filled
                         dark
                         class="q-mb-lg"
@@ -126,7 +126,8 @@
                         Comentarios especiales de tu pedido:
                     </div>
                     <q-input
-                        label="La salsa aparte por favor."
+                        label="Comentarios"
+                        placeholder="La salsa aparte por favor."
                         filled
                         dark
                         type="textarea"
@@ -305,9 +306,17 @@ export default {
                 !this.selectedPickupMethod ||
                 !this.selectedPaymentMethod
             ) {
+                let errors = []
+                let errMsg = 'Debes llenar los siguientes campos: '
+                if (!this.studentName) errors.push('Nombre')
+                if (!this.selectedPickupMethod) errors.push('Entrega')
+                if (!this.selectedPaymentMethod) errors.push('Metodo de pago')
+                for (let i = 0; i < errors.length; i++) {
+                    errMsg += errors[i]
+                    if (i < errors.length - 1) errMsg += ', '
+                }
                 this.$q.notify({
-                    message:
-                        'Debes ingresar el nombre, entrega y metodo de pago.',
+                    message: errMsg,
                     color: 'red-7',
                     icon: 'error',
                     position: 'top',
