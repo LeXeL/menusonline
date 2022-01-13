@@ -172,6 +172,7 @@
                         color="green-7"
                         class="poppins-bold full-width"
                         push
+                        @click="sendOrder()"
                     />
                 </q-card-actions>
             </q-card>
@@ -184,6 +185,7 @@
 export default {
     data() {
         return {
+            whatsappNo: '62042578',
             cart: [],
             total: 0,
             seamless: true,
@@ -234,6 +236,13 @@ export default {
                     day: 4,
                 },
                 {
+                    name: 'Item name thursday 2',
+                    img: 'logo.jpg',
+                    description: 'Lorem ipsum dolor sit amet',
+                    price: 4.5,
+                    day: 4,
+                },
+                {
                     name: 'Item name friday',
                     img: 'logo.jpg',
                     description: 'Lorem ipsum dolor sit amet',
@@ -273,6 +282,27 @@ export default {
             if (itemDay == todayDay && todayHour < 15) return true
             if (itemDay < todayDay) return false
             if (itemDay == todayDay + 1 && todayHour >= 15) return true
+        },
+        generateWhatsappMessage() {
+            let message =
+                'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
+            this.cart.forEach(item => {
+                message += `${item.amount} - ${item.name}%0D%0A`
+            })
+            message += `%0D%0AEstudiante: ${this.studentName}`
+            message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
+            message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
+            if (this.comments)
+                message += `%0D%0A%0D%0AComentarios: ${this.comments}`
+            message = message.replace(/\+/g, '%2B')
+            message = message.replace(/&/g, '%26')
+            message = message.replace(/#/g, '%23')
+            return message
+        },
+        sendOrder() {
+            window.location.href = `https://wa.me/507${
+                this.whatsappNo
+            }?text=${this.generateWhatsappMessage()}`
         },
     },
     computed: {
