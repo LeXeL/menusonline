@@ -308,7 +308,6 @@ export default {
     computed: {
         showSeamless() {
             if (this.cart.length) return true
-            else return false
         },
     },
     mounted() {
