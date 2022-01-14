@@ -183,6 +183,7 @@
 </template>
 
 <script>
+import InventoryHandler from '@/mixins/InventoryHandler.js'
 export default {
     data() {
         return {
@@ -338,12 +339,15 @@ export default {
             if (this.cart.length) return true
         },
     },
-    mounted() {
+    mixins: [InventoryHandler],
+
+    async mounted() {
         let id = 0
         this.menu.forEach(item => {
             item.id = id
             id++
         })
+        console.log(await this.getInventoryItems())
     },
 }
 </script>
