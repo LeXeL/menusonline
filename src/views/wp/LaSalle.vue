@@ -7,6 +7,12 @@
         />
         <!-- /HEADER -->
 
+        <div
+            class="text-h6 poppins-bold text-center q-mt-lg q-mb-md text-orange-8"
+        >
+            Menu del día: {{ returnDayName }}
+        </div>
+
         <!-- MENU -->
         <div class="q-pa-md">
             <div v-for="(item, i) in menu" :key="i">
@@ -320,6 +326,22 @@ export default {
     computed: {
         showSeamless() {
             if (this.cart.length) return true
+        },
+        returnDayName() {
+            let today = new Date()
+            let todayDay = today.getDay()
+            let todayHour = today.getHours()
+            if (todayDay == 1 && todayHour < 15) return 'Lunes'
+            if (todayDay == 1 && todayHour >= 15) return 'Martes'
+            if (todayDay == 2 && todayHour < 15) return 'Martes'
+            if (todayDay == 2 && todayHour >= 15) return 'Miercoles'
+            if (todayDay == 3 && todayHour < 15) return 'Miercoles'
+            if (todayDay == 3 && todayHour >= 15) return 'Jueves'
+            if (todayDay == 4 && todayHour < 15) return 'Jueves'
+            if (todayDay == 4 && todayHour >= 15) return 'Viernes'
+            if (todayDay == 5 && todayHour < 15) return 'Viernes'
+            if (todayDay == 5 && todayHour >= 15) return 'Lunes'
+            if (todayDay > 5) return 'Lunes'
         },
     },
     mixins: [InventoryHandler],

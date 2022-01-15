@@ -158,7 +158,7 @@ export default new Router({
                     component: SpecialOneBurger,
                 },
                 {
-                    path: '/wp/lasalle',
+                    path: '/lasalle',
                     name: 'lasalle',
                     component: LaSalle,
                 },
