@@ -11,8 +11,6 @@ export default {
     methods: {
         async getInventoryItems() {
             let inventory = []
-            console.log(inventory)
-
             await doc.useServiceAccountAuth({
                 private_key: privateKey,
                 client_email: clientEmail,
@@ -23,9 +21,9 @@ export default {
             rows.forEach(row => {
                 inventory.push({
                     name: row.name,
-                    price: row.price,
+                    price: parseFloat(row.price),
                     description: row.description,
-                    day: row.day,
+                    day: parseInt(row.day),
                     img: row.img,
                 })
             })

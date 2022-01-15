@@ -12,7 +12,7 @@
             <div v-for="(item, i) in menu" :key="i">
                 <q-card class="q-mb-lg" v-if="showToday(item.day)">
                     <q-card-section class="q-pa-none">
-                        <img src="@/assets/wp/lasalle/logo.jpg" width="100%" />
+                        <img :src="item.img" width="100%" />
                     </q-card-section>
                     <q-card-section>
                         <div class="text-h6 text-bold">
@@ -179,6 +179,30 @@
             </q-card>
         </q-dialog>
         <!-- /CART DIALOG -->
+
+        <!-- LOADING -->
+        <q-dialog
+            v-model="isLoading"
+            maximized
+            transition-show="none"
+            transition-hide="fade
+        "
+        >
+            <q-card class="bg-grey-10">
+                <q-card-section class="absolute-center">
+                    <div class="row justify-center">
+                        <img
+                            src="@/assets/landing/logo_grey.png"
+                            width="100%"
+                        />
+                    </div>
+                    <div class="row justify-center">
+                        <q-spinner-dots size="4em" color="grey-2" />
+                    </div>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+        <!-- /LOADING -->
     </q-page>
 </template>
 
@@ -187,6 +211,7 @@ import InventoryHandler from '@/mixins/InventoryHandler.js'
 export default {
     data() {
         return {
+            isLoading: true,
             whatsappNo: '62042578',
             cart: [],
             total: 0,
@@ -208,50 +233,7 @@ export default {
                 {label: 'ACH', value: 'ACH'},
                 {label: 'Efectivo', value: 'Efectivo'},
             ],
-            menu: [
-                {
-                    name: 'Item name monday',
-                    img: 'logo.jpg',
-                    description: 'Lorem ipsum dolor sit amet',
-                    price: 4.5,
-                    day: 1,
-                },
-                {
-                    name: 'Item name tuesday',
-                    img: 'logo.jpg',
-                    description: 'Lorem ipsum dolor sit amet',
-                    price: 4.5,
-                    day: 2,
-                },
-                {
-                    name: 'Item name wednesday',
-                    img: 'logo.jpg',
-                    description: 'Lorem ipsum dolor sit amet',
-                    price: 4.5,
-                    day: 3,
-                },
-                {
-                    name: 'Item name thursday',
-                    img: 'logo.jpg',
-                    description: 'Lorem ipsum dolor sit amet',
-                    price: 4.5,
-                    day: 4,
-                },
-                {
-                    name: 'Item name thursday 2',
-                    img: 'logo.jpg',
-                    description: 'Lorem ipsum dolor sit amet',
-                    price: 4.5,
-                    day: 4,
-                },
-                {
-                    name: 'Item name friday',
-                    img: 'logo.jpg',
-                    description: 'Lorem ipsum dolor sit amet',
-                    price: 4.5,
-                    day: 5,
-                },
-            ],
+            menu: [],
         }
     },
     methods: {
@@ -282,6 +264,7 @@ export default {
             let todayDay = today.getDay()
             let todayHour = today.getHours()
             if (todayDay == 5 && todayHour >= 15 && itemDay == 1) return true
+            if (today > 5 && itemDay == 1) return true
             if (itemDay == todayDay && todayHour < 15) return true
             if (itemDay < todayDay) return false
             if (itemDay == todayDay + 1 && todayHour >= 15) return true
@@ -342,12 +325,13 @@ export default {
     mixins: [InventoryHandler],
 
     async mounted() {
+        this.menu = await this.getInventoryItems()
         let id = 0
         this.menu.forEach(item => {
             item.id = id
             id++
         })
-        console.log(await this.getInventoryItems())
+        this.isLoading = false
     },
 }
 </script>
