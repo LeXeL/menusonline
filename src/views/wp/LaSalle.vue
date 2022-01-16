@@ -119,7 +119,7 @@
                         Datos de orden
                     </div>
                     <div class="text-caption poppins-bold q-mb-xs">
-                        Nombre del estudiante: *
+                        Nombre completo: *
                     </div>
                     <q-input
                         label="Nombre y apellido"
@@ -281,7 +281,7 @@ export default {
             this.cart.forEach(item => {
                 message += `(${item.amount}) - ${item.name}%0D%0A`
             })
-            message += `%0D%0AEstudiante: ${this.studentName}`
+            message += `%0D%0ANombre: ${this.studentName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             message += `%0D%0ATotal: $${this.total.toFixed(2)}`
