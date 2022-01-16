@@ -1110,7 +1110,12 @@ export default {
                     price: 4,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Salchicha picada',
@@ -1120,7 +1125,12 @@ export default {
                     price: 1,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Chorizo picado',
@@ -1130,7 +1140,12 @@ export default {
                     price: 1.5,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Papa con chilli',
@@ -1140,7 +1155,12 @@ export default {
                     price: 4,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Orden de papas',
@@ -1150,7 +1170,12 @@ export default {
                     price: 1.5,
                     styles: [],
                     sides: [],
-                    options: [],
+                    options: [
+                        {
+                            title: 'Regular',
+                            price: 0,
+                        },
+                    ],
                 },
                 {
                     title: 'Alitas de pollo',
