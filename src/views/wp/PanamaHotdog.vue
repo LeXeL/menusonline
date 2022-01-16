@@ -783,7 +783,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 6.5,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -813,8 +815,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Combo Chillidog',
@@ -822,7 +822,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 7,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -852,8 +854,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Combo Choridog',
@@ -861,7 +861,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 7,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -891,8 +893,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Combo Arepa',
@@ -900,7 +900,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 8.5,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -930,8 +932,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Combo Burrito',
@@ -939,7 +939,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 8.5,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -969,8 +971,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Combo Hamburguesa',
@@ -978,7 +978,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 8.5,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -1008,8 +1010,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Combo Bulldog',
@@ -1017,7 +1017,9 @@ export default {
                     type: 'main',
                     pic: '',
                     price: 10.5,
-                    styles: [
+                    styles: [],
+                    sides: [],
+                    options: [
                         {
                             title: 'Coca Cola',
                             price: 0,
@@ -1047,8 +1049,6 @@ export default {
                             price: 1.5,
                         },
                     ],
-                    sides: [],
-                    options: [],
                 },
                 {
                     title: 'Arepas',
