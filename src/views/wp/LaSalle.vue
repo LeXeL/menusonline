@@ -270,7 +270,7 @@ export default {
             let todayDay = today.getDay()
             let todayHour = today.getHours()
             if (todayDay == 5 && todayHour >= 15 && itemDay == 1) return true
-            if (todayDay > 5 && itemDay == 1) return true
+            if ((todayDay > 5 || todayDay < 1) && itemDay == 1) return true
             if (itemDay == todayDay && todayHour < 15) return true
             if (itemDay < todayDay) return false
             if (itemDay == todayDay + 1 && todayHour >= 15) return true
