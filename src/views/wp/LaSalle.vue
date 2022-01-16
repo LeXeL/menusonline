@@ -341,7 +341,7 @@ export default {
             if (todayDay == 4 && todayHour >= 15) return 'Viernes'
             if (todayDay == 5 && todayHour < 15) return 'Viernes'
             if (todayDay == 5 && todayHour >= 15) return 'Lunes'
-            if (todayDay > 5) return 'Lunes'
+            if (todayDay > 5 || todayDay < 1) return 'Lunes'
         },
     },
     mixins: [InventoryHandler],
