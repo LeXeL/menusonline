@@ -7,11 +7,56 @@
         />
         <!-- /HEADER -->
 
+        <!-- RULES -->
+        <div class="q-pa-md">
+            <div class="q-pa-md bg-white rounded-borders shadow-1">
+                <div class="text-h6 poppins-bold">Importante:</div>
+                <ul class="q-pl-md poppins-regular">
+                    <li class="q-mb-sm">
+                        <div class="text-body2">
+                            Se aceptan pedidos online del menu del día 3:00pm
+                            (del día anterior) hasta las 10:00am (del dia en
+                            curso).
+                        </div>
+                    </li>
+                    <li class="q-mb-sm">
+                        <div class="text-body2">
+                            Para que su pedido sea preparado debe ser cancelado
+                            por el método de pago seleccionado antes de las
+                            10:00am
+                        </div>
+                    </li>
+                    <li class="q-mb-sm">
+                        <div class="text-body2">
+                            Si por algún motivo no pudo hacer su pedido por menú
+                            digital. Puede acercarse a la cafetería en el primer
+                            recreo.
+                        </div>
+                    </li>
+                    <li class="q-mb-sm">
+                        <div class="text-body2">
+                            El horario de retiro de su pedido será de 11.40 am a
+                            3:00pm.
+                        </div>
+                    </li>
+                    <li>
+                        <div class="text-body2">
+                            Métodos de pago Yappy al 60657225 o ACH: Cuenta
+                            #04-32-01-065893-1
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /RULES -->
+
+        <!-- DAY -->
         <div
-            class="text-h6 poppins-bold text-center q-mt-lg q-mb-md text-orange-8"
+            class="text-h6 poppins-bold text-center q-mt-md q-mb-md text-orange-8"
         >
             Menu del día: {{ returnDayName }}
         </div>
+        <!-- /DAY -->
 
         <!-- MENU -->
         <div class="q-pa-md">
@@ -24,10 +69,10 @@
                         <div class="text-h6 text-bold">
                             {{ item.name }}
                         </div>
-                        <div class="text-h6 poppins-bold">
+                        <div class="text-h6 poppins-bold q-mb-sm">
                             $ {{ item.price.toFixed(2) }}
                         </div>
-                        <div class="text-caption text-grey">
+                        <div class="text-body2 text-grey">
                             {{ item.description }}
                         </div>
                     </q-card-section>
@@ -168,6 +213,23 @@
                         :options="paymentMethods"
                     />
                 </q-card-section>
+                <q-card-section v-if="selectedPaymentMethod">
+                    <div class="text-subtitle2 poppins-bold">
+                        Pago por {{ selectedPaymentMethod }}
+                    </div>
+                    <div
+                        class="text-body2"
+                        v-if="selectedPaymentMethod == 'Yappy'"
+                    >
+                        Envia tu pago por Yappy al numero 60657225
+                    </div>
+                    <div
+                        class="text-body2"
+                        v-if="selectedPaymentMethod == 'ACH'"
+                    >
+                        Envia tu pago por ACH a la cuenta #04-32-01-065893-1
+                    </div>
+                </q-card-section>
                 <q-card-section>
                     <div class="text-h5 poppins-bold text-center">
                         Total: $ {{ total.toFixed(2) }}
@@ -237,13 +299,27 @@ export default {
                     value: 'Yappy',
                 },
                 {label: 'ACH', value: 'ACH'},
-                {label: 'Efectivo', value: 'Efectivo'},
             ],
             menu: [],
         }
     },
     methods: {
         addToCart(item) {
+            let today = new Date()
+            let todayHour = today.getHours()
+            if (todayHour >= 12 && todayHour <= 15) {
+                this.$q.notify({
+                    message:
+                        'Lo sentimos, el horario de pedidos no esta disponible de 10am a 3pm.',
+                    color: 'red-7',
+                    icon: 'error',
+                    position: 'top',
+                    progress: true,
+                    classes: 'text-bold',
+                    timeout: 3000,
+                })
+                return
+            }
             if (this.cart.find(el => el.id == item.id)) {
                 this.cart.find(el => {
                     if (el.id == item.id) item.amount++
@@ -276,8 +352,9 @@ export default {
             if (itemDay == todayDay + 1 && todayHour >= 15) return true
         },
         generateWhatsappMessage() {
-            let message =
-                'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
+            // let message =
+            //     'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
+            let message = ''
             this.cart.forEach(item => {
                 message += `(${item.amount}) - ${item.name}%0D%0A`
             })
