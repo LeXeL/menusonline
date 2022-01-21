@@ -120,11 +120,11 @@
                         <div class="text-h6 text-bold">
                             {{ item.name }}
                         </div>
-                        <div class="text-h6 poppins-bold q-mb-sm">
-                            $ {{ item.price.toFixed(2) }}
-                        </div>
-                        <div class="text-body2 text-grey text-bold">
+                        <div class="text-body2 text-grey text-bold q-mb-sm">
                             {{ item.description }}
+                        </div>
+                        <div class="text-h6 poppins-bold">
+                            $ {{ item.price.toFixed(2) }}
                         </div>
                     </q-card-section>
                     <q-separator />
