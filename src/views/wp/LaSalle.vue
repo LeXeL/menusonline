@@ -387,8 +387,13 @@ export default {
     methods: {
         addToCart(item) {
             let today = new Date()
+            let todayDay = today.getDay()
             let todayHour = today.getHours()
-            if (todayHour >= 10 && todayHour <= 14) {
+            if (
+                (todayDay > 0 || todayDay <= 5) &&
+                todayHour >= 10 &&
+                todayHour <= 14
+            ) {
                 this.$q.notify({
                     message:
                         'Lo sentimos, el horario de pedidos no esta disponible de 10am a 3pm.',
