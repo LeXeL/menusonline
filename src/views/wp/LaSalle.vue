@@ -10,42 +10,57 @@
         <!-- RULES -->
         <div class="q-pa-md">
             <div class="q-pa-md bg-white rounded-borders shadow-1">
-                <div class="text-h6 poppins-bold">Importante:</div>
-                <ul class="q-pl-md poppins-regular">
-                    <li class="q-mb-sm">
-                        <div class="text-body2">
-                            Se aceptan pedidos online del menu del día 3:00pm
-                            (del día anterior) hasta las 10:00am (del dia en
-                            curso).
-                        </div>
-                    </li>
-                    <li class="q-mb-sm">
-                        <div class="text-body2">
-                            Para que su pedido sea preparado debe ser cancelado
-                            por el método de pago seleccionado antes de las
-                            10:00am
-                        </div>
-                    </li>
-                    <li class="q-mb-sm">
-                        <div class="text-body2">
-                            Si por algún motivo no pudo hacer su pedido por menú
-                            digital. Puede acercarse a la cafetería en el primer
-                            recreo.
-                        </div>
-                    </li>
-                    <li class="q-mb-sm">
-                        <div class="text-body2">
-                            El horario de retiro de su pedido será de 11.40 am a
-                            3:00pm.
-                        </div>
-                    </li>
-                    <li>
-                        <div class="text-body2">
-                            Métodos de pago Yappy al 60657225 o ACH: Cuenta
-                            #04-32-01-065893-1
-                        </div>
-                    </li>
-                </ul>
+                <div class="row items-center">
+                    <div class="text-h6 poppins-bold">Importante:</div>
+                    <q-space />
+                    <q-btn
+                        :icon="showRules ? 'expand_less' : 'expand_more'"
+                        flat
+                        round
+                        dense
+                        @click="showRules = !showRules"
+                    />
+                </div>
+
+                <q-slide-transition>
+                    <div v-show="showRules">
+                        <ul class="q-pl-md poppins-regular">
+                            <li class="q-mb-sm">
+                                <div class="text-body2">
+                                    Se aceptan pedidos online del menu del día
+                                    3:00pm (del día anterior) hasta las 10:00am
+                                    (del dia en curso).
+                                </div>
+                            </li>
+                            <li class="q-mb-sm">
+                                <div class="text-body2">
+                                    Para que su pedido sea preparado debe ser
+                                    cancelado por el método de pago seleccionado
+                                    antes de las 10:00am
+                                </div>
+                            </li>
+                            <li class="q-mb-sm">
+                                <div class="text-body2">
+                                    Si por algún motivo no pudo hacer su pedido
+                                    por menú digital. Puede acercarse a la
+                                    cafetería en el primer recreo.
+                                </div>
+                            </li>
+                            <li class="q-mb-sm">
+                                <div class="text-body2">
+                                    El horario de retiro de su pedido será de
+                                    11.40 am a 3:00pm.
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-body2">
+                                    Métodos de pago Yappy al 60657225 o ACH:
+                                    Cuenta #04-32-01-065893-1
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </q-slide-transition>
             </div>
         </div>
         <!-- /RULES -->
@@ -279,6 +294,7 @@ import InventoryHandler from '@/mixins/InventoryHandler.js'
 export default {
     data() {
         return {
+            showRules: true,
             isLoading: true,
             whatsappNo: '60657225',
             cart: [],
@@ -307,7 +323,7 @@ export default {
         addToCart(item) {
             let today = new Date()
             let todayHour = today.getHours()
-            if (todayHour >= 12 && todayHour <= 15) {
+            if (todayHour >= 10 && todayHour <= 15) {
                 this.$q.notify({
                     message:
                         'Lo sentimos, el horario de pedidos no esta disponible de 10am a 3pm.',
