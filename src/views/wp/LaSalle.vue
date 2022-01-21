@@ -1,17 +1,24 @@
 <template>
     <q-page class="bg-grey-2">
         <!-- HEADER -->
-        <q-img
+        <!-- <q-img
             :src="require('@/assets/wp/lasalle/logo.jpg')"
             class="shadow-7"
-        />
+        /> -->
+        <div class="q-py-xl shadow-7 bg-lasalle-blue">
+            <div class="text-h4 poppins-bold text-center text-white">
+                Kiosko Secundaria
+            </div>
+        </div>
         <!-- /HEADER -->
 
         <!-- RULES -->
         <div class="q-pa-md">
             <div class="q-pa-md bg-white rounded-borders shadow-1">
                 <div class="row items-center">
-                    <div class="text-h6 poppins-bold">Importante:</div>
+                    <div class="text-h6 poppins-bold text-lasalle-yellow">
+                        Importante:
+                    </div>
                     <q-space />
                     <q-btn
                         :icon="showRules ? 'expand_less' : 'expand_more'"
@@ -28,7 +35,13 @@
                             <li class="q-mb-sm">
                                 <div class="text-body2">
                                     Se aceptan pedidos online del menu del día
-                                    3:00pm (del día anterior) hasta las 10:00am
+                                    <span class="text-bold text-lasalle-blue"
+                                        >3:00pm</span
+                                    >
+                                    (del día anterior) hasta las
+                                    <span class="text-bold text-lasalle-blue"
+                                        >10:00am</span
+                                    >
                                     (del dia en curso).
                                 </div>
                             </li>
@@ -36,7 +49,13 @@
                                 <div class="text-body2">
                                     Para que su pedido sea preparado debe ser
                                     cancelado por el método de pago seleccionado
-                                    antes de las 10:00am
+                                    <span class="text-bold text-lasalle-blue"
+                                        >antes</span
+                                    >
+                                    de las
+                                    <span class="text-bold text-lasalle-blue"
+                                        >10:00am</span
+                                    >
                                 </div>
                             </li>
                             <li class="q-mb-sm">
@@ -49,13 +68,27 @@
                             <li class="q-mb-sm">
                                 <div class="text-body2">
                                     El horario de retiro de su pedido será de
-                                    11.40 am a 3:00pm.
+                                    <span class="text-bold text-lasalle-blue"
+                                        >11:40 am</span
+                                    >
+                                    a
+                                    <span class="text-bold text-lasalle-blue"
+                                        >3:00pm</span
+                                    >.
                                 </div>
                             </li>
                             <li>
                                 <div class="text-body2">
-                                    Métodos de pago Yappy al 60657225 o ACH:
-                                    Cuenta #04-32-01-065893-1
+                                    Métodos de pago
+                                    <span class="text-bold">Yappy</span>
+                                    al
+                                    <span class="text-bold text-lasalle-blue"
+                                        >6065-7225</span
+                                    >
+                                    o <span class="text-bold">ACH</span> Cuenta
+                                    <span class="text-bold text-lasalle-blue"
+                                        >#04-32-01-065893-1</span
+                                    >
                                 </div>
                             </li>
                         </ul>
@@ -66,10 +99,9 @@
         <!-- /RULES -->
 
         <!-- DAY -->
-        <div
-            class="text-h6 poppins-bold text-center q-mt-md q-mb-md text-orange-8"
-        >
-            Menu del día: {{ returnDayName }}
+        <div class="text-h6 poppins-bold text-center q-mt-md q-mb-md">
+            Menu del día:
+            <span class="text-lasalle-blue">{{ returnDayName }}</span>
         </div>
         <!-- /DAY -->
 
@@ -109,7 +141,7 @@
         <q-dialog v-model="showSeamless" seamless position="bottom">
             <q-card
                 style="width: 350px; border-radius: 0"
-                class="bg-red-7 text-white"
+                class="bg-lasalle-blue text-white"
             >
                 <q-card-section class="row items-center no-wrap">
                     <div>
@@ -187,6 +219,7 @@
                         dark
                         class="q-mb-lg"
                         v-model="studentName"
+                        color="lasalle-yellow"
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Comentarios especiales de tu pedido:
@@ -200,6 +233,7 @@
                         rows="3"
                         class="q-mb-lg"
                         v-model="comments"
+                        color="lasalle-yellow"
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Entrega: *
@@ -209,7 +243,7 @@
                         spread
                         all-caps
                         class="poppins-bold full-width q-mb-lg"
-                        toggle-color="red-7"
+                        toggle-color="lasalle-yellow"
                         color="white"
                         text-color="black"
                         :options="pickupMethods"
@@ -222,27 +256,57 @@
                         spread
                         all-caps
                         class="poppins-bold full-width"
-                        toggle-color="red-7"
+                        toggle-color="lasalle-yellow"
                         color="white"
                         text-color="black"
                         :options="paymentMethods"
                     />
                 </q-card-section>
-                <q-card-section v-if="selectedPaymentMethod">
+                <q-card-section
+                    class="text-center"
+                    v-if="selectedPaymentMethod"
+                >
                     <div class="text-subtitle2 poppins-bold">
                         Pago por {{ selectedPaymentMethod }}
                     </div>
                     <div
-                        class="text-body2"
+                        class="text-subtitle2"
                         v-if="selectedPaymentMethod == 'Yappy'"
                     >
-                        Envia tu pago por Yappy al numero 60657225
+                        Envia tu pago por Yappy al numero<br />
+                        <span class="text-h6 poppins-bold"
+                            >6065-7225
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="lasalle-yellow"
+                                @click="copyToClipboard('60657225')"
+                        /></span>
                     </div>
                     <div
-                        class="text-body2"
+                        class="text-subtitle2"
                         v-if="selectedPaymentMethod == 'ACH'"
                     >
-                        Envia tu pago por ACH a la cuenta #04-32-01-065893-1
+                        Envia tu pago por ACH a la cuenta<br />
+                        <span class="text-h6 poppins-bold"
+                            >04-32-01-065893-1
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="lasalle-yellow"
+                                @click="
+                                    copyToClipboard('0432010658931')
+                                "/></span
+                        ><br />
+                        Banco General | Cuenta de ahorros
                     </div>
                 </q-card-section>
                 <q-card-section>
@@ -290,6 +354,7 @@
 </template>
 
 <script>
+import {copyToClipboard} from 'quasar'
 import InventoryHandler from '@/mixins/InventoryHandler.js'
 export default {
     data() {
@@ -323,6 +388,7 @@ export default {
         addToCart(item) {
             let today = new Date()
             let todayHour = today.getHours()
+            todayHour = 9
             if (todayHour >= 10 && todayHour <= 15) {
                 this.$q.notify({
                     message:
@@ -415,6 +481,24 @@ export default {
                 this.whatsappNo
             }?text=${this.generateWhatsappMessage()}`
         },
+        copyToClipboard(text) {
+            copyToClipboard(text)
+                .then(() => {
+                    this.$q.notify({
+                        message: `${this.selectedPaymentMethod} copiado con exito`,
+                        color: 'lasalle-yellow',
+                        icon: 'check',
+                        badgeColor: 'lasalle-blue',
+                        progress: true,
+                        classes: 'poppins-bold',
+                        timeout: 1000,
+                        position: 'top',
+                    })
+                })
+                .catch(() => {
+                    // fail
+                })
+        },
     },
     computed: {
         showSeamless() {
@@ -450,3 +534,18 @@ export default {
     },
 }
 </script>
+
+<style>
+.text-lasalle-blue {
+    color: #004c97 !important;
+}
+.bg-lasalle-blue {
+    background: #004c97 !important;
+}
+.text-lasalle-yellow {
+    color: #eec800 !important;
+}
+.bg-lasalle-yellow {
+    background: #eec800 !important;
+}
+</style>
