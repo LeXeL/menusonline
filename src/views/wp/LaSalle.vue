@@ -119,7 +119,7 @@
                         <div class="text-h6 poppins-bold q-mb-sm">
                             $ {{ item.price.toFixed(2) }}
                         </div>
-                        <div class="text-body2 text-grey">
+                        <div class="text-body2 text-grey text-bold">
                             {{ item.description }}
                         </div>
                     </q-card-section>
