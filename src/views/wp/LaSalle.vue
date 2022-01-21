@@ -5,12 +5,12 @@
             :src="require('@/assets/wp/lasalle/logo.jpg')"
             class="shadow-7"
         /> -->
-        <div class="q-py-xl shadow-7 bg-lasalle-blue q-px-md">
+        <div class="q-py-xl shadow-7 bg-lasalle-blue text-center">
             <!-- <div class="text-h4 poppins-bold text-center text-white">
                 Cafetería Secundaria de la Salle
             </div> -->
-            <div class="text-h6 poppins-bold text-lasalle-yellow">La Salle</div>
-            <div class="text-h5 poppins-bold text-white">
+            <div class="text-h5 poppins-bold text-lasalle-yellow">La Salle</div>
+            <div class="text-h4 poppins-bold text-white">
                 Cafeteria Secundaria
             </div>
         </div>
