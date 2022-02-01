@@ -106,6 +106,10 @@ export default new Router({
             path: '/demo',
             component: Menu,
         },
+        {
+            path: '/panamaHotDog',
+            component: Menu,
+        },
 
         //Whatsapp Pedidos
         {

@@ -64,7 +64,7 @@ exports.deleteRestaurantesInformation = functions.https.onRequest(
 exports.returnRestaurantById = functions.https.onRequest(async (req, res) => {
     cors(req, res, async () => {
         try {
-            let response = await Restaurantes.returnRestaurantById(req.body.id)
+            let response = await Restaurant.returnRestaurantById(req.body.id)
             res.status(200).send({data: response})
         } catch (err) {
             console.log(err)
@@ -213,18 +213,14 @@ exports.updateAdminRestaurantInfo = functions.https.onRequest(
     }
 )
 // Delete Restaurant
-exports.deleteAdminRestaurant = functions.https.onRequest(
-    async (req, res) => {
-        cors(req, res, async () => {
-            try {
-                let response = await Restaurants.deleteRestaurant(
-                    req.body.id
-                )
-                res.status(200).send({data: response})
-            } catch (err) {
-                console.log(err)
-                res.status(400).send({err: err})
-            }
-        })
-    }
-)
+exports.deleteAdminRestaurant = functions.https.onRequest(async (req, res) => {
+    cors(req, res, async () => {
+        try {
+            let response = await Restaurants.deleteRestaurant(req.body.id)
+            res.status(200).send({data: response})
+        } catch (err) {
+            console.log(err)
+            res.status(400).send({err: err})
+        }
+    })
+})

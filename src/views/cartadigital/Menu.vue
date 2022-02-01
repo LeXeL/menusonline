@@ -108,6 +108,14 @@ export default {
                     textColor: '#ffffff',
                     spinerColor: 'white',
                 },
+                panamaHotDog: {
+                    splashButtonColor: '#000000',
+                    splashColor: '#ffffff',
+                    logo: 'pmahtdg_logo.png',
+                    menuBackgroundColor: '#f7f7f7',
+                    textColor: '#000000',
+                    spinerColor: 'black',
+                },
             },
         }
     },

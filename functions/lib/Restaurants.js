@@ -56,9 +56,22 @@ async function deleteRestaurant(id) {
             return error
         })
 }
-
+async function returnRestaurantById(id) {
+    return db
+        .collection('Restaurants')
+        .doc(id)
+        .get()
+        .then(doc => {
+            return doc.data()
+        })
+        .catch(error => {
+            console.error('Error writing document: ', error)
+            return error
+        })
+}
 module.exports = {
     createRestaurant,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    returnRestaurantById,
 }
