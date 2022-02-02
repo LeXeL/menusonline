@@ -1,118 +1,28 @@
 <template>
     <q-page class="bg-grey-2">
         <!-- HEADER -->
-        <!-- <q-img
-            :src="require('@/assets/wp/lasalle/logo.jpg')"
+        <q-img
+            :src="require('@/assets/wp/mdaesports/logo.png')"
             class="shadow-7"
-        /> -->
-        <div class="q-py-xl shadow-7 bg-lasalle-blue text-center">
-            <!-- <div class="text-h4 poppins-bold text-center text-white">
-                Cafetería Secundaria de la Salle
-            </div> -->
-            <div class="text-h5 poppins-bold text-lasalle-yellow">La Salle</div>
-            <div class="text-h4 poppins-bold text-white">
-                Cafeteria Secundaria
-            </div>
-        </div>
+        />
         <!-- /HEADER -->
 
-        <!-- RULES -->
-        <div class="q-pa-md">
-            <div class="q-pa-md bg-white rounded-borders shadow-1">
-                <div class="row items-center">
-                    <div class="text-h6 poppins-bold text-lasalle-yellow">
-                        Importante:
-                    </div>
-                    <q-space />
-                    <q-btn
-                        :icon="showRules ? 'expand_less' : 'expand_more'"
-                        flat
-                        round
-                        dense
-                        @click="showRules = !showRules"
-                    />
-                </div>
-
-                <q-slide-transition>
-                    <div v-show="showRules">
-                        <ul class="q-pl-md poppins-regular">
-                            <li class="q-mb-sm">
-                                <div class="text-body2">
-                                    Se aceptan pedidos online del menu del día
-                                    <span class="text-bold text-lasalle-blue"
-                                        >3:00pm</span
-                                    >
-                                    (del día anterior) hasta las
-                                    <span class="text-bold text-lasalle-blue"
-                                        >10:00am</span
-                                    >
-                                    (del dia en curso).
-                                </div>
-                            </li>
-                            <li class="q-mb-sm">
-                                <div class="text-body2">
-                                    Para que su pedido sea preparado debe ser
-                                    cancelado por el método de pago seleccionado
-                                    <span class="text-bold text-lasalle-blue"
-                                        >antes</span
-                                    >
-                                    de las
-                                    <span class="text-bold text-lasalle-blue"
-                                        >10:00am</span
-                                    >
-                                </div>
-                            </li>
-                            <li class="q-mb-sm">
-                                <div class="text-body2">
-                                    Si por algún motivo no pudo hacer su pedido
-                                    por menú digital. Puede acercarse a la
-                                    cafetería en el primer recreo.
-                                </div>
-                            </li>
-                            <li class="q-mb-sm">
-                                <div class="text-body2">
-                                    El horario de retiro de su pedido será de
-                                    <span class="text-bold text-lasalle-blue"
-                                        >11:40 am</span
-                                    >
-                                    a
-                                    <span class="text-bold text-lasalle-blue"
-                                        >3:00pm</span
-                                    >.
-                                </div>
-                            </li>
-                            <li>
-                                <div class="text-body2">
-                                    Métodos de pago
-                                    <span class="text-bold">Yappy</span>
-                                    al
-                                    <span class="text-bold text-lasalle-blue"
-                                        >6065-7225</span
-                                    >
-                                    o <span class="text-bold">ACH</span> Cuenta
-                                    <span class="text-bold text-lasalle-blue"
-                                        >#04-32-01-065893-1</span
-                                    >
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </q-slide-transition>
-            </div>
+        <!-- IG -->
+        <div class="text-subtitle2 q-pa-md poppins-bold">
+            <i class="fab fa-instagram text-blue-7"></i>
+            <a
+                href="https://www.instagram.com/mdaesportsleague/"
+                target="_blank"
+                style="text-decoration: none; color: black"
+                >&nbsp;MdaEsportsLeague</a
+            >
         </div>
-        <!-- /RULES -->
-
-        <!-- DAY -->
-        <div class="text-h6 poppins-bold text-center q-mt-md q-mb-md">
-            Menu del día:
-            <span class="text-lasalle-blue">{{ returnDayName }}</span>
-        </div>
-        <!-- /DAY -->
+        <!-- /IG -->
 
         <!-- MENU -->
         <div class="q-pa-md">
             <div v-for="(item, i) in menu" :key="i">
-                <q-card class="q-mb-lg" v-if="showToday(item.day)">
+                <q-card class="q-mb-lg">
                     <q-card-section class="q-pa-none">
                         <img :src="item.img" width="100%" />
                     </q-card-section>
@@ -145,7 +55,7 @@
         <q-dialog v-model="showSeamless" seamless position="bottom">
             <q-card
                 style="width: 350px; border-radius: 0"
-                class="bg-lasalle-blue text-white"
+                class="bg-yellow-9 text-white"
             >
                 <q-card-section class="row items-center no-wrap">
                     <div>
@@ -222,22 +132,31 @@
                         filled
                         dark
                         class="q-mb-lg"
-                        v-model="studentName"
-                        color="lasalle-yellow"
+                        v-model="fullName"
+                        color="yellow-9"
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
-                        Comentarios especiales de tu pedido:
+                        Correo electronico: *
                     </div>
                     <q-input
-                        label="Comentarios"
-                        placeholder="La salsa aparte por favor."
+                        label="correo@electronico.com"
                         filled
                         dark
-                        type="textarea"
-                        rows="3"
                         class="q-mb-lg"
-                        v-model="comments"
-                        color="lasalle-yellow"
+                        v-model="email"
+                        color="yellow-9"
+                        type="email"
+                    />
+                    <div class="text-caption poppins-bold q-mb-xs">
+                        Número de contacto: *
+                    </div>
+                    <q-input
+                        filled
+                        dark
+                        class="q-mb-lg"
+                        v-model="contactNo"
+                        color="yellow-9"
+                        mask="####-####"
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Entrega: *
@@ -247,7 +166,7 @@
                         spread
                         all-caps
                         class="poppins-bold full-width q-mb-lg"
-                        toggle-color="lasalle-yellow"
+                        toggle-color="yellow-9"
                         color="white"
                         text-color="black"
                         :options="pickupMethods"
@@ -260,7 +179,7 @@
                         spread
                         all-caps
                         class="poppins-bold full-width"
-                        toggle-color="lasalle-yellow"
+                        toggle-color="yellow-9"
                         color="white"
                         text-color="black"
                         :options="paymentMethods"
@@ -279,7 +198,7 @@
                     >
                         Envia tu pago por Yappy al numero<br />
                         <span class="text-h6 poppins-bold"
-                            >6065-7225
+                            >6204-6903
                             <q-btn
                                 icon="content_copy"
                                 class="q-ml-sm"
@@ -287,8 +206,8 @@
                                 flat
                                 dense
                                 size="sm"
-                                color="lasalle-yellow"
-                                @click="copyToClipboard('60657225')"
+                                color="yellow-9"
+                                @click="copyToClipboard('62046903')"
                         /></span>
                     </div>
                     <div
@@ -297,7 +216,7 @@
                     >
                         Envia tu pago por ACH a la cuenta<br />
                         <span class="text-h6 poppins-bold"
-                            >04-32-01-065893-1
+                            >04-11-22-333333-4
                             <q-btn
                                 icon="content_copy"
                                 class="q-ml-sm"
@@ -305,9 +224,9 @@
                                 flat
                                 dense
                                 size="sm"
-                                color="lasalle-yellow"
+                                color="yellow-9"
                                 @click="
-                                    copyToClipboard('0432010658931')
+                                    copyToClipboard('0411223333334')
                                 "/></span
                         ><br />
                         Banco General | Cuenta de ahorros
@@ -363,20 +282,21 @@ import InventoryHandler from '@/mixins/InventoryHandler.js'
 export default {
     data() {
         return {
-            showRules: true,
             isLoading: true,
-            whatsappNo: '60657225',
+            whatsappNo: '62046903',
             cart: [],
             total: 0,
             seamless: true,
             cartDialog: false,
-            studentName: '',
+            fullName: '',
+            email: '',
+            contactNo: '',
             comments: '',
             selectedPickupMethod: '',
             selectedPaymentMethod: '',
             pickupMethods: [
-                {label: 'Segundo recreo', value: 'Segundo recreo'},
-                {label: 'Salida', value: 'Salida'},
+                {label: 'Recoger en local', value: 'Recoger en local'},
+                {label: 'Entrega domicilio', value: 'Entrega domicilio'},
             ],
             paymentMethods: [
                 {
@@ -384,6 +304,7 @@ export default {
                     value: 'Yappy',
                 },
                 {label: 'ACH', value: 'ACH'},
+                {label: 'Efectivo', value: 'Efectivo'},
             ],
             menu: [],
         }
@@ -431,29 +352,16 @@ export default {
                 this.total += item.amount * item.price
             })
         },
-        showToday(itemDay) {
-            let today = new Date()
-            let todayDay = today.getDay()
-            let todayHour = today.getHours()
-            if (todayDay == 5 && todayHour >= 15 && itemDay == 1) return true
-            if ((todayDay > 5 || todayDay < 1) && itemDay == 1) return true
-            if (itemDay == todayDay && todayHour < 15) return true
-            if (itemDay < todayDay) return false
-            if (itemDay == todayDay + 1 && todayHour >= 15) return true
-        },
         generateWhatsappMessage() {
-            // let message =
-            //     'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
-            let message = ''
+            let message =
+                'Buenas, me gustarīa realizar un pedido de:%0D%0A%0D%0A'
             this.cart.forEach(item => {
                 message += `(${item.amount}) - ${item.name}%0D%0A`
             })
-            message += `%0D%0ANombre: ${this.studentName}`
+            message += `%0D%0ANombre: ${this.fullName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             message += `%0D%0ATotal: $${this.total.toFixed(2)}`
-            if (this.comments)
-                message += `%0D%0A%0D%0AComentarios: ${this.comments}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
@@ -461,15 +369,19 @@ export default {
         },
         sendOrder() {
             if (
-                !this.studentName ||
+                !this.fullName ||
                 !this.selectedPickupMethod ||
-                !this.selectedPaymentMethod
+                !this.selectedPaymentMethod ||
+                !this.email ||
+                !this.contactNo
             ) {
                 let errors = []
                 let errMsg = 'Debes llenar los siguientes campos: '
-                if (!this.studentName) errors.push('Nombre')
+                if (!this.fullName) errors.push('Nombre')
                 if (!this.selectedPickupMethod) errors.push('Entrega')
                 if (!this.selectedPaymentMethod) errors.push('Metodo de pago')
+                if (!this.email) errors.push('Correo electrónico')
+                if (!this.contactNo) errors.push('Número de contacto')
                 for (let i = 0; i < errors.length; i++) {
                     errMsg += errors[i]
                     if (i < errors.length - 1) errMsg += ', '
@@ -494,9 +406,9 @@ export default {
                 .then(() => {
                     this.$q.notify({
                         message: `${this.selectedPaymentMethod} copiado con exito`,
-                        color: 'lasalle-yellow',
+                        color: 'yellow-9',
                         icon: 'check',
-                        badgeColor: 'lasalle-blue',
+                        badgeColor: 'blue-7',
                         progress: true,
                         classes: 'poppins-bold',
                         timeout: 1000,
@@ -512,27 +424,35 @@ export default {
         showSeamless() {
             if (this.cart.length) return true
         },
-        returnDayName() {
-            let today = new Date()
-            let todayDay = today.getDay()
-            let todayHour = today.getHours()
-            if (todayDay == 1 && todayHour < 15) return 'Lunes'
-            if (todayDay == 1 && todayHour >= 15) return 'Martes'
-            if (todayDay == 2 && todayHour < 15) return 'Martes'
-            if (todayDay == 2 && todayHour >= 15) return 'Miercoles'
-            if (todayDay == 3 && todayHour < 15) return 'Miercoles'
-            if (todayDay == 3 && todayHour >= 15) return 'Jueves'
-            if (todayDay == 4 && todayHour < 15) return 'Jueves'
-            if (todayDay == 4 && todayHour >= 15) return 'Viernes'
-            if (todayDay == 5 && todayHour < 15) return 'Viernes'
-            if (todayDay == 5 && todayHour >= 15) return 'Lunes'
-            if (todayDay > 5 || todayDay < 1) return 'Lunes'
-        },
     },
     mixins: [InventoryHandler],
 
     async mounted() {
-        this.menu = await this.getInventoryItems()
+        // this.menu = await this.getInventoryItems()
+        let m = [
+            {
+                name: 'Giftcard PlayStation $25',
+                price: 25,
+                img:
+                    'https://media.4rgos.it/s/Argos/1251731_R_SET?$Main768$&w=620&h=620',
+                description: 'Giftcard de PSN con valor de $25.',
+            },
+            {
+                name: 'Giftcard PlayStation $50',
+                price: 50,
+                img:
+                    'https://www.ubuy.wf/productimg/?image=aHR0cHM6Ly9pNS53YWxtYXJ0aW1hZ2VzLmNvbS9hc3IvYjdlMzJhZDItOGM2ZS00YWNiLTljYjktNmExZGNlMjBiMmUzLjNkMDI4NTFjOTVjMjVhODIyMWYwNTFlMmVjNDBhYjg0LmpwZWc.jpg',
+                description: 'Giftcard de PSN con valor de $50.',
+            },
+            {
+                name: 'Dualshock 4 - God of War',
+                price: 75,
+                img:
+                    'https://m.media-amazon.com/images/I/71J-Zj7hHVL._SL1000_.jpg',
+                description: 'Mando PS4 Edición especial de God of War.',
+            },
+        ]
+        this.menu = m
         let id = 0
         this.menu.forEach(item => {
             item.id = id
@@ -544,16 +464,16 @@ export default {
 </script>
 
 <style>
-.text-lasalle-blue {
+.text-blue-7 {
     color: #004c97 !important;
 }
-.bg-lasalle-blue {
+.bg-blue-7 {
     background: #004c97 !important;
 }
-.text-lasalle-yellow {
+.text-yellow-9 {
     color: #eec800 !important;
 }
-.bg-lasalle-yellow {
+.bg-yellow-9 {
     background: #eec800 !important;
 }
 </style>
