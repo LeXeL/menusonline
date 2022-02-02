@@ -61,7 +61,7 @@
                     <div>
                         <div class="text-h6 poppins-bold">
                             <span class="text-subtitle2 poppins-bold"
-                                >Total:</span
+                                >Sub Total:</span
                             >
                             $
                             {{ total.toFixed(2) }}
@@ -234,8 +234,14 @@
                     </div>
                 </q-card-section>
                 <q-card-section>
+                    <div class="text-subtitl2 poppins-bold text-center">
+                        Sub Total: $ {{ total.toFixed(2) }}
+                    </div>
+                    <div class="text-subtitl2 poppins-bold text-center q-mb-md">
+                        ITBMS: $ {{ (total * 0.07).toFixed(2) }}
+                    </div>
                     <div class="text-h5 poppins-bold text-center">
-                        Total: $ {{ total.toFixed(2) }}
+                        Total: $ {{ (total * 1.07).toFixed(2) }}
                     </div>
                 </q-card-section>
                 <q-card-actions>
@@ -342,7 +348,9 @@ export default {
             message += `%0D%0ANombre: ${this.fullName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
-            message += `%0D%0ATotal: $${this.total.toFixed(2)}`
+            message += `%0D%0ASub Total: $${this.total.toFixed(2)}`
+            message += `%0D%0AITBMS: $${(this.total * 0.07).toFixed(2)}`
+            message += `%0D%0ATotal: $${(this.total * 1.07).toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
