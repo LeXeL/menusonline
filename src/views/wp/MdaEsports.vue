@@ -151,6 +151,7 @@
                         Número de contacto: *
                     </div>
                     <q-input
+                        placeholder="6123-4567"
                         filled
                         dark
                         class="q-mb-lg"
