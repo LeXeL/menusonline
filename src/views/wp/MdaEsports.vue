@@ -309,10 +309,12 @@
                         Sub Total: $ {{ total.toFixed(2) }}
                     </div>
                     <div class="text-subtitl2 poppins-bold text-center q-mb-md">
-                        ITBMS: $ {{ (total * 0.07).toFixed(2) }}
+                        ITBMS: $
+                        {{ (Math.round(total * 0.07 * 100) / 100).toFixed(2) }}
                     </div>
                     <div class="text-h5 poppins-bold text-center">
-                        Total: $ {{ (total * 1.07).toFixed(2) }}
+                        Total: $
+                        {{ (Math.round(total * 1.07 * 100) / 100).toFixed(2) }}
                     </div>
                 </q-card-section>
                 <q-card-actions>
@@ -460,8 +462,12 @@ export default {
             }
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             message += `%0D%0ASub Total: $${this.total.toFixed(2)}`
-            message += `%0D%0AITBMS: $${(this.total * 0.07).toFixed(2)}`
-            message += `%0D%0ATotal: $${(this.total * 1.07).toFixed(2)}`
+            message += `%0D%0AITBMS: $${(
+                Math.round(this.total * 0.07 * 100) / 100
+            ).toFixed(2)}`
+            message += `%0D%0ATotal: $${(
+                Math.round(this.total * 1.07 * 100) / 100
+            ).toFixed(2)}`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
