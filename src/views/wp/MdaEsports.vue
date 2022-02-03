@@ -172,6 +172,52 @@
                         text-color="black"
                         :options="pickupMethods"
                     />
+                    <div
+                        class="row"
+                        v-if="this.selectedPickupMethod == 'Delivery'"
+                    >
+                        <div
+                            class="
+                                text-subtitle2
+                                poppins-bold
+                                q-mb-sm
+                                full-width
+                            "
+                        >
+                            Ubicacion de entrega: *
+                        </div>
+                    </div>
+                    <GoogleMaps
+                        class="q-mb-md"
+                        v-if="
+                            Object.keys(center).length > 0 &&
+                            this.selectedPickupMethod == 'Delivery'
+                        "
+                        @markerPosition="setMarkerPosition"
+                        @newMarkerPosition="setNewMarkerPosition"
+                        :editable="true"
+                        :markers="markers"
+                        :mapCenter="center"
+                    ></GoogleMaps>
+                    <div
+                        class="row q-mb-md"
+                        v-if="selectedPickupMethod == 'Delivery'"
+                    >
+                        <div class="text-subtitle2 poppins-bold q-mb-sm">
+                            Direccion de entrega (completa): *
+                        </div>
+                        <q-input
+                            v-model="address"
+                            filled
+                            dark
+                            type="textarea"
+                            class="full-width poppins-regular"
+                            placeholder="Barriada, No. Calle, No. Casa"
+                            color="red-7"
+                            rows="4"
+                            data-hj-allow
+                        />
+                    </div>
                     <div class="text-caption poppins-bold q-mb-xs">
                         Metodo de pago: *
                     </div>
@@ -228,7 +274,7 @@
                                 color="yellow-9"
                                 @click="
                                     copyToClipboard('0411223333334')
-                                "/></span
+                                " /></span
                         ><br />
                         Banco General | Cuenta de ahorros
                     </div>
@@ -284,9 +330,13 @@
 </template>
 
 <script>
+import GoogleMaps from '../../components/general/GoogleMaps'
 import {copyToClipboard} from 'quasar'
 import InventoryHandler from '@/mixins/InventoryHandler.js'
 export default {
+    components: {
+        GoogleMaps,
+    },
     data() {
         return {
             isLoading: true,
@@ -303,7 +353,7 @@ export default {
             selectedPaymentMethod: '',
             pickupMethods: [
                 {label: 'Recoger en local', value: 'Recoger en local'},
-                {label: 'Entrega domicilio', value: 'Entrega domicilio'},
+                {label: 'Entrega domicilio', value: 'Delivery'},
             ],
             paymentMethods: [
                 {
@@ -314,6 +364,10 @@ export default {
                 {label: 'Efectivo', value: 'Efectivo'},
             ],
             menu: [],
+            location: [],
+            markers: [],
+            center: {},
+            address: '',
         }
     },
     methods: {
@@ -338,6 +392,29 @@ export default {
             this.cart.forEach(item => {
                 this.total += item.amount * item.price
             })
+        },
+        getLocationForMessage() {
+            if (this.location.length === 0) {
+                if (
+                    parseFloat(this.center.lat) === parseFloat(9.068463) &&
+                    parseFloat(this.center.lng) === parseFloat(-79.452694)
+                ) {
+                    return `>> Pedir Ubicacion !!`
+                } else {
+                    return `https://waze.com/ul?ll=${this.center.lat},${this.center.lng}&z=10`
+                }
+                // let lat = parseFloat(this.center.lat)
+                // let lng = parseFloat(this.center.lng)
+                // if (lat < 0) lat = `+${lat}`
+                // if (lng < 0) lng = `+${lng}`
+            } else {
+                let lat = parseFloat(this.location.lat)
+                let lng = parseFloat(this.location.lng)
+                if (lat === NaN || lng === NaN) return `>> Pedir Ubicacion !!`
+                // if (lat < 0) lat = `+${lat}`
+                // if (lng < 0) lng = `+${lng}`
+                return `https://waze.com/ul?ll=${lat},${lng}&z=10`
+            }
         },
         generateWhatsappMessage() {
             let message =
@@ -408,6 +485,31 @@ export default {
                     // fail
                 })
         },
+        setMarkerPosition(event) {
+            this.location = event
+        },
+        setNewMarkerPosition(event) {
+            this.markers = [{position: event}]
+            this.location = event
+        },
+        geolocate() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.center = {
+                        lat: parseFloat(position.coords.latitude),
+                        lng: parseFloat(position.coords.longitude),
+                    }
+                    this.markers.push({position: this.center})
+                },
+                error => {
+                    this.center = {
+                        lat: parseFloat(9.068463),
+                        lng: parseFloat(-79.452694),
+                    }
+                    this.markers.push({position: this.center})
+                }
+            )
+        },
     },
     computed: {
         showSeamless() {
@@ -418,26 +520,24 @@ export default {
 
     async mounted() {
         // this.menu = await this.getInventoryItems()
+        this.geolocate()
         let m = [
             {
                 name: 'Giftcard PlayStation $25',
                 price: 25,
-                img:
-                    'https://media.4rgos.it/s/Argos/1251731_R_SET?$Main768$&w=620&h=620',
+                img: 'https://media.4rgos.it/s/Argos/1251731_R_SET?$Main768$&w=620&h=620',
                 description: 'Giftcard de PSN con valor de $25.',
             },
             {
                 name: 'Giftcard PlayStation $50',
                 price: 50,
-                img:
-                    'https://www.ubuy.wf/productimg/?image=aHR0cHM6Ly9pNS53YWxtYXJ0aW1hZ2VzLmNvbS9hc3IvYjdlMzJhZDItOGM2ZS00YWNiLTljYjktNmExZGNlMjBiMmUzLjNkMDI4NTFjOTVjMjVhODIyMWYwNTFlMmVjNDBhYjg0LmpwZWc.jpg',
+                img: 'https://www.ubuy.wf/productimg/?image=aHR0cHM6Ly9pNS53YWxtYXJ0aW1hZ2VzLmNvbS9hc3IvYjdlMzJhZDItOGM2ZS00YWNiLTljYjktNmExZGNlMjBiMmUzLjNkMDI4NTFjOTVjMjVhODIyMWYwNTFlMmVjNDBhYjg0LmpwZWc.jpg',
                 description: 'Giftcard de PSN con valor de $50.',
             },
             {
                 name: 'Dualshock 4 - God of War',
                 price: 75,
-                img:
-                    'https://m.media-amazon.com/images/I/71J-Zj7hHVL._SL1000_.jpg',
+                img: 'https://m.media-amazon.com/images/I/71J-Zj7hHVL._SL1000_.jpg',
                 description: 'Mando PS4 Edición especial de God of War.',
             },
         ]
