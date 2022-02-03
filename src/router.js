@@ -30,6 +30,7 @@ import CeroTranque from './views/wp/CeroTranque'
 import GarageBurgers from './views/wp/GarageBurgers'
 import SpecialOneBurger from './views/wp/SpecialOneBurger'
 import LaSalle from '@/views/wp/LaSalle'
+import MdaEsports from '@/views/wp/MdaEsports'
 
 Vue.use(Router)
 
@@ -165,6 +166,11 @@ export default new Router({
                     path: '/lasalle',
                     name: 'lasalle',
                     component: LaSalle,
+                },
+                {
+                    path: '/mdaesports',
+                    name: 'mdaesports',
+                    component: MdaEsports,
                 },
             ],
         },
