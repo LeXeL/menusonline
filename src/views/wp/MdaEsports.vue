@@ -8,14 +8,43 @@
         <!-- /HEADER -->
 
         <!-- IG -->
-        <div class="text-subtitle2 q-pa-md poppins-bold">
-            <i class="fab fa-instagram text-blue-7"></i>
+        <div class="row q-py-md justify-center">
+            <a
+                href="https://api.whatsapp.com/send/?phone=50766241480&text&app_absent=0"
+                target="_blank"
+                style="text-decoration: none;"
+            >
+                <q-btn color="blue-7" icon="fab fa-whatsapp" flat round />
+            </a>
             <a
                 href="https://www.instagram.com/mdaesportsleague/"
                 target="_blank"
-                style="text-decoration: none; color: black"
-                >&nbsp;MdaEsportsLeague</a
+                style="text-decoration: none;"
             >
+                <q-btn color="blue-7" icon="fab fa-instagram" flat round />
+            </a>
+            <a
+                href="https://discord.com/invite/wMzycF8fbv"
+                target="_blank"
+                style="text-decoration: none;"
+            >
+                <q-btn color="blue-7" icon="fab fa-discord" flat round />
+            </a>
+            <a
+                href="https://www.twitch.tv/mdaesportsleague"
+                target="_blank"
+                style="text-decoration: none;"
+            >
+                <q-btn color="blue-7" icon="fab fa-twitch" flat round />
+            </a>
+
+            <a
+                href="https://www.youtube.com/channel/UCzoanldTA0NjXd6qAszEr7Q"
+                target="_blank"
+                style="text-decoration: none;"
+            >
+                <q-btn color="blue-7" icon="fab fa-youtube" flat round />
+            </a>
         </div>
         <!-- /IG -->
 
