@@ -624,8 +624,7 @@ export default {
             {
                 name: 'Giftcard PlayStation $75',
                 price: 77.99,
-                img:
-                    'https://www.ubuy.com.pa/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNjF2NUVOZEM4UkwuX1NMMTUwMF8uanBn.jpg',
+                img: 'https://i.ibb.co/tmHJJJS/psn-75.png',
                 description:
                     'Giftcard de PSN con valor de $75. Válido solo para cuentas en America.',
                 category: 'psn',
