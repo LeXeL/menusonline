@@ -778,16 +778,16 @@ export default {
 
                 category: 'xbox',
             },
-            {
-                name: 'Giftcard Xbox $20',
-                price: 21.99,
-                img:
-                    'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/1891/1891044_sa.jpg',
-                description:
-                    'Giftcard de Xbox con valor de $20. Válido solo para cuentas en America.',
+            // {
+            //     name: 'Giftcard Xbox $20',
+            //     price: 21.99,
+            //     img:
+            //         'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/1891/1891044_sa.jpg',
+            //     description:
+            //         'Giftcard de Xbox con valor de $20. Válido solo para cuentas en America.',
 
-                category: 'xbox',
-            },
+            //     category: 'xbox',
+            // },
             {
                 name: 'Giftcard Xbox $30',
                 price: 31.99,
@@ -818,16 +818,16 @@ export default {
 
                 category: 'xbox',
             },
-            {
-                name: 'Giftcard Xbox $60',
-                price: 62.99,
-                img:
-                    'https://cdn-products.eneba.com/resized-products/kV91qZzS2cn4wZ1KPKwiYQBjtPzI0nnA6Syn7AHWSv8_350x200_2x-0.jpeg',
-                description:
-                    'Giftcard de Xbox con valor de $60. Válido solo para cuentas en America.',
+            // {
+            //     name: 'Giftcard Xbox $60',
+            //     price: 62.99,
+            //     img:
+            //         'https://cdn-products.eneba.com/resized-products/kV91qZzS2cn4wZ1KPKwiYQBjtPzI0nnA6Syn7AHWSv8_350x200_2x-0.jpeg',
+            //     description:
+            //         'Giftcard de Xbox con valor de $60. Válido solo para cuentas en America.',
 
-                category: 'xbox',
-            },
+            //     category: 'xbox',
+            // },
             {
                 name: 'Giftcard Xbox $70',
                 price: 72.99,
