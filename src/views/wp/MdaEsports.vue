@@ -412,7 +412,7 @@ export default {
     data() {
         return {
             isLoading: true,
-            whatsappNo: '62046903',
+            whatsappNo: '66241480',
             cart: [],
             total: 0,
             seamless: true,
