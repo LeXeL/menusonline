@@ -310,11 +310,26 @@
                     </div>
                     <div class="text-subtitl2 poppins-bold text-center q-mb-md">
                         ITBMS: $
-                        {{ (Math.round(total * 0.07 * 100) / 100).toFixed(2) }}
+                        {{ calculateTax(total).toFixed(2) }}
+                    </div>
+                    <div
+                        class="text-subtitl2 poppins-bold text-center q-mb-md"
+                        v-if="selectedPaymentMethod == 'Paypal'"
+                    >
+                        Paypal Fee: $
+                        {{ calculatePaypalFee(total).toFixed(2) }}
                     </div>
                     <div class="text-h5 poppins-bold text-center">
                         Total: $
-                        {{ (Math.round(total * 1.07 * 100) / 100).toFixed(2) }}
+                        {{
+                            this.selectedPaymentMethod == 'Paypal'
+                                ? (
+                                      total +
+                                      calculateTax(total) +
+                                      calculatePaypalFee(total)
+                                  ).toFixed(2)
+                                : (total + calculateTax(total)).toFixed(2)
+                        }}
                     </div>
                 </q-card-section>
                 <q-card-actions>
@@ -425,6 +440,12 @@ export default {
                 this.total += item.amount * item.price
             })
         },
+        calculateTax(total) {
+            return Math.round(total * 0.07 * 100) / 100
+        },
+        calculatePaypalFee(total) {
+            return Math.round(total * 0.054 * 100) / 100 + 0.3
+        },
         getLocationForMessage() {
             if (this.location.length === 0) {
                 if (
@@ -462,12 +483,22 @@ export default {
             }
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             message += `%0D%0ASub Total: $${this.total.toFixed(2)}`
-            message += `%0D%0AITBMS: $${(
-                Math.round(this.total * 0.07 * 100) / 100
-            ).toFixed(2)}`
-            message += `%0D%0ATotal: $${(
-                Math.round(this.total * 1.07 * 100) / 100
-            ).toFixed(2)}`
+            message += `%0D%0AITBMS: $${this.calculateTax(this.total).toFixed(
+                2
+            )}`
+            if (this.selectedPaymentMethod == 'Paypal')
+                message += `%0D%0APaypal Fee: $${this.calculatePaypalFee(
+                    this.total
+                )}`
+            message += `%0D%0ATotal: $${
+                this.selectedPaymentMethod == 'Paypal'
+                    ? (
+                          this.total +
+                          this.calculateTax(this.total) +
+                          this.calculatePaypalFee(this.total)
+                      ).toFixed(2)
+                    : (this.total + this.calculateTax(this.total)).toFixed(2)
+            }`
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
