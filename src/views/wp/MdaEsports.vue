@@ -134,6 +134,7 @@
                         class="q-mb-lg"
                         v-model="fullName"
                         color="yellow-9"
+                        data-hj-allow
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Correo electronico: *
@@ -146,6 +147,7 @@
                         v-model="email"
                         color="yellow-9"
                         type="email"
+                        data-hj-allow
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Número de contacto: *
@@ -158,6 +160,7 @@
                         v-model="contactNo"
                         color="yellow-9"
                         mask="####-####"
+                        data-hj-allow
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Entrega: *
@@ -191,7 +194,7 @@
                         class="q-mb-md"
                         v-if="
                             Object.keys(center).length > 0 &&
-                            this.selectedPickupMethod == 'Delivery'
+                                this.selectedPickupMethod == 'Delivery'
                         "
                         @markerPosition="setMarkerPosition"
                         @newMarkerPosition="setNewMarkerPosition"
@@ -204,7 +207,7 @@
                         v-if="selectedPickupMethod == 'Delivery'"
                     >
                         <div class="text-subtitle2 poppins-bold q-mb-sm">
-                            Direccion de entrega (completa): *
+                            Dirección de entrega (completa): *
                         </div>
                         <q-input
                             v-model="address"
@@ -213,7 +216,7 @@
                             type="textarea"
                             class="full-width poppins-regular"
                             placeholder="Barriada, No. Calle, No. Casa"
-                            color="red-7"
+                            color="yellow-9"
                             rows="4"
                             data-hj-allow
                         />
@@ -274,7 +277,7 @@
                                 color="yellow-9"
                                 @click="
                                     copyToClipboard('0411223333334')
-                                " /></span
+                                "/></span
                         ><br />
                         Banco General | Cuenta de ahorros
                     </div>
@@ -352,6 +355,7 @@ export default {
             selectedPickupMethod: '',
             selectedPaymentMethod: '',
             pickupMethods: [
+                {label: 'Producto digital', value: 'Producto digital'},
                 {label: 'Recoger en local', value: 'Recoger en local'},
                 {label: 'Entrega domicilio', value: 'Delivery'},
             ],
@@ -362,6 +366,8 @@ export default {
                 },
                 {label: 'ACH', value: 'ACH'},
                 {label: 'Efectivo', value: 'Efectivo'},
+                {label: 'Nequi', value: 'Nequi'},
+                {label: 'Paypal', value: 'Paypal'},
             ],
             menu: [],
             location: [],
@@ -418,12 +424,16 @@ export default {
         },
         generateWhatsappMessage() {
             let message =
-                'Buenas, me gustarīa realizar un pedido de:%0D%0A%0D%0A'
+                'Buenas, me gustaría realizar un pedido de:%0D%0A%0D%0A'
             this.cart.forEach(item => {
                 message += `(${item.amount}) - ${item.name}%0D%0A`
             })
             message += `%0D%0ANombre: ${this.fullName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
+            if (this.selectedPickupMethod == 'Delivery') {
+                message += `%0D%0ADirección: ${this.address}`
+                message += `%0D%0AUbicación: ${this.getLocationForMessage()}`
+            }
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             message += `%0D%0ASub Total: $${this.total.toFixed(2)}`
             message += `%0D%0AITBMS: $${(this.total * 0.07).toFixed(2)}`
@@ -439,7 +449,8 @@ export default {
                 !this.selectedPickupMethod ||
                 !this.selectedPaymentMethod ||
                 !this.email ||
-                !this.contactNo
+                !this.contactNo ||
+                (this.selectedPickupMethod == 'Delivery' && !this.address)
             ) {
                 let errors = []
                 let errMsg = 'Debes llenar los siguientes campos: '
@@ -448,6 +459,8 @@ export default {
                 if (!this.selectedPaymentMethod) errors.push('Metodo de pago')
                 if (!this.email) errors.push('Correo electrónico')
                 if (!this.contactNo) errors.push('Número de contacto')
+                if (this.selectedPickupMethod == 'Delivery' && !this.address)
+                    errors.push('Dirección de entrega')
                 for (let i = 0; i < errors.length; i++) {
                     errMsg += errors[i]
                     if (i < errors.length - 1) errMsg += ', '
@@ -525,19 +538,22 @@ export default {
             {
                 name: 'Giftcard PlayStation $25',
                 price: 25,
-                img: 'https://media.4rgos.it/s/Argos/1251731_R_SET?$Main768$&w=620&h=620',
+                img:
+                    'https://media.4rgos.it/s/Argos/1251731_R_SET?$Main768$&w=620&h=620',
                 description: 'Giftcard de PSN con valor de $25.',
             },
             {
                 name: 'Giftcard PlayStation $50',
                 price: 50,
-                img: 'https://www.ubuy.wf/productimg/?image=aHR0cHM6Ly9pNS53YWxtYXJ0aW1hZ2VzLmNvbS9hc3IvYjdlMzJhZDItOGM2ZS00YWNiLTljYjktNmExZGNlMjBiMmUzLjNkMDI4NTFjOTVjMjVhODIyMWYwNTFlMmVjNDBhYjg0LmpwZWc.jpg',
+                img:
+                    'https://www.ubuy.wf/productimg/?image=aHR0cHM6Ly9pNS53YWxtYXJ0aW1hZ2VzLmNvbS9hc3IvYjdlMzJhZDItOGM2ZS00YWNiLTljYjktNmExZGNlMjBiMmUzLjNkMDI4NTFjOTVjMjVhODIyMWYwNTFlMmVjNDBhYjg0LmpwZWc.jpg',
                 description: 'Giftcard de PSN con valor de $50.',
             },
             {
                 name: 'Dualshock 4 - God of War',
                 price: 75,
-                img: 'https://m.media-amazon.com/images/I/71J-Zj7hHVL._SL1000_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/71J-Zj7hHVL._SL1000_.jpg',
                 description: 'Mando PS4 Edición especial de God of War.',
             },
         ]
