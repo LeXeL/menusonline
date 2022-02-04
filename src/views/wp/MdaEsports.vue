@@ -813,7 +813,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/184248a223fa4d29b15fd7db46df2400_Medium.jpg',
                 description:
-                    'Giftcard de PSN con valor de $25. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -822,7 +822,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7ce14fd962a64399b5e2519abf14f11a_Medium.jpg',
                 description:
-                    'Giftcard de PSN con valor de $20. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $20. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -831,7 +831,7 @@ export default {
                 img:
                     'https://multimedia.bbycastatic.ca/multimedia/products/500x500/126/12677/12677654.jpg',
                 description:
-                    'Giftcard de PSN con valor de $25. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -840,7 +840,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7c7db5a9daaa4bdfa3d8cb46f59ad040_Medium.jpg',
                 description:
-                    'Giftcard de PSN con valor de $50. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -849,7 +849,7 @@ export default {
                 img:
                     'https://http2.mlstatic.com/D_NQ_NP_733875-MLA47429803387_092021-O.jpg',
                 description:
-                    'Giftcard de PSN con valor de $60. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $60. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -857,7 +857,7 @@ export default {
                 price: 77.99,
                 img: 'https://i.ibb.co/tmHJJJS/psn-75.png',
                 description:
-                    'Giftcard de PSN con valor de $75. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $75. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -866,7 +866,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/13d393cec46543d4bb8a0443b7fcf350_Medium.jpg',
                 description:
-                    'Giftcard de PSN con valor de $100. Válido solo para cuentas en America.',
+                    'Giftcard de PSN con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'psn',
             },
             {
@@ -875,7 +875,7 @@ export default {
                 img:
                     'https://m.media-amazon.com/images/I/71kcx+3mcmL._SL1500_.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $5. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -885,7 +885,7 @@ export default {
                 img:
                     'https://m.media-amazon.com/images/I/71g8qy0R8zL._SY445_.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $10. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -895,7 +895,7 @@ export default {
                 img:
                     'https://m.media-amazon.com/images/I/71YSvFcuK7L._SL1500_.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $20. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $20. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -905,7 +905,7 @@ export default {
                 img:
                     'https://m.media-amazon.com/images/I/71kYjm-EI8L._SL1500_.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $35. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $35. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -914,7 +914,7 @@ export default {
                 price: 46.99,
                 img: 'https://m.media-amazon.com/images/I/51XPfhiwKlL.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $45. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $45. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -924,7 +924,7 @@ export default {
                 img:
                     'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5784/5784110_sd.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $50. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -934,7 +934,7 @@ export default {
                 img:
                     'https://m.media-amazon.com/images/I/714oSJ60A9L._SY679_.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $70. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $70. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -944,7 +944,7 @@ export default {
                 img:
                     'https://m.media-amazon.com/images/I/51x+YpqXTIL._AC_SY780_.jpg',
                 description:
-                    'Giftcard de Nintendo con valor de $99. Válido solo para cuentas en America.',
+                    'Giftcard de Nintendo con valor de $99. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'nintendo',
             },
@@ -954,7 +954,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/3ca45092c6274acb91b6d108db61ce2e_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $5. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -964,7 +964,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/5f72dd18f2254cf2a54924656290d6eb_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $10. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -974,7 +974,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/43fc9a2a8e2a4bf8a71d94d724da72a5_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $15. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $15. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -984,7 +984,7 @@ export default {
             //     img:
             //         'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/1891/1891044_sa.jpg',
             //     description:
-            //         'Giftcard de Xbox con valor de $20. Válido solo para cuentas en America.',
+            //         'Giftcard de Xbox con valor de $20. Exclusivo para cuentas en los Estados Unidos.',
 
             //     category: 'xbox',
             // },
@@ -994,7 +994,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7fbd1d9e15bd40b8b474412870e0a5b3_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $30. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $30. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -1004,7 +1004,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/a2fd5c3369c2458886537d60df2b45de_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $40. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $40. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -1014,7 +1014,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/5893379e583644c699eabb160f4efd46_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $50. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -1024,7 +1024,7 @@ export default {
             //     img:
             //         'https://cdn-products.eneba.com/resized-products/kV91qZzS2cn4wZ1KPKwiYQBjtPzI0nnA6Syn7AHWSv8_350x200_2x-0.jpeg',
             //     description:
-            //         'Giftcard de Xbox con valor de $60. Válido solo para cuentas en America.',
+            //         'Giftcard de Xbox con valor de $60. Exclusivo para cuentas en los Estados Unidos.',
 
             //     category: 'xbox',
             // },
@@ -1034,7 +1034,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/628a5f48c3c345fb88c284a3d12f8905_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $70. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $70. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -1044,7 +1044,7 @@ export default {
                 img:
                     'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/1564636ad707434c835493fabc918e01_Medium.jpg',
                 description:
-                    'Giftcard de Xbox con valor de $100. Válido solo para cuentas en America.',
+                    'Giftcard de Xbox con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'xbox',
             },
@@ -1054,7 +1054,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/5-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $5. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'google',
             },
@@ -1064,7 +1064,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/10-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $10. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'google',
             },
@@ -1074,7 +1074,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/15-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $15. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $15. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'google',
             },
@@ -1084,7 +1084,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/25-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $25. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'google',
             },
@@ -1094,7 +1094,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/50-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $50. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'google',
             },
@@ -1104,7 +1104,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/100-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $100. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'google',
             },
@@ -1114,7 +1114,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/5-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $5. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'itunes',
             },
@@ -1124,7 +1124,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/10-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $10. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'itunes',
             },
@@ -1134,7 +1134,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/5-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $15. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $15. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'itunes',
             },
@@ -1144,7 +1144,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/25-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $25. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'itunes',
             },
@@ -1154,7 +1154,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/50-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $50. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'itunes',
             },
@@ -1164,7 +1164,7 @@ export default {
                 img:
                     'https://www.thecardcloset.com/static/img/gift-cards/100-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
-                    'Giftcard de Google Play con valor de $100. Válido solo para cuentas en America.',
+                    'Giftcard de Google Play con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
 
                 category: 'itunes',
             },
