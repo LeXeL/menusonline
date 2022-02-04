@@ -434,12 +434,22 @@
                     </div>
                     <div
                         class="text-subtitl2 poppins-bold text-center q-mb-md"
+                        v-if="selectedPickupMethod == 'Delivery'"
+                    >
+                        Delivery: $
+                        {{ deliveryAmount.toFixed(2) }}
+                    </div>
+                    <div
+                        class="text-subtitl2 poppins-bold text-center q-mb-md"
                         v-if="selectedPaymentMethod == 'Paypal'"
                     >
                         Paypal Fee: $
                         {{ calculatePaypalFee(total).toFixed(2) }}
                     </div>
-                    <div class="text-h5 poppins-bold text-center">
+                    <div
+                        class="text-h5 poppins-bold text-center"
+                        v-if="selectedPickupMethod != 'Delivery'"
+                    >
                         Total: $
                         {{
                             this.selectedPaymentMethod == 'Paypal'
@@ -449,6 +459,23 @@
                                       calculatePaypalFee(total)
                                   ).toFixed(2)
                                 : (total + calculateTax(total)).toFixed(2)
+                        }}
+                    </div>
+                    <div class="text-h5 poppins-bold text-center" v-else>
+                        Total: $
+                        {{
+                            this.selectedPaymentMethod == 'Paypal'
+                                ? (
+                                      total +
+                                      this.deliveryAmount +
+                                      calculateTax(total) +
+                                      calculatePaypalFee(total)
+                                  ).toFixed(2)
+                                : (
+                                      total +
+                                      deliveryAmount +
+                                      calculateTax(total)
+                                  ).toFixed(2)
                         }}
                     </div>
                 </q-card-section>
@@ -566,6 +593,7 @@ export default {
             center: {},
             address: '',
             selectedFilter: 'all',
+            deliveryAmount: 2.76,
         }
     },
     methods: {
@@ -637,19 +665,40 @@ export default {
             message += `%0D%0AITBMS: $${this.calculateTax(this.total).toFixed(
                 2
             )}`
+            if (this.selectedPickupMethod == 'Delivery')
+                message += `%0D%0ADelivery: ${this.deliveryAmount}`
             if (this.selectedPaymentMethod == 'Paypal')
                 message += `%0D%0APaypal Fee: $${this.calculatePaypalFee(
                     this.total
                 )}`
-            message += `%0D%0ATotal: $${
-                this.selectedPaymentMethod == 'Paypal'
-                    ? (
-                          this.total +
-                          this.calculateTax(this.total) +
-                          this.calculatePaypalFee(this.total)
-                      ).toFixed(2)
-                    : (this.total + this.calculateTax(this.total)).toFixed(2)
-            }`
+            if (this.selectedPickupMethod != 'Delivery') {
+                message += `%0D%0ATotal: $${
+                    this.selectedPaymentMethod == 'Paypal'
+                        ? (
+                              this.total +
+                              this.calculateTax(this.total) +
+                              this.calculatePaypalFee(this.total)
+                          ).toFixed(2)
+                        : (this.total + this.calculateTax(this.total)).toFixed(
+                              2
+                          )
+                }`
+            } else {
+                message += `%0D%0ATotal: $${
+                    this.selectedPaymentMethod == 'Paypal'
+                        ? (
+                              this.total +
+                              this.deliveryAmount +
+                              this.calculateTax(this.total) +
+                              this.calculatePaypalFee(this.total)
+                          ).toFixed(2)
+                        : (
+                              this.total +
+                              this.deliveryAmount +
+                              this.calculateTax(this.total)
+                          ).toFixed(2)
+                }`
+            }
             message = message.replace(/\+/g, '%2B')
             message = message.replace(/&/g, '%26')
             message = message.replace(/#/g, '%23')
