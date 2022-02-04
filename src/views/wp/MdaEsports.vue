@@ -593,7 +593,7 @@ export default {
             center: {},
             address: '',
             selectedFilter: 'all',
-            deliveryAmount: 2.76,
+            deliveryAmount: 5,
         }
     },
     methods: {
