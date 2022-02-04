@@ -294,10 +294,10 @@
                         Pago por {{ selectedPaymentMethod }}
                     </div>
                     <div
-                        class="text-subtitle2"
+                        class="text-subtitle2 q-mb-sm"
                         v-if="selectedPaymentMethod == 'Yappy'"
                     >
-                        Envia tu pago por Yappy al numero<br />
+                        Envía tu pago por Yappy al número<br />
                         <span class="text-h6 poppins-bold"
                             >6204-6903
                             <q-btn
@@ -312,12 +312,66 @@
                         /></span>
                     </div>
                     <div
+                        class="text-subtitle2 q-mb-md"
+                        v-if="selectedPaymentMethod == 'Yappy'"
+                    >
+                        Búscanos en el directorio como<br />
+                        <span class="text-h6 poppins-bold"
+                            >@mdaesportsleague
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="yellow-9"
+                                @click="copyToClipboard('mdaesportsleague')"
+                        /></span>
+                    </div>
+                    <div
+                        class="text-subtitle2 q-mb-md"
+                        v-if="selectedPaymentMethod == 'Nequi'"
+                    >
+                        Envía tu pago por Nequi al número<br />
+                        <span class="text-h6 poppins-bold"
+                            >6204-6903
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="yellow-9"
+                                @click="copyToClipboard('62046903')"
+                        /></span>
+                    </div>
+                    <div
+                        class="row justify-center"
+                        v-if="
+                            selectedPaymentMethod == 'Yappy' ||
+                                selectedPaymentMethod == 'Nequi'
+                        "
+                    >
+                        <q-btn
+                            label="Ver QR"
+                            rounded
+                            color="yellow-9"
+                            unelevated
+                            no-caps
+                            class="poppins-bold"
+                            icon="qr_code"
+                            @click="qrDialog = true"
+                        />
+                    </div>
+                    <div
                         class="text-subtitle2"
                         v-if="selectedPaymentMethod == 'ACH'"
                     >
                         Envia tu pago por ACH a la cuenta<br />
                         <span class="text-h6 poppins-bold"
-                            >04-11-22-333333-4
+                            >0449991860790
                             <q-btn
                                 icon="content_copy"
                                 class="q-ml-sm"
@@ -327,10 +381,47 @@
                                 size="sm"
                                 color="yellow-9"
                                 @click="
-                                    copyToClipboard('0411223333334')
+                                    copyToClipboard('0449991860790')
                                 "/></span
                         ><br />
-                        Banco General | Cuenta de ahorros
+                        Banco General | Cuenta de ahorros | Michael Davis
+                    </div>
+                    <div
+                        class="text-subtitle2"
+                        v-if="selectedPaymentMethod == 'Paypal'"
+                    >
+                        Envía tu pago por Paypal<br />
+                        <span class="text-h6 poppins-bold"
+                            >mikeadd29@gmail.com
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="yellow-9"
+                                @click="
+                                    copyToClipboard('mikeadd29@gmail.com')
+                                "/></span
+                        ><br />
+                        <span class="text-h6 poppins-bold"
+                            >www.paypal.me/mdavisd29
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="yellow-9"
+                                @click="
+                                    copyToClipboard(
+                                        'https://www.paypal.me/mdavisd29'
+                                    )
+                                "/></span
+                        ><br />
+                        Paypal | Michael Davis
                     </div>
                 </q-card-section>
                 <q-card-section>
@@ -374,6 +465,36 @@
         </q-dialog>
         <!-- /CART DIALOG -->
 
+        <!-- QR DIALOG -->
+        <q-dialog v-model="qrDialog">
+            <q-card flat>
+                <q-card-section class="q-pb-none">
+                    <img
+                        :src="require('@/assets/wp/mdaesports/qr-yappy.png')"
+                        width="100%"
+                        v-if="selectedPaymentMethod == 'Yappy'"
+                    />
+                    <img
+                        :src="require('@/assets/wp/mdaesports/qr-nequi.png')"
+                        width="100%"
+                        v-if="selectedPaymentMethod == 'Nequi'"
+                    />
+                </q-card-section>
+                <q-card-actions align="center" class="q-pt-none">
+                    <q-btn
+                        label="Cerrar"
+                        flat
+                        rounded
+                        color="red-7"
+                        no-caps
+                        class="poppins-bold full-width"
+                        @click="qrDialog = false"
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <!-- /QR DIALOG -->
+
         <!-- LOADING -->
         <q-dialog
             v-model="isLoading"
@@ -412,6 +533,7 @@ export default {
     data() {
         return {
             isLoading: true,
+            qrDialog: false,
             whatsappNo: '66241480',
             cart: [],
             total: 0,
