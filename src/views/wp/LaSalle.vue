@@ -38,21 +38,21 @@
                         <ul class="q-pl-md poppins-regular">
                             <li class="q-mb-sm">
                                 <div class="text-body2">
-                                    Se aceptan pedidos online del menu del día
+                                    Se aceptan pedidos online de
                                     <span class="text-bold text-lasalle-blue"
                                         >3:00pm</span
                                     >
-                                    (del día anterior) hasta las
+                                    hasta las
                                     <span class="text-bold text-lasalle-blue"
                                         >10:00am</span
                                     >
-                                    (del dia en curso).
+                                    del día siguiente.
                                 </div>
                             </li>
                             <li class="q-mb-sm">
                                 <div class="text-body2">
                                     Para que su pedido sea preparado debe ser
-                                    cancelado por el método de pago seleccionado
+                                    cancelado por Yappy
                                     <span class="text-bold text-lasalle-blue"
                                         >antes</span
                                     >
@@ -83,15 +83,11 @@
                             </li>
                             <li>
                                 <div class="text-body2">
-                                    Métodos de pago
+                                    Método de pago
                                     <span class="text-bold">Yappy</span>
                                     al
                                     <span class="text-bold text-lasalle-blue"
                                         >6065-7225</span
-                                    >
-                                    o <span class="text-bold">ACH</span> Cuenta
-                                    <span class="text-bold text-lasalle-blue"
-                                        >#04-32-01-065893-1</span
                                     >
                                 </div>
                             </li>
@@ -252,7 +248,7 @@
                         text-color="black"
                         :options="pickupMethods"
                     />
-                    <div class="text-caption poppins-bold q-mb-xs">
+                    <!-- <div class="text-caption poppins-bold q-mb-xs">
                         Metodo de pago: *
                     </div>
                     <q-btn-toggle
@@ -264,7 +260,7 @@
                         color="white"
                         text-color="black"
                         :options="paymentMethods"
-                    />
+                    /> -->
                 </q-card-section>
                 <q-card-section
                     class="text-center"
@@ -373,7 +369,7 @@ export default {
             studentName: '',
             comments: '',
             selectedPickupMethod: '',
-            selectedPaymentMethod: '',
+            selectedPaymentMethod: 'Yappy',
             pickupMethods: [
                 {label: 'Segundo recreo', value: 'Segundo recreo'},
                 {label: 'Salida', value: 'Salida'},
@@ -445,12 +441,13 @@ export default {
             // let message =
             //     'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
             let message = ''
+            message += `Orden No. ${this.generateOrderNo(4)}%0D%0A%0D%0A`
             this.cart.forEach(item => {
                 message += `(${item.amount}) - ${item.name}%0D%0A`
             })
             message += `%0D%0ANombre: ${this.studentName}`
             message += `%0D%0AEntrega: ${this.selectedPickupMethod}`
-            message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
+            // message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             message += `%0D%0ATotal: $${this.total.toFixed(2)}`
             if (this.comments)
                 message += `%0D%0A%0D%0AComentarios: ${this.comments}`
@@ -507,6 +504,18 @@ export default {
                     // fail
                 })
         },
+        generateOrderNo(length) {
+            // let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            let chars = '0123456789'
+            let code = ''
+            for (let i = 0; i < length; i++) {
+                let min = Math.ceil(0)
+                let max = Math.floor(chars.length)
+                let index = Math.floor(Math.random() * (max - min) + min)
+                code += chars[index]
+            }
+            return code
+        },
     },
     computed: {
         showSeamless() {
@@ -532,6 +541,7 @@ export default {
     mixins: [InventoryHandler],
 
     async mounted() {
+        this.generateOrderNo(4)
         this.menu = await this.getInventoryItems()
         let id = 0
         this.menu.forEach(item => {
