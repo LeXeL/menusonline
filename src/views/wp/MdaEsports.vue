@@ -930,7 +930,7 @@ export default {
             {
                 name: 'Giftcard PlayStation $75',
                 price: 77.99,
-                img: 'https://i.ibb.co/tmHJJJS/psn-75.png',
+                img: 'https://i.ibb.co/zRwKXpx/psn-75.png',
                 description:
                     'Giftcard de PSN con valor de $75. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
