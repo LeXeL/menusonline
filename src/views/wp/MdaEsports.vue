@@ -102,8 +102,12 @@
                         <div class="text-body2 text-grey text-bold q-mb-sm">
                             {{ item.description }}
                         </div>
-                        <div class="text-h6 poppins-bold">
+                        <div class="text-h6 poppins-bold" v-if="item.price">
                             $ {{ item.price.toFixed(2) }}
+                        </div>
+                        <!-- returnLowestOptionPrice -->
+                        <div class="text-h6 poppins-bold" v-else>
+                            Desde $ {{ returnLowestOptionPrice(item.options) }}
                         </div>
                     </q-card-section>
                     <q-separator />
@@ -174,7 +178,7 @@
                     <div
                         class="row items-center"
                         v-for="(item, i) in cart"
-                        :key="item.id"
+                        :key="i"
                     >
                         <q-btn
                             icon="close"
@@ -185,6 +189,9 @@
                         />
                         <div class="text-subtitle2 poppins-bold q-ml-sm">
                             ({{ item.amount }}) - {{ item.name }}
+                            <span v-if="item.selectedOption"
+                                >- {{ item.selectedOption }}</span
+                            >
                         </div>
                     </div>
                 </q-card-section>
@@ -563,6 +570,46 @@
             </q-card>
         </q-dialog>
         <!-- /LOADING -->
+
+        <!-- OPTIONS DIALOG -->
+        <q-dialog v-model="optionsDialog">
+            <q-card
+                v-if="selectedItem"
+                flat
+                style="width: 700px; max-width: 80vw;"
+            >
+                <q-card-section class="q-pb-none">
+                    <div class="text-h6 poppins-bold text-center">
+                        {{ selectedItem.name }}
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <q-btn
+                        :label="
+                            `${option.label} - $ ${option.price.toFixed(2)}`
+                        "
+                        unelevated
+                        color="blue-7"
+                        class="full-width poppins-bold q-mb-sm"
+                        v-for="option in selectedItem.options"
+                        :key="option.label"
+                        @click="addItemWithOptionsToCart(option)"
+                    />
+                    <q-btn
+                        label="Cancelar"
+                        unelevated
+                        color="red-7"
+                        class="full-width poppins-bold q-mb-sm"
+                        flat
+                        @click="
+                            optionsDialog = false
+                            selectedItem = null
+                        "
+                    />
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+        <!-- /OPTIONS DIALOG -->
     </q-page>
 </template>
 
@@ -613,19 +660,51 @@ export default {
             selectedCategoryFilter: '',
             selectedSubCategoryFilter: '',
             deliveryAmount: 5,
+            optionsDialog: false,
+            selectedItem: null,
         }
     },
     methods: {
         addToCart(item) {
-            if (this.cart.find(el => el.id == item.id)) {
-                this.cart.find(el => {
-                    if (el.id == item.id) item.amount++
-                })
+            if (!item.options) {
+                if (this.cart.find(el => el.id == item.id)) {
+                    this.cart.find(el => {
+                        if (el.id == item.id) item.amount++
+                    })
+                } else {
+                    item.amount = 1
+                    this.cart.push(item)
+                }
             } else {
-                item.amount = 1
-                this.cart.push(item)
+                this.selectedItem = item
+                this.optionsDialog = true
             }
             this.calculateTotal()
+        },
+        addItemWithOptionsToCart(selectedOption) {
+            let newItem = {
+                name: `${this.selectedItem.name} - ${selectedOption.label} ${
+                    this.selectedItem.name == 'Fifa Coins'
+                        ? this.addFifaCoinsPromo(selectedOption.label)
+                        : ''
+                }`,
+                amount: 1,
+                price: selectedOption.price,
+                skipTaxes: this.selectedItem.skipTaxes ? true : false,
+            }
+            this.cart.push(newItem)
+            this.optionsDialog = false
+            this.selectedItem = null
+            this.calculateTotal()
+        },
+        addFifaCoinsPromo(label) {
+            if (label == '500,000') return '+ 50k gratis'
+            if (label == '600,000') return '+ 50k gratis'
+            if (label == '700,000') return '+ 100k gratis'
+            if (label == '800,000') return '+ 100k gratis'
+            if (label == '900,000') return '+ 100k gratis'
+            if (label == '1,000,000') return '+ 150k gratis'
+            else return ''
         },
         removeFromCart(index) {
             this.cart.splice(index, 1)
@@ -638,7 +717,11 @@ export default {
                 this.total += item.amount * item.price
             })
         },
-        calculateTax(total) {
+        calculateTax() {
+            let total = 0
+            this.cart.forEach(item => {
+                if (!item.skipTaxes) total += item.amount * item.price
+            })
             return Math.round(total * 0.07 * 100) / 100
         },
         calculatePaypalFee(total) {
@@ -685,7 +768,7 @@ export default {
                 2
             )}`
             if (this.selectedPickupMethod == 'Delivery')
-                message += `%0D%0ADelivery: ${this.deliveryAmount}`
+                message += `%0D%0ADelivery: $${this.deliveryAmount.toFixed(2)}`
             if (this.selectedPaymentMethod == 'Paypal')
                 message += `%0D%0APaypal Fee: $${this.calculatePaypalFee(
                     this.total
@@ -803,6 +886,13 @@ export default {
                 }
             )
         },
+        returnLowestOptionPrice(options) {
+            let lowest = options[0].price
+            options.forEach(option => {
+                if (option.price < lowest) lowest = option.price
+            })
+            return lowest.toFixed(2)
+        },
     },
     computed: {
         showSeamless() {
@@ -877,6 +967,26 @@ export default {
         // this.menu = await this.getInventoryItems()
         this.geolocate()
         let m = [
+            {
+                name: 'Fifa Coins',
+                img: 'https://i.ibb.co/kmsjK3H/fifa-coins.jpg',
+                description: 'Puntos Fifa',
+                category: 'codigos_digitales',
+                subCategory: 'fifa',
+                skipTaxes: true,
+                options: [
+                    {label: '100,000', price: 9.99},
+                    {label: '200,000', price: 18.99},
+                    {label: '300,000', price: 27.99},
+                    {label: '400,000', price: 36.99},
+                    {label: '500,000', price: 45.99},
+                    {label: '600,000', price: 54.99},
+                    {label: '700,000', price: 63.99},
+                    {label: '800,000', price: 72.99},
+                    {label: '900,000', price: 81.99},
+                    {label: '1,000,000', price: 90.99},
+                ],
+            },
             {
                 name: 'Giftcard PlayStation $10',
                 price: 11.99,
