@@ -238,6 +238,34 @@
                         mask="####-####"
                         data-hj-allow
                     />
+                    <template v-if="containsFifaCoinsInCart">
+                        <div class="text-caption poppins-bold q-mb-xs">
+                            Plataforma: *
+                        </div>
+                        <q-select
+                            label="Selecciona plataforma"
+                            v-model="selectedPlatform"
+                            :options="['PlayStation', 'Xbox', 'PC']"
+                            dark
+                            filled
+                            class="q-mb-lg"
+                            color="yellow-9"
+                            data-hj-allow
+                        />
+                        <div class="text-caption poppins-bold q-mb-xs">
+                            Cantidad actual de puntos: *
+                        </div>
+                        <q-input
+                            filled
+                            dark
+                            class="q-mb-lg"
+                            color="yellow-9"
+                            data-hj-allow
+                            label="Ingresa tu cantidad de actual de puntos"
+                            type="number"
+                            v-model="currentPointsAmount"
+                        />
+                    </template>
                     <div class="text-caption poppins-bold q-mb-xs">
                         Entrega: *
                     </div>
@@ -637,6 +665,8 @@ export default {
             comments: '',
             selectedPickupMethod: '',
             selectedPaymentMethod: '',
+            currentPointsAmount: '',
+            selectedPlatform: '',
             pickupMethods: [
                 {label: 'Producto digital', value: 'Producto digital'},
                 {label: 'Recoger en local', value: 'Recoger en local'},
@@ -763,6 +793,10 @@ export default {
                 message += `%0D%0AUbicación: ${this.getLocationForMessage()}`
             }
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
+            if (this.containsFifaCoinsInCart) {
+                message += `%0D%0ACantidad actual de puntos: ${this.currentPointsAmount}`
+                message += `%0D%0APlataforma: ${this.selectedPlatform}`
+            }
             message += `%0D%0ASub Total: $${this.total.toFixed(2)}`
             message += `%0D%0AITBMS: $${this.calculateTax(this.total).toFixed(
                 2
@@ -772,7 +806,7 @@ export default {
             if (this.selectedPaymentMethod == 'Paypal')
                 message += `%0D%0APaypal Fee: $${this.calculatePaypalFee(
                     this.total
-                )}`
+                ).toFixed(2)}`
             if (this.selectedPickupMethod != 'Delivery') {
                 message += `%0D%0ATotal: $${
                     this.selectedPaymentMethod == 'Paypal'
@@ -813,7 +847,9 @@ export default {
                 !this.selectedPaymentMethod ||
                 !this.email ||
                 !this.contactNo ||
-                (this.selectedPickupMethod == 'Delivery' && !this.address)
+                (this.selectedPickupMethod == 'Delivery' && !this.address) ||
+                (this.containsFifaCoinsInCart && !this.selectedPlatform) ||
+                (this.containsFifaCoinsInCart && !this.currentPointsAmount)
             ) {
                 let errors = []
                 let errMsg = 'Debes llenar los siguientes campos: '
@@ -824,6 +860,10 @@ export default {
                 if (!this.contactNo) errors.push('Número de contacto')
                 if (this.selectedPickupMethod == 'Delivery' && !this.address)
                     errors.push('Dirección de entrega')
+                if (this.containsFifaCoinsInCart && !this.selectedPlatform)
+                    errors.push('Plataforma')
+                if (this.containsFifaCoinsInCart && !this.currentPointsAmount)
+                    errors.push('Cantidad actual de puntos')
                 for (let i = 0; i < errors.length; i++) {
                     errMsg += errors[i]
                     if (i < errors.length - 1) errMsg += ', '
@@ -955,6 +995,13 @@ export default {
                 })
                 return filteredProducts
             }
+        },
+        containsFifaCoinsInCart() {
+            let contains = false
+            this.cart.forEach(item => {
+                if (item.name.includes('Fifa Coins')) contains = true
+            })
+            return contains
         },
     },
     mixins: [InventoryHandler],
