@@ -49,7 +49,20 @@
         <!-- /IG -->
 
         <!-- HOW TO BUY BTN -->
-        <div class="row justify-center q-mb-lg">
+        <div class="row q-px-md q-mb-lg">
+            <q-btn-toggle
+                v-model="isInUsd"
+                toggle-color="yellow-9"
+                unelevated
+                push
+                class="poppins-bold"
+                size="sm"
+                :options="[
+                    {label: 'USD', value: true},
+                    {label: 'EUR', value: false},
+                ]"
+            />
+            <q-space />
             <q-btn
                 label="Como comprar"
                 push
@@ -116,11 +129,13 @@
                             {{ item.description }}
                         </div>
                         <div class="text-h6 poppins-bold" v-if="item.price">
-                            $ {{ item.price.toFixed(2) }}
+                            {{ isInUsd ? '$' : '€' }}
+                            {{ item.price.toFixed(2) }}
                         </div>
                         <!-- returnLowestOptionPrice -->
                         <div class="text-h6 poppins-bold" v-else>
-                            Desde $ {{ returnLowestOptionPrice(item.options) }}
+                            Desde {{ isInUsd ? '$' : '€' }}
+                            {{ returnLowestOptionPrice(item.options) }}
                         </div>
                     </q-card-section>
                     <q-separator />
@@ -149,7 +164,7 @@
                             <span class="text-subtitle2 poppins-bold"
                                 >Sub Total:</span
                             >
-                            $
+                            {{ isInUsd ? '$' : '€' }}
                             {{ total.toFixed(2) }}
                         </div>
                     </div>
@@ -492,31 +507,32 @@
                 </q-card-section>
                 <q-card-section>
                     <div class="text-subtitl2 poppins-bold text-center">
-                        Sub Total: $ {{ total.toFixed(2) }}
+                        Sub Total: {{ isInUsd ? '$' : '€' }}
+                        {{ total.toFixed(2) }}
                     </div>
                     <div class="text-subtitl2 poppins-bold text-center q-mb-md">
-                        ITBMS: $
+                        ITBMS: {{ isInUsd ? '$' : '€' }}
                         {{ calculateTax(total).toFixed(2) }}
                     </div>
                     <div
                         class="text-subtitl2 poppins-bold text-center q-mb-md"
                         v-if="selectedPickupMethod == 'Delivery'"
                     >
-                        Delivery: $
+                        Delivery: {{ isInUsd ? '$' : '€' }}
                         {{ deliveryAmount.toFixed(2) }}
                     </div>
                     <div
                         class="text-subtitl2 poppins-bold text-center q-mb-md"
                         v-if="selectedPaymentMethod == 'Paypal'"
                     >
-                        Paypal Fee: $
+                        Paypal Fee: {{ isInUsd ? '$' : '€' }}
                         {{ calculatePaypalFee(total).toFixed(2) }}
                     </div>
                     <div
                         class="text-h5 poppins-bold text-center"
                         v-if="selectedPickupMethod != 'Delivery'"
                     >
-                        Total: $
+                        Total: {{ isInUsd ? '$' : '€' }}
                         {{
                             this.selectedPaymentMethod == 'Paypal'
                                 ? (
@@ -528,7 +544,7 @@
                         }}
                     </div>
                     <div class="text-h5 poppins-bold text-center" v-else>
-                        Total: $
+                        Total: {{ isInUsd ? '$' : '€' }}
                         {{
                             this.selectedPaymentMethod == 'Paypal'
                                 ? (
@@ -627,7 +643,11 @@
                 <q-card-section>
                     <q-btn
                         :label="
-                            `${option.label} - $ ${option.price.toFixed(2)}`
+                            `${option.label} -  ${
+                                isInUsd
+                                    ? '$' + option.price.toFixed(2)
+                                    : '€' + option.euroPrice.toFixed(2)
+                            }`
                         "
                         unelevated
                         color="blue-7"
@@ -722,6 +742,7 @@ export default {
             optionsDialog: false,
             selectedItem: null,
             videoGuideDialog: false,
+            isInUsd: true,
         }
     },
     methods: {
@@ -749,7 +770,9 @@ export default {
                         : ''
                 }`,
                 amount: 1,
-                price: selectedOption.price,
+                price: this.isInUsd
+                    ? selectedOption.price
+                    : selectedOption.euroPrice,
                 skipTaxes: this.selectedItem.skipTaxes ? true : false,
             }
             this.cart.push(newItem)
@@ -827,18 +850,22 @@ export default {
                 message += `%0D%0ACantidad actual de puntos: ${this.currentPointsAmount}`
                 message += `%0D%0APlataforma: ${this.selectedPlatform}`
             }
-            message += `%0D%0ASub Total: $${this.total.toFixed(2)}`
-            message += `%0D%0AITBMS: $${this.calculateTax(this.total).toFixed(
-                2
-            )}`
+            message += `%0D%0ASub Total: ${
+                this.isInUsd ? '$' : '€'
+            }${this.total.toFixed(2)}`
+            message += `%0D%0AITBMS: ${
+                this.isInUsd ? '$' : '€'
+            }${this.calculateTax(this.total).toFixed(2)}`
             if (this.selectedPickupMethod == 'Delivery')
-                message += `%0D%0ADelivery: $${this.deliveryAmount.toFixed(2)}`
+                message += `%0D%0ADelivery: ${
+                    this.isInUsd ? '$' : '€'
+                }${this.deliveryAmount.toFixed(2)}`
             if (this.selectedPaymentMethod == 'Paypal')
-                message += `%0D%0APaypal Fee: $${this.calculatePaypalFee(
-                    this.total
-                ).toFixed(2)}`
+                message += `%0D%0APaypal Fee: ${
+                    this.isInUsd ? '$' : '€'
+                }${this.calculatePaypalFee(this.total).toFixed(2)}`
             if (this.selectedPickupMethod != 'Delivery') {
-                message += `%0D%0ATotal: $${
+                message += `%0D%0ATotal: ${this.isInUsd ? '$' : '€'}${
                     this.selectedPaymentMethod == 'Paypal'
                         ? (
                               this.total +
@@ -850,7 +877,7 @@ export default {
                           )
                 }`
             } else {
-                message += `%0D%0ATotal: $${
+                message += `%0D%0ATotal: ${this.isInUsd ? '$' : '€'}${
                     this.selectedPaymentMethod == 'Paypal'
                         ? (
                               this.total +
@@ -957,11 +984,19 @@ export default {
             )
         },
         returnLowestOptionPrice(options) {
-            let lowest = options[0].price
-            options.forEach(option => {
-                if (option.price < lowest) lowest = option.price
-            })
-            return lowest.toFixed(2)
+            if (this.isInUsd) {
+                let lowest = options[0].price
+                options.forEach(option => {
+                    if (option.price < lowest) lowest = option.price
+                })
+                return lowest.toFixed(2)
+            } else {
+                let lowest = options[0].euroPrice
+                options.forEach(option => {
+                    if (option.euroPrice < lowest) lowest = option.euroPrice
+                })
+                return lowest.toFixed(2)
+            }
         },
     },
     computed: {
@@ -1052,16 +1087,16 @@ export default {
                 subCategory: 'fifa',
                 skipTaxes: true,
                 options: [
-                    {label: '100,000', price: 9.99},
-                    {label: '200,000', price: 18.99},
-                    {label: '300,000', price: 27.99},
-                    {label: '400,000', price: 36.99},
-                    {label: '500,000', price: 45.99},
-                    {label: '600,000', price: 54.99},
-                    {label: '700,000', price: 63.99},
-                    {label: '800,000', price: 72.99},
-                    {label: '900,000', price: 81.99},
-                    {label: '1,000,000', price: 90.99},
+                    {label: '100,000', price: 9.99, euroPrice: 7.77},
+                    {label: '200,000', price: 18.99, euroPrice: 15.54},
+                    {label: '300,000', price: 27.99, euroPrice: 23.31},
+                    {label: '400,000', price: 36.99, euroPrice: 31.08},
+                    {label: '500,000', price: 45.99, euroPrice: 38.85},
+                    {label: '600,000', price: 54.99, euroPrice: 46.62},
+                    {label: '700,000', price: 63.99, euroPrice: 54.39},
+                    {label: '800,000', price: 72.99, euroPrice: 62.12},
+                    {label: '900,000', price: 81.99, euroPrice: 69.64},
+                    {label: '1,000,000', price: 90.99, euroPrice: 77.71},
                 ],
             },
             {
