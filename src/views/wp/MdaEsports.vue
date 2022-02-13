@@ -48,6 +48,19 @@
         </div>
         <!-- /IG -->
 
+        <!-- HOW TO BUY BTN -->
+        <div class="row justify-center q-mb-lg">
+            <q-btn
+                label="Como comprar"
+                push
+                color="yellow-9"
+                class="poppins-bold"
+                size="sm"
+                @click="videoGuideDialog = true"
+            />
+        </div>
+        <!-- /HOW TO BUY BTN -->
+
         <!-- CATEGORY FILTER SELECT -->
         <div class="q-px-md q-mb-md">
             <q-select
@@ -638,6 +651,22 @@
             </q-card>
         </q-dialog>
         <!-- /OPTIONS DIALOG -->
+
+        <!-- VIDEO GUIDE DIALOG -->
+        <q-dialog v-model="videoGuideDialog">
+            <q-card class="q-ma-none">
+                <q-card-section>
+                    <video width="100%" controls>
+                        <source
+                            src="@/assets/wp/mdaesports/how_to_buy.mp4"
+                            type="video/mp4"
+                        />
+                        Your browser does not support HTML video.
+                    </video>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+        <!-- /VIDEO GUIDE DIALOG -->
     </q-page>
 </template>
 
@@ -692,6 +721,7 @@ export default {
             deliveryAmount: 5,
             optionsDialog: false,
             selectedItem: null,
+            videoGuideDialog: false,
         }
     },
     methods: {
