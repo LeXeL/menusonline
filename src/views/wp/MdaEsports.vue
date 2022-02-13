@@ -64,7 +64,8 @@
             />
             <q-space />
             <q-btn
-                label="Como comprar"
+                label="Como comprar FIFA COINS"
+                no-caps
                 push
                 color="yellow-9"
                 class="poppins-bold"
@@ -208,18 +209,22 @@
                         v-for="(item, i) in cart"
                         :key="i"
                     >
-                        <q-btn
-                            icon="close"
-                            round
-                            color="red-7"
-                            flat
-                            @click="removeFromCart(i)"
-                        />
-                        <div class="text-subtitle2 poppins-bold q-ml-sm">
-                            ({{ item.amount }}) - {{ item.name }}
-                            <span v-if="item.selectedOption"
-                                >- {{ item.selectedOption }}</span
-                            >
+                        <div class="col-2">
+                            <q-btn
+                                icon="close"
+                                round
+                                color="red-7"
+                                flat
+                                @click="removeFromCart(i)"
+                            />
+                        </div>
+                        <div class="col-10">
+                            <div class="text-subtitle2 poppins-bold q-ml-sm">
+                                ({{ item.amount }}) - {{ item.name }}
+                                <span v-if="item.selectedOption"
+                                    >- {{ item.selectedOption }}</span
+                                >
+                            </div>
                         </div>
                     </div>
                 </q-card-section>
@@ -281,7 +286,7 @@
                             data-hj-allow
                         />
                         <div class="text-caption poppins-bold q-mb-xs">
-                            Cantidad actual de puntos: *
+                            Cantidad disponibles en tu club: *
                         </div>
                         <q-input
                             filled
@@ -794,7 +799,7 @@ export default {
         addItemWithOptionsToCart(selectedOption) {
             let newItem = {
                 name: `${this.selectedItem.name} - ${selectedOption.label} ${
-                    this.selectedItem.name == 'Fifa Coins'
+                    this.selectedItem.name == 'FIFA FUT COINS 22'
                         ? this.addFifaCoinsPromo(selectedOption.label)
                         : ''
                 }`,
@@ -1093,7 +1098,7 @@ export default {
         containsFifaCoinsInCart() {
             let contains = false
             this.cart.forEach(item => {
-                if (item.name.includes('Fifa Coins')) contains = true
+                if (item.name.includes('FIFA FUT COINS 22')) contains = true
             })
             return contains
         },
@@ -1109,9 +1114,10 @@ export default {
         this.geolocate()
         let m = [
             {
-                name: 'Fifa Coins',
-                img: 'https://i.ibb.co/kmsjK3H/fifa-coins.jpg',
-                description: 'Puntos Fifa',
+                name: 'FIFA FUT COINS 22',
+                img: 'https://i.ibb.co/6tFVzxw/fifa-coins.jpg',
+                description:
+                    'Adquiere monedas para crear el equipo de tus sueños de FIFA 22 ULTIMATE TEAM sin ningún tipo de riesgo de baneo, para cualquier plataforma (XBOX, PLAYSTATION y PC)',
                 category: 'recargas',
                 subCategory: 'fifa',
                 skipTaxes: true,
@@ -1127,6 +1133,16 @@ export default {
                     {label: '900,000', price: 81.99, euroPrice: 69.64},
                     {label: '1,000,000', price: 90.99, euroPrice: 77.71},
                 ],
+            },
+            {
+                name: 'PASS ROYALE',
+                price: 6.99,
+                img: 'https://i.ibb.co/Cwkz2XZ/pass-royale.jpg',
+                description:
+                    'Pase de temporada (PASS ROYALE) para Clash Royale.',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+                skipTaxes: true,
             },
             {
                 name: 'Giftcard PlayStation $10',
