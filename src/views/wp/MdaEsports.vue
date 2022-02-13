@@ -971,7 +971,7 @@ export default {
                 name: 'Fifa Coins',
                 img: 'https://i.ibb.co/kmsjK3H/fifa-coins.jpg',
                 description: 'Puntos Fifa',
-                category: 'codigos_digitales',
+                category: 'recargas',
                 subCategory: 'fifa',
                 skipTaxes: true,
                 options: [
