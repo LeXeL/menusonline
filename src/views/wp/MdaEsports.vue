@@ -286,7 +286,7 @@
                             data-hj-allow
                         />
                         <div class="text-caption poppins-bold q-mb-xs">
-                            Cantidad disponibles en tu club: *
+                            Cantidad de monedas disponibles en tu club: *
                         </div>
                         <q-input
                             filled
@@ -294,9 +294,9 @@
                             class="q-mb-lg"
                             color="yellow-9"
                             data-hj-allow
-                            label="Ingresa tu cantidad de actual de puntos"
+                            label="Ingresa la cantidad de monedas actuales en tu club"
                             type="number"
-                            v-model="currentPointsAmount"
+                            v-model.number="currentPointsAmount"
                         />
                     </template>
                     <div class="text-caption poppins-bold q-mb-xs">
@@ -881,7 +881,7 @@ export default {
             }
             message += `%0D%0AMetodo de pago: ${this.selectedPaymentMethod}`
             if (this.containsFifaCoinsInCart) {
-                message += `%0D%0ACantidad actual de puntos: ${this.currentPointsAmount}`
+                message += `%0D%0ACantidad de monedas disponibles: ${this.currentPointsAmount}`
                 message += `%0D%0APlataforma: ${this.selectedPlatform}`
             }
             message += `%0D%0ASub Total: ${
