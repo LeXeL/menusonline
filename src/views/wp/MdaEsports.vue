@@ -262,13 +262,11 @@
                         Número de contacto: *
                     </div>
                     <q-input
-                        placeholder="6123-4567"
                         filled
                         dark
                         class="q-mb-lg"
                         v-model="contactNo"
                         color="yellow-9"
-                        mask="####-####"
                         data-hj-allow
                     />
                     <template v-if="containsFifaCoinsInCart">
