@@ -296,6 +296,18 @@
                             type="number"
                             v-model.number="currentPointsAmount"
                         />
+                        <div class="text-caption poppins-bold q-mb-xs">
+                            Código de descuento:
+                        </div>
+                        <q-input
+                            filled
+                            dark
+                            class="q-mb-lg"
+                            color="yellow-9"
+                            data-hj-allow
+                            label="Ingresa tu código de descuento"
+                            v-model="discountInput"
+                        />
                     </template>
                     <div class="text-caption poppins-bold q-mb-xs">
                         Entrega: *
@@ -775,6 +787,8 @@ export default {
             videoGuideDialog: false,
             isInUsd: true,
             currencySelectDialog: true,
+            discountCodes: ['kemstarmda'],
+            discountInput: '',
         }
     },
     methods: {
@@ -831,6 +845,12 @@ export default {
             this.cart.forEach(item => {
                 this.total += item.amount * item.price
             })
+            this.total = this.total - this.calculateDiscount()
+        },
+        calculateDiscount() {
+            if (this.discountCodes.includes(this.discountInput.toLowerCase()))
+                return this.total * 0.1
+            else return 0
         },
         calculateTax() {
             let total = 0
@@ -881,6 +901,7 @@ export default {
             if (this.containsFifaCoinsInCart) {
                 message += `%0D%0ACantidad de monedas disponibles: ${this.currentPointsAmount}`
                 message += `%0D%0APlataforma: ${this.selectedPlatform}`
+                message += `%0D%0ACódigo descuento: ${this.discountInput}`
             }
             message += `%0D%0ASub Total: ${
                 this.isInUsd ? '$' : '€'
@@ -1105,6 +1126,9 @@ export default {
     watch: {
         selectedCategoryFilter: function() {
             this.selectedSubCategoryFilter = ''
+        },
+        discountInput: function() {
+            this.calculateTotal()
         },
     },
     async mounted() {
