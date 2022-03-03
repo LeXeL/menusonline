@@ -787,7 +787,7 @@ export default {
             videoGuideDialog: false,
             isInUsd: true,
             currencySelectDialog: true,
-            discountCodes: ['kemstarmda'],
+            discountCodes: ['kemstarmda', 'jcmda'],
             discountInput: '',
         }
     },
