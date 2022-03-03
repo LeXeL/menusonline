@@ -827,12 +827,12 @@ export default {
             this.calculateTotal()
         },
         addFifaCoinsPromo(label) {
-            if (label == '500,000') return '+ 50k gratis'
-            if (label == '600,000') return '+ 50k gratis'
+            if (label == '500,000') return '+ 100k gratis'
+            if (label == '600,000') return '+ 100k gratis'
             if (label == '700,000') return '+ 100k gratis'
             if (label == '800,000') return '+ 100k gratis'
             if (label == '900,000') return '+ 100k gratis'
-            if (label == '1,000,000') return '+ 150k gratis'
+            if (label == '1,000,000') return '+ 200k gratis'
             else return ''
         },
         removeFromCart(index) {
