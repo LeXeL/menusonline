@@ -1566,7 +1566,7 @@ export default {
             {
                 name: 'PlayStation 5 - Digital',
                 price: 650,
-                img: 'https://i.ibb.co/0X1TGC9/ps5-digital.jpg',
+                img: 'https://i.ibb.co/KGwgjzY/ps5-digital.jpg',
                 description: 'PlayStation 5 Versión digital.',
                 category: 'consolas',
                 subCategory: 'playstation',
@@ -1574,7 +1574,7 @@ export default {
             {
                 name: 'PlayStation 5 - Disco',
                 price: 750,
-                img: 'https://i.ibb.co/6WmJxKS/ps5-disk.jpg',
+                img: 'https://i.ibb.co/pPn2hK3/ps5-disk.jpg',
                 description: 'PlayStation 5 Versión disco.',
                 category: 'consolas',
                 subCategory: 'playstation',
@@ -1582,7 +1582,7 @@ export default {
             {
                 name: 'Xbox Series S',
                 price: 650,
-                img: 'https://i.ibb.co/DQRXDK8/xbox-series-s.jpg',
+                img: 'https://i.ibb.co/TMMPFwm/xbox-s.jpg',
                 description: 'Xbox Series S.',
                 category: 'consolas',
                 subCategory: 'xbox',
@@ -1590,7 +1590,7 @@ export default {
             {
                 name: 'Xbox Series X',
                 price: 750,
-                img: 'https://i.ibb.co/GVTLVwT/xbox-series-x.jpg',
+                img: 'https://i.ibb.co/r0PxpXj/xbox-x.jpg',
                 description: 'Xbox Series X.',
                 category: 'consolas',
                 subCategory: 'xbox',
