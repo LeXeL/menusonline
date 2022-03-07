@@ -261,6 +261,7 @@
                             data-aos="zoom-in-up"
                             data-aos-delay="100"
                             v-model="form.name"
+                            data-hj-allow
                         />
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
@@ -270,6 +271,7 @@
                             data-aos="zoom-in-up"
                             data-aos-delay="100"
                             v-model="form.restaurantName"
+                            data-hj-allow
                         />
                     </div>
                 </div>
@@ -282,6 +284,7 @@
                             data-aos="zoom-in-up"
                             data-aos-delay="200"
                             v-model="form.email"
+                            data-hj-allow
                         />
                     </div>
                     <div class="col-lg-6 col-sm-6 col-xs-12">
@@ -291,6 +294,7 @@
                             data-aos="zoom-in-up"
                             data-aos-delay="200"
                             v-model="form.phone"
+                            data-hj-allow
                         />
                     </div>
                 </div>

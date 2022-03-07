@@ -220,6 +220,7 @@
                         class="q-mb-lg"
                         v-model="studentName"
                         color="lasalle-yellow"
+                        data-hj-allow
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Comentarios especiales de tu pedido:
@@ -234,6 +235,7 @@
                         class="q-mb-lg"
                         v-model="comments"
                         color="lasalle-yellow"
+                        data-hj-allow
                     />
                     <div class="text-caption poppins-bold q-mb-xs">
                         Entrega: *
