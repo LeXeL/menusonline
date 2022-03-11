@@ -81,7 +81,7 @@
                                     >.
                                 </div>
                             </li>
-                            <li>
+                            <li class="q-mb-sm">
                                 <div class="text-body2">
                                     Método de pago
                                     <span class="text-bold">Yappy</span>
@@ -89,6 +89,11 @@
                                     <span class="text-bold text-lasalle-blue"
                                         >6065-7225</span
                                     >
+                                </div>
+                            </li>
+                            <li>
+                                <div class="text-body2">
+                                    Temporalmente, algunos productos podrán no contar con imagen de referencia.
                                 </div>
                             </li>
                         </ul>
@@ -100,19 +105,23 @@
 
         <!-- DAY -->
         <div class="text-h6 poppins-bold text-center q-mt-md q-mb-md">
-            Menu del día:
-            <span class="text-lasalle-blue">{{ returnDayName }}</span>
+            <!-- Menú del día:
+            <span class="text-lasalle-blue">{{ returnDayName }}</span> -->
+            Menú semanal
         </div>
         <!-- /DAY -->
 
         <!-- MENU -->
         <div class="q-pa-md">
             <div v-for="(item, i) in menu" :key="i">
-                <q-card class="q-mb-lg" v-if="showToday(item.day)">
+                <q-card class="q-mb-lg" v-if="hideIfInThePast(item.day)">
                     <q-card-section class="q-pa-none">
                         <img :src="item.img" width="100%" />
                     </q-card-section>
                     <q-card-section>
+                        <div class="text-subtitle2 text-bold text-lasalle-blue">
+                            {{ returnDayNameByNumber(item.day) }}
+                        </div>
                         <div class="text-h6 text-bold">
                             {{ item.name }}
                         </div>
@@ -126,10 +135,11 @@
                     <q-separator />
                     <q-card-actions align="right">
                         <q-btn
-                            label="Agregar"
+                            :label="!showToday(item.day) ? 'No disponible' : 'Agregar'"
                             flat
                             class="text-bold"
                             @click="addToCart(item)"
+                            :disable="!showToday(item.day)"
                         />
                     </q-card-actions>
                 </q-card>
@@ -439,6 +449,18 @@ export default {
             if (itemDay < todayDay) return false
             if (itemDay == todayDay + 1 && todayHour >= 15) return true
         },
+        hideIfInThePast(itemDay) {
+            let today = new Date()
+            let todayDay = today.getDay()
+            let todayHour = today.getHours()
+            // todayDay = 2
+            // todayHour = 16
+            if (todayDay == 6 || todayDay == 0) return true
+            if (todayDay == 5 && todayHour >= 15) return true
+            if (itemDay == todayDay && todayHour >= 15) return false
+            if (itemDay >= todayDay) return true
+            else return false
+        },
         generateWhatsappMessage() {
             // let message =
             //     'Buenas me gustaria realizar un pedido de:%0D%0A%0D%0A'
@@ -518,6 +540,13 @@ export default {
             }
             return code
         },
+        returnDayNameByNumber(day) {
+            if (day == 1) return 'Lunes'
+            if (day == 2) return 'Martes'
+            if (day == 3) return 'Miercoles'
+            if (day == 4) return 'Jueves'
+            if (day == 5) return 'Viernes'
+        }
     },
     computed: {
         showSeamless() {
