@@ -132,14 +132,13 @@
                             $ {{ item.price.toFixed(2) }}
                         </div>
                     </q-card-section>
-                    <q-separator />
-                    <q-card-actions align="right">
+                    <q-separator v-if="showToday(item.day)"/>
+                    <q-card-actions align="right" v-if="showToday(item.day)">
                         <q-btn
-                            :label="!showToday(item.day) ? 'No disponible' : 'Agregar'"
+                            label="Agregar"
                             flat
                             class="text-bold"
                             @click="addToCart(item)"
-                            :disable="!showToday(item.day)"
                         />
                     </q-card-actions>
                 </q-card>
