@@ -711,21 +711,21 @@
         <q-dialog v-model="currencySelectDialog" persistent>
             <q-card flat>
                 <q-card-section class="q-pb-none">
-                    <div class="text-h6 poppins-bold text-center text-blue-7">
+                    <div class="text-h6 poppins-bold text-center text-black">
                         Selecciona tu moneda
                     </div>
                 </q-card-section>
                 <q-card-section>
                     <q-btn
                         label="$ - Dólares Americanos (USD)"
-                        color="yellow-9"
+                        color="black"
                         class="full-width poppins-bold q-mb-md"
                         v-close-popup
                         @click="isInUsd = true"
                     />
                     <q-btn
                         label="€ - Euros (EUR)"
-                        color="yellow-9"
+                        color="black"
                         class="full-width poppins-bold"
                         v-close-popup
                         @click="isInUsd = false"
