@@ -233,3 +233,8 @@ footer a:hover {
 /* ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }  */
+
+.mda-bg {
+    background-image: url('../assets/wp/mdaesports/bg.jpeg');
+    background-size: contain;
+}

@@ -1,8 +1,8 @@
 <template>
-    <q-page class="bg-grey-2">
+    <q-page class="mda-bg">
         <!-- HEADER -->
         <q-img
-            :src="require('@/assets/wp/mdaesports/logo.png')"
+            :src="require('@/assets/wp/mdaesports/banner.png')"
             class="shadow-7"
         />
         <!-- /HEADER -->
@@ -14,28 +14,28 @@
                 target="_blank"
                 style="text-decoration: none;"
             >
-                <q-btn color="blue-7" icon="fab fa-whatsapp" flat round />
+                <q-btn color="black" icon="fab fa-whatsapp" flat round />
             </a>
             <a
                 href="https://www.instagram.com/mdaesportsleague/"
                 target="_blank"
                 style="text-decoration: none;"
             >
-                <q-btn color="blue-7" icon="fab fa-instagram" flat round />
+                <q-btn color="black" icon="fab fa-instagram" flat round />
             </a>
             <a
                 href="https://discord.com/invite/wMzycF8fbv"
                 target="_blank"
                 style="text-decoration: none;"
             >
-                <q-btn color="blue-7" icon="fab fa-discord" flat round />
+                <q-btn color="black" icon="fab fa-discord" flat round />
             </a>
             <a
                 href="https://www.twitch.tv/mdaesportsleague"
                 target="_blank"
                 style="text-decoration: none;"
             >
-                <q-btn color="blue-7" icon="fab fa-twitch" flat round />
+                <q-btn color="black" icon="fab fa-twitch" flat round />
             </a>
 
             <a
@@ -43,7 +43,7 @@
                 target="_blank"
                 style="text-decoration: none;"
             >
-                <q-btn color="blue-7" icon="fab fa-youtube" flat round />
+                <q-btn color="black" icon="fab fa-youtube" flat round />
             </a>
         </div>
         <!-- /IG -->
@@ -52,8 +52,10 @@
         <div class="row q-px-md q-mb-lg">
             <q-btn-toggle
                 v-model="isInUsd"
-                toggle-color="yellow-9"
+                toggle-color="black"
                 unelevated
+                color="white"
+                text-color="black"
                 push
                 class="poppins-bold"
                 size="sm"
@@ -67,7 +69,7 @@
                 label="Como comprar FIFA COINS"
                 no-caps
                 push
-                color="yellow-9"
+                color="black"
                 class="poppins-bold"
                 size="sm"
                 @click="videoGuideDialog = true"
@@ -82,6 +84,7 @@
                 color="yellow-9"
                 filled
                 emit-value
+                bg-color="white"
                 map-options
                 :options="
                     [{label: 'VER TODO', value: ''}].concat(
@@ -97,6 +100,7 @@
         <div class="q-px-md">
             <q-select
                 label="Filtrar por sub-categoria"
+                bg-color="white"
                 color="yellow-9"
                 filled
                 emit-value
@@ -746,7 +750,7 @@ export default {
         return {
             isLoading: true,
             qrDialog: false,
-            whatsappNo: '66241480',
+            whatsappNo: '66752446',
             cart: [],
             total: 0,
             seamless: true,
@@ -827,12 +831,14 @@ export default {
             this.calculateTotal()
         },
         addFifaCoinsPromo(label) {
-            if (label == '500,000') return '+ 100k gratis'
-            if (label == '600,000') return '+ 100k gratis'
-            if (label == '700,000') return '+ 100k gratis'
-            if (label == '800,000') return '+ 100k gratis'
-            if (label == '900,000') return '+ 100k gratis'
-            if (label == '1,000,000') return '+ 200k gratis'
+            if (label == '300,000') return '+ 100k gratis'
+            if (label == '400,000') return '+ 100k gratis'
+            if (label == '500,000') return '+ 200k gratis'
+            if (label == '600,000') return '+ 200k gratis'
+            if (label == '700,000') return '+ 200k gratis'
+            if (label == '800,000') return '+ 200k gratis'
+            if (label == '900,000') return '+ 200k gratis'
+            if (label == '1,000,000') return '+ 300k gratis'
             else return ''
         },
         removeFromCart(index) {
