@@ -2,7 +2,7 @@
     <q-page class="mda-bg">
         <!-- HEADER -->
         <q-img
-            :src="require('@/assets/wp/mdaesports/banner.png')"
+            :src="require('@/assets/wp/mdaesports/banner.jpeg')"
             class="shadow-7"
         />
         <!-- /HEADER -->
