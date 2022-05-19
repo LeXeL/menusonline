@@ -161,7 +161,7 @@
         <q-dialog v-model="showSeamless" seamless position="bottom">
             <q-card
                 style="width: 350px; border-radius: 0"
-                class="bg-yellow-9 text-white"
+                class="bg-black text-white"
             >
                 <q-card-section class="row items-center no-wrap">
                     <div>
