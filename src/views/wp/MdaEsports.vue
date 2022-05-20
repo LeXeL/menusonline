@@ -734,6 +734,51 @@
             </q-card>
         </q-dialog>
         <!-- /CURRENCY SELECT DIALOG -->
+
+        <!-- Whatsapp FAB -->
+        <q-page-sticky
+            position="bottom-left"
+            :offset="[18, cart.length > 0 ? 150 : 85]"
+        >
+            <a
+                :href="`https://wa.me/507${whatsappNo}`"
+                style="text-decoration: none;"
+                target="_blank"
+            >
+                <q-btn fab icon="fab fa-whatsapp" color="black" />
+            </a>
+        </q-page-sticky>
+        <!-- /Whatsapp FAB -->
+
+        <!-- SOCIAL FAB -->
+        <q-page-sticky
+            position="bottom-left"
+            :offset="[18, cart.length > 0 ? 80 : 18]"
+        >
+            <q-fab
+                v-model="socialFab"
+                vertical-actions-align="left"
+                color="black"
+                icon="share"
+                direction="right"
+            >
+                <a
+                    href="https://www.instagram.com/mdaesportsleague/"
+                    style="text-decoration: none"
+                    target="_blank"
+                >
+                    <q-fab-action color="black" icon="fab fa-instagram" />
+                </a>
+                <a
+                    href="https://vm.tiktok.com/ZMLTT86tp/"
+                    style="text-decoration: none"
+                    target="_blank"
+                >
+                    <q-fab-action color="black" icon="fab fa-tiktok" />
+                </a>
+            </q-fab>
+        </q-page-sticky>
+        <!-- /SOCIAL FAB -->
     </q-page>
 </template>
 
@@ -793,6 +838,7 @@ export default {
             currencySelectDialog: true,
             discountCodes: ['kemstarmda', 'jcmda'],
             discountInput: '',
+            socialFab: false,
         }
     },
     methods: {
