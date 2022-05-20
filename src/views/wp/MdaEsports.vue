@@ -81,7 +81,7 @@
         <div class="q-px-md q-mb-md">
             <q-select
                 label="Filtrar por categoria"
-                color="yellow-9"
+                color="black"
                 filled
                 emit-value
                 bg-color="white"
@@ -101,7 +101,7 @@
             <q-select
                 label="Filtrar por sub-categoria"
                 bg-color="white"
-                color="yellow-9"
+                color="black"
                 filled
                 emit-value
                 map-options
@@ -669,7 +669,7 @@
                             }`
                         "
                         unelevated
-                        color="blue-7"
+                        color="black"
                         class="full-width poppins-bold q-mb-sm"
                         v-for="option in selectedItem.options"
                         :key="option.label"
