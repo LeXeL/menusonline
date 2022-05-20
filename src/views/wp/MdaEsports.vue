@@ -10,7 +10,9 @@
         <!-- IG -->
         <div class="row q-py-md justify-center">
             <a
-                href="https://api.whatsapp.com/send/?phone=50766241480&text&app_absent=0"
+                :href="
+                    `https://api.whatsapp.com/send/?phone=507${whatsappNo}&text&app_absent=0`
+                "
                 target="_blank"
                 style="text-decoration: none;"
             >
@@ -44,6 +46,14 @@
                 style="text-decoration: none;"
             >
                 <q-btn color="black" icon="fab fa-youtube" flat round />
+            </a>
+
+            <a
+                href="https://vm.tiktok.com/ZMLTT86tp/"
+                target="_blank"
+                style="text-decoration: none;"
+            >
+                <q-btn color="black" icon="fab fa-tiktok" flat round />
             </a>
         </div>
         <!-- /IG -->
