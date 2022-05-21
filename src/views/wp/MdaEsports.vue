@@ -74,6 +74,7 @@
                     {label: 'EUR', value: false},
                 ]"
             />
+
             <q-space />
             <q-btn
                 label="Como comprar FIFA COINS"
@@ -388,13 +389,73 @@
                     <q-btn-toggle
                         v-model="selectedPaymentMethod"
                         spread
+                        toggle-color="yellow-9"
+                        color="white"
+                        no-caps
+                        text-color="black"
+                        :options="paymentMethods"
+                    >
+                        <template v-slot:yappy>
+                            <img
+                                src="https://i.ibb.co/37Yxdm1/yappy.png"
+                                style="width: 100%;"
+                            />
+                        </template>
+
+                        <template v-slot:nequi>
+                            <img
+                                src="https://i.ibb.co/93rBRWP/nequi.png"
+                                style="width: 100%;"
+                            />
+                        </template>
+
+                        <template v-slot:paypal>
+                            <img
+                                src="https://i.ibb.co/Q69pnnJ/paypal.png"
+                                style="width: 100%;"
+                            />
+                        </template>
+                        <template v-slot:cash>
+                            <q-icon name="payments" size="1.5em" />
+                            <div
+                                class="text-caption text-bold"
+                                style="font-size: 10px"
+                            >
+                                Efectivo
+                            </div>
+                        </template>
+                        <template v-slot:ach>
+                            <q-icon name="currency_exchange" size="1.5em" />
+                            <div
+                                class="text-caption text-bold"
+                                style="font-size: 10px"
+                            >
+                                ACH
+                            </div>
+                        </template>
+                        <template v-slot:zelle>
+                            <img
+                                src="https://i.ibb.co/6Pctf67/zelle.png"
+                                style="width: 100%;"
+                            />
+                        </template>
+                        <template v-slot:binance>
+                            <img
+                                src="https://i.ibb.co/Q62jH31/binance.png"
+                                style="width: 100%;"
+                            />
+                        </template>
+                    </q-btn-toggle>
+                    <!-- <q-btn-toggle
+                        v-model="selectedPaymentMethod"
+                        spread
                         all-caps
                         class="poppins-bold full-width"
                         toggle-color="yellow-9"
                         color="white"
                         text-color="black"
                         :options="paymentMethods"
-                    />
+                    /> -->
                 </q-card-section>
                 <q-card-section
                     class="text-center"
@@ -532,6 +593,42 @@
                                 "/></span
                         ><br />
                         Paypal | Michael Davis
+                    </div>
+                    <div
+                        class="text-subtitle2"
+                        v-if="selectedPaymentMethod == 'Zelle'"
+                    >
+                        Envía tu pago por Zelle<br />
+                        <span class="text-h6 poppins-bold"
+                            >mikeadd29@gmail.com
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="yellow-9"
+                                @click="copyToClipboard('mikeadd29@gmail.com')"
+                        /></span>
+                    </div>
+                    <div
+                        class="text-subtitle2"
+                        v-if="selectedPaymentMethod == 'Binance'"
+                    >
+                        Envía tu pago por Binance<br />
+                        <span class="text-h6 poppins-bold"
+                            >mikeadd29@gmail.com
+                            <q-btn
+                                icon="content_copy"
+                                class="q-ml-sm"
+                                round
+                                flat
+                                dense
+                                size="sm"
+                                color="yellow-9"
+                                @click="copyToClipboard('mikeadd29@gmail.com')"
+                        /></span>
                     </div>
                 </q-card-section>
                 <q-card-section>
@@ -803,6 +900,7 @@ export default {
     },
     data() {
         return {
+            model: 'three',
             isLoading: true,
             qrDialog: false,
             whatsappNo: '66752446',
@@ -824,14 +922,13 @@ export default {
                 {label: 'Entrega domicilio', value: 'Delivery'},
             ],
             paymentMethods: [
-                {
-                    label: 'Yappy',
-                    value: 'Yappy',
-                },
-                {label: 'ACH', value: 'ACH'},
-                {label: 'Efectivo', value: 'Efectivo'},
-                {label: 'Nequi', value: 'Nequi'},
-                {label: 'Paypal', value: 'Paypal'},
+                {value: 'Yappy', slot: 'yappy'},
+                {value: 'Nequi', slot: 'nequi'},
+                {value: 'Paypal', slot: 'paypal'},
+                {value: 'Zelle', slot: 'zelle'},
+                {value: 'Binance', slot: 'binance'},
+                // {value: 'ACH', slot: 'ach'},
+                // {value: 'Efectivo', slot: 'cash'},
             ],
             menu: [],
             location: [],
