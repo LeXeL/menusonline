@@ -205,248 +205,251 @@
             transition-show="slide-up"
             transition-hide="slide-down"
         >
-            <q-card class="bg-grey-9 text-white">
-                <q-card-actions class="bg-grey-10" align="right">
-                    <q-btn
-                        icon="close"
-                        flat
-                        round
-                        @click="cartDialog = false"
-                        color="white"
-                    />
-                </q-card-actions>
-                <q-card-section>
-                    <div class="text-h6 text-center poppins-bold q-mb-md">
-                        Detalle de pedido
-                    </div>
-                    <div
-                        class="row items-center"
-                        v-for="(item, i) in cart"
-                        :key="i"
-                    >
-                        <div class="col-2">
-                            <q-btn
-                                icon="close"
-                                round
-                                color="red-7"
-                                flat
-                                @click="removeFromCart(i)"
-                            />
+            <q-card class="text-white">
+                <div class="mda-cart-bg">
+                    <q-card-actions class="bg-grey-10" align="right">
+                        <q-btn
+                            icon="close"
+                            flat
+                            round
+                            @click="cartDialog = false"
+                            color="white"
+                        />
+                    </q-card-actions>
+                    <q-card-section>
+                        <div class="text-h6 text-center poppins-bold q-mb-md">
+                            Detalle de pedido
                         </div>
-                        <div class="col-10">
-                            <div class="text-subtitle2 poppins-bold q-ml-sm">
-                                ({{ item.amount }}) - {{ item.name }}
-                                <span v-if="item.selectedOption"
-                                    >- {{ item.selectedOption }}</span
+                        <div
+                            class="row items-center"
+                            v-for="(item, i) in cart"
+                            :key="i"
+                        >
+                            <div class="col-2">
+                                <q-btn
+                                    icon="close"
+                                    round
+                                    color="red-7"
+                                    flat
+                                    @click="removeFromCart(i)"
+                                />
+                            </div>
+                            <div class="col-10">
+                                <div
+                                    class="text-subtitle2 poppins-bold q-ml-sm"
                                 >
+                                    ({{ item.amount }}) - {{ item.name }}
+                                    <span v-if="item.selectedOption"
+                                        >- {{ item.selectedOption }}</span
+                                    >
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </q-card-section>
-                <q-separator color="grey-6" />
-                <q-card-section>
-                    <div class="text-h6 text-center poppins-bold q-mb-lg">
-                        Datos de orden
-                    </div>
-                    <div class="text-caption poppins-bold q-mb-xs">
-                        Nombre completo: *
-                    </div>
-                    <q-input
-                        label="Nombre y apellido"
-                        filled
-                        dark
-                        class="q-mb-lg"
-                        v-model="fullName"
-                        color="yellow-9"
-                        data-hj-allow
-                    />
-                    <div class="text-caption poppins-bold q-mb-xs">
-                        Correo electronico: *
-                    </div>
-                    <q-input
-                        label="correo@electronico.com"
-                        filled
-                        dark
-                        class="q-mb-lg"
-                        v-model="email"
-                        color="yellow-9"
-                        type="email"
-                        data-hj-allow
-                    />
-                    <div class="text-caption poppins-bold q-mb-xs">
-                        Número de contacto: *
-                    </div>
-                    <q-input
-                        filled
-                        dark
-                        class="q-mb-lg"
-                        v-model="contactNo"
-                        color="yellow-9"
-                        data-hj-allow
-                    />
-                    <template v-if="containsFifaCoinsInCart">
-                        <div class="text-caption poppins-bold q-mb-xs">
-                            Plataforma: *
+                    </q-card-section>
+                    <q-separator color="grey-6" />
+                    <q-card-section>
+                        <div class="text-h6 text-center poppins-bold q-mb-lg">
+                            Datos de orden
                         </div>
-                        <q-select
-                            label="Selecciona plataforma"
-                            v-model="selectedPlatform"
-                            :options="['PlayStation', 'Xbox', 'PC']"
-                            dark
+                        <div class="text-caption poppins-bold q-mb-xs">
+                            Nombre completo: *
+                        </div>
+                        <q-input
+                            label="Nombre y apellido"
                             filled
+                            dark
                             class="q-mb-lg"
+                            v-model="fullName"
                             color="yellow-9"
                             data-hj-allow
                         />
                         <div class="text-caption poppins-bold q-mb-xs">
-                            Cantidad de monedas disponibles en tu club: *
+                            Correo electronico: *
+                        </div>
+                        <q-input
+                            label="correo@electronico.com"
+                            filled
+                            dark
+                            class="q-mb-lg"
+                            v-model="email"
+                            color="yellow-9"
+                            type="email"
+                            data-hj-allow
+                        />
+                        <div class="text-caption poppins-bold q-mb-xs">
+                            Número de contacto: *
                         </div>
                         <q-input
                             filled
                             dark
                             class="q-mb-lg"
+                            v-model="contactNo"
                             color="yellow-9"
                             data-hj-allow
-                            label="Ingresa la cantidad de monedas actuales en tu club"
-                            type="number"
-                            v-model.number="currentPointsAmount"
                         />
+                        <template v-if="containsFifaCoinsInCart">
+                            <div class="text-caption poppins-bold q-mb-xs">
+                                Plataforma: *
+                            </div>
+                            <q-select
+                                label="Selecciona plataforma"
+                                v-model="selectedPlatform"
+                                :options="['PlayStation', 'Xbox', 'PC']"
+                                dark
+                                filled
+                                class="q-mb-lg"
+                                color="yellow-9"
+                                data-hj-allow
+                            />
+                            <div class="text-caption poppins-bold q-mb-xs">
+                                Cantidad de monedas disponibles en tu club: *
+                            </div>
+                            <q-input
+                                filled
+                                dark
+                                class="q-mb-lg"
+                                color="yellow-9"
+                                data-hj-allow
+                                label="Ingresa la cantidad de monedas actuales en tu club"
+                                type="number"
+                                v-model.number="currentPointsAmount"
+                            />
+                            <div class="text-caption poppins-bold q-mb-xs">
+                                Código de descuento:
+                            </div>
+                            <q-input
+                                filled
+                                dark
+                                class="q-mb-lg"
+                                color="yellow-9"
+                                data-hj-allow
+                                label="Ingresa tu código de descuento"
+                                v-model="discountInput"
+                            />
+                        </template>
                         <div class="text-caption poppins-bold q-mb-xs">
-                            Código de descuento:
+                            Entrega: *
                         </div>
-                        <q-input
-                            filled
-                            dark
-                            class="q-mb-lg"
-                            color="yellow-9"
-                            data-hj-allow
-                            label="Ingresa tu código de descuento"
-                            v-model="discountInput"
+                        <q-btn-toggle
+                            v-model="selectedPickupMethod"
+                            spread
+                            all-caps
+                            class="poppins-bold full-width q-mb-lg"
+                            toggle-color="yellow-9"
+                            color="white"
+                            text-color="black"
+                            :options="pickupMethods"
                         />
-                    </template>
-                    <div class="text-caption poppins-bold q-mb-xs">
-                        Entrega: *
-                    </div>
-                    <q-btn-toggle
-                        v-model="selectedPickupMethod"
-                        spread
-                        all-caps
-                        class="poppins-bold full-width q-mb-lg"
-                        toggle-color="yellow-9"
-                        color="white"
-                        text-color="black"
-                        :options="pickupMethods"
-                    />
-                    <div
-                        class="row"
-                        v-if="this.selectedPickupMethod == 'Delivery'"
-                    >
                         <div
-                            class="
+                            class="row"
+                            v-if="this.selectedPickupMethod == 'Delivery'"
+                        >
+                            <div
+                                class="
                                 text-subtitle2
                                 poppins-bold
                                 q-mb-sm
                                 full-width
                             "
+                            >
+                                Ubicacion de entrega: *
+                            </div>
+                        </div>
+                        <GoogleMaps
+                            class="q-mb-md"
+                            v-if="
+                                Object.keys(center).length > 0 &&
+                                    this.selectedPickupMethod == 'Delivery'
+                            "
+                            @markerPosition="setMarkerPosition"
+                            @newMarkerPosition="setNewMarkerPosition"
+                            :editable="true"
+                            :markers="markers"
+                            :mapCenter="center"
+                        ></GoogleMaps>
+                        <div
+                            class="row q-mb-md"
+                            v-if="selectedPickupMethod == 'Delivery'"
                         >
-                            Ubicacion de entrega: *
-                        </div>
-                    </div>
-                    <GoogleMaps
-                        class="q-mb-md"
-                        v-if="
-                            Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
-                        "
-                        @markerPosition="setMarkerPosition"
-                        @newMarkerPosition="setNewMarkerPosition"
-                        :editable="true"
-                        :markers="markers"
-                        :mapCenter="center"
-                    ></GoogleMaps>
-                    <div
-                        class="row q-mb-md"
-                        v-if="selectedPickupMethod == 'Delivery'"
-                    >
-                        <div class="text-subtitle2 poppins-bold q-mb-sm">
-                            Dirección de entrega (completa): *
-                        </div>
-                        <q-input
-                            v-model="address"
-                            filled
-                            dark
-                            type="textarea"
-                            class="full-width poppins-regular"
-                            placeholder="Barriada, No. Calle, No. Casa"
-                            color="yellow-9"
-                            rows="4"
-                            data-hj-allow
-                        />
-                    </div>
-                    <div class="text-caption poppins-bold q-mb-xs">
-                        Metodo de pago: *
-                    </div>
-                    <q-btn-toggle
-                        v-model="selectedPaymentMethod"
-                        spread
-                        toggle-color="yellow-9"
-                        color="white"
-                        no-caps
-                        text-color="black"
-                        :options="paymentMethods"
-                    >
-                        <template v-slot:yappy>
-                            <img
-                                src="https://i.ibb.co/37Yxdm1/yappy.png"
-                                style="width: 100%;"
-                            />
-                        </template>
-
-                        <template v-slot:nequi>
-                            <img
-                                src="https://i.ibb.co/93rBRWP/nequi.png"
-                                style="width: 100%;"
-                            />
-                        </template>
-
-                        <template v-slot:paypal>
-                            <img
-                                src="https://i.ibb.co/Q69pnnJ/paypal.png"
-                                style="width: 100%;"
-                            />
-                        </template>
-                        <template v-slot:cash>
-                            <q-icon name="payments" size="1.5em" />
-                            <div
-                                class="text-caption text-bold"
-                                style="font-size: 10px"
-                            >
-                                Efectivo
+                            <div class="text-subtitle2 poppins-bold q-mb-sm">
+                                Dirección de entrega (completa): *
                             </div>
-                        </template>
-                        <template v-slot:ach>
-                            <q-icon name="currency_exchange" size="1.5em" />
-                            <div
-                                class="text-caption text-bold"
-                                style="font-size: 10px"
-                            >
-                                ACH
-                            </div>
-                        </template>
-                        <template v-slot:zelle>
-                            <img
-                                src="https://i.ibb.co/6Pctf67/zelle.png"
-                                style="width: 100%;"
+                            <q-input
+                                v-model="address"
+                                filled
+                                dark
+                                type="textarea"
+                                class="full-width poppins-regular"
+                                placeholder="Barriada, No. Calle, No. Casa"
+                                color="yellow-9"
+                                rows="4"
+                                data-hj-allow
                             />
-                        </template>
-                        <template v-slot:binance>
-                            <img
-                                src="https://i.ibb.co/Q62jH31/binance.png"
-                                style="width: 100%;"
-                            />
-                        </template>
-                    </q-btn-toggle>
-                    <!-- <q-btn-toggle
+                        </div>
+                        <div class="text-caption poppins-bold q-mb-xs">
+                            Metodo de pago: *
+                        </div>
+                        <q-btn-toggle
+                            v-model="selectedPaymentMethod"
+                            spread
+                            toggle-color="yellow-9"
+                            color="white"
+                            no-caps
+                            text-color="black"
+                            :options="paymentMethods"
+                        >
+                            <template v-slot:yappy>
+                                <img
+                                    src="https://i.ibb.co/37Yxdm1/yappy.png"
+                                    style="width: 100%;"
+                                />
+                            </template>
+
+                            <template v-slot:nequi>
+                                <img
+                                    src="https://i.ibb.co/93rBRWP/nequi.png"
+                                    style="width: 100%;"
+                                />
+                            </template>
+
+                            <template v-slot:paypal>
+                                <img
+                                    src="https://i.ibb.co/Q69pnnJ/paypal.png"
+                                    style="width: 100%;"
+                                />
+                            </template>
+                            <template v-slot:cash>
+                                <q-icon name="payments" size="1.5em" />
+                                <div
+                                    class="text-caption text-bold"
+                                    style="font-size: 10px"
+                                >
+                                    Efectivo
+                                </div>
+                            </template>
+                            <template v-slot:ach>
+                                <q-icon name="currency_exchange" size="1.5em" />
+                                <div
+                                    class="text-caption text-bold"
+                                    style="font-size: 10px"
+                                >
+                                    ACH
+                                </div>
+                            </template>
+                            <template v-slot:zelle>
+                                <img
+                                    src="https://i.ibb.co/6Pctf67/zelle.png"
+                                    style="width: 100%;"
+                                />
+                            </template>
+                            <template v-slot:binance>
+                                <img
+                                    src="https://i.ibb.co/Q62jH31/binance.png"
+                                    style="width: 100%;"
+                                />
+                            </template>
+                        </q-btn-toggle>
+                        <!-- <q-btn-toggle
                         v-model="selectedPaymentMethod"
                         spread
                         all-caps
@@ -456,246 +459,253 @@
                         text-color="black"
                         :options="paymentMethods"
                     /> -->
-                </q-card-section>
-                <q-card-section
-                    class="text-center"
-                    v-if="selectedPaymentMethod"
-                >
-                    <div class="text-subtitle2 poppins-bold">
-                        Pago por {{ selectedPaymentMethod }}
-                    </div>
-                    <div
-                        class="text-subtitle2 q-mb-sm"
-                        v-if="selectedPaymentMethod == 'Yappy'"
+                    </q-card-section>
+                    <q-card-section
+                        class="text-center"
+                        v-if="selectedPaymentMethod"
                     >
-                        Envía tu pago por Yappy al número<br />
-                        <span class="text-h6 poppins-bold"
-                            >6204-6903
+                        <div class="text-subtitle2 poppins-bold">
+                            Pago por {{ selectedPaymentMethod }}
+                        </div>
+                        <div
+                            class="text-subtitle2 q-mb-sm"
+                            v-if="selectedPaymentMethod == 'Yappy'"
+                        >
+                            Envía tu pago por Yappy al número<br />
+                            <span class="text-h6 poppins-bold"
+                                >6204-6903
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="copyToClipboard('62046903')"
+                            /></span>
+                        </div>
+                        <div
+                            class="text-subtitle2 q-mb-md"
+                            v-if="selectedPaymentMethod == 'Yappy'"
+                        >
+                            Búscanos en el directorio como<br />
+                            <span class="text-h6 poppins-bold"
+                                >@mdaesportsleague
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="copyToClipboard('mdaesportsleague')"
+                            /></span>
+                        </div>
+                        <div
+                            class="text-subtitle2 q-mb-md"
+                            v-if="selectedPaymentMethod == 'Nequi'"
+                        >
+                            Envía tu pago por Nequi al número<br />
+                            <span class="text-h6 poppins-bold"
+                                >6204-6903
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="copyToClipboard('62046903')"
+                            /></span>
+                        </div>
+                        <div
+                            class="row justify-center"
+                            v-if="
+                                selectedPaymentMethod == 'Yappy' ||
+                                    selectedPaymentMethod == 'Nequi'
+                            "
+                        >
                             <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
+                                label="Ver QR"
+                                rounded
                                 color="yellow-9"
-                                @click="copyToClipboard('62046903')"
-                        /></span>
-                    </div>
-                    <div
-                        class="text-subtitle2 q-mb-md"
-                        v-if="selectedPaymentMethod == 'Yappy'"
-                    >
-                        Búscanos en el directorio como<br />
-                        <span class="text-h6 poppins-bold"
-                            >@mdaesportsleague
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="copyToClipboard('mdaesportsleague')"
-                        /></span>
-                    </div>
-                    <div
-                        class="text-subtitle2 q-mb-md"
-                        v-if="selectedPaymentMethod == 'Nequi'"
-                    >
-                        Envía tu pago por Nequi al número<br />
-                        <span class="text-h6 poppins-bold"
-                            >6204-6903
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="copyToClipboard('62046903')"
-                        /></span>
-                    </div>
-                    <div
-                        class="row justify-center"
-                        v-if="
-                            selectedPaymentMethod == 'Yappy' ||
-                                selectedPaymentMethod == 'Nequi'
-                        "
-                    >
+                                unelevated
+                                no-caps
+                                class="poppins-bold"
+                                icon="qr_code"
+                                @click="qrDialog = true"
+                            />
+                        </div>
+                        <div
+                            class="text-subtitle2"
+                            v-if="selectedPaymentMethod == 'ACH'"
+                        >
+                            Envia tu pago por ACH a la cuenta<br />
+                            <span class="text-h6 poppins-bold"
+                                >0449991860790
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="
+                                        copyToClipboard('0449991860790')
+                                    "/></span
+                            ><br />
+                            Banco General | Cuenta de ahorros | Michael Davis
+                        </div>
+                        <div
+                            class="text-subtitle2"
+                            v-if="selectedPaymentMethod == 'Paypal'"
+                        >
+                            Envía tu pago por Paypal<br />
+                            <span class="text-h6 poppins-bold"
+                                >mikeadd29@gmail.com
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="
+                                        copyToClipboard('mikeadd29@gmail.com')
+                                    "/></span
+                            ><br />
+                            <span class="text-h6 poppins-bold"
+                                >www.paypal.me/mdavisd29
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="
+                                        copyToClipboard(
+                                            'https://www.paypal.me/mdavisd29'
+                                        )
+                                    "/></span
+                            ><br />
+                            Paypal | Michael Davis
+                        </div>
+                        <div
+                            class="text-subtitle2"
+                            v-if="selectedPaymentMethod == 'Zelle'"
+                        >
+                            Envía tu pago por Zelle<br />
+                            <span class="text-h6 poppins-bold"
+                                >mikeadd29@gmail.com
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="
+                                        copyToClipboard('mikeadd29@gmail.com')
+                                    "
+                            /></span>
+                        </div>
+                        <div
+                            class="text-subtitle2"
+                            v-if="selectedPaymentMethod == 'Binance'"
+                        >
+                            Envía tu pago por Binance<br />
+                            <span class="text-h6 poppins-bold"
+                                >mikeadd29@gmail.com
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="
+                                        copyToClipboard('mikeadd29@gmail.com')
+                                    "
+                            /></span>
+                        </div>
+                    </q-card-section>
+                    <q-card-section>
+                        <div class="text-subtitl2 poppins-bold text-center">
+                            Sub Total: {{ isInUsd ? '$' : '€' }}
+                            {{ total.toFixed(2) }}
+                        </div>
+                        <div
+                            class="text-subtitl2 poppins-bold text-center q-mb-md"
+                        >
+                            ITBMS: {{ isInUsd ? '$' : '€' }}
+                            {{ calculateTax(total).toFixed(2) }}
+                        </div>
+                        <div
+                            class="text-subtitl2 poppins-bold text-center q-mb-md"
+                            v-if="selectedPickupMethod == 'Delivery'"
+                        >
+                            Delivery: {{ isInUsd ? '$' : '€' }}
+                            {{ deliveryAmount.toFixed(2) }}
+                        </div>
+                        <div
+                            class="text-subtitl2 poppins-bold text-center q-mb-md"
+                            v-if="selectedPaymentMethod == 'Paypal'"
+                        >
+                            Paypal Fee: {{ isInUsd ? '$' : '€' }}
+                            {{ calculatePaypalFee(total).toFixed(2) }}
+                        </div>
+                        <div
+                            class="text-h5 poppins-bold text-center"
+                            v-if="selectedPickupMethod != 'Delivery'"
+                        >
+                            Total: {{ isInUsd ? '$' : '€' }}
+                            {{
+                                this.selectedPaymentMethod == 'Paypal'
+                                    ? (
+                                          total +
+                                          calculateTax(total) +
+                                          calculatePaypalFee(total)
+                                      ).toFixed(2)
+                                    : (total + calculateTax(total)).toFixed(2)
+                            }}
+                        </div>
+                        <div class="text-h5 poppins-bold text-center" v-else>
+                            Total: {{ isInUsd ? '$' : '€' }}
+                            {{
+                                this.selectedPaymentMethod == 'Paypal'
+                                    ? (
+                                          total +
+                                          this.deliveryAmount +
+                                          calculateTax(total) +
+                                          calculatePaypalFee(total)
+                                      ).toFixed(2)
+                                    : (
+                                          total +
+                                          deliveryAmount +
+                                          calculateTax(total)
+                                      ).toFixed(2)
+                            }}
+                        </div>
+                    </q-card-section>
+                    <q-card-actions>
                         <q-btn
-                            label="Ver QR"
-                            rounded
-                            color="yellow-9"
-                            unelevated
-                            no-caps
-                            class="poppins-bold"
-                            icon="qr_code"
-                            @click="qrDialog = true"
+                            label="Enviar"
+                            color="green-7"
+                            class="poppins-bold full-width q-mb-xl"
+                            push
+                            @click="sendOrder()"
                         />
-                    </div>
-                    <div
-                        class="text-subtitle2"
-                        v-if="selectedPaymentMethod == 'ACH'"
-                    >
-                        Envia tu pago por ACH a la cuenta<br />
-                        <span class="text-h6 poppins-bold"
-                            >0449991860790
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="
-                                    copyToClipboard('0449991860790')
-                                "/></span
-                        ><br />
-                        Banco General | Cuenta de ahorros | Michael Davis
-                    </div>
-                    <div
-                        class="text-subtitle2"
-                        v-if="selectedPaymentMethod == 'Paypal'"
-                    >
-                        Envía tu pago por Paypal<br />
-                        <span class="text-h6 poppins-bold"
-                            >mikeadd29@gmail.com
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="
-                                    copyToClipboard('mikeadd29@gmail.com')
-                                "/></span
-                        ><br />
-                        <span class="text-h6 poppins-bold"
-                            >www.paypal.me/mdavisd29
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="
-                                    copyToClipboard(
-                                        'https://www.paypal.me/mdavisd29'
-                                    )
-                                "/></span
-                        ><br />
-                        Paypal | Michael Davis
-                    </div>
-                    <div
-                        class="text-subtitle2"
-                        v-if="selectedPaymentMethod == 'Zelle'"
-                    >
-                        Envía tu pago por Zelle<br />
-                        <span class="text-h6 poppins-bold"
-                            >mikeadd29@gmail.com
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="copyToClipboard('mikeadd29@gmail.com')"
-                        /></span>
-                    </div>
-                    <div
-                        class="text-subtitle2"
-                        v-if="selectedPaymentMethod == 'Binance'"
-                    >
-                        Envía tu pago por Binance<br />
-                        <span class="text-h6 poppins-bold"
-                            >mikeadd29@gmail.com
-                            <q-btn
-                                icon="content_copy"
-                                class="q-ml-sm"
-                                round
-                                flat
-                                dense
-                                size="sm"
-                                color="yellow-9"
-                                @click="copyToClipboard('mikeadd29@gmail.com')"
-                        /></span>
-                    </div>
-                </q-card-section>
-                <q-card-section>
-                    <div class="text-subtitl2 poppins-bold text-center">
-                        Sub Total: {{ isInUsd ? '$' : '€' }}
-                        {{ total.toFixed(2) }}
-                    </div>
-                    <div class="text-subtitl2 poppins-bold text-center q-mb-md">
-                        ITBMS: {{ isInUsd ? '$' : '€' }}
-                        {{ calculateTax(total).toFixed(2) }}
-                    </div>
-                    <div
-                        class="text-subtitl2 poppins-bold text-center q-mb-md"
-                        v-if="selectedPickupMethod == 'Delivery'"
-                    >
-                        Delivery: {{ isInUsd ? '$' : '€' }}
-                        {{ deliveryAmount.toFixed(2) }}
-                    </div>
-                    <div
-                        class="text-subtitl2 poppins-bold text-center q-mb-md"
-                        v-if="selectedPaymentMethod == 'Paypal'"
-                    >
-                        Paypal Fee: {{ isInUsd ? '$' : '€' }}
-                        {{ calculatePaypalFee(total).toFixed(2) }}
-                    </div>
-                    <div
-                        class="text-h5 poppins-bold text-center"
-                        v-if="selectedPickupMethod != 'Delivery'"
-                    >
-                        Total: {{ isInUsd ? '$' : '€' }}
-                        {{
-                            this.selectedPaymentMethod == 'Paypal'
-                                ? (
-                                      total +
-                                      calculateTax(total) +
-                                      calculatePaypalFee(total)
-                                  ).toFixed(2)
-                                : (total + calculateTax(total)).toFixed(2)
-                        }}
-                    </div>
-                    <div class="text-h5 poppins-bold text-center" v-else>
-                        Total: {{ isInUsd ? '$' : '€' }}
-                        {{
-                            this.selectedPaymentMethod == 'Paypal'
-                                ? (
-                                      total +
-                                      this.deliveryAmount +
-                                      calculateTax(total) +
-                                      calculatePaypalFee(total)
-                                  ).toFixed(2)
-                                : (
-                                      total +
-                                      deliveryAmount +
-                                      calculateTax(total)
-                                  ).toFixed(2)
-                        }}
-                    </div>
-                </q-card-section>
-                <q-card-actions>
-                    <q-btn
-                        label="Enviar"
-                        color="green-7"
-                        class="poppins-bold full-width q-mb-xl"
-                        push
-                        @click="sendOrder()"
-                    />
-                </q-card-actions>
+                    </q-card-actions>
+                </div>
             </q-card>
         </q-dialog>
         <!-- /CART DIALOG -->
