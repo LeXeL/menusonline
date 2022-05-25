@@ -722,6 +722,14 @@
                             }}
                         </div>
                     </q-card-section>
+                    <q-card-actions align="center">
+                        <q-checkbox
+                            v-model="acceptTerms"
+                            dark
+                            color="yellow-9"
+                            label="Acepto los términos y condiciones"
+                        />
+                    </q-card-actions>
                     <q-card-actions>
                         <q-btn
                             label="Enviar"
@@ -729,6 +737,7 @@
                             class="poppins-bold full-width q-mb-xl"
                             push
                             @click="sendOrder()"
+                            :disable="!acceptTerms"
                         />
                     </q-card-actions>
                 </div>
@@ -1008,6 +1017,7 @@ export default {
     },
     data() {
         return {
+            acceptTerms: false,
             termsType: '',
             termsDialog: false,
             isLoading: true,
