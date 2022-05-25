@@ -448,6 +448,12 @@
                                     style="width: 100%;"
                                 />
                             </template>
+                            <template v-slot:zinly>
+                                <img
+                                    src="https://i.ibb.co/ykRpM3H/zinly.png"
+                                    style="width: 100%;"
+                                />
+                            </template>
                         </q-btn-toggle>
                         <!-- <q-btn-toggle
                         v-model="selectedPaymentMethod"
@@ -505,6 +511,25 @@
                         </div>
                         <div
                             class="text-subtitle2 q-mb-md"
+                            v-if="selectedPaymentMethod == 'Zinly'"
+                        >
+                            <span class="text-h6 poppins-bold"
+                                >mikeadd29@gmail.com
+                                <q-btn
+                                    icon="content_copy"
+                                    class="q-ml-sm"
+                                    round
+                                    flat
+                                    dense
+                                    size="sm"
+                                    color="yellow-9"
+                                    @click="
+                                        copyToClipboard('mikeadd29@gmail.com')
+                                    "
+                            /></span>
+                        </div>
+                        <div
+                            class="text-subtitle2 q-mb-md"
                             v-if="selectedPaymentMethod == 'Nequi'"
                         >
                             Envía tu pago por Nequi al número<br />
@@ -525,7 +550,8 @@
                             class="row justify-center"
                             v-if="
                                 selectedPaymentMethod == 'Yappy' ||
-                                    selectedPaymentMethod == 'Nequi'
+                                    selectedPaymentMethod == 'Nequi' ||
+                                    selectedPaymentMethod == 'Zinly'
                             "
                         >
                             <q-btn
@@ -724,6 +750,11 @@
                         width="100%"
                         v-if="selectedPaymentMethod == 'Nequi'"
                     />
+                    <img
+                        :src="require('@/assets/wp/mdaesports/zinly.jpg')"
+                        width="100%"
+                        v-if="selectedPaymentMethod == 'Zinly'"
+                    />
                 </q-card-section>
                 <q-card-actions align="center" class="q-pt-none">
                     <q-btn
@@ -896,6 +927,66 @@
             </q-fab>
         </q-page-sticky>
         <!-- /SOCIAL FAB -->
+
+        <!-- FOOTER -->
+        <div
+            class="text-center bg-white q-py-md shadow-5 text-bold"
+            style="text-decoration: underline;"
+        >
+            <div class="cursor-pointer" @click="showTermsDialog('terms')">
+                Términos y condiciones
+            </div>
+            <div class="cursor-pointer" @click="showTermsDialog('privacy')">
+                Políticas de privacidad
+            </div>
+            <div class="cursor-pointer" @click="showTermsDialog('returns')">
+                Políticas de devolución
+            </div>
+            <div>
+                <a class="text-black" href="mailto:mdaesportsleague@gmail.com"
+                    >mdaesportsleague@gmail.com</a
+                >
+            </div>
+            <div>
+                <a class="text-black" href="tel:507-6675-2446"
+                    >(507) 6675-2446</a
+                >
+            </div>
+            <div class="q-mt-sm">
+                <q-icon name="fab fa-cc-visa" class="q-mx-xs" size="1.5em" />
+                <q-icon
+                    name="fab fa-cc-mastercard"
+                    class="q-mx-xs"
+                    size="1.5em"
+                />
+            </div>
+        </div>
+        <!-- /FOOTER -->
+
+        <!-- TERMS DIALOG -->
+        <q-dialog
+            v-model="termsDialog"
+            maximized
+            transition-show="slide-up"
+            transition-hide="slide-down"
+        >
+            <q-card>
+                <q-bar>
+                    <q-space />
+                    <q-btn dense flat icon="close" v-close-popup round>
+                        <q-tooltip content-class="bg-white text-black"
+                            >Cerrar</q-tooltip
+                        >
+                    </q-btn>
+                </q-bar>
+                <q-card-section>
+                    <TermsAndConditions v-if="termsType == 'terms'" />
+                    <PrivacyPolicy v-if="termsType == 'privacy'" />
+                    <ReturnsPolicy v-if="termsType == 'returns'" />
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+        <!-- /TERMS DIALOG -->
     </q-page>
 </template>
 
@@ -904,13 +995,21 @@ import GoogleMaps from '../../components/general/GoogleMaps'
 import {copyToClipboard} from 'quasar'
 import InventoryHandler from '@/mixins/InventoryHandler.js'
 
+import TermsAndConditions from '@/components/mdaesports/TermsAndConditions'
+import PrivacyPolicy from '@/components/mdaesports/PrivacyPolicy'
+import ReturnsPolicy from '@/components/mdaesports/ReturnsPolicy'
+
 export default {
     components: {
         GoogleMaps,
+        TermsAndConditions,
+        PrivacyPolicy,
+        ReturnsPolicy,
     },
     data() {
         return {
-            model: 'three',
+            termsType: '',
+            termsDialog: false,
             isLoading: true,
             qrDialog: false,
             whatsappNo: '66752446',
@@ -937,6 +1036,7 @@ export default {
                 {value: 'Paypal', slot: 'paypal'},
                 {value: 'Zelle', slot: 'zelle'},
                 {value: 'Binance', slot: 'binance'},
+                {value: 'Zinly', slot: 'zinly'},
                 // {value: 'ACH', slot: 'ach'},
                 // {value: 'Efectivo', slot: 'cash'},
             ],
@@ -959,6 +1059,10 @@ export default {
         }
     },
     methods: {
+        showTermsDialog(type) {
+            this.termsDialog = true
+            this.termsType = type
+        },
         addToCart(item) {
             if (!item.options) {
                 if (this.cart.find(el => el.id == item.id)) {
