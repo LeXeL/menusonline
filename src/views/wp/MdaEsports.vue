@@ -1452,8 +1452,7 @@ export default {
             {
                 name: 'Giftcard PlayStation $10',
                 price: 11.99,
-                img:
-                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/184248a223fa4d29b15fd7db46df2400_Medium.jpg',
+                img: 'https://i.ibb.co/RGnDHJx/10-ps-giftcard.png',
                 description:
                     'Giftcard de PSN con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1462,8 +1461,7 @@ export default {
             {
                 name: 'Giftcard PlayStation $20',
                 price: 22.99,
-                img:
-                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7ce14fd962a64399b5e2519abf14f11a_Medium.jpg',
+                img: 'https://i.ibb.co/5n56FvH/20-ps-giftcard.png',
                 description:
                     'Giftcard de PSN con valor de $20. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1482,8 +1480,7 @@ export default {
             {
                 name: 'Giftcard PlayStation $50',
                 price: 52.99,
-                img:
-                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7c7db5a9daaa4bdfa3d8cb46f59ad040_Medium.jpg',
+                img: 'https://i.ibb.co/FnSTn6H/50-ps-giftcard.png',
                 description:
                     'Giftcard de PSN con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1511,8 +1508,7 @@ export default {
             {
                 name: 'Giftcard PlayStation $100',
                 price: 104.99,
-                img:
-                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/13d393cec46543d4bb8a0443b7fcf350_Medium.jpg',
+                img: 'https://i.ibb.co/rx961ZL/100-ps-giftcard.png',
                 description:
                     'Giftcard de PSN con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
