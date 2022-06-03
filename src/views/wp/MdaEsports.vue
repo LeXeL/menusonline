@@ -442,7 +442,13 @@
                                     style="width: 100%;"
                                 />
                             </template>
-                            <template v-slot:binance>
+                            <template v-slot:visa>
+                                <q-icon name="fab fa-cc-visa" />
+                            </template>
+                            <template v-slot:mastercard>
+                                <q-icon name="fab fa-cc-mastercard" />
+                            </template>
+                            <!-- <template v-slot:binance>
                                 <img
                                     src="https://i.ibb.co/Q62jH31/binance.png"
                                     style="width: 100%;"
@@ -453,7 +459,7 @@
                                     src="https://i.ibb.co/ykRpM3H/zinly.png"
                                     style="width: 100%;"
                                 />
-                            </template>
+                            </template> -->
                         </q-btn-toggle>
                         <!-- <q-btn-toggle
                         v-model="selectedPaymentMethod"
@@ -686,7 +692,7 @@
                             class="text-subtitl2 poppins-bold text-center q-mb-md"
                             v-if="selectedPaymentMethod == 'Paypal'"
                         >
-                            Paypal Fee: {{ isInUsd ? '$' : '€' }}
+                            ITBMS (Impuesto): {{ isInUsd ? '$' : '€' }}
                             {{ calculatePaypalFee(total).toFixed(2) }}
                         </div>
                         <div
@@ -1045,8 +1051,10 @@ export default {
                 {value: 'Nequi', slot: 'nequi'},
                 {value: 'Paypal', slot: 'paypal'},
                 {value: 'Zelle', slot: 'zelle'},
-                {value: 'Binance', slot: 'binance'},
-                {value: 'Zinly', slot: 'zinly'},
+                {value: 'Visa', slot: 'visa'},
+                {value: 'Mastercard', slot: 'mastercard'},
+                // {value: 'Binance', slot: 'binance'},
+                // {value: 'Zinly', slot: 'zinly'},
                 // {value: 'ACH', slot: 'ach'},
                 // {value: 'Efectivo', slot: 'cash'},
             ],
@@ -1197,7 +1205,7 @@ export default {
                     this.isInUsd ? '$' : '€'
                 }${this.deliveryAmount.toFixed(2)}`
             if (this.selectedPaymentMethod == 'Paypal')
-                message += `%0D%0APaypal Fee: ${
+                message += `%0D%0AITBMS (Impuesto): ${
                     this.isInUsd ? '$' : '€'
                 }${this.calculatePaypalFee(this.total).toFixed(2)}`
             if (this.selectedPickupMethod != 'Delivery') {
