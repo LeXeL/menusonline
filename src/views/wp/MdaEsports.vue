@@ -10,7 +10,9 @@
         <!-- IG -->
         <div class="row q-py-md justify-center">
             <a
-                :href="`https://api.whatsapp.com/send/?phone=507${whatsappNo}&text&app_absent=0`"
+                :href="
+                    `https://api.whatsapp.com/send/?phone=507${whatsappNo}&text&app_absent=0`
+                "
                 target="_blank"
                 style="text-decoration: none"
             >
@@ -133,7 +135,7 @@
             >
                 <q-card class="q-mb-lg">
                     <q-card-section class="q-pa-none">
-                        <img :src="item.img" width="100%" />
+                        <img :src="item.img" width="100%" loading="lazy" />
                     </q-card-section>
                     <q-card-section>
                         <div class="text-h6 text-bold">
@@ -357,7 +359,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
+                                    this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             @newMarkerPosition="setNewMarkerPosition"
@@ -516,9 +518,7 @@
                                     dense
                                     size="sm"
                                     color="yellow-9"
-                                    @click="
-                                        copyToClipboard('mdaesportsleague')
-                                    "
+                                    @click="copyToClipboard('mdaesportsleague')"
                             /></span>
                         </div>
                         <div
@@ -562,8 +562,8 @@
                             class="row justify-center"
                             v-if="
                                 selectedPaymentMethod == 'Yappy' ||
-                                selectedPaymentMethod == 'Nequi' ||
-                                selectedPaymentMethod == 'Zinly'
+                                    selectedPaymentMethod == 'Nequi' ||
+                                    selectedPaymentMethod == 'Zinly'
                             "
                         >
                             <q-btn
@@ -594,7 +594,7 @@
                                     color="yellow-9"
                                     @click="
                                         copyToClipboard('0449991860790')
-                                    " /></span
+                                    "/></span
                             ><br />
                             Banco General | Cuenta de ahorros | Michael Davis
                         </div>
@@ -615,7 +615,7 @@
                                     color="yellow-9"
                                     @click="
                                         copyToClipboard('mikeadd29@gmail.com')
-                                    " /></span
+                                    "/></span
                             ><br />
                             <span class="text-h6 poppins-bold"
                                 >www.paypal.me/mdavisd29
@@ -631,7 +631,7 @@
                                         copyToClipboard(
                                             'https://www.paypal.me/mdavisd29'
                                         )
-                                    " /></span
+                                    "/></span
                             ><br />
                             Paypal | Michael Davis
                         </div>
@@ -845,11 +845,13 @@
                 </q-card-section>
                 <q-card-section>
                     <q-btn
-                        :label="`${option.label} -  ${
-                            isInUsd
-                                ? '$' + option.price.toFixed(2)
-                                : '€' + option.euroPrice.toFixed(2)
-                        }`"
+                        :label="
+                            `${option.label} -  ${
+                                isInUsd
+                                    ? '$' + option.price.toFixed(2)
+                                    : '€' + option.euroPrice.toFixed(2)
+                            }`
+                        "
                         unelevated
                         color="black"
                         class="full-width poppins-bold q-mb-sm"
@@ -987,12 +989,18 @@
                 >
             </div>
             <div class="q-mt-sm">
-                <q-icon name="fab fa-cc-visa" class="q-mx-xs" size="1.5em" />
-                <q-icon
-                    name="fab fa-cc-mastercard"
-                    class="q-mx-xs"
-                    size="1.5em"
-                />
+                <div class="row items-center justify-center">
+                    <img
+                        src="https://i.ibb.co/KjnsnYr/visa.jpg"
+                        style="width: 30px;"
+                        class="q-pr-xs"
+                    />
+                    <img
+                        src="https://i.ibb.co/Y8cZhWj/mastercard.jpg"
+                        style="width: 30px;"
+                        class="q-pl-xs"
+                    />
+                </div>
             </div>
         </div>
         <!-- /FOOTER -->
@@ -1434,10 +1442,10 @@ export default {
     },
     mixins: [InventoryHandler],
     watch: {
-        selectedCategoryFilter: function () {
+        selectedCategoryFilter: function() {
             this.selectedSubCategoryFilter = ''
         },
-        discountInput: function () {
+        discountInput: function() {
             this.calculateTotal()
         },
     },
@@ -1497,7 +1505,8 @@ export default {
             {
                 name: 'Giftcard PlayStation $25',
                 price: 26.99,
-                img: 'https://multimedia.bbycastatic.ca/multimedia/products/500x500/126/12677/12677654.jpg',
+                img:
+                    'https://multimedia.bbycastatic.ca/multimedia/products/500x500/126/12677/12677654.jpg',
                 description:
                     'Giftcard de PSN con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1515,7 +1524,8 @@ export default {
             {
                 name: 'Giftcard PlayStation $60',
                 price: 62.99,
-                img: 'https://http2.mlstatic.com/D_NQ_NP_733875-MLA47429803387_092021-O.jpg',
+                img:
+                    'https://http2.mlstatic.com/D_NQ_NP_733875-MLA47429803387_092021-O.jpg',
                 description:
                     'Giftcard de PSN con valor de $60. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1569,7 +1579,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $5',
                 price: 5.99,
-                img: 'https://m.media-amazon.com/images/I/71kcx+3mcmL._SL1500_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/71kcx+3mcmL._SL1500_.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1578,7 +1589,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $10',
                 price: 11.99,
-                img: 'https://m.media-amazon.com/images/I/71g8qy0R8zL._SY445_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/71g8qy0R8zL._SY445_.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1587,7 +1599,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $20',
                 price: 21.99,
-                img: 'https://m.media-amazon.com/images/I/71YSvFcuK7L._SL1500_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/71YSvFcuK7L._SL1500_.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $20. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1596,7 +1609,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $35',
                 price: 36.99,
-                img: 'https://m.media-amazon.com/images/I/71kYjm-EI8L._SL1500_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/71kYjm-EI8L._SL1500_.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $35. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1616,7 +1630,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $50',
                 price: 52.99,
-                img: 'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5784/5784110_sd.jpg',
+                img:
+                    'https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5784/5784110_sd.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1625,7 +1640,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $70',
                 price: 71.99,
-                img: 'https://m.media-amazon.com/images/I/714oSJ60A9L._SY679_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/714oSJ60A9L._SY679_.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $70. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1634,7 +1650,8 @@ export default {
             {
                 name: 'Giftcard Nintendo $99',
                 price: 104.99,
-                img: 'https://m.media-amazon.com/images/I/51x+YpqXTIL._AC_SY780_.jpg',
+                img:
+                    'https://m.media-amazon.com/images/I/51x+YpqXTIL._AC_SY780_.jpg',
                 description:
                     'Giftcard de Nintendo con valor de $99. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1643,7 +1660,8 @@ export default {
             {
                 name: 'Giftcard Xbox $5',
                 price: 5.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/3ca45092c6274acb91b6d108db61ce2e_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/3ca45092c6274acb91b6d108db61ce2e_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1652,7 +1670,8 @@ export default {
             {
                 name: 'Giftcard Xbox $10',
                 price: 11.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/5f72dd18f2254cf2a54924656290d6eb_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/5f72dd18f2254cf2a54924656290d6eb_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1661,7 +1680,8 @@ export default {
             {
                 name: 'Giftcard Xbox $15',
                 price: 16.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/43fc9a2a8e2a4bf8a71d94d724da72a5_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/43fc9a2a8e2a4bf8a71d94d724da72a5_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $15. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1680,7 +1700,8 @@ export default {
             {
                 name: 'Giftcard Xbox $30',
                 price: 31.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7fbd1d9e15bd40b8b474412870e0a5b3_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/7fbd1d9e15bd40b8b474412870e0a5b3_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $30. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1689,7 +1710,8 @@ export default {
             {
                 name: 'Giftcard Xbox $40',
                 price: 42.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/a2fd5c3369c2458886537d60df2b45de_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/a2fd5c3369c2458886537d60df2b45de_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $40. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1698,7 +1720,8 @@ export default {
             {
                 name: 'Giftcard Xbox $50',
                 price: 52.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/5893379e583644c699eabb160f4efd46_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/5893379e583644c699eabb160f4efd46_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1717,7 +1740,8 @@ export default {
             {
                 name: 'Giftcard Xbox $70',
                 price: 72.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/628a5f48c3c345fb88c284a3d12f8905_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/628a5f48c3c345fb88c284a3d12f8905_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $70. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1726,7 +1750,8 @@ export default {
             {
                 name: 'Giftcard Xbox $100',
                 price: 104.99,
-                img: 'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/1564636ad707434c835493fabc918e01_Medium.jpg',
+                img:
+                    'https://c1-ebgames.eb-cdn.com.au/merchandising/images/packshots/1564636ad707434c835493fabc918e01_Medium.jpg',
                 description:
                     'Giftcard de Xbox con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1735,7 +1760,8 @@ export default {
             {
                 name: 'Giftcard Google Play $5',
                 price: 8,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/5-google-play-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/5-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1744,7 +1770,8 @@ export default {
             {
                 name: 'Giftcard Google Play $10',
                 price: 12,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/10-google-play-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/10-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1753,7 +1780,8 @@ export default {
             {
                 name: 'Giftcard Google Play $15',
                 price: 17,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/15-google-play-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/15-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $15. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1762,7 +1790,8 @@ export default {
             {
                 name: 'Giftcard Google Play $25',
                 price: 27,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/25-google-play-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/25-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1771,7 +1800,8 @@ export default {
             {
                 name: 'Giftcard Google Play $50',
                 price: 53,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/50-google-play-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/50-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1780,7 +1810,8 @@ export default {
             {
                 name: 'Giftcard Google Play $100',
                 price: 105,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/100-google-play-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/100-google-play-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1789,7 +1820,8 @@ export default {
             {
                 name: 'Giftcard iTunes $5',
                 price: 8,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/5-itunes-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/5-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $5. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1798,7 +1830,8 @@ export default {
             {
                 name: 'Giftcard iTunes $10',
                 price: 12,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/10-itunes-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/10-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $10. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1807,7 +1840,8 @@ export default {
             {
                 name: 'Giftcard iTunes $15',
                 price: 17,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/5-itunes-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/5-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $15. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1816,7 +1850,8 @@ export default {
             {
                 name: 'Giftcard iTunes $25',
                 price: 27,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/25-itunes-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/25-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $25. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1825,7 +1860,8 @@ export default {
             {
                 name: 'Giftcard iTunes $50',
                 price: 53,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/50-itunes-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/50-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $50. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
@@ -1834,7 +1870,8 @@ export default {
             {
                 name: 'Giftcard iTunes $100',
                 price: 105,
-                img: 'https://www.thecardcloset.com/static/img/gift-cards/100-itunes-digital-gift-card-email-delivery-2x.png',
+                img:
+                    'https://www.thecardcloset.com/static/img/gift-cards/100-itunes-digital-gift-card-email-delivery-2x.png',
                 description:
                     'Giftcard de Google Play con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
