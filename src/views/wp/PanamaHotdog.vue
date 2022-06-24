@@ -346,7 +346,7 @@
                             class="q-mb-md"
                             v-if="
                                 Object.keys(center).length > 0 &&
-                                this.selectedPickupMethod == 'Delivery'
+                                    this.selectedPickupMethod == 'Delivery'
                             "
                             @markerPosition="setMarkerPosition"
                             @newMarkerPosition="setNewMarkerPosition"
@@ -515,7 +515,8 @@ export default {
             menu: [
                 {
                     title: 'Hotdog Hawaiiano',
-                    desc: 'Ketchup, mayonesa, queso blanco rayado, papitas trituradas y jalea de piña.',
+                    desc:
+                        'Ketchup, mayonesa, queso blanco rayado, papitas trituradas y jalea de piña.',
                     type: 'main',
                     pic: 'hotdog_hawaiiano.jpg',
                     price: 2.75,
@@ -534,7 +535,8 @@ export default {
                 },
                 {
                     title: 'Hotdog Panameño',
-                    desc: 'Ketchup, mayonesa, pico de gallo y queso amarillo fundido.',
+                    desc:
+                        'Ketchup, mayonesa, pico de gallo y queso amarillo fundido.',
                     type: 'main',
                     pic: 'hotdog_panameno.jpeg',
                     price: 2.75,
@@ -553,7 +555,8 @@ export default {
                 },
                 {
                     title: 'Chillidog',
-                    desc: 'Ketchup, mayonesa, carne molida, y queso amarillo fundido.',
+                    desc:
+                        'Ketchup, mayonesa, carne molida, y queso amarillo fundido.',
                     type: 'main',
                     pic: 'chillidog.jpeg',
                     price: 3.5,
@@ -587,7 +590,8 @@ export default {
                 },
                 {
                     title: 'Hamburguesa de carne',
-                    desc: 'Ketchup, mayonesa, lechuga, tomate, queso amarillo fundido, carne de res 8oz.',
+                    desc:
+                        'Ketchup, mayonesa, lechuga, tomate, queso amarillo fundido, carne de res 8oz.',
                     type: 'main',
                     pic: 'hamburguesa_carne.jpeg',
                     price: 4.5,
@@ -606,7 +610,8 @@ export default {
                 },
                 {
                     title: 'Hamburguesa de pollo',
-                    desc: 'Mayonesa, lechuga, tomate, tender de pechuga de pollo, queso blanco, o amarillo.',
+                    desc:
+                        'Mayonesa, lechuga, tomate, tender de pechuga de pollo, queso blanco, o amarillo.',
                     type: 'main',
                     pic: 'hamburguesa_pollo.jpeg',
                     styles: [],
@@ -648,7 +653,8 @@ export default {
                 },
                 {
                     title: 'Hamburguesa Bulldog',
-                    desc: 'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
+                    desc:
+                        'Carne de res 8oz, tender de pollo, tocino, lechuga, tomate, queso amarillo fundido, ketchup y mayonesa.',
                     type: 'main',
                     pic: 'hamburguesa_bulldog.jpeg',
                     styles: [],
@@ -678,7 +684,8 @@ export default {
                 },
                 {
                     title: 'Burritos',
-                    desc: 'Elige entre burrito de carne, burrito de pollo o burrito mixto.',
+                    desc:
+                        'Elige entre burrito de carne, burrito de pollo o burrito mixto.',
                     type: 'main',
                     pic: 'burrito_carne.jpeg',
                     styles: [],
@@ -704,7 +711,8 @@ export default {
                 },
                 {
                     title: 'Salchipapas Sencillas',
-                    desc: 'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
+                    desc:
+                        'Papas, salchichas, ketchup, mayonesa y queso amarillo.',
                     type: 'main',
                     pic: 'salchipapas.jpeg',
                     styles: [],
@@ -712,7 +720,7 @@ export default {
                     options: [
                         {
                             title: 'Personal',
-                            price: 3.5,
+                            price: 4,
                         },
                         {
                             title: 'Grande',
@@ -722,7 +730,8 @@ export default {
                 },
                 {
                     title: 'Salchipapas Revoltosa',
-                    desc: 'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
+                    desc:
+                        'Papas fritas, salchichas, ketchup, mayonesa, queso amarillo, carne molida o pollo y pico de gallo.',
                     type: 'main',
                     pic: 'salchipapas_revoltosa.jpeg',
                     styles: [],
@@ -1253,7 +1262,8 @@ export default {
                 },
                 {
                     title: 'Arepas',
-                    desc: 'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
+                    desc:
+                        'Elige entre arepa de pollo, arepa de carne desmechada o arepa mixta.',
                     type: 'main',
                     pic: 'arepa_mixta.jpeg',
                     styles: [],
@@ -1276,7 +1286,8 @@ export default {
                 },
                 {
                     title: 'Nachos',
-                    desc: 'Nachos con pico de gallo, queso fundido y carne molida.',
+                    desc:
+                        'Nachos con pico de gallo, queso fundido y carne molida.',
                     type: 'main',
                     pic: 'nachos.jpeg',
                     price: 0,
@@ -1401,7 +1412,8 @@ export default {
                 },
                 {
                     title: 'Soda',
-                    desc: 'Coca Cola, GingerAle, Dr. Pepper, Kist Fresa, Maltin Polar, Root Beer',
+                    desc:
+                        'Coca Cola, GingerAle, Dr. Pepper, Kist Fresa, Maltin Polar, Root Beer',
                     type: 'main',
                     pic: 'soda.jpg',
                     price: 1,
@@ -1508,7 +1520,8 @@ export default {
                 },
                 {
                     title: 'Batido',
-                    desc: 'Batidos de fresa, maracuya, papaya, Melocoton, Guanabana, Cornflakes.',
+                    desc:
+                        'Batidos de fresa, maracuya, papaya, Melocoton, Guanabana, Cornflakes.',
                     type: 'main',
                     pic: 'batido.jpeg',
                     styles: [],
@@ -1790,7 +1803,7 @@ export default {
             )
             // url encode form data for sending as post data
             var encoded = Object.keys(data)
-                .map(function (k) {
+                .map(function(k) {
                     return (
                         encodeURIComponent(k) +
                         '=' +
