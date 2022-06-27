@@ -1171,6 +1171,8 @@ export default {
             else return 0
         },
         calculateTax() {
+            let chargeTax = ['Paypal', 'Visa', 'Mastercard']
+            if (!chargeTax.includes(this.selectedPaymentMethod)) return 0
             let total = 0
             this.cart.forEach(item => {
                 if (!item.skipTaxes) total += item.amount * item.price
@@ -1460,7 +1462,6 @@ export default {
                     'Adquiere monedas para crear el equipo de tus sueños de FIFA 22 ULTIMATE TEAM sin ningún tipo de riesgo de baneo, para cualquier plataforma (XBOX, PLAYSTATION y PC)',
                 category: 'recargas',
                 subCategory: 'fifa',
-                skipTaxes: true,
                 options: [
                     {label: '100,000', price: 9.99, euroPrice: 7.77},
                     {label: '200,000', price: 18.99, euroPrice: 15.54},
@@ -1482,7 +1483,42 @@ export default {
                     'Pase de temporada (PASS ROYALE) para Clash Royale.',
                 category: 'recargas',
                 subCategory: 'clash_royale',
-                skipTaxes: true,
+            },
+            {
+                name: 'Fortnite 1000 V-Bucks',
+                price: 10,
+                img: 'https://i.ibb.co/CzJzSyk/1000-pavos.jpg',
+                description:
+                    'Fortnite V-Bucks es un paquete de monedas in-game el cual puedes utilizar para comprar diferentes artículos dentro del juego de FORNITE, la recarga de la misma se hace de manera directa a su cuenta de Epic Games en cuestiones de segundos disponible para cualquier plataforma (XBOX, PLAYSTATION, PC, NINTENDO, ANDROID & IOS)',
+                category: 'recargas',
+                subCategory: 'fortnite',
+            },
+            {
+                name: 'Fortnite 2800 V-Bucks',
+                price: 24,
+                img: 'https://i.ibb.co/drkjrXs/2800-pavos.jpg',
+                description:
+                    'Fortnite V-Bucks es un paquete de monedas in-game el cual puedes utilizar para comprar diferentes artículos dentro del juego de FORNITE, la recarga de la misma se hace de manera directa a su cuenta de Epic Games en cuestiones de segundos disponible para cualquier plataforma (XBOX, PLAYSTATION, PC, NINTENDO, ANDROID & IOS)',
+                category: 'recargas',
+                subCategory: 'fortnite',
+            },
+            {
+                name: 'Fortnite 5000 V-Bucks',
+                price: 36,
+                img: 'https://i.ibb.co/R4Q6gR0/5000-pavos.jpg',
+                description:
+                    'Fortnite V-Bucks es un paquete de monedas in-game el cual puedes utilizar para comprar diferentes artículos dentro del juego de FORNITE, la recarga de la misma se hace de manera directa a su cuenta de Epic Games en cuestiones de segundos disponible para cualquier plataforma (XBOX, PLAYSTATION, PC, NINTENDO, ANDROID & IOS)',
+                category: 'recargas',
+                subCategory: 'fortnite',
+            },
+            {
+                name: 'Fortnite 13,500 V-Bucks',
+                price: 86,
+                img: 'https://i.ibb.co/XpnNq6w/13500-pavos.jpg',
+                description:
+                    'Fortnite V-Bucks es un paquete de monedas in-game el cual puedes utilizar para comprar diferentes artículos dentro del juego de FORNITE, la recarga de la misma se hace de manera directa a su cuenta de Epic Games en cuestiones de segundos disponible para cualquier plataforma (XBOX, PLAYSTATION, PC, NINTENDO, ANDROID & IOS)',
+                category: 'recargas',
+                subCategory: 'fortnite',
             },
             {
                 name: 'Giftcard PlayStation $10',
