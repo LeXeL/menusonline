@@ -1478,9 +1478,9 @@ export default {
             {
                 name: 'PASS ROYALE',
                 price: 6.99,
-                img: 'https://i.ibb.co/Cwkz2XZ/pass-royale.jpg',
+                img: 'https://i.ibb.co/GxtKfwx/pass-royale.jpg',
                 description:
-                    'Pase de temporada (PASS ROYALE) para Clash Royale.',
+                    'Clash Royale Pass Royale es un paquete de contenido desbloqueable in-game por temporada, incluye ítems cosméticos y de progreso para el juego. Disponible para Android & IOS',
                 category: 'recargas',
                 subCategory: 'clash_royale',
             },
