@@ -1485,6 +1485,60 @@ export default {
                 subCategory: 'clash_royale',
             },
             {
+                name: 'Clash Royale 80 Gemas',
+                price: 2,
+                img: 'https://i.ibb.co/y6wgrFk/80-gems.jpg',
+                description:
+                    'Clash Royale Gemas es un paquete de monedas in-game el cual puedes utilizar para comprar contenido exclusivo del juego CLASH ROYALE, la recarga de la misma se hace de manera directa a su cuenta de SUPER CELL en cuestiones de segundo. Disponible para Android & IOS',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+            },
+            {
+                name: 'Clash Royale 500 Gemas',
+                price: 6,
+                img: 'https://i.ibb.co/xMBzVW3/500-gems.jpg',
+                description:
+                    'Clash Royale Gemas es un paquete de monedas in-game el cual puedes utilizar para comprar contenido exclusivo del juego CLASH ROYALE, la recarga de la misma se hace de manera directa a su cuenta de SUPER CELL en cuestiones de segundo. Disponible para Android & IOS',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+            },
+            {
+                name: 'Clash Royale 1,200 Gemas',
+                price: 12,
+                img: 'https://i.ibb.co/6gZ5SdV/1200-gems.jpg',
+                description:
+                    'Clash Royale Gemas es un paquete de monedas in-game el cual puedes utilizar para comprar contenido exclusivo del juego CLASH ROYALE, la recarga de la misma se hace de manera directa a su cuenta de SUPER CELL en cuestiones de segundo. Disponible para Android & IOS',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+            },
+            {
+                name: 'Clash Royale 2,500 Gemas',
+                price: 22,
+                img: 'https://i.ibb.co/M5DSyXM/2500-gems.jpg',
+                description:
+                    'Clash Royale Gemas es un paquete de monedas in-game el cual puedes utilizar para comprar contenido exclusivo del juego CLASH ROYALE, la recarga de la misma se hace de manera directa a su cuenta de SUPER CELL en cuestiones de segundo. Disponible para Android & IOS',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+            },
+            {
+                name: 'Clash Royale 6,500 Gemas',
+                price: 54,
+                img: 'https://i.ibb.co/f1TX7yh/6500-gems.jpg',
+                description:
+                    'Clash Royale Gemas es un paquete de monedas in-game el cual puedes utilizar para comprar contenido exclusivo del juego CLASH ROYALE, la recarga de la misma se hace de manera directa a su cuenta de SUPER CELL en cuestiones de segundo. Disponible para Android & IOS',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+            },
+            {
+                name: 'Clash Royale 14,000 Gemas',
+                price: 105,
+                img: 'https://i.ibb.co/8bHczf3/14000-gems.jpg',
+                description:
+                    'Clash Royale Gemas es un paquete de monedas in-game el cual puedes utilizar para comprar contenido exclusivo del juego CLASH ROYALE, la recarga de la misma se hace de manera directa a su cuenta de SUPER CELL en cuestiones de segundo. Disponible para Android & IOS',
+                category: 'recargas',
+                subCategory: 'clash_royale',
+            },
+            {
                 name: 'Fortnite 1000 V-Bucks',
                 price: 10,
                 img: 'https://i.ibb.co/CzJzSyk/1000-pavos.jpg',
