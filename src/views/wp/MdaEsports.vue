@@ -1912,7 +1912,7 @@ export default {
             },
             {
                 name: 'Netflix - 12 Meses',
-                price: 32.99,
+                price: 104.99,
                 img: 'https://i.ibb.co/jfhy3YW/netflix-12meses.jpg',
                 description:
                     'Cuentas NETFLIX en Plan Premium por tiempo de vigencia de 12 meses predeterminado desde efectuada la compra (Sin afiliar tarjetas de crédito/débito).',
