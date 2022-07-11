@@ -1575,6 +1575,42 @@ export default {
                 subCategory: 'fortnite',
             },
             {
+                name: 'League of Legends 10$ - RIOT GAMES PC',
+                price: 11.99,
+                img: 'https://i.ibb.co/njpvMPP/riot-1815.jpg',
+                description:
+                    '¡Sube de nivel tu experiencia en League of Legends! Entrega de código digital para que lo canjee desde su cuenta League of Legends. Disponible para: PC',
+                category: 'recargas',
+                subCategory: 'league_of_legends',
+            },
+            {
+                name: 'League of Legends 25$ - RIOT GAMES PC',
+                price: 26.99,
+                img: 'https://i.ibb.co/Qf8Z1yZ/riot-4000.jpg',
+                description:
+                    '¡Sube de nivel tu experiencia en League of Legends! Entrega de código digital para que lo canjee desde su cuenta League of Legends. Disponible para: PC',
+                category: 'recargas',
+                subCategory: 'league_of_legends',
+            },
+            {
+                name: 'League of Legends 50$ - RIOT GAMES PC',
+                price: 52.99,
+                img: 'https://i.ibb.co/cLdpYJT/riot-8400.jpg',
+                description:
+                    '¡Sube de nivel tu experiencia en League of Legends! Entrega de código digital para que lo canjee desde su cuenta League of Legends. Disponible para: PC',
+                category: 'recargas',
+                subCategory: 'league_of_legends',
+            },
+            {
+                name: 'League of Legends 100$ - RIOT GAMES PC',
+                price: 104.99,
+                img: 'https://i.ibb.co/rmBdXtP/riot-13200.jpg',
+                description:
+                    '¡Sube de nivel tu experiencia en League of Legends! Entrega de código digital para que lo canjee desde su cuenta League of Legends. Disponible para: PC',
+                category: 'recargas',
+                subCategory: 'league_of_legends',
+            },
+            {
                 name: 'Giftcard PlayStation $10',
                 price: 11.99,
                 img: 'https://i.ibb.co/RGnDHJx/10-ps-giftcard.png',
@@ -1846,6 +1882,42 @@ export default {
                     'Giftcard de Xbox con valor de $100. Exclusivo para cuentas en los Estados Unidos.',
                 category: 'codigos_digitales',
                 subCategory: 'xbox',
+            },
+            {
+                name: 'Spotify Premium - 3 Meses',
+                price: 32.99,
+                img: 'https://i.ibb.co/h9NsNDR/spotify-3meses.jpg',
+                description:
+                    'Cuentas Spotify en Plan Premium por tiempo de vigencia de 3 meses predeterminado desde efectuada la compra. (Sin afiliar tarjetas de crédito/débito).',
+                category: 'codigos_digitales',
+                subCategory: 'spotify',
+            },
+            {
+                name: 'Spotify Premium - 12 Meses',
+                price: 104.99,
+                img: 'https://i.ibb.co/bRvZFmL/spotify-12meses.jpg',
+                description:
+                    'Cuentas Spotify en Plan Premium por tiempo de vigencia de 12 meses predeterminado desde efectuada la compra (Sin afiliar tarjetas de crédito/débito).',
+                category: 'codigos_digitales',
+                subCategory: 'spotify',
+            },
+            {
+                name: 'Netflix - 3 Meses',
+                price: 32.99,
+                img: 'https://i.ibb.co/PZC72pY/netflix-3meses.jpg',
+                description:
+                    'Cuentas NETFLIX en Plan Premium por tiempo de vigencia de 3 meses predeterminado desde efectuada la compra (Sin afiliar tarjetas de crédito/débito).',
+                category: 'codigos_digitales',
+                subCategory: 'netflix',
+            },
+            {
+                name: 'Netflix - 12 Meses',
+                price: 32.99,
+                img: 'https://i.ibb.co/jfhy3YW/netflix-12meses.jpg',
+                description:
+                    'Cuentas NETFLIX en Plan Premium por tiempo de vigencia de 12 meses predeterminado desde efectuada la compra (Sin afiliar tarjetas de crédito/débito).',
+                category: 'codigos_digitales',
+                subCategory: 'netflix',
             },
             {
                 name: 'Giftcard Google Play $5',
