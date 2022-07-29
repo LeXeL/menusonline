@@ -15,7 +15,7 @@
             </div>
             <div class="text-subtitle2 poppins-bold q-mb-lg">
                 <i class="fab fa-whatsapp text-red-8"></i> Comprobantes al
-                6684-7121
+                6053-9696
             </div>
             <div class="text-h5 text-center q-mt-sm q-mb-lg poppins-bold">
                 REALIZA TU PEDIDO
