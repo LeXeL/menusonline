@@ -167,11 +167,11 @@ export default new Router({
                     name: 'lasalle',
                     component: LaSalle,
                 },
-                {
-                    path: '/mdaesports',
-                    name: 'mdaesports',
-                    component: MdaEsports,
-                },
+                // {
+                //     path: '/mdaesports',
+                //     name: 'mdaesports',
+                //     component: MdaEsports,
+                // },
             ],
         },
     ],
