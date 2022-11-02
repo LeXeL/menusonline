@@ -1071,6 +1071,32 @@
             </q-card>
         </q-dialog>
         <!-- /VIDEO CONFIRM DIALOG -->
+
+        <!-- CC PAYMENT GUIDE DIALOG -->
+        <q-dialog v-model="ccPaymentGuideDialog">
+            <q-card class="q-ma-none">
+                <q-card-section>
+                    <video width="100%" controls>
+                        <source
+                            src="@/assets/wp/mdaesports/cc-payment-guide.mp4"
+                            type="video/mp4"
+                        />
+                        Your browser does not support HTML video.
+                    </video>
+                </q-card-section>
+                <q-card-actions>
+                    <q-btn
+                        label="Continuar con el pago"
+                        class="full-width text-bold"
+                        icon="shopping_cart"
+                        unelevated
+                        color="black"
+                        v-close-popup
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <!-- /CC PAYMENTGUIDE DIALOG -->
     </q-page>
 </template>
 
@@ -1094,6 +1120,7 @@ export default {
         return {
             knowHowToBuyDialog: false,
             videoConfirmDialog: false,
+            ccPaymentGuideDialog: false,
             acceptTerms: false,
             termsType: '',
             termsDialog: false,
@@ -1501,6 +1528,13 @@ export default {
         },
         discountInput: function() {
             this.calculateTotal()
+        },
+        selectedPaymentMethod: function() {
+            if (
+                this.selectedPaymentMethod == 'Visa' ||
+                this.selectedPaymentMethod == 'Mastercard'
+            )
+                this.ccPaymentGuideDialog = true
         },
     },
     async mounted() {
