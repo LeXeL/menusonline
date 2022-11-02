@@ -1042,7 +1042,7 @@
                         @click="cartDialog = true"
                         v-close-popup
                         unelevated
-                        color="green-7"
+                        color="black"
                         outline
                         no-caps
                         class="full-width q-mb-sm text-bold"
@@ -1052,7 +1052,7 @@
                         @click="videoConfirmDialog = true"
                         v-close-popup
                         unelevated
-                        color="green-7"
+                        color="black"
                         no-caps
                         class="full-width text-bold"
                     />
@@ -1078,7 +1078,7 @@
                         label="Continuar al carrito"
                         class="full-width text-bold"
                         unelevated
-                        color="green-7"
+                        color="black"
                         icon="shopping_cart"
                         @click="cartDialog = true"
                         v-close-popup
