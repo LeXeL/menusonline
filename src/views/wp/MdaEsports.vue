@@ -191,7 +191,7 @@
                         flat
                         icon="shopping_cart"
                         label="Ver carrito"
-                        @click="cartDialog = true"
+                        @click="openCartDialog()"
                     />
                 </q-card-section>
             </q-card>
@@ -1024,6 +1024,69 @@
             </q-card>
         </q-dialog>
         <!-- /TERMS DIALOG -->
+
+        <!-- KNOW HOW TO BUY DIALOG -->
+        <q-dialog v-model="knowHowToBuyDialog">
+            <q-card>
+                <q-card-section>
+                    <q-img src="https://i.ibb.co/6tFVzxw/fifa-coins.jpg" />
+                </q-card-section>
+                <q-card-section>
+                    <div class="text-h6 text-center text-bold">
+                        ¿Conoces el proceso del traspaso de las monedas?
+                    </div>
+                </q-card-section>
+                <q-card-actions align="around">
+                    <q-btn
+                        label="Si, ya lo conozco"
+                        @click="cartDialog = true"
+                        v-close-popup
+                        unelevated
+                        color="green-7"
+                        outline
+                        no-caps
+                        class="full-width q-mb-sm text-bold"
+                    />
+                    <q-btn
+                        label="Quiero saber mas"
+                        @click="videoConfirmDialog = true"
+                        v-close-popup
+                        unelevated
+                        color="green-7"
+                        no-caps
+                        class="full-width text-bold"
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <!-- /KNOW HOW TO BUY DIALOG -->
+
+        <!-- VIDEO CONFIRM DIALOG -->
+        <q-dialog v-model="videoConfirmDialog">
+            <q-card class="q-ma-none">
+                <q-card-section>
+                    <video width="100%" controls>
+                        <source
+                            src="@/assets/wp/mdaesports/how_to_buy.mp4"
+                            type="video/mp4"
+                        />
+                        Your browser does not support HTML video.
+                    </video>
+                </q-card-section>
+                <q-card-actions>
+                    <q-btn
+                        label="Continuar al carrito"
+                        class="full-width text-bold"
+                        unelevated
+                        color="green-7"
+                        icon="shopping_cart"
+                        @click="cartDialog = true"
+                        v-close-popup
+                    />
+                </q-card-actions>
+            </q-card>
+        </q-dialog>
+        <!-- /VIDEO CONFIRM DIALOG -->
     </q-page>
 </template>
 
@@ -1045,6 +1108,8 @@ export default {
     },
     data() {
         return {
+            knowHowToBuyDialog: false,
+            videoConfirmDialog: false,
             acceptTerms: false,
             termsType: '',
             termsDialog: false,
@@ -1099,6 +1164,17 @@ export default {
         }
     },
     methods: {
+        openCartDialog() {
+            let contains = false
+            for (let i = 0; i < this.cart.length; i++) {
+                if (this.cart[i].name.includes('FIFA FUT COINS')) {
+                    contains = true
+                    break
+                }
+            }
+            if (contains) this.knowHowToBuyDialog = true
+            else this.cartDialog = true
+        },
         showTermsDialog(type) {
             this.termsDialog = true
             this.termsType = type
