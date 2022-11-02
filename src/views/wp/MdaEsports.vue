@@ -1253,7 +1253,7 @@ export default {
             else return 0
         },
         calculateTax() {
-            let chargeTax = ['Paypal', 'Visa', 'Mastercard']
+            let chargeTax = ['Paypal', 'Visa', 'Mastercard', 'Bizum']
             if (!chargeTax.includes(this.selectedPaymentMethod)) return 0
             let total = 0
             this.cart.forEach(item => {
