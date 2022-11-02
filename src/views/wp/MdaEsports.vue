@@ -704,7 +704,7 @@
                             Delivery: {{ isInUsd ? '$' : '€' }}
                             {{ deliveryAmount.toFixed(2) }}
                         </div>
-                        <div
+                        <!-- <div
                             class="
                                 text-subtitl2
                                 poppins-bold
@@ -715,7 +715,7 @@
                         >
                             ITBMS (Impuesto): {{ isInUsd ? '$' : '€' }}
                             {{ calculatePaypalFee(total).toFixed(2) }}
-                        </div>
+                        </div> -->
                         <div
                             class="text-h5 poppins-bold text-center"
                             v-if="selectedPickupMethod != 'Delivery'"
@@ -723,11 +723,7 @@
                             Total: {{ isInUsd ? '$' : '€' }}
                             {{
                                 this.selectedPaymentMethod == 'Paypal'
-                                    ? (
-                                          total +
-                                          calculateTax(total) +
-                                          calculatePaypalFee(total)
-                                      ).toFixed(2)
+                                    ? (total + calculateTax(total)).toFixed(2)
                                     : (total + calculateTax(total)).toFixed(2)
                             }}
                         </div>
@@ -738,8 +734,7 @@
                                     ? (
                                           total +
                                           this.deliveryAmount +
-                                          calculateTax(total) +
-                                          calculatePaypalFee(total)
+                                          calculateTax(total)
                                       ).toFixed(2)
                                     : (
                                           total +
@@ -1233,18 +1228,16 @@ export default {
                 message += `%0D%0ADelivery: ${
                     this.isInUsd ? '$' : '€'
                 }${this.deliveryAmount.toFixed(2)}`
-            if (this.selectedPaymentMethod == 'Paypal')
-                message += `%0D%0AITBMS (Impuesto): ${
-                    this.isInUsd ? '$' : '€'
-                }${this.calculatePaypalFee(this.total).toFixed(2)}`
+            // if (this.selectedPaymentMethod == 'Paypal')
+            //     message += `%0D%0AITBMS (Impuesto): ${
+            //         this.isInUsd ? '$' : '€'
+            //     }${this.calculatePaypalFee(this.total).toFixed(2)}`
             if (this.selectedPickupMethod != 'Delivery') {
                 message += `%0D%0ATotal: ${this.isInUsd ? '$' : '€'}${
                     this.selectedPaymentMethod == 'Paypal'
-                        ? (
-                              this.total +
-                              this.calculateTax(this.total) +
-                              this.calculatePaypalFee(this.total)
-                          ).toFixed(2)
+                        ? (this.total + this.calculateTax(this.total)).toFixed(
+                              2
+                          )
                         : (this.total + this.calculateTax(this.total)).toFixed(
                               2
                           )
@@ -1255,8 +1248,7 @@ export default {
                         ? (
                               this.total +
                               this.deliveryAmount +
-                              this.calculateTax(this.total) +
-                              this.calculatePaypalFee(this.total)
+                              this.calculateTax(this.total)
                           ).toFixed(2)
                         : (
                               this.total +
