@@ -1127,7 +1127,7 @@ export default {
         addItemWithOptionsToCart(selectedOption) {
             let newItem = {
                 name: `${this.selectedItem.name} - ${selectedOption.label} ${
-                    this.selectedItem.name == 'FIFA FUT COINS 22'
+                    this.selectedItem.name == 'FIFA FUT COINS 23'
                         ? this.addFifaCoinsPromo(selectedOption.label)
                         : ''
                 }`,
@@ -1143,14 +1143,14 @@ export default {
             this.calculateTotal()
         },
         addFifaCoinsPromo(label) {
-            if (label == '300,000') return '+ 100k gratis'
-            if (label == '400,000') return '+ 100k gratis'
-            if (label == '500,000') return '+ 200k gratis'
-            if (label == '600,000') return '+ 200k gratis'
-            if (label == '700,000') return '+ 200k gratis'
-            if (label == '800,000') return '+ 200k gratis'
-            if (label == '900,000') return '+ 200k gratis'
-            if (label == '1,000,000') return '+ 300k gratis'
+            // if (label == '300,000') return '+ 100k gratis'
+            // if (label == '400,000') return '+ 100k gratis'
+            if (label == '500,000') return '+ 50k gratis'
+            if (label == '600,000') return '+ 50k gratis'
+            if (label == '700,000') return '+ 50k gratis'
+            if (label == '800,000') return '+ 50k gratis'
+            if (label == '900,000') return '+ 50k gratis'
+            if (label == '1,000,000') return '+ 100k gratis'
             else return ''
         },
         removeFromCart(index) {
@@ -1437,7 +1437,7 @@ export default {
         containsFifaCoinsInCart() {
             let contains = false
             this.cart.forEach(item => {
-                if (item.name.includes('FIFA FUT COINS 22')) contains = true
+                if (item.name.includes('FIFA FUT COINS 23')) contains = true
             })
             return contains
         },
@@ -1456,23 +1456,23 @@ export default {
         this.geolocate()
         let m = [
             {
-                name: 'FIFA FUT COINS 22',
+                name: 'FIFA FUT COINS 23',
                 img: 'https://i.ibb.co/6tFVzxw/fifa-coins.jpg',
                 description:
                     'Adquiere monedas para crear el equipo de tus sueños de FIFA 22 ULTIMATE TEAM sin ningún tipo de riesgo de baneo, para cualquier plataforma (XBOX, PLAYSTATION y PC)',
                 category: 'recargas',
                 subCategory: 'fifa',
                 options: [
-                    {label: '100,000', price: 9.99, euroPrice: 7.77},
-                    {label: '200,000', price: 18.99, euroPrice: 15.54},
-                    {label: '300,000', price: 27.99, euroPrice: 23.31},
-                    {label: '400,000', price: 36.99, euroPrice: 31.08},
-                    {label: '500,000', price: 45.99, euroPrice: 38.85},
-                    {label: '600,000', price: 54.99, euroPrice: 46.62},
-                    {label: '700,000', price: 63.99, euroPrice: 54.39},
-                    {label: '800,000', price: 72.99, euroPrice: 62.12},
-                    {label: '900,000', price: 81.99, euroPrice: 69.64},
-                    {label: '1,000,000', price: 90.99, euroPrice: 77.71},
+                    {label: '100,000', price: 14.99, euroPrice: 14.99},
+                    {label: '200,000', price: 28.99, euroPrice: 28.99},
+                    {label: '300,000', price: 42.99, euroPrice: 42.99},
+                    {label: '400,000', price: 56.99, euroPrice: 56.99},
+                    {label: '500,000', price: 70.99, euroPrice: 70.99},
+                    {label: '600,000', price: 84.99, euroPrice: 84.99},
+                    {label: '700,000', price: 98.99, euroPrice: 98.99},
+                    {label: '800,000', price: 112.99, euroPrice: 112.99},
+                    {label: '900,000', price: 126.99, euroPrice: 126.99},
+                    {label: '1,000,000', price: 140.99, euroPrice: 140.99},
                 ],
             },
             {
