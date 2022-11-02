@@ -74,17 +74,6 @@
                     {label: 'EUR', value: false},
                 ]"
             />
-
-            <q-space />
-            <q-btn
-                label="Como comprar FIFA COINS"
-                no-caps
-                push
-                color="black"
-                class="poppins-bold"
-                size="sm"
-                @click="videoGuideDialog = true"
-            />
         </div>
         <!-- /HOW TO BUY BTN -->
 
@@ -405,9 +394,9 @@
                                 />
                             </template>
 
-                            <template v-slot:nequi>
+                            <template v-slot:bizum>
                                 <img
-                                    src="https://i.ibb.co/93rBRWP/nequi.png"
+                                    src="https://i.ibb.co/PtZKtdd/bizum.png"
                                     style="width: 100%"
                                 />
                             </template>
@@ -542,11 +531,12 @@
                         </div>
                         <div
                             class="text-subtitle2 q-mb-md"
-                            v-if="selectedPaymentMethod == 'Nequi'"
+                            v-if="selectedPaymentMethod == 'Bizum'"
                         >
-                            Envía tu pago por Nequi al número<br />
+                            Envía tu pago por Bizum<br />Titular:
+                            <strong>Nicolás Diaz</strong><br />
                             <span class="text-h6 poppins-bold"
-                                >6204-6903
+                                >+34 637198104
                                 <q-btn
                                     icon="content_copy"
                                     class="q-ml-sm"
@@ -555,14 +545,13 @@
                                     dense
                                     size="sm"
                                     color="yellow-9"
-                                    @click="copyToClipboard('62046903')"
+                                    @click="copyToClipboard('+34 637198104')"
                             /></span>
                         </div>
                         <div
                             class="row justify-center"
                             v-if="
                                 selectedPaymentMethod == 'Yappy' ||
-                                    selectedPaymentMethod == 'Nequi' ||
                                     selectedPaymentMethod == 'Zinly'
                             "
                         >
@@ -775,11 +764,6 @@
                         :src="require('@/assets/wp/mdaesports/qr-yappy.png')"
                         width="100%"
                         v-if="selectedPaymentMethod == 'Yappy'"
-                    />
-                    <img
-                        :src="require('@/assets/wp/mdaesports/qr-nequi.png')"
-                        width="100%"
-                        v-if="selectedPaymentMethod == 'Nequi'"
                     />
                     <img
                         :src="require('@/assets/wp/mdaesports/zinly.jpg')"
@@ -1135,7 +1119,7 @@ export default {
             ],
             paymentMethods: [
                 {value: 'Yappy', slot: 'yappy'},
-                {value: 'Nequi', slot: 'nequi'},
+                {value: 'Bizum', slot: 'bizum'},
                 {value: 'Paypal', slot: 'paypal'},
                 {value: 'Zelle', slot: 'zelle'},
                 {value: 'Visa', slot: 'visa'},
@@ -1527,7 +1511,7 @@ export default {
                 name: 'FIFA FUT COINS 23',
                 img: 'https://i.ibb.co/6tFVzxw/fifa-coins.jpg',
                 description:
-                    'Adquiere monedas para crear el equipo de tus sueños de FIFA 22 ULTIMATE TEAM sin ningún tipo de riesgo de baneo, para cualquier plataforma (XBOX, PLAYSTATION y PC)',
+                    'Adquiere monedas para crear el equipo de tus sueños de FIFA 23 ULTIMATE TEAM sin ningún tipo de riesgo de baneo, para cualquier plataforma (XBOX, PLAYSTATION y PC)',
                 category: 'recargas',
                 subCategory: 'fifa',
                 options: [
