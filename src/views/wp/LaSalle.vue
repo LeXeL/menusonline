@@ -73,7 +73,7 @@
                                 <div class="text-body2">
                                     El horario de retiro de su pedido será de
                                     <span class="text-bold text-lasalle-blue"
-                                        >11:40 am</span
+                                        >12:00 pm</span
                                     >
                                     a
                                     <span class="text-bold text-lasalle-blue"
