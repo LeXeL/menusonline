@@ -84,16 +84,19 @@
                             <li class="q-mb-sm">
                                 <div class="text-body2">
                                     Método de pago
-                                    <span class="text-bold">Yappy</span>
-                                    al
+                                    <span class="text-bold"
+                                        >Directorio Yappy</span
+                                    >
+                                    como
                                     <span class="text-bold text-lasalle-blue"
-                                        >6065-7225</span
+                                        >Cafeteria Secundaria La Salle</span
                                     >
                                 </div>
                             </li>
                             <li>
                                 <div class="text-body2">
-                                    Temporalmente, algunos productos podrán no contar con imagen de referencia.
+                                    Temporalmente, algunos productos podrán no
+                                    contar con imagen de referencia.
                                 </div>
                             </li>
                         </ul>
@@ -132,7 +135,7 @@
                             $ {{ item.price.toFixed(2) }}
                         </div>
                     </q-card-section>
-                    <q-separator v-if="showToday(item.day)"/>
+                    <q-separator v-if="showToday(item.day)" />
                     <q-card-actions align="right" v-if="showToday(item.day)">
                         <q-btn
                             label="Agregar"
@@ -284,9 +287,9 @@
                         class="text-subtitle2"
                         v-if="selectedPaymentMethod == 'Yappy'"
                     >
-                        Envia tu pago por Yappy al numero<br />
+                        Envia tu pago por Yappy al directorio<br />
                         <span class="text-h6 poppins-bold"
-                            >6065-7225
+                            >Cafeteria Secundaria La Salle
                             <q-btn
                                 icon="content_copy"
                                 class="q-ml-sm"
@@ -295,7 +298,11 @@
                                 dense
                                 size="sm"
                                 color="lasalle-yellow"
-                                @click="copyToClipboard('60657225')"
+                                @click="
+                                    copyToClipboard(
+                                        'Cafeteria Secundaria La Salle'
+                                    )
+                                "
                         /></span>
                     </div>
                     <div
@@ -338,6 +345,37 @@
         </q-dialog>
         <!-- /CART DIALOG -->
 
+        <!-- NEWS DIALOG -->
+        <q-dialog v-model="newsModal">
+            <q-card>
+                <q-card-section class="q-pb-none">
+                    <div class="text-h6 text-bold text-center">
+                        ¡Nos hemos actualizado!
+                    </div>
+                </q-card-section>
+                <q-card-section class="q-pb-none">
+                    <div class="text-subtitle2">
+                        Ahora nos puedes encontrar en el
+                        <b>directorio de Yappy</b>
+                        como
+                        <span class="text-bold text-lasalle-blue"
+                            >Cafeteria Secundaria La Salle</span
+                        >
+                    </div>
+                </q-card-section>
+                <q-card-section>
+                    <q-btn
+                        color="green-7"
+                        class="full-width"
+                        @click="newsModal = false"
+                    >
+                        <b>Aceptar</b>
+                    </q-btn>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+        <!-- /NEWS DIALOG -->
+
         <!-- LOADING -->
         <q-dialog
             v-model="isLoading"
@@ -372,6 +410,7 @@ export default {
         return {
             showRules: true,
             isLoading: true,
+            newsModal: true,
             whatsappNo: '60657225',
             cart: [],
             total: 0,
@@ -545,7 +584,7 @@ export default {
             if (day == 3) return 'Miercoles'
             if (day == 4) return 'Jueves'
             if (day == 5) return 'Viernes'
-        }
+        },
     },
     computed: {
         showSeamless() {
