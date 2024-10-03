@@ -89,7 +89,7 @@
                                     >
                                     como
                                     <span class="text-bold text-lasalle-blue"
-                                        >Cafeteria Secundaria La Salle</span
+                                        >Kiosco Secundaria La Salle</span
                                     >
                                 </div>
                             </li>
@@ -289,7 +289,7 @@
                     >
                         Envia tu pago por Yappy al directorio<br />
                         <span class="text-h6 poppins-bold"
-                            >Cafeteria Secundaria La Salle
+                            >Kiosco Secundaria La Salle
                             <q-btn
                                 icon="content_copy"
                                 class="q-ml-sm"
@@ -300,7 +300,7 @@
                                 color="lasalle-yellow"
                                 @click="
                                     copyToClipboard(
-                                        'Cafeteria Secundaria La Salle'
+                                        'Kiosco Secundaria La Salle'
                                     )
                                 "
                         /></span>
@@ -359,7 +359,7 @@
                         <b>directorio de Yappy</b>
                         como
                         <span class="text-bold text-lasalle-blue"
-                            >Cafeteria Secundaria La Salle</span
+                            >Kiosco Secundaria La Salle</span
                         >
                     </div>
                 </q-card-section>
