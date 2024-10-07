@@ -93,6 +93,17 @@
                                     >
                                 </div>
                             </li>
+                            <li class="q-mb-sm">
+                                <div class="text-body2">
+                                    Enviar comprobante de pago al
+                                    <a
+                                        class="text-bold text-lasalle-blue"
+                                        :href="`https://wa.me/507${whatsappNo}`"
+                                        target="_blank"
+                                        >{{ whatsappNo }}</a
+                                    >
+                                </div>
+                            </li>
                             <li>
                                 <div class="text-body2">
                                     Temporalmente, algunos productos podrán no
