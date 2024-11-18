@@ -117,6 +117,17 @@
         </div>
         <!-- /RULES -->
 
+        <!-- NEWS BANNER -->
+        <div class="q-pa-md">
+            <q-banner inline-actions class="text-white bg-red">
+                Se estará brindando almuerzo hasta este miércoles
+                <b><u>20 de noviembre.</u></b> <br />Esperamos poder atenderlos
+                el próximo año escolar.
+            </q-banner>
+        </div>
+
+        <!-- /NEWS BANNER -->
+
         <!-- DAY -->
         <div class="text-h6 poppins-bold text-center q-mt-md q-mb-md">
             <!-- Menú del día:
